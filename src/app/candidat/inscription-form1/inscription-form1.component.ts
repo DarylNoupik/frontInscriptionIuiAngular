@@ -59,6 +59,9 @@ export class InscriptionForm1Component implements OnInit {
   public codeExists: boolean = false;
   public exitscode: any;
   public codeValid: boolean = false;
+  public disableOption1 = false;
+  public disableOption2 = false;
+  public disableOption3 = false;
 
 
   constructor(
@@ -101,6 +104,38 @@ export class InscriptionForm1Component implements OnInit {
   setStep(step: number) {
     this.step = step;
   }
+
+
+
+  updateSelections() {
+    if ((this.candidatureForm.formation1 && !this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3)) {
+      console.log("##############Op1");
+      this.candidatureForm.nombre_choix = 1;
+      this.disableOption1 = false;
+      this.disableOption2 = true;
+      this.disableOption3 = true;
+
+    } else if ((this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3) ) {
+      console.log("##############Op2");
+      this.candidatureForm.nombre_choix = 2;
+      this.disableOption1 = true;
+      this.disableOption2 = false;
+      this.disableOption3 = true;
+    } else if (this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3) {
+      console.log("##############Op3");
+      this.candidatureForm.nombre_choix = 3;
+      this.disableOption1 = true;
+      this.disableOption2 = true;
+      this.disableOption3 = false;
+    } else {
+      console.log("##############Else");
+      this.disableOption1 = false;
+      this.disableOption2 = false;
+      this.disableOption3 = false;
+      this.candidatureForm.nombre_choix = 0;
+    }
+  }
+
 
   toggleForm(): void {
     this.showForm = !this.showForm;
@@ -213,6 +248,8 @@ export class InscriptionForm1Component implements OnInit {
     }
 
     console.log(this.candidatureForm);
+
+    /*
     this.candidatureService.addCandidature(this.candidatureForm).subscribe({
       next: (data) => {
         //console.log(data);
@@ -223,6 +260,8 @@ export class InscriptionForm1Component implements OnInit {
         //console.log(err);
       }
     })
+
+     */
     return true;
   }
 }

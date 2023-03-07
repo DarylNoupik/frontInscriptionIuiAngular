@@ -143,7 +143,7 @@
 
               <div class="col-md-12">
                 <div class="single-input">
-                  <label for="email_pere">Email des parents (*)</label>
+                  <label >Email des parents (*)</label>
                   <input required [(ngModel)]="candidatureForm.email_parents" style="width: 100%;" type="email"
                     id="email_parents" name="email_parents" class="form-input" placeholder="Email des parents">
                 </div>
@@ -191,50 +191,58 @@
 
               <div class="col-md-12">
                 <div class="single-input">
+
+                <!------------------------------------------------->
+                  <label>Choix des formations</label>
+                  <p>Le concours permet d'accéder à 3 formations</p>
+                  <p>Veillez cocher la (ou les) formation(s) auxquelles vous shouaitez postuler  </p>
+
+                  <div>&nbsp;</div>
+
+                  <div class="align-content-center">
+                    <input [(ngModel)]="candidatureForm.formation1"  (change)="updateSelections()"  name="formation1" [value]="'FA'"
+                           style="width: 20px; height: 20px;" type="checkbox" class="form-input"> &nbsp; <span
+                    style="font-size: 17px;"> A - Ingénieur généraliste par alternance et ingénieur génie des procédés
+                    </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input [(ngModel)]="candidatureForm.formation2"  (change)="updateSelections()"  name="formation2" [checked]="'OP'" [value]="'OP'"
+                           style="width: 20px; height: 20px;" type="checkbox" class="form-input"> &nbsp; <span
+                    style="font-size: 17px;"> B - Ingénieur généraliste parcours international </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input [(ngModel)]="candidatureForm.formation3"  (change)="updateSelections()"  name="formation3" [checked]="'X'" [value]="'X'"
+                           style="width: 20px; height: 20px;" type="checkbox" class="form-input"> &nbsp; <span
+                    style="font-size: 17px;"> C - Ingénieur informatique </span>
+                  </div>
+            <!--------------------------------------------------------------------------->
+                  <div> </div>
+
+
                   <label>Indiquez le nombre de formations auquel vous candidatez</label>
 
                   <div class="align-content-center">
-                    <input required [(ngModel)]="candidatureForm.nombre_choix" value="1" name="paiement"
+                    <input required  value="1" name="paiement"
+                           [disabled] = "true" [checked]="disableOption2 && disableOption3"
                       style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
                       style="font-size: 17px;"> Concourir pour une formation(20 000 FCFA) </span>
                   </div>
 
                   <div class="align-content-center">
-                    <input name="paiement" [(ngModel)]="candidatureForm.nombre_choix" value="2"
+                    <input name="paiement"  value="2"
+                           [disabled]="true" [checked]="disableOption1 && disableOption3"
                       style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
                       style="font-size: 17px;"> Concourir pour deux formations(25 000 FCFA) </span>
                   </div>
 
                   <div class="align-content-center">
-                    <input name="paiement" [(ngModel)]="candidatureForm.nombre_choix" value="3"
+                    <input name="paiement"  value="3"
+                           [disabled]="true" [checked]="disableOption2 && disableOption1"
                       style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
                       style="font-size: 17px;"> Concourir pour trois formations(30 000 FCFA) </span>
                   </div>
-
-                  <label>Choix des formations</label>
-                  <p>Le concours permet d'accéder à 3 formations</p>
-
-                  <div>&nbsp;</div>
-
-                  <div class="align-content-center">
-                    <input [(ngModel)]="candidatureForm.formation1" name="formation1" [value]="'FA'"
-                      style="width: 20px; height: 20px;" type="checkbox" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> A - Ingénieur généraliste par alternance et ingénieur génie des procédés
-                    </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input [(ngModel)]="candidatureForm.formation2" name="formation2" [checked]="'OP'" [value]="'OP'"
-                      style="width: 20px; height: 20px;" type="checkbox" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> B - Ingénieur généraliste parcours international </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input [(ngModel)]="candidatureForm.formation3" name="formation3" [checked]="'X'" [value]="'X'"
-                      style="width: 20px; height: 20px;" type="checkbox" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> C - Ingénieur informatique </span>
-                  </div>
-
 
                   <label>Concourir pour (*)</label>
                   <div class="align-content-center">
@@ -266,8 +274,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-button">
-                    <button type="button" class="button radius-10 w-100" [disabled]="candidatureForm.langue === '' || candidatureForm.dernier_Etablissement === '' || candidatureForm.nombre_choix === 0
-                    || candidatureForm.cycle === ''" (click)="setStep(step+1)">Suivant</button>
+                    <button type="button" class="button radius-10 w-100" [disabled]="candidatureForm.langue === '' || candidatureForm.dernier_Etablissement === ''  || candidatureForm.cycle === ''" (click)="setStep(step+1)">Suivant</button>
                   </div>
                 </div>
               </div>
