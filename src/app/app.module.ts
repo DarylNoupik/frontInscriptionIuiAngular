@@ -8,6 +8,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { TokenInterceptorProvider } from "./_helpers/token.interceptor";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
