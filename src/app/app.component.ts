@@ -18,9 +18,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.toastr.success("Inscription éffectuée avec success", 'Inscription réussie');
-    console.log("je suis là");
-
     this.loaderService.isLoading.subscribe({
       next: (loading: boolean) => {
         this.isLoading = loading;
