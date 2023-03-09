@@ -77,10 +77,15 @@
         <div class="col-xl-2 offset-xl-1 col-lg-2 col-md-6 col-sm-6">
           <div class="footer-widget wow fadeInUp" data-wow-delay=".3s">
             <h6>Accès rapide</h6>
-            <ul class="links">
-              <li> <a href="index.html">Accueil</a> </li>
-              <li> <a href="inscription.html">Inscription</a> </li>
-              <li> <a href="#0">Résultat</a> </li>
+            <ul class="links" *ngIf="userIsConnected">
+              <li> <a routerLinkActive="active" [routerLink]="['home']">Accueil</a> </li>
+              <li> <a [routerLink]="['inscription']" routerLinkActive="active">Inscription</a> </li>
+              <li> <a [routerLink]="['resultat']" [routerLinkActive]="['active']">Résultat</a> </li>
+            </ul>
+            <ul class="links" *ngIf="!userIsConnected">
+              <li> <a routerLinkActive="active" [routerLink]="['home']">Accueil</a> </li>
+              <li> <a [routerLink]="['auth/login']">Inscription</a> </li>
+              <li> <a [routerLink]="['auth/login']">Résultat</a> </li>
             </ul>
           </div>
         </div>
