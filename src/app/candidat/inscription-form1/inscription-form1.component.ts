@@ -7,6 +7,7 @@ import { Route, Router } from "@angular/router";
 import { SessionService } from "../../_services/session.service";
 import { ISessionModel } from 'src/app/_interfaces/isession-model';
 import { HttpClient } from "@angular/common/http";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-inscription-form1',
@@ -68,44 +69,38 @@ export class InscriptionForm1Component implements OnInit {
     private siteService: SitesService,
     private candidatureService: CandidatureService,
     private router: Router,
+    private toastr: ToastrService,
     private sessionService: SessionService,
     private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    this.sessionService.getActiveSession().subscribe(
-      data => {
+    this.sessionService.getActiveSession().subscribe({
+      next: data => {
         this.session = data;
       },
-      error => console.log(error)
-    );
-    this.siteService.getAllSite().subscribe(
-      data => {
+      error: err => console.log(err)
+    });
+    this.siteService.getAllSite().subscribe({
+      next: data => {
         this.site = data;
       },
-      error => console.log(error)
-    );
+      error: err => console.log(err)
+    });
 
-    this.siteService.getCenterBySite(1).subscribe(
-      data => {
+    this.siteService.getCenterBySite(1).subscribe({
+      next: data => {
         this.centreBySite = data
         for (let i = 0; i < data.length; i++) {
           this.listCentre[i] = data.nom;
         }
-
       },
-      error => {
-        //console.log(error);
-      }
-    );
-
+    });
   }
 
   setStep(step: number) {
     this.step = step;
   }
-
-
 
   updateSelections() {
     if ((this.candidatureForm.formation1 && !this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3)) {
@@ -115,7 +110,7 @@ export class InscriptionForm1Component implements OnInit {
       this.disableOption2 = true;
       this.disableOption3 = true;
 
-    } else if ((this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3) ) {
+    } else if ((this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3)) {
       console.log("##############Op2");
       this.candidatureForm.nombre_choix = 2;
       this.disableOption1 = true;
@@ -136,7 +131,6 @@ export class InscriptionForm1Component implements OnInit {
     }
   }
 
-
   toggleForm(): void {
     this.showForm = !this.showForm;
     for (let i = 0; i < this.centreBySite.length; i++) {
@@ -156,18 +150,14 @@ export class InscriptionForm1Component implements OnInit {
       this.showNumberPaiement = false;
     }
 
-    //console.log(this.candidatureForm);
     this.showCentre = !this.showForm;
   }
 
   checkCode() {
     this.candidatureService.allCodes().subscribe(
       (response) => {
-        //console.log(response.allCode);
-
         this.allcodes = response.allCode;
         this.exitscode = response.existCode;
-
 
         if (this.showNumberPaiement) {
           if (this.exitscode.includes(this.candidatureForm.reference_paiement) === true) {
@@ -191,6 +181,7 @@ export class InscriptionForm1Component implements OnInit {
         }
       });
   }
+
   onSubmit() {
     if (this.candidatureForm.formation1 && !this.candidatureForm.formation2 && !this.candidatureForm.formation3) {
       this.candidatureForm.formation1 = "FA";
@@ -231,7 +222,7 @@ export class InscriptionForm1Component implements OnInit {
       this.candidatureForm.formation2 = "X";
       this.candidatureForm.formation3 = "";
     }
-    //console.log(this.candidatureForm.nombre_choix);
+
     switch (this.candidatureForm.nombre_choix) {
       case 1:
         this.candidatureForm.paiement = "20 000";
@@ -249,19 +240,18 @@ export class InscriptionForm1Component implements OnInit {
 
     console.log(this.candidatureForm);
 
-    /*
     this.candidatureService.addCandidature(this.candidatureForm).subscribe({
       next: (data) => {
-        //console.log(data);
         localStorage.setItem('haveCandidature', 'true');
+        this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
         this.router.navigate(['/candidat/home']);
       },
       error: (err) => {
-        //console.log(err);
+        let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+        this.toastr.error(msgError, 'Inscription échouée');
       }
     })
 
-     */
     return true;
   }
 }
