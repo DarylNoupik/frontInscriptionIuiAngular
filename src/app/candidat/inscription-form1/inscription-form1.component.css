@@ -119,3 +119,15 @@
         background-color: hsl(25, 89%, 66%);
         border-color: hsl(25, 89%, 66%);
 }
+
+.block-number{
+  display: flex;
+}
+.block-number label{
+  min-width: 51px;
+  width: 51px;
+  max-width: 51px;
+  /* background: red; */
+  margin-top: 18px;
+  padding-left: 12px;
+}

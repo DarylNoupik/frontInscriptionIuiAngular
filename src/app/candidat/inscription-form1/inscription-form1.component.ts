@@ -7,6 +7,7 @@ import { Route, Router } from "@angular/router";
 import { SessionService } from "../../_services/session.service";
 import { ISessionModel } from 'src/app/_interfaces/isession-model';
 import { HttpClient } from "@angular/common/http";
+import {ICentre} from "../../_interfaces/icentre";
 
 @Component({
   selector: 'app-inscription-form1',
@@ -14,7 +15,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./inscription-form1.component.css']
 })
 export class InscriptionForm1Component implements OnInit {
-  public site: any;
+  public site!: ISite[];
   public centreBySite: any;
   public step: number = 1;
   public showForm: boolean = false;
@@ -62,6 +63,7 @@ export class InscriptionForm1Component implements OnInit {
   public disableOption1 = false;
   public disableOption2 = false;
   public disableOption3 = false;
+  public siteSelected! : ISite;
 
 
   constructor(
@@ -82,6 +84,8 @@ export class InscriptionForm1Component implements OnInit {
     this.siteService.getAllSite().subscribe(
       data => {
         this.site = data;
+        console.log("###################Voci les sites");
+        console.log(data);
       },
       error => console.log(error)
     );
@@ -138,26 +142,40 @@ export class InscriptionForm1Component implements OnInit {
 
 
   toggleForm(): void {
+    console.log(this.candidatureForm.centre);
+    console.log(this.site);
+
+    for (let i = 0; i < this.site.length; i++) {
+      if(this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true){
+          this.siteSelected = this.site[i];
+      }
+    }
+    console.log(this.siteSelected);
     this.showForm = !this.showForm;
+
     for (let i = 0; i < this.centreBySite.length; i++) {
       if (this.candidatureForm.centre === this.centreBySite[i].nom) {
-        this.msgPaiement = "Attention ! Pour valider votre candidature vous devez verser" +
-          " le montant correspondant au nombre de formation que" +
-          " vous avez choisi ci-dessus, par ORANGE MONEY " +
-          "(utilisez le code #150*47# ensuite entrer le code 381721) . " +
-          "Après votre paiement, l'opérateur va vous renvoyer automatiquement et" +
-          " immédiatement un numéro d'identification de votre transaction qu'il faut noter dans le cadre ci dessous.";
+        this.msgPaiement = " test ";
         this.showNumberPaiement = true;
       }
     }
     if (this.msgPaiement === "") {
-      this.msgPaiement = "Entrer le code de paiement recu lors du versement des frais de concours,  effectué dans votre centre d'examen ! " +
-        "Attention!!! Votre inscription ne sera valide que lorsque ce numéro sera confirmé !"
+      this.msgPaiement = "testetse"
       this.showNumberPaiement = false;
     }
 
     //console.log(this.candidatureForm);
     this.showCentre = !this.showForm;
+  }
+
+  isInCentre(centre : string, listCentre : ICentre[]) : boolean{
+    let resp : boolean =false;
+    for (let i = 0; i < listCentre.length; i++) {
+      if(centre === listCentre[i].nom){
+        resp = true;
+      }
+    }
+    return resp;
   }
 
   checkCode() {

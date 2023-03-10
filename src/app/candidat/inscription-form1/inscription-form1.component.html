@@ -3,10 +3,10 @@
 
     <div class="col-12" style=" padding-top: 100px;">
       <h4 class="wow fadeInUp" data-wow-delay=".4s">{{session.nom}} </h4>
-      <h6 class="text-center">Date d'examen: <b style="color: #df650d">{{session.date_examen | date:"dd/MM/yyyy"}}</b>
+      <h6 class="text-center">Date d'examen: <b style="color: #df650d">{{session.date_examen | date:'fullDate':'':'fr-FR' }}</b>
       </h6><br />
       <h6 class="text-center">Date limite des inscriptions en ligne: <b style="color: #df650d">{{session.date_limite |
-          date: "dd/MM/yyyy"}}</b></h6>
+          date: 'fullDate':'':'fr-FR' }}</b></h6>
       <br>
       <h5 class="mb-15 wow fadeInUp text-center" data-wow-delay=".2s" style="color: #c0262d;">Enregistrez-vous</h5>
     </div>
@@ -134,10 +134,14 @@
               <p class="text-center mb-4">Informations relatives aux parents</p>
               <div class="col-md-12">
                 <div class="single-input">
-                  <label for="tel_pere">Numéro(s) de téléphone des parents(*) <br> Veillez renseigner un
-                    numéro(6XX-XXX-XXX) ou plusieurs numéros (6XX-XXX-XXX/6XX-XXX-XXX) des parents </label>
-                  <input [(ngModel)]="candidatureForm.tel_parents" style="width: 100%;" type="text" id="tel_pere"
-                    name="tel_pere" class="form-input" placeholder="Numéro de téléphone des parents">
+                  <p>Numéro(s) de téléphone des parents(*) <br> Veillez renseigner un
+                    numéro(XXX-XXX-XXX) ou plusieurs numéros (XXX-XXX-XXX/XXX-XXX-XXX) des parents </p>
+
+                  <div class="block-number">
+                    <label for="tel_pere"> {{siteSelected.indicatif}} </label>
+                    <input [(ngModel)]="candidatureForm.tel_parents" style="width: 100%;" type="tel" id="tel_pere"
+                      name="tel_pere" class="form-input" placeholder="Numéro de téléphone des parents">
+                  </div>
                 </div>
               </div>
 
@@ -285,7 +289,7 @@
               <div class="col-md-12">
                 <div class="single-input">
                   <label>
-                    <p> {{msgPaiement}} </p>
+                    <p> {{siteSelected.msgPaiement}} </p>
                   </label>
 
                   <div *ngIf="codeExists" style="color: red; font-weight: bolder">Le code {{
@@ -301,10 +305,14 @@
 
               <div *ngIf="showNumberPaiement" class="col-md-12">
                 <div class="single-input">
-                  <label>Numéro de téléphone ayant éffectué la transaction</label>
+                  <p>Numéro de téléphone ayant éffectué la transaction</p>
+
+                  <div class="block-number">
+                    <label> {{siteSelected.indicatif}}</label>
                   <input required [(ngModel)]="candidatureForm.telephone_paiement" style="width: 100%;" type="text"
                     id="telephone_paiement" name="reference_paiement" class="form-input"
                     placeholder=" Exemple : 6 9XX XXX XXX ">
+                  </div>
                 </div>
               </div>
 
