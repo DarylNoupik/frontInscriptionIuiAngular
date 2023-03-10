@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   public compteID: string | null = "";
   public showSession: boolean = false;
   public showLien: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private sessionService: SessionService,
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.sessionService.getActiveSession().subscribe({
       next: data => {
         console.log(data);
@@ -69,6 +71,7 @@ export class HomeComponent implements OnInit {
               this.showSession = false;
               this.showLien = true;
             }
+            this.isLoading = false;
 
           },
           error => console.log(error.status)

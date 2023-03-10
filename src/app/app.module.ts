@@ -11,6 +11,7 @@ import localeFr from '@angular/common/locales/fr';
 import {registerLocaleData} from "@angular/common";
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgHttpLoaderModule} from "ng-http-loader";
 
 registerLocaleData(localeFr);
 
@@ -26,13 +27,14 @@ registerLocaleData(localeFr);
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    NgHttpLoaderModule.forRoot(),
     ToastContainerModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    }),
+    })
   ],
   providers: [
     TokenInterceptorProvider,
