@@ -4,3 +4,9 @@ body {
     padding: 0;
 }
 /* #de640d */
+
+/* Importing Bootstrap SCSS file. */
+/* @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/dist/css/bootstrap.min.css"; */
+
+/* @import url("assets/css/bootstrap-5.0.0-alpha-2.min.css"); */

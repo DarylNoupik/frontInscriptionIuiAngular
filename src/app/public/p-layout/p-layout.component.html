@@ -53,27 +53,39 @@
   <div class="container">
     <div class="widget-wrapper">
       <div class="row">
-        <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="col-xl-6 col-lg-6 col-md-6">
           <div class="footer-widget wow fadeInUp" data-wow-delay=".2s">
             <div class="logo">
-              <a href="#0"> <img src="assets/img/LogoUcacIcamSansEcritsjpgfooter.jpg" width="180" height="49" alt=""> </a>
+              <a href="#0"> <img src="assets/img/LogoUcacIcamSansEcritsjpgfooter.jpg" width="180" height="49" alt="">
+              </a>
             </div>
-            <p class="desc">Rejoins l'école d'ingénieurs qui forment des techniciens et des ingénieurs professionnellement compétents et humainement responsables. S’inspirant des principes de formation de l’Icam, l’Institut Ucac-Icam associe l’acquisition des connaissances à leur mise en pratique sur le terrain et aux aspects humains de la vie en entreprise.</p>
+            <p class="desc">Rejoins l'école d'ingénieurs qui forment des techniciens et des ingénieurs
+              professionnellement compétents et humainement responsables. S’inspirant des principes de formation de
+              l’Icam, l’Institut Ucac-Icam associe l’acquisition des connaissances à leur mise en pratique sur le
+              terrain et aux aspects humains de la vie en entreprise.</p>
             <ul class="socials">
-              <li> <a href="https://web.facebook.com/Institut.Ucac.Icam"> <i class="lni lni-facebook-filled"></i> </a> </li>
+              <li> <a href="https://web.facebook.com/Institut.Ucac.Icam"> <i class="lni lni-facebook-filled"></i> </a>
+              </li>
               <li> <a href="https://twitter.com/ucac_icam"> <i class="lni lni-twitter-filled"></i> </a> </li>
-              <li> <a href="https://www.instagram.com/ucac_icam/?hl=fr"> <i class="lni lni-instagram-filled"></i> </a> </li>
-              <li> <a href="https://www.linkedin.com/school/institutucacicam/"> <i class="lni lni-linkedin-original"></i> </a> </li>
+              <li> <a href="https://www.instagram.com/ucac_icam/?hl=fr"> <i class="lni lni-instagram-filled"></i> </a>
+              </li>
+              <li> <a href="https://www.linkedin.com/school/institutucacicam/"> <i
+                    class="lni lni-linkedin-original"></i> </a> </li>
             </ul>
           </div>
         </div>
         <div class="col-xl-2 offset-xl-1 col-lg-2 col-md-6 col-sm-6">
           <div class="footer-widget wow fadeInUp" data-wow-delay=".3s">
             <h6>Accès rapide</h6>
-            <ul class="links">
-              <li> <a href="index.html">Accueil</a> </li>
-              <li> <a href="inscription.html">Inscription</a> </li>
-              <li> <a href="#0">Résultat</a> </li>
+            <ul class="links" *ngIf="userIsConnected">
+              <li> <a routerLinkActive="active" [routerLink]="['home']">Accueil</a> </li>
+              <li> <a [routerLink]="['inscription']" routerLinkActive="active">Inscription</a> </li>
+              <li> <a [routerLink]="['resultat']" [routerLinkActive]="['active']">Résultat</a> </li>
+            </ul>
+            <ul class="links" *ngIf="!userIsConnected">
+              <li> <a routerLinkActive="active" [routerLink]="['home']">Accueil</a> </li>
+              <li> <a [routerLink]="['auth/login']">Inscription</a> </li>
+              <li> <a [routerLink]="['auth/login']">Résultat</a> </li>
             </ul>
           </div>
         </div>

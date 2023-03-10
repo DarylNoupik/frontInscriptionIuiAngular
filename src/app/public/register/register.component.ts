@@ -3,6 +3,7 @@ import { ICredential } from "../../_interfaces/credential";
 import { IUtilisateur } from "../../_interfaces/utilisateur";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { Router } from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
+    private toastr: ToastrService,
     private router: Router
   ) { }
 
@@ -39,26 +41,27 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.form)
       console.log(this.form);
-    this.authService.register(this.form).subscribe(
-      data => {
+    this.authService.register(this.form).subscribe({
+      next: data => {
         console.log(data);
         console.log("Inscription réussie");
+        this.toastr.success("Inscription éffectuée avec success", 'Inscription réussie');
         this.login();
       },
-      err => {
+      error: err => {
         console.log(err);
         console.log(err.status);
         if (err.status === 200) {
           console.log("Inscription réussie");
+          this.toastr.success("Inscription éffectuée avec success", 'Inscription réussie');
           this.login()
         } else {
           this.msgError = "Une erreur s'est produite ! \n Cette adresse mail a été déjà utilisée. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
           this.showMsgError = true;
+          this.toastr.error(this.msgError, 'Inscription échouée');
         }
-
-
       }
-    );
+    });
 
   }
 
