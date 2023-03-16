@@ -29,7 +29,7 @@
       </div>
 
       <div *ngFor="let item of site" class="col-lg-4 col-md-8 col-sm-10">
-        <div class="single-pricing wow fadeInUp" style="height: 600px" data-wow-delay=".2s">
+        <div class="single-pricing wow fadeInUp" style="height: 700px" data-wow-delay=".2s">
           <div class="image">
             <img src="{{item.image}}" alt="">
           </div>
@@ -57,6 +57,7 @@
           <div class="section-title text-center mb-60">
             <h5 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #c0262d;">Veuillez renseigner vos
               informations</h5>
+            <h6 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: black;">Centre sélectionné : {{candidatureForm.centre}}</h6>
 
           </div>
         </div>
