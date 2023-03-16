@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit {
               }
             }
             else {
+              localStorage.removeItem('haveCandidature');
               this.showSession = false;
               this.showLien = true;
             }
