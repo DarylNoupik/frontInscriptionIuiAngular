@@ -1,17 +1,17 @@
-import {LOCALE_ID, NgModule} from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from "@angular/common/http";
-import {TokenInterceptorProvider} from "./_helpers/token.interceptor";
-import {JwtHelperService} from "@auth0/angular-jwt";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";
+import { TokenInterceptorProvider } from "./_helpers/token.interceptor";
+import { JwtHelperService } from "@auth0/angular-jwt";
 import localeFr from '@angular/common/locales/fr';
-import {registerLocaleData} from "@angular/common";
+import { registerLocaleData } from "@angular/common";
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NgHttpLoaderModule} from "ng-http-loader";
+// import {NgHttpLoaderModule} from "ng-http-loader";
 
 registerLocaleData(localeFr);
 
@@ -27,7 +27,7 @@ registerLocaleData(localeFr);
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    NgHttpLoaderModule.forRoot(),
+    // NgHttpLoaderModule.forRoot(),
     ToastContainerModule,
     ToastrModule.forRoot({
       timeOut: 5000,

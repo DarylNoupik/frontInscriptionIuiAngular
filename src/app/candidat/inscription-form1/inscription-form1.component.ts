@@ -7,7 +7,7 @@ import { Route, Router } from "@angular/router";
 import { SessionService } from "../../_services/session.service";
 import { ISessionModel } from 'src/app/_interfaces/isession-model';
 import { HttpClient } from "@angular/common/http";
-import {ICentre} from "../../_interfaces/icentre";
+import { ICentre } from "../../_interfaces/icentre";
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class InscriptionForm1Component implements OnInit {
   public site!: ISite[];
+  uploadedFile!: string;
   public centreBySite: any;
   public step: number = 1;
   public showForm: boolean = false;
@@ -64,7 +65,7 @@ export class InscriptionForm1Component implements OnInit {
   public disableOption1 = false;
   public disableOption2 = false;
   public disableOption3 = false;
-  public siteSelected! : ISite;
+  public siteSelected!: ISite;
 
 
   constructor(
@@ -140,8 +141,8 @@ export class InscriptionForm1Component implements OnInit {
     console.log(this.site);
 
     for (let i = 0; i < this.site.length; i++) {
-      if(this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true){
-          this.siteSelected = this.site[i];
+      if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
+        this.siteSelected = this.site[i];
       }
     }
     console.log(this.siteSelected);
@@ -161,10 +162,10 @@ export class InscriptionForm1Component implements OnInit {
     this.showCentre = !this.showForm;
   }
 
-  isInCentre(centre : string, listCentre : ICentre[]) : boolean{
-    let resp : boolean =false;
+  isInCentre(centre: string, listCentre: ICentre[]): boolean {
+    let resp: boolean = false;
     for (let i = 0; i < listCentre.length; i++) {
-      if(centre === listCentre[i].nom){
+      if (centre === listCentre[i].nom) {
         resp = true;
       }
     }
@@ -271,5 +272,19 @@ export class InscriptionForm1Component implements OnInit {
     })
 
     return true;
+  }
+
+  convertBlobToBase64 = (blob: Blob) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(blob);
+    });
+
+  async onFileChanged(event: any) {
+    this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
   }
 }
