@@ -20,9 +20,9 @@ export class AuthenticationService {
   url_register: string = 'http://51.178.136.105:8081/register';
 
   constructor(private http: HttpClient, private baseUrlSvr: BaseUrlService, private router: Router) {
-    let url = `${this.baseUrlSvr.getOrigin()}${environment.accountPath}`;
-    this.url = url + 'token';
-    this.url_register = url + 'register';
+    //let url = `${this.baseUrlSvr.getOrigin()}${environment.accountPath}`;
+    //this.url = url + 'token';
+    //this.url_register = url + 'register';
   }
 
   login(credentials: ICredential): Observable<IToken> {

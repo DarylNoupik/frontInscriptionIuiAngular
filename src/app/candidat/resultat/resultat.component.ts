@@ -12,7 +12,6 @@ export class ResultatComponent implements OnInit {
     langue: "",
     email_parents: "",
     statut: "En_Attente",
-    code_examen: 0,
     cycle: "",
     compteID: Number(localStorage.getItem('idCandidat')),
     nationalite: "",

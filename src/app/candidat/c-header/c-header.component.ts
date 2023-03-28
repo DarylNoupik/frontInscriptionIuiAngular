@@ -19,7 +19,8 @@ export class CHeaderComponent implements OnInit {
     email: "",
     telephone: 0,
     role: "",
-    id_disponibilite: 0
+    id_disponibilite: 0,
+    idZone : 0
   };
 
 

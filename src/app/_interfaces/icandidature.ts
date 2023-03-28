@@ -2,7 +2,7 @@ export interface ICandidature {
   langue: string,
   email_parents: string,
   statut: string,
-  code_examen: number
+  code_examen?: number,
   cycle: string,
   compteID: number,
   nationalite: string,

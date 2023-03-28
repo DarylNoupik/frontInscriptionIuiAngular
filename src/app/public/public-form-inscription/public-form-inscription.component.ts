@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { SitesService } from "../../_services/sites.service";
-import { ISite } from "../../_interfaces/site";
-import { ICandidature } from "../../_interfaces/icandidature";
-import { CandidatureService } from "../../_services/candidature.service";
-import { Route, Router } from "@angular/router";
-import { SessionService } from "../../_services/session.service";
-import { ISessionModel } from 'src/app/_interfaces/isession-model';
-import { HttpClient } from "@angular/common/http";
-import { ICentre } from "../../_interfaces/icentre";
-import { ToastrService } from 'ngx-toastr';
+import {ISite} from "../../_interfaces/site";
+import {ICandidature} from "../../_interfaces/icandidature";
 import {IUtilisateur} from "../../_interfaces/utilisateur";
+import {ISessionModel} from "../../_interfaces/isession-model";
+import {SitesService} from "../../_services/sites.service";
+import {CandidatureService} from "../../_services/candidature.service";
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
+import {SessionService} from "../../_services/session.service";
+import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from "../../_services/authentication.service";
+import {ICentre} from "../../_interfaces/icentre";
+import {query} from "@angular/animations";
 
 @Component({
-  selector: 'app-inscription-form1',
-  templateUrl: './inscription-form1.component.html',
-  styleUrls: ['./inscription-form1.component.css']
+  selector: 'app-public-form-inscription',
+  templateUrl: './public-form-inscription.component.html',
+  styleUrls: ['./public-form-inscription.component.css']
 })
-export class InscriptionForm1Component implements OnInit {
+export class PublicFormInscriptionComponent implements OnInit  {
   public site!: ISite[];
   uploadedFile!: string;
   public centreBySite: any;
@@ -30,6 +31,7 @@ export class InscriptionForm1Component implements OnInit {
     statut: "En_Attente",
     cycle: "",
     compteID: Number(localStorage.getItem('idCandidat')),
+    code_examen :0,
     nationalite: "",
     genre: "",
     tel_parents: "",
@@ -51,10 +53,11 @@ export class InscriptionForm1Component implements OnInit {
   public compteform: IUtilisateur = {
     name: "",
     prenom: "",
-    password: "",
+    password: "pass",
     email: "",
     role: "CANDIDAT",
-    id_disponibilite: 0
+    id_disponibilite: 0,
+    idZone : 1
   };
   public session: ISessionModel = {
     id: 0,
@@ -76,6 +79,8 @@ export class InscriptionForm1Component implements OnInit {
   public disableOption2 = false;
   public disableOption3 = false;
   public siteSelected!: ISite;
+  private  currentDate: Date = new Date();
+
 
 
   constructor(
@@ -268,39 +273,22 @@ export class InscriptionForm1Component implements OnInit {
         break;
     }
 
+    //this.candidatureForm.code_examen = this.generateCode(this.currentDate, this.candidatureForm.centre, this.candidatureForm.compteID.toString());
     console.log(this.candidatureForm);
     console.log(this.compteform);
 
-    // this.authService.register(this.compteform).subscribe({
-    //   next: data => {
-    //     console.log(data);
-    //     console.log("Inscription réussie");
-    //   },
-    //   error: err => {
-    //     console.log(err);
-    //     console.log(err.status);
-    //     if (err.status === 200) {
-    //       console.log("Inscription réussie");
-    //     } else {
-    //
-    //     }
-    //   }
-    // });
 
-
-    // this.candidatureService.addCandidature(this.candidatureForm).subscribe({
-    //   next: (data) => {
-    //     localStorage.setItem('haveCandidature', 'true');
-    //     this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
-    //     this.router.navigate(['/candidat/home']);
-    //   },
-    //   error: (err) => {
-    //     let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
-    //     this.toastr.error(msgError, 'Inscription échouée');
-    //   }
-    // })
-
-
+      this.candidatureService.addCandidature(this.candidatureForm).subscribe({
+        next: (data) => {
+          localStorage.setItem('haveCandidature', 'true');
+          this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
+          this.router.navigate(['/confirm'], {queryParams: { id : this.candidatureForm.compteID, name: this.compteform.name +"  " + this.compteform.prenom, code : this.candidatureForm.code_examen}});
+        },
+        error: (err) => {
+          let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+          this.toastr.error(msgError, 'Inscription échouée');
+        }
+      })
 
     return true;
   }
@@ -319,8 +307,44 @@ export class InscriptionForm1Component implements OnInit {
     this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
   }
 
-  createAccount(step : number) {
-    this.step = step;
-    console.log(this.compteform);
+
+  generateCode(currentDate : Date, userCity : string, userId: string): string {
+    const year = currentDate.getFullYear().toString().slice(-2); // prend les deux derniers caractères de l'année
+    const city = userCity.substring(0, 2).toUpperCase(); // prend les deux premiers caractères de la ville et les convertit en majuscules
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // ajoute un zéro au mois s'il est inférieur à 10
+    const day = currentDate.getDate().toString().padStart(2, '0'); // ajoute un zéro au jour s'il est inférieur à 10
+    const dateString = `${year}${month}${day}`;
+    const code = `${city}-${dateString}-${userId}`;
+    return code;
   }
+
+
+
+  createAccount(step : number) {
+    //this.compteform.idZone = this.siteSelected.zone_id;
+    this.authService.register(this.compteform).subscribe({
+      next: data => {
+        console.log(data);
+        console.log("Inscription réussie");
+      },
+      error: err => {
+        console.log(err);
+        console.log(err.status);
+        if (err.status === 200) {
+          console.log("Inscription réussie##");
+          //Recupperation et chargement de l'ID du compte créé
+          this.candidatureForm.compteID = err.error.text.match(/<(.*?)>/)[1];
+          console.log(err.error.text.match(/<(.*?)>/)[1]);
+          //const result = str.match(/<(.*?)>/)[1];
+          this.step = step;
+        } else {
+
+        }
+      }
+    });
+    console.log(this.compteform);
+
+    this.step = step;
+  }
+
 }

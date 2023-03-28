@@ -3,7 +3,8 @@ export interface IUtilisateur {
   prenom: string,
   password: string,
   email: string,
-  telephone?: number,
+  telephone?: string,
   role: string,
   id_disponibilite: number
+  idZone?: number
 }
