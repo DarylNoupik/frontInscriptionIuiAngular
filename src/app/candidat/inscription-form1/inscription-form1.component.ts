@@ -9,8 +9,10 @@ import { ISessionModel } from 'src/app/_interfaces/isession-model';
 import { HttpClient } from "@angular/common/http";
 import { ICentre } from "../../_interfaces/icentre";
 import { ToastrService } from 'ngx-toastr';
-import {IUtilisateur} from "../../_interfaces/utilisateur";
-import {AuthenticationService} from "../../_services/authentication.service";
+import { IUtilisateur } from "../../_interfaces/utilisateur";
+import { AuthenticationService } from "../../_services/authentication.service";
+import { TokenService } from 'src/app/_services/token.service';
+import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
   selector: 'app-inscription-form1',
@@ -67,7 +69,7 @@ export class InscriptionForm1Component implements OnInit {
   public listCentre: any;
   public msgPaiement: string = "";
   public showNumberPaiement: boolean = false;
-  public  showPersonnalForm: boolean = false;
+  public showPersonnalForm: boolean = false;
   public allcodes: any;
   public codeExists: boolean = false;
   public exitscode: any;
@@ -85,7 +87,9 @@ export class InscriptionForm1Component implements OnInit {
     private toastr: ToastrService,
     private sessionService: SessionService,
     private http: HttpClient,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private tokenService: TokenService,
+    private userService: UsersService
   ) { }
 
   ngOnInit(): void {
@@ -319,8 +323,60 @@ export class InscriptionForm1Component implements OnInit {
     this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
   }
 
-  createAccount(step : number) {
-    this.step = step;
+  createAccount(step: number) {
     console.log(this.compteform);
+    this.step = step;
+    // if (this.compteform) {
+    //   if (this.compteform.password == "") {
+    //     this.compteform.password = "Ucac-Candidat-" + this.compteform.id_disponibilite;
+    //   }
+
+    //   this.authService.register(this.compteform).subscribe({
+    //     next: data => {
+    //       console.log(data);
+    //       console.log("Votre compte a été crée avec success");
+    //       this.toastr.success("Votre compte candidat a été crée avec success", 'Création réussie');
+    //       this.step = step;
+    //       this.login({
+    //         username: this.compteform.email || this.compteform.telephone,
+    //         password: this.compteform.password
+    //       })
+    //     },
+    //     error: err => {
+    //       console.log(err);
+    //       console.log(err.status);
+    //       if (err.status === 200) {
+    //         console.log("Votre compte a été crée avec success");
+    //         this.toastr.success("Votre compte candidat a été crée avec success", 'Création réussie');
+    //         this.step = step;
+    //         this.login({
+    //           username: this.compteform.email || this.compteform.telephone,
+    //           password: this.compteform.password
+    //         })
+    //       } else {
+    //         let msgError = "Une erreur s'est produite ! \n Cette adresse mail a été déjà utilisée. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+    //         this.toastr.error(msgError, 'Création de compte échouée');
+    //       }
+    //     }
+    //   });
+    // }
   }
+
+  login(form: any) {
+    this.authService.login(form).subscribe({
+      next: data => {
+        this.tokenService.saveToken(data.accessToken);
+        this.userService.getUserByEmail(this.tokenService.decodeToken(data.accessToken).sub).subscribe(
+          {
+            next: data => {
+              localStorage.setItem('idCandidat', String(data.id));
+            },
+            error: err => console.log(err)
+          }
+        );
+        this.toastr.success("Authentification éffectuée avec success", 'Authentification réussie');
+      },
+    });
+  }
+
 }

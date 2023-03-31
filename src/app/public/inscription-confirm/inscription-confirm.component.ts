@@ -4,9 +4,9 @@ import { ISessionModel } from "../../_interfaces/isession-model";
 import { CandidatureService } from "../../_services/candidature.service";
 import { TokenService } from "../../_services/token.service";
 import { UsersService } from "../../_services/users.service";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import jsPDF from 'jspdf';
-import {DatePipe} from "@angular/common";
+import { DatePipe } from "@angular/common";
 
 
 @Component({
@@ -29,9 +29,10 @@ export class InscriptionConfirmComponent implements OnInit {
   public showSession: boolean = false;
   public showLien: boolean = false;
   isLoading: boolean = false;
-  public  id : null | string = "";
-  public  name : string |null = "";
-  public  code : string | null = "";
+  public id: null | string = "";
+  public name: string | null = "";
+  public password: string | null = "";
+  public code: string | null = "";
 
   constructor(
     private sessionService: SessionService,
@@ -54,6 +55,7 @@ export class InscriptionConfirmComponent implements OnInit {
 
     this.id = this.route.snapshot.queryParamMap.get('id');
     this.name = this.route.snapshot.queryParamMap.get('name');
+    this.password = this.route.snapshot.queryParamMap.get('password');
     this.code = this.route.snapshot.queryParamMap.get('code');
 
 
@@ -62,10 +64,10 @@ export class InscriptionConfirmComponent implements OnInit {
 
   printPDF() {
 
-    const doc =  new jsPDF();
-      const text = `Nom du candidant: ${this.name}\n\n\n Code Examen: ${this.code} \n\n\n\n\n Date d'examen: ${this.datePipe.transform(this.session.date_examen, 'fullDate', '', 'fr-FR')}`;
-      doc.text(text, 10, 10);
-      doc.save('code-examen.pdf');
+    const doc = new jsPDF();
+    const text = `Nom du candidant: ${this.name}\n\n\n Code Examen: ${this.code} \n\n\n\n\n Date d'examen: ${this.datePipe.transform(this.session.date_examen, 'fullDate', '', 'fr-FR')}`;
+    doc.text(text, 10, 10);
+    doc.save('code-examen.pdf');
 
 
   }
