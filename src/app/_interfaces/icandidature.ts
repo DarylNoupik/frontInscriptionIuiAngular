@@ -1,5 +1,6 @@
 export interface ICandidature {
   langue: string,
+  hasExchange: string,
   email_parents: string,
   statut: string,
   code_examen?: number,
@@ -18,8 +19,8 @@ export interface ICandidature {
   telephone_paiement: string,
   dernier_Etablissement: string,
   lieu_de_naissance: string,
-  ville : string,
-  nombre_choix : number,
-  centre : string
-  candidatureActif : boolean
+  ville: string,
+  nombre_choix: number,
+  centre: string
+  candidatureActif: boolean
 }

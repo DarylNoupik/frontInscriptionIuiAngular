@@ -28,6 +28,7 @@ export class InscriptionForm1Component implements OnInit {
   public showCentre: boolean = true;
   public candidatureForm: ICandidature = {
     langue: "",
+    hasExchange: "",
     email_parents: "",
     statut: "En_Attente",
     cycle: "",

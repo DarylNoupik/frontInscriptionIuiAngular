@@ -27,6 +27,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   public showCentre: boolean = true;
   public candidatureForm: ICandidature = {
     langue: "",
+    hasExchange: "",
     email_parents: "",
     statut: "En_Attente",
     cycle: "",
@@ -121,6 +122,7 @@ export class PublicFormInscriptionComponent implements OnInit {
 
   setStep(step: number) {
     this.step = step;
+    console.log(this.candidatureForm);
   }
 
   updateSelections() {
@@ -322,27 +324,27 @@ export class PublicFormInscriptionComponent implements OnInit {
 
   createAccount(step: number) {
     //this.compteform.idZone = this.siteSelected.zone_id;
-    this.authService.register(this.compteform).subscribe({
-      next: data => {
-        console.log(data);
-        console.log("Inscription réussie");
-      },
-      error: err => {
-        console.log(err);
-        console.log(err.status);
-        if (err.status === 200) {
-          console.log("Inscription réussie##");
-          //Recupperation et chargement de l'ID du compte créé
-          this.candidatureForm.compteID = err.error.text.match(/<(.*?)>/)[1];
-          console.log(err.error.text.match(/<(.*?)>/)[1]);
-          //const result = str.match(/<(.*?)>/)[1];
-          this.step = step;
-        } else {
+    // this.authService.register(this.compteform).subscribe({
+    //   next: data => {
+    //     console.log(data);
+    //     console.log("Inscription réussie");
+    //   },
+    //   error: err => {
+    //     console.log(err);
+    //     console.log(err.status);
+    //     if (err.status === 200) {
+    //       console.log("Inscription réussie##");
+    //       //Recupperation et chargement de l'ID du compte créé
+    //       this.candidatureForm.compteID = err.error.text.match(/<(.*?)>/)[1];
+    //       console.log(err.error.text.match(/<(.*?)>/)[1]);
+    //       //const result = str.match(/<(.*?)>/)[1];
+    //       this.step = step;
+    //     } else {
 
-        }
-      }
-    });
-    console.log(this.compteform);
+    //     }
+    //   }
+    // });
+    // console.log(this.compteform);
 
     this.step = step;
   }

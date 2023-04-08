@@ -10,6 +10,7 @@ export class ResultatComponent implements OnInit {
 
   public candidatureStatut: ICandidature = {
     langue: "",
+    hasExchange: "",
     email_parents: "",
     statut: "En_Attente",
     cycle: "",
