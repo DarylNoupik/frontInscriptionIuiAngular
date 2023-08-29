@@ -21,6 +21,7 @@ export interface ICandidature {
   lieu_de_naissance: string,
   ville: string,
   nombre_choix: number,
-  centre: string
+  centre: string,
+  centreExamenId?: number,
   candidatureActif: boolean
 }
