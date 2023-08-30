@@ -282,10 +282,24 @@ export class PublicFormInscriptionComponent implements OnInit {
     }
 
     //this.candidatureForm.code_examen = this.generateCode(this.currentDate, this.candidatureForm.centre, this.candidatureForm.compteID.toString());
-    console.log(this.candidatureForm);
-    console.log(this.compteform);
 
+    this.compteform.idZone = this.siteSelected.zone_id;
+    this.authService.register(this.compteform).subscribe({
+      next: value => {
+        this.addCandidature()
+      },
+      error: err => {
+        console.log(err);
+        console.log(err.status);
+        if (err.status === 200) {
+          this.addCandidature()
+        }
+      }
+    });
+    return true;
+  }
 
+  addCandidature() {
     this.candidatureService.addCandidature(this.candidatureForm).subscribe({
       next: (data) => {
         localStorage.setItem('haveCandidature', 'true');
@@ -297,8 +311,6 @@ export class PublicFormInscriptionComponent implements OnInit {
         this.toastr.error(msgError, 'Inscription échouée');
       }
     })
-
-    return true;
   }
 
   convertBlobToBase64 = (blob: Blob) =>
@@ -329,29 +341,6 @@ export class PublicFormInscriptionComponent implements OnInit {
 
 
   createAccount(step: number) {
-    //this.compteform.idZone = this.siteSelected.zone_id;
-    // this.authService.register(this.compteform).subscribe({
-    //   next: data => {
-    //     console.log(data);
-    //     console.log("Inscription réussie");
-    //   },
-    //   error: err => {
-    //     console.log(err);
-    //     console.log(err.status);
-    //     if (err.status === 200) {
-    //       console.log("Inscription réussie##");
-    //       //Recupperation et chargement de l'ID du compte créé
-    //       this.candidatureForm.compteID = err.error.text.match(/<(.*?)>/)[1];
-    //       console.log(err.error.text.match(/<(.*?)>/)[1]);
-    //       //const result = str.match(/<(.*?)>/)[1];
-    //       this.step = step;
-    //     } else {
-
-    //     }
-    //   }
-    // });
-    // console.log(this.compteform);
-
     this.step = step;
   }
 
