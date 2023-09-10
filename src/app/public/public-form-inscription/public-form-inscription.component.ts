@@ -12,6 +12,7 @@ import { HttpClient } from "@angular/common/http";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { ICentre } from "../../_interfaces/icentre";
 import { query } from "@angular/animations";
+import { IZone } from 'src/app/_interfaces/izone';
 
 @Component({
   selector: 'app-public-form-inscription',
@@ -21,6 +22,7 @@ import { query } from "@angular/animations";
 export class PublicFormInscriptionComponent implements OnInit {
   public site!: ISite[];
   uploadedFile!: string;
+  selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
   public showForm: boolean = false;
@@ -57,6 +59,7 @@ export class PublicFormInscriptionComponent implements OnInit {
     prenom: "",
     password: "pass",
     email: "",
+    telephone: "",
     role: "CANDIDAT",
     id_disponibilite: 0,
     idZone: 1
@@ -105,8 +108,6 @@ export class PublicFormInscriptionComponent implements OnInit {
     this.siteService.getAllSite().subscribe({
       next: data => {
         this.site = data;
-        console.log("###################Voci les sites");
-        console.log(data);
       },
       error: err => console.log(err)
     });
@@ -121,38 +122,34 @@ export class PublicFormInscriptionComponent implements OnInit {
     });
   }
 
-  selectCenter(center: ICentre) {
+  selectCenter(center: ICentre, zone: IZone) {
     this.candidatureForm.centre = center.nom;
     this.candidatureForm.centreExamenId = center.id;
+    this.selectZone = zone;
   }
 
   setStep(step: number) {
     this.step = step;
-    console.log(this.candidatureForm);
   }
 
   updateSelections() {
     if ((this.candidatureForm.formation1 && !this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3)) {
-      console.log("##############Op1");
       this.candidatureForm.nombre_choix = 1;
       this.disableOption1 = false;
       this.disableOption2 = true;
       this.disableOption3 = true;
 
     } else if ((this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3)) {
-      console.log("##############Op2");
       this.candidatureForm.nombre_choix = 2;
       this.disableOption1 = true;
       this.disableOption2 = false;
       this.disableOption3 = true;
     } else if (this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3) {
-      console.log("##############Op3");
       this.candidatureForm.nombre_choix = 3;
       this.disableOption1 = true;
       this.disableOption2 = true;
       this.disableOption3 = false;
     } else {
-      console.log("##############Else");
       this.disableOption1 = false;
       this.disableOption2 = false;
       this.disableOption3 = false;
@@ -161,15 +158,11 @@ export class PublicFormInscriptionComponent implements OnInit {
   }
 
   toggleForm(): void {
-    console.log(this.candidatureForm.centre);
-    console.log(this.site);
-
     for (let i = 0; i < this.site.length; i++) {
       if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
         this.siteSelected = this.site[i];
       }
     }
-    console.log(this.siteSelected);
     this.showForm = !this.showForm;
 
     for (let i = 0; i < this.centreBySite.length; i++) {
@@ -283,14 +276,15 @@ export class PublicFormInscriptionComponent implements OnInit {
 
     //this.candidatureForm.code_examen = this.generateCode(this.currentDate, this.candidatureForm.centre, this.candidatureForm.compteID.toString());
 
-    this.compteform.idZone = this.siteSelected.zone_id;
+    // this.compteform.idZone = this.siteSelected.zone_id;
+    this.compteform.idZone = this.selectZone.id;
     this.authService.register(this.compteform).subscribe({
       next: value => {
+        this.candidatureForm.compteID = value.id;
         this.addCandidature()
       },
       error: err => {
         console.log(err);
-        console.log(err.status);
         if (err.status === 200) {
           this.addCandidature()
         }

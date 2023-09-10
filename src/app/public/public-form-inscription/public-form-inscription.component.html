@@ -40,7 +40,8 @@
           <ul>
             <li *ngFor="let item2 of item.centreExamenList">
               <input [(ngModel)]="candidatureForm.centre" value="{{item2.nom}}" required name="examcenter"
-                style="width: 20px; height: 20px;" type="radio" (click)="selectCenter(item2)" class="form-input"> &nbsp;
+                style="width: 20px; height: 20px;" type="radio" (click)="selectCenter(item2, item.zone)"
+                class="form-input"> &nbsp;
               {{item2.nom}}
             </li>
           </ul><!---->
