@@ -49,7 +49,8 @@ export class InscriptionForm1Component implements OnInit {
     ville: "",
     nombre_choix: 0,
     centre: "",
-    candidatureActif: true
+    candidatureActif: true,
+    sessionId: 0
   };
   public compteform: IUtilisateur = {
     name: "",

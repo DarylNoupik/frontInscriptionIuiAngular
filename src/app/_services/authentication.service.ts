@@ -7,6 +7,7 @@ import { IUtilisateur } from "../_interfaces/utilisateur";
 import { Router } from "@angular/router";
 import { environment } from 'src/environments/environment';
 import { BaseUrlService } from './base-url.service';
+import { IUtilisateurResponseModel } from '../_interfaces/utilisateur-response-model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,11 @@ export class AuthenticationService {
   login(credentials: ICredential): Observable<IToken> {
     return this.http.post<IToken>(this.url, credentials);
   }
-  register(utilisateur: IUtilisateur): Observable<any> {
-    return this.http.post<any>(this.url_register, utilisateur);
+
+  register(utilisateur: IUtilisateur): Observable<IUtilisateurResponseModel> {
+    return this.http.post<IUtilisateurResponseModel>(this.url_register, utilisateur);
   }
+
   logout(): void {
     localStorage.removeItem("token");
     localStorage.removeItem("idCandidat");

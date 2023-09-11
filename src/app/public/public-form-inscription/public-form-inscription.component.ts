@@ -35,6 +35,7 @@ export class PublicFormInscriptionComponent implements OnInit {
     cycle: "",
     compteID: Number(localStorage.getItem('idCandidat')),
     code_examen: 0,
+    sessionId: 0,
     nationalite: "",
     genre: "",
     tel_parents: "",
@@ -280,12 +281,14 @@ export class PublicFormInscriptionComponent implements OnInit {
     this.compteform.idZone = this.selectZone.id;
     this.authService.register(this.compteform).subscribe({
       next: value => {
+        this.candidatureForm.sessionId = this.session.id;
         this.candidatureForm.compteID = value.id;
         this.addCandidature()
       },
       error: err => {
         console.log(err);
         if (err.status === 200) {
+          this.candidatureForm.compteID = err.id;
           this.addCandidature()
         }
       }

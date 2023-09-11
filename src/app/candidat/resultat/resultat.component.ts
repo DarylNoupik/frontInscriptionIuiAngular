@@ -31,7 +31,8 @@ export class ResultatComponent implements OnInit {
     ville: "",
     nombre_choix: 0,
     centre: "",
-    candidatureActif: true
+    candidatureActif: true,
+    sessionId: 0
   };
   constructor() { }
 
