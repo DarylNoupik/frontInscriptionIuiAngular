@@ -40,13 +40,17 @@
           <ul>
             <li *ngFor="let item2 of item.centreExamenList">
               <input [(ngModel)]="candidatureForm.centre" value="{{item2.nom}}" required name="examcenter"
-                style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; {{item2.nom}}
+                style="width: 20px; height: 20px;" type="radio" (click)="selectCenter(item2, item.zone)"
+                class="form-input"> &nbsp;
+              {{item2.nom}}
             </li>
           </ul><!---->
           <a (click)="toggleForm()" style="position: absolute; bottom: 15px;" class="button  radius-30">Continuer</a>
         </div>
       </div>
     </div>
+
+
 
     <div *ngIf="showForm" class="container row justify-content-center ">
 
@@ -95,32 +99,23 @@
 
               <div class="col-md-12">
                 <div class="single-input">
-                  <label for="telephone"> Votre numéro de téléphone (*) </label>
-                  <input [(ngModel)]="compteform.telephone" style="width: 100%;" type="number" id="telephone"
-                    name="telephone" class="form-input" placeholder=" Votre numéro de téléphone ">
+                  <div class="block-number">
+                    <p for="telephone"> Votre numéro de téléphone (*) </p>
+                    <label for="telephone"> {{siteSelected.indicatif}} </label>
+                    <input [(ngModel)]="compteform.telephone" style="width: 100%;" type="text" id="telephone"
+                      name="telephone" class="form-input" placeholder=" Votre numéro de téléphone ">
+                  </div>
                 </div>
               </div>
 
               <div class="col-md-12">
                 <div class="single-input">
                   <label for="email"> Votre adresse email </label>
-                  <input #email [(ngModel)]="candidatureForm.lieu_de_naissance" style="width: 100%;" type="text"
-                    id="email" name="email" class="form-input" placeholder="Lieu de naissance">
+                  <input #email [(ngModel)]="compteform.email" style="width: 100%;" type="text" id="email" name="email"
+                    class="form-input" placeholder="Lieu de naissance">
                 </div>
               </div>
 
-              <div class="align-content-center">
-                <div class="single-input">
-                  <label> Entrer un mot de passes <br> Le mot de passe va vous permettre plus
-                    tard de vous connecter sur cette plateforme pour suivre l'évolution de votre candidature.
-                    Vous serez ainsi à jour de toutes les informations, sans toute fois vous déplacer pour cela</label>
-                  <input required type="password" id="password" name="password" [(ngModel)]="compteform.password"
-                    #password="ngModel" class="form-input col-12" placeholder="Mot de passe">
-                  <div *ngIf="password.invalid && password.touched" style="color: #c0262d;">
-                    Le mot de passe réquis !
-                  </div>
-                </div>
-              </div>
 
               <div class="col-md-12">
                 <div class="form-button">
@@ -192,11 +187,11 @@
 
 
             <div class="row" [hidden]="!(step==3)">
-              <p class="text-center mb-4">Informations relatives aux parents</p>
+              <p class="text-center mb-4">Informations relatives aux tuteurs</p>
               <div class="col-md-12">
                 <div class="single-input">
-                  <p>Numéro(s) de téléphone des parents(*) <br> Veillez renseigner un
-                    numéro(XXX-XXX-XXX) ou plusieurs numéros (XXX-XXX-XXX/XXX-XXX-XXX) des parents </p>
+                  <p>Numéro(s) de téléphone des tuteurs(*) <br> Veillez renseigner un
+                    numéro(XXX-XXX-XXX) ou plusieurs numéros (XXX-XXX-XXX/XXX-XXX-XXX) des tuteurs </p>
 
                   <div class="block-number">
                     <label for="tel_pere"> {{siteSelected.indicatif}} </label>
@@ -208,7 +203,23 @@
 
               <div class="col-md-12">
                 <div class="single-input">
-                  <label>Email des parents (*)</label>
+                  <label>Nom du père (*)</label>
+                  <input required [(ngModel)]="candidatureForm.nom_parent1" style="width: 100%;" type="text"
+                    id="nom_parent1" name="nom_parent1" class="form-input" placeholder="Nom du père">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="single-input">
+                  <label>Nom de la mère (*)</label>
+                  <input required [(ngModel)]="candidatureForm.nom_parent2" style="width: 100%;" type="text"
+                    id="nom_parent2" name="nom_parent2" class="form-input" placeholder="Nom de la mère">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="single-input">
+                  <label>Email des tuteurs (*)</label>
                   <input required [(ngModel)]="candidatureForm.email_parents" style="width: 100%;" type="email"
                     id="email_parents" name="email_parents" class="form-input" placeholder="Email des parents">
                 </div>
@@ -321,6 +332,33 @@
                       style="font-size: 17px;"> 2nd cycle </span>
                   </div>
                   &nbsp;
+
+                  <label>Quel type de baccalauréat avez vous en votre posséssion</label>
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="C" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> C </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="D" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> D </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="TI" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> TI </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="A" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> A </span>
+                  </div>
+                  &nbsp;
+
                   <div class="align-content-center">
                     <div class="single-input">
                       <label>Avez vous une bourse</label>
@@ -333,6 +371,7 @@
                     </div>
                   </div>
                   &nbsp;
+
                   <label for="image">Photo</label>
                   <div class="align-content-center">
                     <input [(ngModel)]="candidatureForm.image" type="file" id="image" (change)="onFileChanged($event)"
@@ -344,8 +383,6 @@
 
                 </div>
               </div>
-
-
 
               <div class="row">
                 <div class="col-md-6">

@@ -201,14 +201,30 @@
                 </div>
               </div>
 
+
               <div class="col-md-12">
                 <div class="single-input">
-                  <label>Email des tuteurs (*)</label>
+                  <label>Nom du père (*)</label>
+                  <input required [(ngModel)]="candidatureForm.nom_parent1" style="width: 100%;" type="text"
+                    id="nom_parent1" name="nom_parent1" class="form-input" placeholder="Nom du père">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="single-input">
+                  <label>Nom de la mère (*)</label>
+                  <input required [(ngModel)]="candidatureForm.nom_parent2" style="width: 100%;" type="text"
+                    id="nom_parent2" name="nom_parent2" class="form-input" placeholder="Nom de la mère">
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="single-input">
+                  <label>Email des parents / tuteurs (*)</label>
                   <input required [(ngModel)]="candidatureForm.email_parents" style="width: 100%;" type="email"
                     id="email_parents" name="email_parents" class="form-input" placeholder="Email des parents">
                 </div>
               </div>
-
 
               <div class="row">
                 <div class="col-md-6">
@@ -317,6 +333,31 @@
                   </div>
                   &nbsp;
 
+                  <label>Quel type de baccalauréat avez vous en votre posséssion</label>
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="C" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> C </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="D" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> D </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="TI" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> TI </span>
+                  </div>
+
+                  <div class="align-content-center">
+                    <input required [(ngModel)]="candidatureForm.serie_bac" value="A" name="serie_bac" id="serie_bac"
+                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
+                      style="font-size: 17px;"> A </span>
+                  </div>
+                  &nbsp;
 
                   <div class="align-content-center">
                     <div class="single-input">

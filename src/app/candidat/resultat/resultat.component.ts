@@ -32,7 +32,10 @@ export class ResultatComponent implements OnInit {
     nombre_choix: 0,
     centre: "",
     candidatureActif: true,
-    sessionId: 0
+    sessionId: 0,
+    serie_bac: '',
+    nom_parent1: '',
+    nom_parent2: ''
   };
   constructor() { }
 

@@ -30,6 +30,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   public candidatureForm: ICandidature = {
     langue: "",
     hasExchange: "",
+    serie_bac: "",
     email_parents: "",
     statut: "En_Attente",
     cycle: "",
@@ -53,7 +54,9 @@ export class PublicFormInscriptionComponent implements OnInit {
     nombre_choix: 0,
     centre: "",
     centreExamenId: 0,
-    candidatureActif: true
+    candidatureActif: true,
+    nom_parent1: '',
+    nom_parent2: ''
   };
   public compteform: IUtilisateur = {
     name: "",

@@ -13,6 +13,7 @@ import { IUtilisateur } from "../../_interfaces/utilisateur";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { TokenService } from 'src/app/_services/token.service';
 import { UsersService } from 'src/app/_services/users.service';
+import { IZone } from 'src/app/_interfaces/izone';
 
 @Component({
   selector: 'app-inscription-form1',
@@ -22,6 +23,7 @@ import { UsersService } from 'src/app/_services/users.service';
 export class InscriptionForm1Component implements OnInit {
   public site!: ISite[];
   uploadedFile!: string;
+  selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
   public showForm: boolean = false;
@@ -29,10 +31,13 @@ export class InscriptionForm1Component implements OnInit {
   public candidatureForm: ICandidature = {
     langue: "",
     hasExchange: "",
+    serie_bac: "",
     email_parents: "",
     statut: "En_Attente",
     cycle: "",
     compteID: Number(localStorage.getItem('idCandidat')),
+    code_examen: 0,
+    sessionId: 0,
     nationalite: "",
     genre: "",
     tel_parents: "",
@@ -49,16 +54,20 @@ export class InscriptionForm1Component implements OnInit {
     ville: "",
     nombre_choix: 0,
     centre: "",
+    centreExamenId: 0,
     candidatureActif: true,
-    sessionId: 0
+    nom_parent1: '',
+    nom_parent2: ''
   };
   public compteform: IUtilisateur = {
     name: "",
     prenom: "",
-    password: "",
+    password: "pass",
     email: "",
+    telephone: "",
     role: "CANDIDAT",
-    id_disponibilite: 0
+    id_disponibilite: 0,
+    idZone: 1
   };
   public session: ISessionModel = {
     id: 0,
@@ -80,18 +89,20 @@ export class InscriptionForm1Component implements OnInit {
   public disableOption2 = false;
   public disableOption3 = false;
   public siteSelected!: ISite;
+  private currentDate: Date = new Date();
+
 
 
   constructor(
+    private tokenService: TokenService,
+    private userService: UsersService,
     private siteService: SitesService,
     private candidatureService: CandidatureService,
     private router: Router,
     private toastr: ToastrService,
     private sessionService: SessionService,
     private http: HttpClient,
-    private authService: AuthenticationService,
-    private tokenService: TokenService,
-    private userService: UsersService
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -104,8 +115,6 @@ export class InscriptionForm1Component implements OnInit {
     this.siteService.getAllSite().subscribe({
       next: data => {
         this.site = data;
-        console.log("###################Voci les sites");
-        console.log(data);
       },
       error: err => console.log(err)
     });
@@ -118,6 +127,30 @@ export class InscriptionForm1Component implements OnInit {
         }
       },
     });
+
+    let email = this.tokenService.getEmail();
+    this.userService.getUserByEmail(email).subscribe({
+      next: data => {
+        this.compteform = {
+          name: data.name,
+          prenom: data.prenom,
+          password: data.prenom,
+          email: data.email,
+          telephone: data.telephone.toString(),
+          role: data.role,
+          id_disponibilite: data.id_disponibilite,
+          idZone: data.idZone,
+        };
+
+        this.candidatureForm.compteID = data.id;
+      },
+    });
+  }
+
+  selectCenter(center: ICentre, zone: IZone) {
+    this.candidatureForm.centre = center.nom;
+    this.candidatureForm.centreExamenId = center.id;
+    this.selectZone = zone;
   }
 
   setStep(step: number) {
@@ -126,26 +159,22 @@ export class InscriptionForm1Component implements OnInit {
 
   updateSelections() {
     if ((this.candidatureForm.formation1 && !this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3)) {
-      console.log("##############Op1");
       this.candidatureForm.nombre_choix = 1;
       this.disableOption1 = false;
       this.disableOption2 = true;
       this.disableOption3 = true;
 
     } else if ((this.candidatureForm.formation1 && this.candidatureForm.formation2 && !this.candidatureForm.formation3) || (this.candidatureForm.formation1 && !this.candidatureForm.formation2 && this.candidatureForm.formation3) || (!this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3)) {
-      console.log("##############Op2");
       this.candidatureForm.nombre_choix = 2;
       this.disableOption1 = true;
       this.disableOption2 = false;
       this.disableOption3 = true;
     } else if (this.candidatureForm.formation1 && this.candidatureForm.formation2 && this.candidatureForm.formation3) {
-      console.log("##############Op3");
       this.candidatureForm.nombre_choix = 3;
       this.disableOption1 = true;
       this.disableOption2 = true;
       this.disableOption3 = false;
     } else {
-      console.log("##############Else");
       this.disableOption1 = false;
       this.disableOption2 = false;
       this.disableOption3 = false;
@@ -154,15 +183,11 @@ export class InscriptionForm1Component implements OnInit {
   }
 
   toggleForm(): void {
-    console.log(this.candidatureForm.centre);
-    console.log(this.site);
-
     for (let i = 0; i < this.site.length; i++) {
       if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
         this.siteSelected = this.site[i];
       }
     }
-    console.log(this.siteSelected);
     this.showForm = !this.showForm;
 
     for (let i = 0; i < this.centreBySite.length; i++) {
@@ -274,41 +299,27 @@ export class InscriptionForm1Component implements OnInit {
         break;
     }
 
-    console.log(this.candidatureForm);
-    console.log(this.compteform);
+    //this.candidatureForm.code_examen = this.generateCode(this.currentDate, this.candidatureForm.centre, this.candidatureForm.compteID.toString());
 
-    // this.authService.register(this.compteform).subscribe({
-    //   next: data => {
-    //     console.log(data);
-    //     console.log("Inscription réussie");
-    //   },
-    //   error: err => {
-    //     console.log(err);
-    //     console.log(err.status);
-    //     if (err.status === 200) {
-    //       console.log("Inscription réussie");
-    //     } else {
-    //
-    //     }
-    //   }
-    // });
-
-
-    // this.candidatureService.addCandidature(this.candidatureForm).subscribe({
-    //   next: (data) => {
-    //     localStorage.setItem('haveCandidature', 'true');
-    //     this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
-    //     this.router.navigate(['/candidat/home']);
-    //   },
-    //   error: (err) => {
-    //     let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
-    //     this.toastr.error(msgError, 'Inscription échouée');
-    //   }
-    // })
-
-
-
+    // this.compteform.idZone = this.siteSelected.zone_id;
+    this.compteform.idZone = this.selectZone.id;
+    this.candidatureForm.sessionId = this.session.id;
+    this.addCandidature()
     return true;
+  }
+
+  addCandidature() {
+    this.candidatureService.addCandidature(this.candidatureForm).subscribe({
+      next: (data) => {
+        localStorage.setItem('haveCandidature', 'true');
+        this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
+        this.router.navigate(['/confirm'], { queryParams: { id: this.candidatureForm.compteID, name: this.compteform.name + "  " + this.compteform.prenom, code: data.code_examen, password: this.compteform.password } });
+      },
+      error: (err) => {
+        let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+        this.toastr.error(msgError, 'Inscription échouée');
+      }
+    })
   }
 
   convertBlobToBase64 = (blob: Blob) =>
@@ -325,60 +336,21 @@ export class InscriptionForm1Component implements OnInit {
     this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
   }
 
-  createAccount(step: number) {
-    console.log(this.compteform);
-    this.step = step;
-    // if (this.compteform) {
-    //   if (this.compteform.password == "") {
-    //     this.compteform.password = "Ucac-Candidat-" + this.compteform.id_disponibilite;
-    //   }
 
-    //   this.authService.register(this.compteform).subscribe({
-    //     next: data => {
-    //       console.log(data);
-    //       console.log("Votre compte a été crée avec success");
-    //       this.toastr.success("Votre compte candidat a été crée avec success", 'Création réussie');
-    //       this.step = step;
-    //       this.login({
-    //         username: this.compteform.email || this.compteform.telephone,
-    //         password: this.compteform.password
-    //       })
-    //     },
-    //     error: err => {
-    //       console.log(err);
-    //       console.log(err.status);
-    //       if (err.status === 200) {
-    //         console.log("Votre compte a été crée avec success");
-    //         this.toastr.success("Votre compte candidat a été crée avec success", 'Création réussie');
-    //         this.step = step;
-    //         this.login({
-    //           username: this.compteform.email || this.compteform.telephone,
-    //           password: this.compteform.password
-    //         })
-    //       } else {
-    //         let msgError = "Une erreur s'est produite ! \n Cette adresse mail a été déjà utilisée. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
-    //         this.toastr.error(msgError, 'Création de compte échouée');
-    //       }
-    //     }
-    //   });
-    // }
+  generateCode(currentDate: Date, userCity: string, userId: string): string {
+    const year = currentDate.getFullYear().toString().slice(-2); // prend les deux derniers caractères de l'année
+    const city = userCity.substring(0, 2).toUpperCase(); // prend les deux premiers caractères de la ville et les convertit en majuscules
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // ajoute un zéro au mois s'il est inférieur à 10
+    const day = currentDate.getDate().toString().padStart(2, '0'); // ajoute un zéro au jour s'il est inférieur à 10
+    const dateString = `${year}${month}${day}`;
+    const code = `${city}-${dateString}-${userId}`;
+    return code;
   }
 
-  login(form: any) {
-    this.authService.login(form).subscribe({
-      next: data => {
-        this.tokenService.saveToken(data.accessToken);
-        this.userService.getUserByEmail(this.tokenService.decodeToken(data.accessToken).sub).subscribe(
-          {
-            next: data => {
-              localStorage.setItem('idCandidat', String(data.id));
-            },
-            error: err => console.log(err)
-          }
-        );
-        this.toastr.success("Authentification éffectuée avec success", 'Authentification réussie');
-      },
-    });
+
+
+  createAccount(step: number) {
+    this.step = step;
   }
 
 }
