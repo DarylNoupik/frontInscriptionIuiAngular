@@ -4,6 +4,8 @@ import { IUtilisateur } from "../../_interfaces/utilisateur";
 import { AuthenticationService } from "../../_services/authentication.service";
 import { Router } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
+import { ZoneService } from 'src/app/_services/zone.service';
+import { IZone } from 'src/app/_interfaces/izone';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +26,7 @@ export class RegisterComponent implements OnInit {
   msgError: string = "";
 
   step: number = 1;
+  zones: IZone[] = [];
 
   switchStep(step: number) {
     this.step = step;
@@ -32,6 +35,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private toastr: ToastrService,
+    private zoneService: ZoneService,
     private router: Router
   ) { }
 
@@ -67,6 +71,14 @@ export class RegisterComponent implements OnInit {
 
   login() {
     this.router.navigate(['/auth']);
+  }
+
+  getAllZones() {
+    this.zoneService.liste().subscribe({
+      next: (value) => {
+        this.zones = value;
+      }
+    });
   }
 
 }
