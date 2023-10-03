@@ -8,7 +8,7 @@ import { CFooterComponent } from './c-footer/c-footer.component';
 import { CHeaderComponent } from './c-header/c-header.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { InscriptionForm1Component } from './inscription-form1/inscription-form1.component';
-import {FormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HomeInscrisComponent } from './home-inscris/home-inscris.component';
 import { ResultatComponent } from './resultat/resultat.component';
 
@@ -24,10 +24,11 @@ import { ResultatComponent } from './resultat/resultat.component';
     HomeInscrisComponent,
     ResultatComponent,
   ],
-    imports: [
-        CommonModule,
-        CandidatRoutingModule,
-        FormsModule
-    ]
+  imports: [
+    CommonModule,
+    CandidatRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ]
 })
 export class CandidatModule { }

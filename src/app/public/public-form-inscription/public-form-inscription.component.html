@@ -50,8 +50,6 @@
       </div>
     </div>
 
-
-
     <div *ngIf="showForm" class="container row justify-content-center ">
 
       <div>&nbsp;</div>
@@ -70,7 +68,7 @@
 
       <div class="col-lg-6 card">
         <div class="contact-form-wrapper">
-          <form name="form" #f="ngForm" (ngSubmit)="onSubmit()">
+          <div name="form">
             <div class="form-header d-flex mb-4">
               <span class="stepIndicator active" [ngClass]="{finish: step > 2}">Details personnels</span>
               <span class="stepIndicator" [ngClass]="{active: step >= 3, finish: step > 3}">Informations
@@ -79,374 +77,759 @@
               <span class="stepIndicator" [ngClass]="{active: step >= 5, finish: step > 5}">Paiement</span>
             </div>
 
-            <div class="row" [hidden]="!(step == 1)">
+            <form [formGroup]="formStep1" (ngSubmit)="createAccount(step + 1)" class="row g-3  needs-validation"
+              novalidate [hidden]="!(step == 1)">
               <p class="text-center mb-4">Informations personnelles pour la création de comptes</p>
               <div class="col-md-12">
-                <div class="single-input">
-                  <label for="nom"> Noms (*) </label>
-                  <input [(ngModel)]="compteform.name" #nom="ngModel" style="width: 100%;" type="text" id="nom"
-                    name="nom" class="form-input" placeholder="Votre(Vos) Nom(s)">
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="single-input">
-                  <label for="prenom"> Prénoms (*) </label>
-                  <input required [(ngModel)]="compteform.prenom" #prenom="ngModel" style="width: 100%;" type="text"
-                    id="prenom" name="prenom" class="form-input" placeholder=" Votre(Vos) Prénom(s) ">
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="single-input">
-                  <div class="block-number">
-                    <p for="telephone"> Votre numéro de téléphone (*) </p>
-                    <label for="telephone"> {{siteSelected.indicatif}} </label>
-                    <input [(ngModel)]="compteform.telephone" style="width: 100%;" type="text" id="telephone"
-                      name="telephone" class="form-input" placeholder=" Votre numéro de téléphone ">
+                <div class="">
+                  <label for="nom" class="form-label">Noms (*)</label>
+                  <input formControlName="nom" required style="width: 100%;" type="text" id="nom" name="nom"
+                    class="form-control form-control-lg" placeholder="Votre(Vos) Nom(s)" [ngClass]="{
+                      'is-invalid':
+                      form1Controls['nom'].errors &&
+                      form1Controls['nom'].touched,
+                      'is-valid': form1Controls['nom'].valid
+                  }">
+                  <div *ngIf="form1Controls['nom'].errors" class="invalid-feedback">
+                    <div *ngIf="form1Controls['nom'].errors['required']">Nom requis</div>
+                  </div>
+                  <div *ngIf="form1Controls['nom'].valid" class="valid-feedback">
+                    C'est bon!
                   </div>
                 </div>
               </div>
 
               <div class="col-md-12">
-                <div class="single-input">
-                  <label for="email"> Votre adresse email </label>
-                  <input #email [(ngModel)]="compteform.email" style="width: 100%;" type="text" id="email" name="email"
-                    class="form-input" placeholder="Lieu de naissance">
+                <div class="">
+                  <label for="prenom" class="form-label"> Prénoms (*) </label>
+                  <input formControlName="prenom" required style="width: 100%;" type="text" id="prenom" name="prenom"
+                    class="form-control form-control-lg" placeholder=" Votre(Vos) Prénom(s) " [ngClass]="{
+                      'is-invalid':
+                      form1Controls['prenom'].errors &&
+                      form1Controls['prenom'].touched,
+                      'is-valid': form1Controls['prenom'].valid
+                  }">
+                  <div *ngIf="form1Controls['prenom'].errors" class="invalid-feedback">
+                    <div *ngIf="form1Controls['prenom'].errors['required']">Prenom requis</div>
+                  </div>
+                  <div *ngIf="form1Controls['prenom'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
                 </div>
               </div>
 
 
               <div class="col-md-12">
-                <div class="form-button">
-                  <button type="button" class="button radius-10 w-100"
-                    (click)="createAccount(step + 1) ">Suivant</button>
+                <label for="telephone" class="form-label">Votre numéro de téléphone (*)</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                  <input type="text" formControlName="telephone" placeholder="Votre numéro de téléphone "
+                    class="form-control  form-control-lg is-invalid" id="telephone"
+                    aria-describedby="inputGroupPrepend3 telephoneFeedback" required [ngClass]="{
+    'is-invalid':
+    form1Controls['telephone'].errors &&
+    form1Controls['telephone'].touched,
+    'is-valid': form1Controls['telephone'].valid
+}">
+                  <div *ngIf="form1Controls['telephone'].errors" class="invalid-feedback">
+                    <div *ngIf="form1Controls['telephone'].errors['required']">Numero de téléphone requis</div>
+                    <div *ngIf="form1Controls['telephone'].errors['onlyNumber']">Le numero de téléphone doit être des
+                      chiffres uniquement</div>
+                    <div *ngIf="form1Controls['telephone'].errors['min']">Numero de téléphone doit être superieur à
+                      0
+                    </div>
+                    <div *ngIf="form1Controls['telephone'].errors['minlength']">Numero de téléphone doit avoir
+                      minimun
+                      8 chiffres</div>
+                  </div>
+                  <div *ngIf="form1Controls['telephone'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
                 </div>
               </div>
 
-            </div>
+              <div class="col-md-12">
+                <div class="">
+                  <label for="email" class="form-label"> Votre adresse email </label>
+                  <input formControlName="email" style="width: 100%;" type="text" id="email" name="email"
+                    class="form-control form-control-lg" required placeholder="Votre adresse email" [ngClass]="{
+                      'is-invalid':
+                      form1Controls['email'].errors &&
+                      form1Controls['email'].touched,
+                      'is-valid': form1Controls['email'].valid
+                  }">
+                  <div *ngIf="form1Controls['email'].errors" class="invalid-feedback">
+                    <div *ngIf="form1Controls['email'].errors['required']">Email requis</div>
+                    <div *ngIf="form1Controls['email'].errors['email']">Email non conforme</div>
+                  </div>
+                  <div *ngIf="form1Controls['email'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
 
+              <div class="col-md-12">
+                <div class="form-button">
+                  <button type="submit" class="button radius-10 w-100" [disabled]="formStep1.invalid">Suivant</button>
+                </div>
+              </div>
 
-            <div class="row" [hidden]="!(step == 2)">
+            </form>
+
+            <form [hidden]="!(step == 2)" [formGroup]="formStep2" (ngSubmit)="setStep(step + 1)"
+              class="row g-3 needs-validation was-validated" novalidate>
               <p class="text-center mb-4">Informations supplementaires</p>
               <div class="col-md-12">
-                <div class="single-input">
-                  <label for="date_naissance">Date de naissance (*)</label>
-                  <input [(ngModel)]="candidatureForm.date_naissance" #date_naissance="ngModel" style="width: 100%;"
-                    type="date" id="date_naissance" name="date_naissance" class="form-input"
-                    placeholder="Date de naissance">
+                <div class="">
+                  <label for="date_naissance" class="form-label">Date de naissance (*)</label>
+                  <input formControlName="date_naissance" required max="{{currentDate | date:'yyyy-MM-dd'}}"
+                    style="width: 100%;" class="form-control form-control-lg" type="date" id="date_naissance"
+                    name="date_naissance" placeholder="Date de naissance" [ngClass]="{
+                      'is-invalid':
+                      form2Controls['date_naissance'].errors &&
+                      form2Controls['date_naissance'].touched,
+                      'is-valid': form2Controls['date_naissance'].valid
+                  }">
+                  <div *ngIf="form2Controls['date_naissance'].errors" class="invalid-feedback">
+                    <div *ngIf="form2Controls['date_naissance'].errors['required']">Date de naissance requis</div>
+                    <div *ngIf="form2Controls['date_naissance'].errors['max']">La date de naissance ne doit pas être
+                      superieure au {{currentDate | date:'yyyy-MM-dd'}}</div>
+                  </div>
+                  <div *ngIf="form2Controls['date_naissance'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
                 </div>
               </div>
 
               <div class="col-md-12">
-                <div class="single-input">
-                  <label for="nationalite">Nationalité(*)</label>
-                  <input required [(ngModel)]="candidatureForm.nationalite" #nationalite="ngModel" style="width: 100%;"
-                    type="text" id="nationalite" name="nationalite" class="form-input" placeholder="Nationalité">
+                <div class="">
+                  <label for="nationalite" class="form-label"> Nationalité (*) </label>
+                  <input formControlName="nationalite" required style="width: 100%;" type="text" id="nationalite"
+                    name="nationalite" class="form-control form-control-lg" placeholder="Entrer votre nationalité "
+                    [ngClass]="{
+                      'is-invalid':
+                      form2Controls['nationalite'].errors &&
+                      form2Controls['nationalite'].touched,
+                      'is-valid': form2Controls['nationalite'].valid
+                  }">
+                  <div *ngIf="form2Controls['nationalite'].errors" class="invalid-feedback">
+                    <div *ngIf="form2Controls['nationalite'].errors['required']">Nationalité requis</div>
+                  </div>
+                  <div *ngIf="form2Controls['nationalite'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="ville" class="form-label">Ville de résidence(*)</label>
+                  <input formControlName="ville" required style="width: 100%;" type="text" id="ville" name="ville"
+                    class="form-control form-control-lg" placeholder="Ville de résidence" [ngClass]="{
+                      'is-invalid':
+                      form2Controls['ville'].errors &&
+                      form2Controls['ville'].touched,
+                      'is-valid': form2Controls['ville'].valid
+                  }">
+                  <div *ngIf="form2Controls['ville'].errors" class="invalid-feedback">
+                    <div *ngIf="form2Controls['ville'].errors['required']">Ville de résidence requis</div>
+                  </div>
+                  <div *ngIf="form2Controls['ville'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
                 </div>
               </div>
 
               <div class="col-md-12">
-                <div class="single-input">
-                  <label for="ville">Ville de résidence(*)</label>
-                  <input [(ngModel)]="candidatureForm.ville" style="width: 100%;" type="text" id="ville" name="ville"
-                    class="form-input" placeholder="Ville de résidence">
+                <div class="">
+                  <label for="ville" class="form-label">Lieu de naissances(*)</label>
+                  <input formControlName="lieu_naissance" required style="width: 100%;" type="text" id="lieu_naissance"
+                    name="lieu_naissance" class="form-control form-control-lg"
+                    placeholder="Entrer votre lieu de naissance" [ngClass]="{
+                      'is-invalid':
+                      form2Controls['lieu_naissance'].errors &&
+                      form2Controls['lieu_naissance'].touched,
+                      'is-valid': form2Controls['lieu_naissance'].valid
+                  }">
+                  <div *ngIf="form2Controls['lieu_naissance'].errors" class="invalid-feedback">
+                    <div *ngIf="form2Controls['lieu_naissance'].errors['required']">Lieu de naissances requis</div>
+                  </div>
+                  <div *ngIf="form2Controls['lieu_naissance'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
                 </div>
               </div>
 
               <div class="col-md-12">
-                <div class="single-input">
-                  <label for="ville">Lieu de naissances(*)</label>
-                  <input #lieu_naissance [(ngModel)]="candidatureForm.lieu_de_naissance" style="width: 100%;"
-                    type="text" id="lieu_naissance" name="lieu_naissance" class="form-input"
-                    placeholder="Lieu de naissance">
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="genre" required class="form-check-input" value="M" type="radio" name="genre"
+                      id="genre1" checked>
+                    <label class="form-check-label" for="genre1">
+                      Masculin
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="genre" required class="form-check-input" value="F" type="radio" name="genre"
+                      id="genre2">
+                    <label class="form-check-label" for="genre2">
+                      Féminin
+                    </label>
+                  </div>
                 </div>
               </div>
 
-              <div class="align-content-center">
-                <div class="single-input">
-                  <label>Genre</label>
-                  <input [(ngModel)]="candidatureForm.genre" value="M" required name="genre"
-                    style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                    style="font-size: 17px;"> Masculin </span> <br>
-                  <input [(ngModel)]="candidatureForm.genre" value="F" required name="genre"
-                    style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                    style="font-size: 17px;"> Féminin </span>
-                </div>
-              </div>
-              <div class="col-md-12">
+              <div class="col-md-12 mt-3">
                 <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" [disabled]="candidatureForm.date_naissance === '' || candidatureForm.nationalite === ''
-                  || candidatureForm.ville === '' || candidatureForm.lieu_de_naissance === '' || candidatureForm.genre ===
-                  ''" (click)="setStep(step + 1)">Suivant</button>
+                  <button type="submit" class="button radius-10 w-100" [disabled]="formStep2.invalid">Suivant</button>
+                </div>
+              </div>
+            </form>
+
+            <form [hidden]="!(step==3)" [formGroup]="formStep3" (ngSubmit)="setStep(step + 1)"
+              class="row g-3 needs-validation was-validated" novalidate>
+              <p class="text-center mb-4">Informations relatives aux tuteurs/parents</p>
+
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="nom_parent1" class="form-label">Nom de la Père (*)</label>
+                  <input formControlName="nom_parent1" required style="width: 100%;" type="text" id="nom_parent1"
+                    name="nom_parent1" class="form-control form-control-lg" placeholder="Nom de votre Père " [ngClass]="{
+                      'is-invalid':
+                      form3Controls['nom_parent1'].errors &&
+                      form3Controls['nom_parent1'].touched,
+                      'is-valid': form3Controls['nom_parent1'].valid
+                  }">
+                  <div *ngIf="form3Controls['nom_parent1'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['nom_parent1'].errors['required']">Nom père requis</div>
+                  </div>
+                  <div *ngIf="form3Controls['nom_parent1'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
                 </div>
               </div>
 
-            </div>
-
-
-
-            <div class="row" [hidden]="!(step==3)">
-              <p class="text-center mb-4">Informations relatives aux tuteurs</p>
               <div class="col-md-12">
-                <div class="single-input">
-                  <p>Numéro(s) de téléphone des tuteurs(*) <br> Veillez renseigner un
-                    numéro(XXX-XXX-XXX) ou plusieurs numéros (XXX-XXX-XXX/XXX-XXX-XXX) des tuteurs </p>
+                <div class="">
+                  <label for="email_pere" class="form-label"> Adresse email du père </label>
+                  <input formControlName="email_pere" required style="width: 100%;" type="text" id="email_pere"
+                    name="email_pere" class="form-control form-control-lg" placeholder="Adresse email du père"
+                    [ngClass]="{
+                      'is-invalid':
+                      form3Controls['email_pere'].errors &&
+                      form3Controls['email_pere'].touched,
+                      'is-valid': form3Controls['email_pere'].valid
+                  }">
+                  <div *ngIf="form3Controls['email_pere'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['email_pere'].errors['required']">Email requis</div>
+                    <div *ngIf="form3Controls['email_pere'].errors['email_pere']">Email non conforme</div>
+                  </div>
+                  <div *ngIf="form3Controls['email_pere'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
 
-                  <div class="block-number">
-                    <label for="tel_pere"> {{siteSelected.indicatif}} </label>
-                    <input [(ngModel)]="candidatureForm.tel_parents" style="width: 100%;" type="tel" id="tel_pere"
-                      name="tel_pere" class="form-input" placeholder="Numéro de téléphone des parents">
+              <div class="col-md-12">
+                <label for="telephone_pere" class="form-label">Numéro de téléphone du pere (*)</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                  <input type="text" formControlName="telephone_pere" class="form-control  form-control-lg is-invalid"
+                    id="telephone_pere" aria-describedby="inputGroupPrepend3 telephone_pereFeedback" required [ngClass]="{
+                  'is-invalid':
+                  form3Controls['telephone_pere'].errors &&
+                  form3Controls['telephone_pere'].touched,
+                  'is-valid': form3Controls['telephone_pere'].valid
+              }">
+                  <div *ngIf="form3Controls['telephone_pere'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['telephone_pere'].errors['onlyNumber']">Le numero de téléphone doit être
+                      des chiffres uniquement</div>
+                    <div *ngIf="form3Controls['telephone_pere'].errors['required']">Numero de téléphone requis</div>
+                    <div *ngIf="form3Controls['telephone_pere'].errors['min']">Numero de téléphone doit être superieur à
+                      0
+                    </div>
+                    <div *ngIf="form3Controls['telephone_pere'].errors['minlength']">Numero de téléphone doit avoir
+                      minimun
+                      8 chiffres</div>
+                  </div>
+                  <div *ngIf="form3Controls['telephone_pere'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="nom_parent2" class="form-label">Nom de la Mère (*)</label>
+                  <input formControlName="nom_parent2" required style="width: 100%;" type="text" id="nom_parent2"
+                    name="nom_parent2" class="form-control form-control-lg" placeholder="Nom de votre Mère " [ngClass]="{
+                      'is-invalid':
+                      form3Controls['nom_parent2'].errors &&
+                      form3Controls['nom_parent2'].touched,
+                      'is-valid': form3Controls['nom_parent2'].valid
+                  }">
+                  <div *ngIf="form3Controls['nom_parent2'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['nom_parent2'].errors['required']">Nom mère requis</div>
+                  </div>
+                  <div *ngIf="form3Controls['nom_parent2'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="email_mere" class="form-label"> Adresse email de la mère </label>
+                  <input formControlName="email_mere" required style="width: 100%;" type="text" id="email_mere"
+                    name="email_mere" class="form-control form-control-lg" placeholder="Adresse email de la mère"
+                    [ngClass]="{
+                      'is-invalid':
+                      form3Controls['email_mere'].errors &&
+                      form3Controls['email_mere'].touched,
+                      'is-valid': form3Controls['email_mere'].valid
+                  }">
+                  <div *ngIf="form3Controls['email_mere'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['email_mere'].errors['required']">Email requis</div>
+                    <div *ngIf="form3Controls['email_mere'].errors['email_mere']">Email non conforme</div>
+                  </div>
+                  <div *ngIf="form3Controls['email_mere'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="telephone_mere" class="form-label">Numéro de téléphone de la mere (*)</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                  <input type="text" formControlName="telephone_mere" class="form-control  form-control-lg is-invalid"
+                    id="telephone_mere" aria-describedby="inputGroupPrepend3 telephone_mereFeedback" required [ngClass]="{
+                  'is-invalid':
+                  form3Controls['telephone_mere'].errors &&
+                  form3Controls['telephone_mere'].touched,
+                  'is-valid': form3Controls['telephone_mere'].valid
+              }">
+                  <div *ngIf="form3Controls['telephone_mere'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['telephone_mere'].errors['required']">Numero de téléphone requis</div>
+                    <div *ngIf="form3Controls['telephone_mere'].errors['min']">Numero de téléphone doit être superieur à
+                      0
+                    </div>
+                    <div *ngIf="form3Controls['telephone_mere'].errors['onlyNumber']">Le numero de téléphone doit être
+                      des chiffres uniquement</div>
+
+                    <div *ngIf="form3Controls['telephone_mere'].errors['minlength']">Numero de téléphone doit avoir
+                      minimun
+                      8 chiffres</div>
+                  </div>
+                  <div *ngIf="form3Controls['telephone_mere'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="email_tuteur" class="form-label"> Adresse email du tuteur </label>
+                  <input formControlName="email_tuteur" required style="width: 100%;" type="text" id="email_tuteur"
+                    name="email_tuteur" class="form-control form-control-lg" placeholder="Adresse email du tuteur"
+                    [ngClass]="{
+                      'is-invalid':
+                      form3Controls['email_tuteur'].errors &&
+                      form3Controls['email_tuteur'].touched,
+                      'is-valid': form3Controls['email_tuteur'].valid
+                  }">
+                  <div *ngIf="form3Controls['email_tuteur'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['email_tuteur'].errors['required']">Email requis</div>
+                    <div *ngIf="form3Controls['email_tuteur'].errors['email_tuteur']">Email non conforme</div>
+                  </div>
+                  <div *ngIf="form3Controls['email_tuteur'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="telephone_tuteur" class="form-label">Numéro de téléphone du tuteur (*)</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                  <input type="text" formControlName="telephone_tuteur" class="form-control  form-control-lg is-invalid"
+                    id="telephone_tuteur" aria-describedby="inputGroupPrepend3 telephone_tuteurFeedback" required
+                    [ngClass]="{
+                  'is-invalid':
+                  form3Controls['telephone_tuteur'].errors &&
+                  form3Controls['telephone_tuteur'].touched,
+                  'is-valid': form3Controls['telephone_tuteur'].valid
+              }">
+                  <div *ngIf="form3Controls['telephone_tuteur'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['telephone_tuteur'].errors['required']">Numero de téléphone requis</div>
+                    <div *ngIf="form3Controls['telephone_tuteur'].errors['min']">Numero de téléphone doit être superieur
+                      à
+                      0
+                    </div>
+                    <div *ngIf="form3Controls['telephone_tuteur'].errors['onlyNumber']">Le numero de téléphone doit être
+                      des chiffres uniquement</div>
+                    <div *ngIf="form3Controls['telephone_tuteur'].errors['minlength']">Numero de téléphone doit avoir
+                      minimun
+                      8 chiffres</div>
+                  </div>
+                  <div *ngIf="form3Controls['telephone_tuteur'].valid" class="valid-feedback">
+                    C'est bon!
                   </div>
                 </div>
               </div>
 
 
-              <div class="col-md-12">
-                <div class="single-input">
-                  <label>Nom du père (*)</label>
-                  <input required [(ngModel)]="candidatureForm.nom_parent1" style="width: 100%;" type="text"
-                    id="nom_parent1" name="nom_parent1" class="form-input" placeholder="Nom du père">
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="single-input">
-                  <label>Nom de la mère (*)</label>
-                  <input required [(ngModel)]="candidatureForm.nom_parent2" style="width: 100%;" type="text"
-                    id="nom_parent2" name="nom_parent2" class="form-input" placeholder="Nom de la mère">
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="single-input">
-                  <label>Email des parents / tuteurs (*)</label>
-                  <input required [(ngModel)]="candidatureForm.email_parents" style="width: 100%;" type="email"
-                    id="email_parents" name="email_parents" class="form-input" placeholder="Email des parents">
-                </div>
-              </div>
-
-              <div class="row">
+              <div class="row mt-3">
                 <div class="col-md-6">
                   <div class="form-button">
-                    <button type="button" class="button radius-10 w-100" (click)="setStep(step-1)">Précédent</button>
+                    <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-button">
-                    <button type="button" class="button radius-10 w-100" [disabled]="candidatureForm.email_parents === ''
-                     || candidatureForm.tel_parents === ''" (click)="setStep(step+1)">Suivant</button>
+                    <button type="submit" class="button radius-10 w-100" [disabled]="formStep3.invalid">Suivant</button>
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
 
-            <div class="row" [hidden]="!(step==4)">
+            <form [hidden]="!(step==4)" [formGroup]="formStep4" (ngSubmit)="setStep(step + 1)"
+              class="row g-3 needs-validation was-validated" novalidate>
               <p class="text-center mb-4">Informations sur votre scolarité</p>
 
-              <div class="align-content-center">
-                <div class="single-input">
-                  <label>Langue parlée (*)</label>
-                  <input required value="Francais" [(ngModel)]="candidatureForm.langue" name="langue" id="langue"
-                    style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                    style="font-size: 17px;"> Français </span> <br>
-                  <input required value="Anglais" [(ngModel)]="candidatureForm.langue" name="langue"
-                    style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                    style="font-size: 17px;"> Anglais </span>
+              <div class="col-md-12">
+                <label class="form-label">Langue parlée (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="langue" required class="form-check-input" value="Francais" type="radio"
+                      name="langue" id="langue1" checked>
+                    <label class="form-check-label" for="langue1">
+                      Français
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="langue" required class="form-check-input" value="Anglais" type="radio"
+                      name="langue" id="langue2">
+                    <label class="form-check-label" for="langue2">
+                      Anglais
+                    </label>
+                  </div>
                 </div>
               </div>
 
               <div class="col-md-12">
-                <div class="single-input">
-                  <label for="dernier_Etablissement">Dernier établissement fréquenté (*)</label>
-                  <input required [(ngModel)]="candidatureForm.dernier_Etablissement" style="width: 100%;" type="text"
-                    id="dernier_Etablissement" name="dernier_Etablissement" class="form-input"
-                    placeholder="Dernier établissement fréquenté">
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="single-input">
-
-                  <!------------------------------------------------->
-                  <label>Choix des formations</label>
-                  <p>Le concours permet d'accéder à 3 formations</p>
-                  <p>Veillez cocher la (ou les) formation(s) auxquelles vous shouaitez postuler </p>
-
-                  <div>&nbsp;</div>
-
-                  <div class="align-content-center">
-                    <input [(ngModel)]="candidatureForm.formation1" (change)="updateSelections()" name="formation1"
-                      [value]="'FA'" style="width: 20px; height: 20px;" type="checkbox" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> A - Ingénieur généraliste par alternance et ingénieur génie des procédés
-                    </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input [(ngModel)]="candidatureForm.formation2" (change)="updateSelections()" name="formation2"
-                      [checked]="'OP'" [value]="'OP'" style="width: 20px; height: 20px;" type="checkbox"
-                      class="form-input"> &nbsp; <span style="font-size: 17px;"> B - Ingénieur généraliste parcours
-                      international </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input [(ngModel)]="candidatureForm.formation3" (change)="updateSelections()" name="formation3"
-                      [checked]="'X'" [value]="'X'" style="width: 20px; height: 20px;" type="checkbox"
-                      class="form-input"> &nbsp; <span style="font-size: 17px;"> C - Ingénieur informatique </span>
-                  </div>
-                  <!--------------------------------------------------------------------------->
-                  <div> </div>
-
-
-                  <label>Indiquez le nombre de formations auquel vous candidatez</label>
-
-                  <div class="align-content-center">
-                    <input required value="1" name="paiement" [disabled]="true"
-                      [checked]="disableOption2 && disableOption3" style="width: 20px; height: 20px;" type="radio"
-                      class="form-input"> &nbsp; <span style="font-size: 17px;"> Concourir pour une formation(20 000
-                      FCFA) </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input name="paiement" value="2" [disabled]="true" [checked]="disableOption1 && disableOption3"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> Concourir pour deux formations(25 000 FCFA) </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input name="paiement" value="3" [disabled]="true" [checked]="disableOption2 && disableOption1"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> Concourir pour trois formations(30 000 FCFA) </span>
-                  </div>
-
-                  <label>Concourir pour (*)</label>
-                  <div class="align-content-center">
-                    <input required [(ngModel)]="candidatureForm.cycle" value="premier" name="cycle" id="cycle"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> 1er cycle </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input required [(ngModel)]="candidatureForm.cycle" value="second" name="cycle"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> 2nd cycle </span>
-                  </div>
-                  &nbsp;
-
-                  <label>Quel type de baccalauréat avez vous en votre posséssion</label>
-                  <div class="align-content-center">
-                    <input required [(ngModel)]="candidatureForm.serie_bac" value="C" name="serie_bac" id="serie_bac"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> C </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input required [(ngModel)]="candidatureForm.serie_bac" value="D" name="serie_bac" id="serie_bac"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> D </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input required [(ngModel)]="candidatureForm.serie_bac" value="TI" name="serie_bac" id="serie_bac"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> TI </span>
-                  </div>
-
-                  <div class="align-content-center">
-                    <input required [(ngModel)]="candidatureForm.serie_bac" value="A" name="serie_bac" id="serie_bac"
-                      style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                      style="font-size: 17px;"> A </span>
-                  </div>
-                  &nbsp;
-
-                  <div class="align-content-center">
-                    <div class="single-input">
-                      <label>Avez vous une bourse</label>
-                      <input required value="Oui" [(ngModel)]="candidatureForm.hasExchange" name="hasExchange"
-                        id="hasExchange" style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp;
-                      <span style="font-size: 17px;"> Oui </span> <br>
-                      <input required value="Non" [(ngModel)]="candidatureForm.hasExchange" name="hasExchange"
-                        style="width: 20px; height: 20px;" type="radio" class="form-input"> &nbsp; <span
-                        style="font-size: 17px;"> Non </span>
+                <div class="">
+                  <label for="dernier_etablissement" class="form-label">Dernier établissement fréquenté (*)</label>
+                  <input formControlName="dernier_etablissement" required style="width: 100%;" type="text"
+                    id="dernier_etablissement" name="dernier_etablissement" class="form-control form-control-lg"
+                    placeholder="Entrer votre dernier établissement" [ngClass]="{
+                    'is-invalid':
+                    form4Controls['dernier_etablissement'].errors &&
+                    form4Controls['dernier_etablissement'].touched,
+                    'is-valid': form4Controls['dernier_etablissement'].valid
+                }">
+                  <div *ngIf="form4Controls['dernier_etablissement'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['dernier_etablissement'].errors['required']">Dernier établissement requis
                     </div>
                   </div>
-                  &nbsp;
-
-                  <label for="image">Photo</label>
-                  <div class="align-content-center">
-                    <input [(ngModel)]="candidatureForm.image" type="file" id="image" (change)="onFileChanged($event)"
-                      accept=".jpg, .jpeg, .png" name="image"> &nbsp;
-                    <div class="image-preview" *ngIf="uploadedFile != '' && uploadedFile != undefined">
-                      <img src="{{uploadedFile}}" alt="" srcset="" loading="lazy">
-                    </div>
-                  </div>&nbsp;
-
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-button">
-                    <button type="button" class="button radius-10 w-100" (click)="setStep(step-1)">Précédent</button>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-button">
-                    <button type="button" class="button radius-10 w-100"
-                      [disabled]="candidatureForm.serie_bac === '' || candidatureForm.langue === '' || candidatureForm.dernier_Etablissement === ''  || candidatureForm.cycle === ''"
-                      (click)="setStep(step+1)">Suivant</button>
+                  <div *ngIf="form4Controls['dernier_etablissement'].valid" class="valid-feedback">
+                    C'est bon!
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="row" *ngIf="step == 5">
+              <div>
+                <label>Choix des formations</label>
+                <p>Le concours permet d'accéder à 3 formations</p>
+                <p>Veillez cocher la (ou les) formation(s) auxquelles vous shouaitez postuler </p>
+              </div>
 
               <div class="col-md-12">
-                <div class="single-input">
-                  <label>
-                    <p> {{siteSelected.msgPaiement}} </p>
-                  </label>
+                <div class="align-content-center">
+                  <div class="form-check mb-3">
+                    <input [checked]="true" formControlName="formation1" type="checkbox" (change)="updateSelections()"
+                      class="form-check-input" id="validationFormCheck1" name="formation1" [value]="'FA'" [ngClass]="{
+                    'is-invalid':
+                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
+                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
+                }">
+                    <label class="form-check-label" for="validationFormCheck1">A - Ingénieur généraliste par alternance
+                      et ingénieur génie des procédés</label>
+                    <div class="invalid-feedback"
+                      *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
+                      Veuillez selectionner une formation</div>
+                  </div>
 
-                  <div *ngIf="codeExists" style="color: red; font-weight: bolder">Le code {{
-                    candidatureForm.reference_paiement }} n'est pas valide !!! Il a déjà été utilisé ou est incorrect !
-                    Veillez réessayez</div>
-                  <div *ngIf="codeValid" style="color: green; font-weight: bolder">Le code {{
-                    candidatureForm.reference_paiement }} est valide </div>
-                  <input required [(ngModel)]="candidatureForm.reference_paiement" (ngModelChange)="checkCode()"
-                    style="width: 100%;" type="text" id="reference_paiement" name="reference_paiement"
-                    class="form-input" placeholder=" Exemple :MP220315.13.49.A18995 ">
+                  <div class="form-check mb-3">
+                    <input formControlName="formation2" type="checkbox" (change)="updateSelections()" name="formation2"
+                      [value]="'OP'" class="form-check-input" id="validationFormCheck2" [ngClass]="{
+                    'is-invalid':
+                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
+                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
+                }">
+                    <label class="form-check-label" for="validationFormCheck2"> B - Ingénieur généraliste parcours
+                      international</label>
+                    <div class="invalid-feedback"
+                      *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
+                      Veuillez selectionner une formation</div>
+                  </div>
+
+
+                  <div class="form-check mb-3">
+                    <input formControlName="formation3" type="checkbox" (change)="updateSelections()" name="formation3"
+                      [value]="'X'" class="form-check-input" id="validationFormCheck3" [ngClass]="{
+                    'is-invalid':
+                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
+                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
+                }">
+                    <label class="form-check-label" for="validationFormCheck3"> C - Ingénieur informatique </label>
+                    <div class="invalid-feedback"
+                      *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
+                      Veuillez selectionner une formation</div>
+                  </div>
+
                 </div>
               </div>
 
-              <div *ngIf="showNumberPaiement" class="col-md-12">
-                <div class="single-input">
-                  <p>Numéro de téléphone ayant éffectué la transaction</p>
 
-                  <div class="block-number">
-                    <label> {{siteSelected.indicatif}}</label>
-                    <input required [(ngModel)]="candidatureForm.telephone_paiement" style="width: 100%;" type="text"
-                      id="telephone_paiement" name="reference_paiement" class="form-input"
-                      placeholder=" Exemple : 6 9XX XXX XXX ">
+              <div class="col-md-12">
+                <label class="form-label">Indiquez le nombre de formations auquel vous candidatez (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="paiement" value="20 000FCFA" [checked]="disableOption2 && disableOption3"
+                      required class="form-check-input" type="radio" name="paiement" id="paiement1" checked
+                      [disabled]="true" [readOnly]="true">
+                    <label class="form-check-label" for="paiement1">
+                      Concourir pour une formation(20 000FCFA)
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="paiement" name="paiement" value="25 000 FCFA"
+                      [checked]="disableOption1 && disableOption3" class="form-check-input" type="radio" name="paiement"
+                      id="paiement2" [disabled]="true" [readOnly]="true">
+                    <label class="form-check-label" for="paiement2">
+                      Concourir pour deux formations(25 000 FCFA)
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input formControlName="paiement" name="paiement" value="30 000 FCFA"
+                      [checked]="disableOption2 && disableOption1" required class="form-check-input" type="radio"
+                      name="paiement" id="paiement3" [disabled]="true" [readOnly]="true">
+                    <label class="form-check-label" for="paiement3">
+                      Concourir pour trois formations(30 000 FCFA)
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Concourir pour (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="cycle" required (click)="checkIf2Cycle()" class="form-check-input"
+                      value="1er cycle" type="radio" name="cycle" id="cycle1" checked>
+                    <label class="form-check-label" for="cycle1">
+                      1er cycle
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="cycle" (click)="checkIf2Cycle()" required class="form-check-input"
+                      value="2nd cycle" type="radio" name="cycle" id="cycle2">
+                    <label class="form-check-label" for="cycle2">
+                      2nd cycle
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == '2nd cycle'">
+                <div class="">
+                  <label for="diplome_universitaire" class="form-label">Diplome universitaire fréquenté (*)</label>
+                  <input formControlName="diplome_universitaire" required style="width: 100%;" type="text"
+                    id="diplome_universitaire" name="diplome_universitaire" class="form-control form-control-lg"
+                    placeholder="Entrer votre diplome universitaire" [ngClass]="{
+                    'is-invalid':
+                    form4Controls['diplome_universitaire'].errors &&
+                    form4Controls['diplome_universitaire'].touched,
+                    'is-valid': form4Controls['diplome_universitaire'].valid
+                }">
+                  <div *ngIf="form4Controls['diplome_universitaire'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['diplome_universitaire'].errors['required']">Diplome universitaire requis
+                    </div>
+                  </div>
+                  <div *ngIf="form4Controls['diplome_universitaire'].valid" class="valid-feedback">
+                    C'est bon!
                   </div>
                 </div>
               </div>
 
 
-              <div class="col-md-6">
-                <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStep(step-1)">Précédent</button>
+              <div class="col-md-12">
+                <label class="form-label">Quel type de baccalauréat avez-vous en votre possession ? (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Science"
+                      type="radio" name="serie_bac" id="serie_bac1" checked>
+                    <label class="form-check-label" for="serie_bac1">
+                      GCE A Level Science
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Arts"
+                      type="radio" name="serie_bac" id="serie_bac2">
+                    <label class="form-check-label" for="serie_bac2">
+                      GCE A Level Arts
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="C" type="radio"
+                      name="serie_bac" id="serie_bac3">
+                    <label class="form-check-label" for="serie_bac3">
+                      C
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="D" type="radio"
+                      name="serie_bac" id="serie_bac4">
+                    <label class="form-check-label" for="serie_bac4">
+                      D
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="TI" type="radio"
+                      name="serie_bac" id="serie_bac5">
+                    <label class="form-check-label" for="serie_bac5">
+                      TI
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100"
-                    [disabled]=" (candidatureForm.telephone_paiement === '' && showNumberPaiement ) || candidatureForm.reference_paiement === '' || codeExists ">Valider</button>
-                </div>
-              </div>
-            </div>
 
-          </form>
+              <div class="col-md-12">
+                <label class="form-label">Avez vous une bourse (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="hasExchange" required class="form-check-input" value="Oui" type="radio"
+                      name="hasExchange" id="hasExchange1" checked>
+                    <label class="form-check-label" for="hasExchange1">
+                      Oui
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="hasExchange" required class="form-check-input" value="Non" type="radio"
+                      name="hasExchange" id="hasExchange2">
+                    <label class="form-check-label" for="hasExchange2">
+                      Non
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="image">Photo</label>
+                <div class="align-content-center">
+                  <input formControlName="image" type="file" id="image" class="form-control form-control-lg"
+                    (change)="onFileChanged($event)" accept=".jpg, .jpeg, .png" name="image"> &nbsp;
+                  <div class="image-preview" *ngIf="uploadedFile != '' && uploadedFile != undefined">
+                    <img src="{{uploadedFile}}" alt="" srcset="" loading="lazy">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-button">
+                    <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-button">
+                    <button type="submit" class="button radius-10 w-100" [disabled]="formStep4.invalid">Suivant</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <form *ngIf="step == 5" [formGroup]="formStep5" (ngSubmit)="onSubmit()" class="row g-3 needs-validation"
+              novalidate>
+              <div class="col-md-12">
+                <p> {{siteSelected.msgPaiement}} </p>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="reference_paiement" class="form-label">Reference de paiement</label>
+                  <input formControlName="reference_paiement" (change)="checkCode()" required style="width: 100%;"
+                    type="text" id="reference_paiement" name="reference_paiement" class="form-control form-control-lg"
+                    placeholder=" Exemple :MP220315.13.49.A18995 " [ngClass]="{
+                    'is-invalid':
+                    (form5Controls['reference_paiement'].errors &&
+                    form5Controls['reference_paiement'].touched) || codeExists,
+                    'is-valid': form5Controls['reference_paiement'].valid
+                }">
+                  <div *ngIf="form5Controls['reference_paiement'].errors" class="invalid-feedback">
+                    <div *ngIf="form5Controls['reference_paiement'].errors['required']">Reference de paiement requis
+                    </div>
+                  </div>
+                  <div *ngIf=" codeExists" class="invalid-feedback">
+                    <div *ngIf="codeExists">Le code {{formStep5.get('reference_paiement')?.value}} n'est pas valide !!!
+                      Il a déjà été utilisé ou est incorrect ! <br> Veillez réessayez</div>
+                  </div>
+                  <div *ngIf="form5Controls['reference_paiement'].valid && codeValid" class="valid-feedback">
+                    Le code {{formStep5.get('reference_paiement')?.value }} est valide
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="telephone_paiement" class="form-label">Numéro de téléphone ayant éffectué la transaction
+                  (*)</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                  <input type="text" formControlName="telephone_paiement" placeholder=" Exemple : 6 9XX XXX XXX "
+                    class="form-control  form-control-lg is-invalid" id="telephone_paiement"
+                    aria-describedby="inputGroupPrepend3 telephone_paiementFeedback" required [ngClass]="{
+            'is-invalid':
+            form5Controls['telephone_paiement'].errors &&
+            form5Controls['telephone_paiement'].touched,
+            'is-valid': form5Controls['telephone_paiement'].valid
+            }">
+                  <div *ngIf="form5Controls['telephone_paiement'].errors" class="invalid-feedback">
+                    <div *ngIf="form5Controls['telephone_paiement'].errors['required']">Numero de téléphone requis</div>
+                    <div *ngIf="form5Controls['telephone_paiement'].errors['onlyNumber']">Le numero de téléphone doit
+                      être des
+                      chiffres uniquement</div>
+                    <div *ngIf="form5Controls['telephone_paiement'].errors['min']">Numero de téléphone doit être
+                      superieur à
+                      0
+                    </div>
+                    <div *ngIf="form5Controls['telephone_paiement'].errors['minlength']">Numero de téléphone doit avoir
+                      minimun
+                      8 chiffres</div>
+                  </div>
+                  <div *ngIf="form5Controls['telephone_paiement'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-button">
+                    <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-button">
+                    <button type="submit" class="button radius-10 w-100" [disabled]="formStep5.invalid">Valider</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
