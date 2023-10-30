@@ -539,11 +539,92 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-12">
+                <label class="form-label">Quel type de baccalauréat avez-vous en votre possession ? (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Science"
+                      type="radio" name="serie_bac" id="serie_bac1" checked>
+                    <label class="form-check-label" for="serie_bac1">
+                      GCE A Level Science
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Arts"
+                      type="radio" name="serie_bac" id="serie_bac2">
+                    <label class="form-check-label" for="serie_bac2">
+                      GCE A Level Arts
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="C" type="radio"
+                      name="serie_bac" id="serie_bac3">
+                    <label class="form-check-label" for="serie_bac3">
+                      C
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="D" type="radio"
+                      name="serie_bac" id="serie_bac4">
+                    <label class="form-check-label" for="serie_bac4">
+                      D
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="serie_bac" required class="form-check-input" value="TI" type="radio"
+                      name="serie_bac" id="serie_bac5">
+                    <label class="form-check-label" for="serie_bac5">
+                      TI
+                    </label>
+                  </div>
+                </div>
+              </div>
 
               <div>
                 <label>Choix des formations</label>
                 <p>Le concours permet d'accéder à 3 formations</p>
                 <p>Veillez cocher la (ou les) formation(s) auxquelles vous shouaitez postuler </p>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Concourir pour (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input formControlName="cycle" required (click)="checkIf2Cycle()" class="form-check-input"
+                      value="1er cycle" type="radio" name="cycle" id="cycle1" checked>
+                    <label class="form-check-label" for="cycle1">
+                      1er cycle
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="cycle" (click)="checkIf2Cycle()" required class="form-check-input"
+                      value="2nd cycle" type="radio" name="cycle" id="cycle2">
+                    <label class="form-check-label" for="cycle2">
+                      2nd cycle
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == '2nd cycle'">
+                <div class="">
+                  <label for="diplome_universitaire" class="form-label">Diplome universitaire fréquenté (*)</label>
+                  <input formControlName="diplome_universitaire" required style="width: 100%;" type="text"
+                    id="diplome_universitaire" name="diplome_universitaire" class="form-control form-control-lg"
+                    placeholder="Entrer votre diplome universitaire" [ngClass]="{
+                    'is-invalid':
+                    form4Controls['diplome_universitaire'].errors &&
+                    form4Controls['diplome_universitaire'].touched,
+                    'is-valid': form4Controls['diplome_universitaire'].valid
+                }">
+                  <div *ngIf="form4Controls['diplome_universitaire'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['diplome_universitaire'].errors['required']">Diplome universitaire requis
+                    </div>
+                  </div>
+                  <div *ngIf="form4Controls['diplome_universitaire'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
               </div>
 
               <div class="col-md-12">
@@ -593,6 +674,27 @@
                 </div>
               </div>
 
+              <div class="col-md-12">
+                <div class="">
+                  <label for="formation_principal" class="form-label">Formation principale</label>
+                  <input formControlName="formation_principal" required style="width: 100%;" type="text"
+                    id="formation_principal" name="formation_principal" class="form-control form-control-lg"
+                    placeholder="Entrer votre formation principale" [ngClass]="{
+                    'is-invalid':
+                    form4Controls['formation_principal'].errors &&
+                    form4Controls['formation_principal'].touched,
+                    'is-valid': form4Controls['formation_principal'].valid
+                }">
+                  <div *ngIf="form4Controls['formation_principal'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['formation_principal'].errors['required']">Formation principale requis
+                    </div>
+                  </div>
+                  <div *ngIf="form4Controls['formation_principal'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
 
               <div class="col-md-12">
                 <label class="form-label">Indiquez le nombre de formations auquel vous candidatez (*)</label>
@@ -625,88 +727,6 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
-                <label class="form-label">Concourir pour (*)</label>
-                <div class="align-content-center">
-                  <div class="form-check">
-                    <input formControlName="cycle" required (click)="checkIf2Cycle()" class="form-check-input"
-                      value="1er cycle" type="radio" name="cycle" id="cycle1" checked>
-                    <label class="form-check-label" for="cycle1">
-                      1er cycle
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input formControlName="cycle" (click)="checkIf2Cycle()" required class="form-check-input"
-                      value="2nd cycle" type="radio" name="cycle" id="cycle2">
-                    <label class="form-check-label" for="cycle2">
-                      2nd cycle
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == '2nd cycle'">
-                <div class="">
-                  <label for="diplome_universitaire" class="form-label">Diplome universitaire fréquenté (*)</label>
-                  <input formControlName="diplome_universitaire" required style="width: 100%;" type="text"
-                    id="diplome_universitaire" name="diplome_universitaire" class="form-control form-control-lg"
-                    placeholder="Entrer votre diplome universitaire" [ngClass]="{
-                    'is-invalid':
-                    form4Controls['diplome_universitaire'].errors &&
-                    form4Controls['diplome_universitaire'].touched,
-                    'is-valid': form4Controls['diplome_universitaire'].valid
-                }">
-                  <div *ngIf="form4Controls['diplome_universitaire'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['diplome_universitaire'].errors['required']">Diplome universitaire requis
-                    </div>
-                  </div>
-                  <div *ngIf="form4Controls['diplome_universitaire'].valid" class="valid-feedback">
-                    C'est bon!
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="col-md-12">
-                <label class="form-label">Quel type de baccalauréat avez-vous en votre possession ? (*)</label>
-                <div class="align-content-center">
-                  <div class="form-check">
-                    <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Science"
-                      type="radio" name="serie_bac" id="serie_bac1" checked>
-                    <label class="form-check-label" for="serie_bac1">
-                      GCE A Level Science
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Arts"
-                      type="radio" name="serie_bac" id="serie_bac2">
-                    <label class="form-check-label" for="serie_bac2">
-                      GCE A Level Arts
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input formControlName="serie_bac" required class="form-check-input" value="C" type="radio"
-                      name="serie_bac" id="serie_bac3">
-                    <label class="form-check-label" for="serie_bac3">
-                      C
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input formControlName="serie_bac" required class="form-check-input" value="D" type="radio"
-                      name="serie_bac" id="serie_bac4">
-                    <label class="form-check-label" for="serie_bac4">
-                      D
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input formControlName="serie_bac" required class="form-check-input" value="TI" type="radio"
-                      name="serie_bac" id="serie_bac5">
-                    <label class="form-check-label" for="serie_bac5">
-                      TI
-                    </label>
-                  </div>
-                </div>
-              </div>
 
               <div class="col-md-12">
                 <label class="form-label">Avez vous une bourse (*)</label>

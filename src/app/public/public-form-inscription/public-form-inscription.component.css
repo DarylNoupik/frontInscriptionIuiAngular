@@ -1,3 +1,7 @@
+label {
+  font-weight: bold;
+}
+
 .card {
   /* padding: 1rem; */
   max-width: 500px;

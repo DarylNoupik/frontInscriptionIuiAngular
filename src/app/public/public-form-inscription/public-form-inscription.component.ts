@@ -64,7 +64,8 @@ export class PublicFormInscriptionComponent implements OnInit {
     email_tuteur: '',
     telephone_tuteur: '',
     telephone_mere: '',
-    email_mere: ''
+    email_mere: '',
+    formation_principal: ''
   };
   public compteform: IUtilisateur = {
     name: "",
@@ -126,6 +127,7 @@ export class PublicFormInscriptionComponent implements OnInit {
 
   formStep4: FormGroup = new FormGroup({
     dernier_etablissement: new FormControl('', [Validators.required]),
+    formation_principal: new FormControl('', [Validators.required]),
     langue: new FormControl('', [Validators.required]),
     paiement: new FormControl({ value: "", disabled: true }, []),
     cycle: new FormControl('', [Validators.required]),
@@ -332,6 +334,7 @@ export class PublicFormInscriptionComponent implements OnInit {
       formation1: this.formStep4.get('formation1')?.value,
       formation2: this.formStep4.get('formation2')?.value,
       formation3: this.formStep4.get('formation3')?.value,
+      formation_principal: this.formStep4.get('formation_principal')?.value,
 
       reference_paiement: this.formStep5.get('reference_paiement')?.value,
       telephone_paiement: this.formStep5.get('telephone_paiement')?.value,
@@ -368,10 +371,6 @@ export class PublicFormInscriptionComponent implements OnInit {
       },
       error: err => {
         console.log(err);
-        if (err.status === 200) {
-          this.candidatureForm.compteID = err.id;
-          this.addCandidature()
-        }
       }
     });
     return true;
@@ -405,7 +404,6 @@ export class PublicFormInscriptionComponent implements OnInit {
     this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
   }
 
-
   generateCode(currentDate: Date, userCity: string, userId: string): string {
     const year = currentDate.getFullYear().toString().slice(-2); // prend les deux derniers caractères de l'année
     const city = userCity.substring(0, 2).toUpperCase(); // prend les deux premiers caractères de la ville et les convertit en majuscules
@@ -415,8 +413,6 @@ export class PublicFormInscriptionComponent implements OnInit {
     const code = `${city}-${dateString}-${userId}`;
     return code;
   }
-
-
 
   createAccount(step: number) {
     this.step = step;

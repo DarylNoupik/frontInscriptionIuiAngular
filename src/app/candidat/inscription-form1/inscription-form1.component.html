@@ -472,11 +472,11 @@
                                         type="text" id="dernier_etablissement" name="dernier_etablissement"
                                         class="form-control form-control-lg"
                                         placeholder="Entrer votre dernier établissement" [ngClass]="{
-                      'is-invalid':
-                      form4Controls['dernier_etablissement'].errors &&
-                      form4Controls['dernier_etablissement'].touched,
-                      'is-valid': form4Controls['dernier_etablissement'].valid
-                  }">
+                    'is-invalid':
+                    form4Controls['dernier_etablissement'].errors &&
+                    form4Controls['dernier_etablissement'].touched,
+                    'is-valid': form4Controls['dernier_etablissement'].valid
+                }">
                                     <div *ngIf="form4Controls['dernier_etablissement'].errors" class="invalid-feedback">
                                         <div *ngIf="form4Controls['dernier_etablissement'].errors['required']">Dernier
                                             établissement requis
@@ -487,149 +487,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div>
-                                <label>Choix des formations</label>
-                                <p>Le concours permet d'accéder à 3 formations</p>
-                                <p>Veillez cocher la (ou les) formation(s) auxquelles vous shouaitez postuler </p>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="align-content-center">
-                                    <div class="form-check mb-3">
-                                        <input [checked]="true" formControlName="formation1" type="checkbox"
-                                            (change)="updateSelections()" class="form-check-input"
-                                            id="validationFormCheck1" name="formation1" [value]="'FA'" [ngClass]="{
-                      'is-invalid':
-                      !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
-                      'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
-                  }">
-                                        <label class="form-check-label" for="validationFormCheck1">A - Ingénieur
-                                            généraliste par alternance
-                                            et ingénieur génie des procédés</label>
-                                        <div class="invalid-feedback"
-                                            *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
-                                            Veuillez selectionner une formation</div>
-                                    </div>
-
-                                    <div class="form-check mb-3">
-                                        <input formControlName="formation2" type="checkbox"
-                                            (change)="updateSelections()" name="formation2" [value]="'OP'"
-                                            class="form-check-input" id="validationFormCheck2" [ngClass]="{
-                      'is-invalid':
-                      !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
-                      'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
-                  }">
-                                        <label class="form-check-label" for="validationFormCheck2"> B - Ingénieur
-                                            généraliste parcours
-                                            international</label>
-                                        <div class="invalid-feedback"
-                                            *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
-                                            Veuillez selectionner une formation</div>
-                                    </div>
-
-
-                                    <div class="form-check mb-3">
-                                        <input formControlName="formation3" type="checkbox"
-                                            (change)="updateSelections()" name="formation3" [value]="'X'"
-                                            class="form-check-input" id="validationFormCheck3" [ngClass]="{
-                      'is-invalid':
-                      !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
-                      'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
-                  }">
-                                        <label class="form-check-label" for="validationFormCheck3"> C - Ingénieur
-                                            informatique </label>
-                                        <div class="invalid-feedback"
-                                            *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
-                                            Veuillez selectionner une formation</div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-12">
-                                <label class="form-label">Indiquez le nombre de formations auquel vous candidatez
-                                    (*)</label>
-                                <div class="align-content-center">
-                                    <div class="form-check">
-                                        <input formControlName="paiement" value="20 000FCFA"
-                                            [checked]="disableOption2 && disableOption3" required
-                                            class="form-check-input" type="radio" name="paiement" id="paiement1" checked
-                                            [disabled]="true" [readOnly]="true">
-                                        <label class="form-check-label" for="paiement1">
-                                            Concourir pour une formation(20 000FCFA)
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input formControlName="paiement" name="paiement" value="25 000 FCFA"
-                                            [checked]="disableOption1 && disableOption3" class="form-check-input"
-                                            type="radio" name="paiement" id="paiement2" [disabled]="true"
-                                            [readOnly]="true">
-                                        <label class="form-check-label" for="paiement2">
-                                            Concourir pour deux formations(25 000 FCFA)
-                                        </label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input formControlName="paiement" name="paiement" value="30 000 FCFA"
-                                            [checked]="disableOption2 && disableOption1" required
-                                            class="form-check-input" type="radio" name="paiement" id="paiement3"
-                                            [disabled]="true" [readOnly]="true">
-                                        <label class="form-check-label" for="paiement3">
-                                            Concourir pour trois formations(30 000 FCFA)
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class="form-label">Concourir pour (*)</label>
-                                <div class="align-content-center">
-                                    <div class="form-check">
-                                        <input formControlName="cycle" required (click)="checkIf2Cycle()"
-                                            class="form-check-input" value="1er cycle" type="radio" name="cycle"
-                                            id="cycle1" checked>
-                                        <label class="form-check-label" for="cycle1">
-                                            1er cycle
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input formControlName="cycle" (click)="checkIf2Cycle()" required
-                                            class="form-check-input" value="2nd cycle" type="radio" name="cycle"
-                                            id="cycle2">
-                                        <label class="form-check-label" for="cycle2">
-                                            2nd cycle
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == '2nd cycle'">
-                                <div class="">
-                                    <label for="diplome_universitaire" class="form-label">Diplome universitaire
-                                        fréquenté (*)</label>
-                                    <input formControlName="diplome_universitaire" required style="width: 100%;"
-                                        type="text" id="diplome_universitaire" name="diplome_universitaire"
-                                        class="form-control form-control-lg"
-                                        placeholder="Entrer votre diplome universitaire" [ngClass]="{
-                      'is-invalid':
-                      form4Controls['diplome_universitaire'].errors &&
-                      form4Controls['diplome_universitaire'].touched,
-                      'is-valid': form4Controls['diplome_universitaire'].valid
-                  }">
-                                    <div *ngIf="form4Controls['diplome_universitaire'].errors" class="invalid-feedback">
-                                        <div *ngIf="form4Controls['diplome_universitaire'].errors['required']">Diplome
-                                            universitaire requis
-                                        </div>
-                                    </div>
-                                    <div *ngIf="form4Controls['diplome_universitaire'].valid" class="valid-feedback">
-                                        C'est bon!
-                                    </div>
-                                </div>
-                            </div>
-
-
                             <div class="col-md-12">
                                 <label class="form-label">Quel type de baccalauréat avez-vous en votre possession ?
                                     (*)</label>
@@ -672,6 +529,171 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div>
+                                <label>Choix des formations</label>
+                                <p>Le concours permet d'accéder à 3 formations</p>
+                                <p>Veillez cocher la (ou les) formation(s) auxquelles vous shouaitez postuler </p>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label class="form-label">Concourir pour (*)</label>
+                                <div class="align-content-center">
+                                    <div class="form-check">
+                                        <input formControlName="cycle" required (click)="checkIf2Cycle()"
+                                            class="form-check-input" value="1er cycle" type="radio" name="cycle"
+                                            id="cycle1" checked>
+                                        <label class="form-check-label" for="cycle1">
+                                            1er cycle
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input formControlName="cycle" (click)="checkIf2Cycle()" required
+                                            class="form-check-input" value="2nd cycle" type="radio" name="cycle"
+                                            id="cycle2">
+                                        <label class="form-check-label" for="cycle2">
+                                            2nd cycle
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == '2nd cycle'">
+                                <div class="">
+                                    <label for="diplome_universitaire" class="form-label">Diplome universitaire
+                                        fréquenté (*)</label>
+                                    <input formControlName="diplome_universitaire" required style="width: 100%;"
+                                        type="text" id="diplome_universitaire" name="diplome_universitaire"
+                                        class="form-control form-control-lg"
+                                        placeholder="Entrer votre diplome universitaire" [ngClass]="{
+                    'is-invalid':
+                    form4Controls['diplome_universitaire'].errors &&
+                    form4Controls['diplome_universitaire'].touched,
+                    'is-valid': form4Controls['diplome_universitaire'].valid
+                }">
+                                    <div *ngIf="form4Controls['diplome_universitaire'].errors" class="invalid-feedback">
+                                        <div *ngIf="form4Controls['diplome_universitaire'].errors['required']">Diplome
+                                            universitaire requis
+                                        </div>
+                                    </div>
+                                    <div *ngIf="form4Controls['diplome_universitaire'].valid" class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="align-content-center">
+                                    <div class="form-check mb-3">
+                                        <input [checked]="true" formControlName="formation1" type="checkbox"
+                                            (change)="updateSelections()" class="form-check-input"
+                                            id="validationFormCheck1" name="formation1" [value]="'FA'" [ngClass]="{
+                    'is-invalid':
+                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
+                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
+                }">
+                                        <label class="form-check-label" for="validationFormCheck1">A - Ingénieur
+                                            généraliste par alternance
+                                            et ingénieur génie des procédés</label>
+                                        <div class="invalid-feedback"
+                                            *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
+                                            Veuillez selectionner une formation</div>
+                                    </div>
+
+                                    <div class="form-check mb-3">
+                                        <input formControlName="formation2" type="checkbox"
+                                            (change)="updateSelections()" name="formation2" [value]="'OP'"
+                                            class="form-check-input" id="validationFormCheck2" [ngClass]="{
+                    'is-invalid':
+                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
+                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
+                }">
+                                        <label class="form-check-label" for="validationFormCheck2"> B - Ingénieur
+                                            généraliste parcours
+                                            international</label>
+                                        <div class="invalid-feedback"
+                                            *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
+                                            Veuillez selectionner une formation</div>
+                                    </div>
+
+
+                                    <div class="form-check mb-3">
+                                        <input formControlName="formation3" type="checkbox"
+                                            (change)="updateSelections()" name="formation3" [value]="'X'"
+                                            class="form-check-input" id="validationFormCheck3" [ngClass]="{
+                    'is-invalid':
+                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
+                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
+                }">
+                                        <label class="form-check-label" for="validationFormCheck3"> C - Ingénieur
+                                            informatique </label>
+                                        <div class="invalid-feedback"
+                                            *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
+                                            Veuillez selectionner une formation</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="">
+                                    <label for="formation_principal" class="form-label">Formation principale</label>
+                                    <input formControlName="formation_principal" required style="width: 100%;"
+                                        type="text" id="formation_principal" name="formation_principal"
+                                        class="form-control form-control-lg"
+                                        placeholder="Entrer votre formation principale" [ngClass]="{
+                    'is-invalid':
+                    form4Controls['formation_principal'].errors &&
+                    form4Controls['formation_principal'].touched,
+                    'is-valid': form4Controls['formation_principal'].valid
+                }">
+                                    <div *ngIf="form4Controls['formation_principal'].errors" class="invalid-feedback">
+                                        <div *ngIf="form4Controls['formation_principal'].errors['required']">Formation
+                                            principale requis
+                                        </div>
+                                    </div>
+                                    <div *ngIf="form4Controls['formation_principal'].valid" class="valid-feedback">
+                                        C'est bon!
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <label class="form-label">Indiquez le nombre de formations auquel vous candidatez
+                                    (*)</label>
+                                <div class="align-content-center">
+                                    <div class="form-check">
+                                        <input formControlName="paiement" value="20 000FCFA"
+                                            [checked]="disableOption2 && disableOption3" required
+                                            class="form-check-input" type="radio" name="paiement" id="paiement1" checked
+                                            [disabled]="true" [readOnly]="true">
+                                        <label class="form-check-label" for="paiement1">
+                                            Concourir pour une formation(20 000FCFA)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input formControlName="paiement" name="paiement" value="25 000 FCFA"
+                                            [checked]="disableOption1 && disableOption3" class="form-check-input"
+                                            type="radio" name="paiement" id="paiement2" [disabled]="true"
+                                            [readOnly]="true">
+                                        <label class="form-check-label" for="paiement2">
+                                            Concourir pour deux formations(25 000 FCFA)
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input formControlName="paiement" name="paiement" value="30 000 FCFA"
+                                            [checked]="disableOption2 && disableOption1" required
+                                            class="form-check-input" type="radio" name="paiement" id="paiement3"
+                                            [disabled]="true" [readOnly]="true">
+                                        <label class="form-check-label" for="paiement3">
+                                            Concourir pour trois formations(30 000 FCFA)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="col-md-12">
                                 <label class="form-label">Avez vous une bourse (*)</label>

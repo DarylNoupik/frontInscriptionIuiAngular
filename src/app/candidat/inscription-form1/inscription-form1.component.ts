@@ -65,7 +65,8 @@ export class InscriptionForm1Component implements OnInit {
     email_tuteur: '',
     telephone_tuteur: '',
     telephone_mere: '',
-    email_mere: ''
+    email_mere: '',
+    formation_principal: ''
   };
   public compteform: IUtilisateur = {
     name: "",
@@ -351,6 +352,7 @@ export class InscriptionForm1Component implements OnInit {
       formation1: this.formStep4.get('formation1')?.value,
       formation2: this.formStep4.get('formation2')?.value,
       formation3: this.formStep4.get('formation3')?.value,
+      formation_principal: this.formStep4.get('formation_principal')?.value,
 
       reference_paiement: this.formStep5.get('reference_paiement')?.value,
       telephone_paiement: this.formStep5.get('telephone_paiement')?.value,

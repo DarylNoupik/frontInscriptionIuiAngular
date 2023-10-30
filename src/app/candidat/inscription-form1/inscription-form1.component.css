@@ -143,3 +143,6 @@
 .image-preview img {
   height: -webkit-fill-available;
 }
+label {
+  font-weight: bold;
+}

@@ -40,7 +40,8 @@ export class ResultatComponent implements OnInit {
     email_tuteur: '',
     telephone_tuteur: '',
     telephone_mere: '',
-    email_mere: ''
+    email_mere: '',
+    formation_principal: ''
   };
   constructor() { }
 

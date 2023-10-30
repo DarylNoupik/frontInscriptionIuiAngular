@@ -8,6 +8,7 @@ export interface ICandidature {
   email_pere: string,
   telephone_pere: string,
   email_tuteur: string,
+  formation_principal: string,
   telephone_tuteur: string,
   telephone_mere: string,
   email_mere: string,
