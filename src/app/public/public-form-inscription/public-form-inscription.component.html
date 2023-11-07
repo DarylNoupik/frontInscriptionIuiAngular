@@ -591,14 +591,14 @@
                 <div class="align-content-center">
                   <div class="form-check">
                     <input formControlName="cycle" required (click)="checkIf2Cycle()" class="form-check-input"
-                      value="1er cycle" type="radio" name="cycle" id="cycle1" checked>
+                      value="premier" type="radio" name="cycle" id="cycle1" checked>
                     <label class="form-check-label" for="cycle1">
                       1er cycle
                     </label>
                   </div>
                   <div class="form-check">
                     <input formControlName="cycle" (click)="checkIf2Cycle()" required class="form-check-input"
-                      value="2nd cycle" type="radio" name="cycle" id="cycle2">
+                      value="second" type="radio" name="cycle" id="cycle2">
                     <label class="form-check-label" for="cycle2">
                       2nd cycle
                     </label>
@@ -606,7 +606,7 @@
                 </div>
               </div>
 
-              <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == '2nd cycle'">
+              <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == 'second'">
                 <div class="">
                   <label for="diplome_universitaire" class="form-label">Diplome universitaire fréquenté (*)</label>
                   <input formControlName="diplome_universitaire" required style="width: 100%;" type="text"
@@ -627,69 +627,32 @@
                 </div>
               </div>
 
-              <div class="col-md-12">
-                <div class="align-content-center">
-                  <div class="form-check mb-3">
-                    <input [checked]="true" formControlName="formation1" type="checkbox" (change)="updateSelections()"
-                      class="form-check-input" id="validationFormCheck1" name="formation1" [value]="'FA'" [ngClass]="{
-                    'is-invalid':
-                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
-                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
-                }">
-                    <label class="form-check-label" for="validationFormCheck1">A - Ingénieur généraliste par alternance
-                      et ingénieur génie des procédés</label>
-                    <div class="invalid-feedback"
-                      *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
-                      Veuillez selectionner une formation</div>
-                  </div>
 
-                  <div class="form-check mb-3">
-                    <input formControlName="formation2" type="checkbox" (change)="updateSelections()" name="formation2"
-                      [value]="'OP'" class="form-check-input" id="validationFormCheck2" [ngClass]="{
-                    'is-invalid':
-                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
-                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
-                }">
-                    <label class="form-check-label" for="validationFormCheck2"> B - Ingénieur généraliste parcours
-                      international</label>
-                    <div class="invalid-feedback"
-                      *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
-                      Veuillez selectionner une formation</div>
-                  </div>
-
-
-                  <div class="form-check mb-3">
-                    <input formControlName="formation3" type="checkbox" (change)="updateSelections()" name="formation3"
-                      [value]="'X'" class="form-check-input" id="validationFormCheck3" [ngClass]="{
-                    'is-invalid':
-                    !formStep4.get('formation1')?.value || !formStep4.get('formation2')?.value || !formStep4.get('formation3')?.value,
-                    'is-valid': formStep4.get('formation1')?.value || formStep4.get('formation2')?.value || formStep4.get('formation3')?.value
-                }">
-                    <label class="form-check-label" for="validationFormCheck3"> C - Ingénieur informatique </label>
-                    <div class="invalid-feedback"
-                      *ngIf="!formStep4.get('formation1')?.value && !formStep4.get('formation2')?.value && !formStep4.get('formation3')?.value">
-                      Veuillez selectionner une formation</div>
-                  </div>
-
-                </div>
+              <div>
+                <label>Priorité des formations</label>
               </div>
 
               <div class="col-md-12">
                 <div class="">
-                  <label for="formation_principal" class="form-label">Formation principale</label>
-                  <input formControlName="formation_principal" required style="width: 100%;" type="text"
-                    id="formation_principal" name="formation_principal" class="form-control form-control-lg"
-                    placeholder="Entrer votre formation principale" [ngClass]="{
-                    'is-invalid':
-                    form4Controls['formation_principal'].errors &&
-                    form4Controls['formation_principal'].touched,
-                    'is-valid': form4Controls['formation_principal'].valid
-                }">
-                  <div *ngIf="form4Controls['formation_principal'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['formation_principal'].errors['required']">Formation principale requis
+                  <label for="nombre_formation" class="form-label">Indiquez le nombre de formations auquel vous
+                    candidatez (*)</label>
+                  <select formControlName="nombre_formation" required style="width: 100%;" type="text"
+                    id="nombre_formation" name="nombre_formation" class="form-control form-control-lg" [ngClass]="{
+                  'is-invalid':
+                  form4Controls['nombre_formation'].errors &&
+                  form4Controls['nombre_formation'].touched,
+                  'is-valid': form4Controls['nombre_formation'].valid
+              }">
+                    <option value="">Selectionner le nombre de formations</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                  </select>
+                  <div *ngIf="form4Controls['nombre_formation'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['nombre_formation'].errors['required']">Nombre de formation requis
                     </div>
                   </div>
-                  <div *ngIf="form4Controls['formation_principal'].valid" class="valid-feedback">
+                  <div *ngIf="form4Controls['nombre_formation'].valid" class="valid-feedback">
                     C'est bon!
                   </div>
                 </div>
@@ -697,20 +660,106 @@
 
 
               <div class="col-md-12">
-                <label class="form-label">Indiquez le nombre de formations auquel vous candidatez (*)</label>
+                <div class="">
+                  <label for="formation1" class="form-label">Choix 1</label>
+                  <select formControlName="formation1" required style="width: 100%;" type="text" id="formation1"
+                    name="formation1" class="form-control form-control-lg" [ngClass]="{
+                  'is-invalid':
+                  form4Controls['formation1'].errors &&
+                  form4Controls['formation1'].touched,
+                  'is-valid': form4Controls['formation1'].valid
+              }">
+                    <option value="">Selectionner le 1er choix</option>
+                    <option value="FA">FA</option>
+                    <option value="OP">OP</option>
+                    <option value="X">X</option>
+                  </select>
+                  <div *ngIf="form4Controls['formation1'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['formation1'].errors['required']">Premier choix requis
+                    </div>
+                  </div>
+                  <div *ngIf="form4Controls['formation1'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12"
+                *ngIf="formStep4.get('nombre_formation')?.value == '02' || formStep4.get('nombre_formation')?.value == '03'">
+                <div class="">
+                  <label for="formation2" class="form-label">Choix 2</label>
+                  <select formControlName="formation2" required style="width: 100%;" type="text" id="formation2"
+                    name="formation2" class="form-control form-control-lg" [ngClass]="{
+                  'is-invalid':
+                  form4Controls['formation2'].errors &&
+                  form4Controls['formation2'].touched,
+                  'is-valid': form4Controls['formation2'].valid
+              }">
+                    <option value="">Selectionner le 2<sub>ème</sub> choix</option>
+                    <option value="TC" *ngIf="formStep4.get('formation1')?.value != 'TC'">TC</option>
+                    <option value="FA" *ngIf="formStep4.get('formation1')?.value != 'FA'">FA</option>
+                    <option value="OP" *ngIf="formStep4.get('formation1')?.value != 'OP'">OP</option>
+                    <option value="X" *ngIf="formStep4.get('formation1')?.value != 'X'">X</option>
+                  </select>
+                  <div *ngIf="form4Controls['formation2'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['formation2'].errors['required']">Second choix requis
+                    </div>
+                  </div>
+                  <div *ngIf="form4Controls['formation2'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12" *ngIf="formStep4.get('nombre_formation')?.value == '03'">
+                <div class="">
+                  <label for="formation3" class="form-label">Choix 3</label>
+                  <select formControlName="formation3" required style="width: 100%;" type="text" id="formation3"
+                    name="formation3" class="form-control form-control-lg" [ngClass]="{
+                  'is-invalid':
+                  form4Controls['formation3'].errors &&
+                  form4Controls['formation3'].touched,
+                  'is-valid': form4Controls['formation3'].valid
+              }">
+                    <option value="">Selectionner le 3<sub>ème</sub> choix</option>
+                    <option value="TC"
+                      *ngIf="formStep4.get('formation1')?.value != 'TC' && formStep4.get('formation2')?.value != 'TC'">
+                      TC</option>
+                    <option value="FA"
+                      *ngIf="formStep4.get('formation1')?.value != 'FA' && formStep4.get('formation2')?.value != 'FA'">
+                      FA</option>
+                    <option value="OP"
+                      *ngIf="formStep4.get('formation1')?.value != 'OP' && formStep4.get('formation2')?.value != 'OP'">
+                      OP</option>
+                    <option value="X"
+                      *ngIf="formStep4.get('formation1')?.value != 'X' && formStep4.get('formation2')?.value != 'X'">X
+                    </option>
+                  </select>
+                  <div *ngIf="form4Controls['formation3'].errors" class="invalid-feedback">
+                    <div *ngIf="form4Controls['formation3'].errors['required']">Troisième choix requis
+                    </div>
+                  </div>
+                  <div *ngIf="form4Controls['formation3'].valid" class="valid-feedback">
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Frais de concours correspondant</label>
                 <div class="align-content-center">
                   <div class="form-check">
-                    <input formControlName="paiement" value="20 000FCFA" [checked]="disableOption2 && disableOption3"
-                      required class="form-check-input" type="radio" name="paiement" id="paiement1" checked
-                      [disabled]="true" [readOnly]="true">
+                    <input formControlName="paiement" value="20 000FCFA"
+                      [checked]="formStep4.get('nombre_formation')?.value == '01'" required class="form-check-input"
+                      type="radio" name="paiement" id="paiement1" [disabled]="true" [readOnly]="true">
                     <label class="form-check-label" for="paiement1">
                       Concourir pour une formation(20 000FCFA)
                     </label>
                   </div>
                   <div class="form-check">
                     <input formControlName="paiement" name="paiement" value="25 000 FCFA"
-                      [checked]="disableOption1 && disableOption3" class="form-check-input" type="radio" name="paiement"
-                      id="paiement2" [disabled]="true" [readOnly]="true">
+                      [checked]="formStep4.get('nombre_formation')?.value == '02'" class="form-check-input" type="radio"
+                      name="paiement" id="paiement2" [disabled]="true" [readOnly]="true">
                     <label class="form-check-label" for="paiement2">
                       Concourir pour deux formations(25 000 FCFA)
                     </label>
@@ -718,15 +767,14 @@
 
                   <div class="form-check">
                     <input formControlName="paiement" name="paiement" value="30 000 FCFA"
-                      [checked]="disableOption2 && disableOption1" required class="form-check-input" type="radio"
-                      name="paiement" id="paiement3" [disabled]="true" [readOnly]="true">
+                      [checked]="formStep4.get('nombre_formation')?.value == '03'" required class="form-check-input"
+                      type="radio" name="paiement" id="paiement3" [disabled]="true" [readOnly]="true">
                     <label class="form-check-label" for="paiement3">
                       Concourir pour trois formations(30 000 FCFA)
                     </label>
                   </div>
                 </div>
               </div>
-
 
               <div class="col-md-12">
                 <label class="form-label">Voulez vous une bourse ? (*)</label>

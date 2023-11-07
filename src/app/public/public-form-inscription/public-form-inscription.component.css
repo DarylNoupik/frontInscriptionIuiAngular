@@ -68,7 +68,7 @@ label {
   display: none;
 }
 
-input {
+input, select {
   /* padding: 15px 20px; */
   /* width: 100%; */
   font-size: 1em;

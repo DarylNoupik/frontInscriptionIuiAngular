@@ -127,7 +127,8 @@ export class PublicFormInscriptionComponent implements OnInit {
 
   formStep4: FormGroup = new FormGroup({
     dernier_etablissement: new FormControl('', [Validators.required]),
-    formation_principal: new FormControl('', [Validators.required]),
+    nombre_formation: new FormControl('', [Validators.required]),
+    formation_principal: new FormControl('', []),
     langue: new FormControl('', [Validators.required]),
     paiement: new FormControl({ value: "", disabled: true }, []),
     cycle: new FormControl('', [Validators.required]),
