@@ -116,11 +116,11 @@ export class InscriptionForm1Component implements OnInit {
   });
 
   formStep3: FormGroup = new FormGroup({
-    email_pere: new FormControl('', [Validators.required, Validators.email,]),
+    email_pere: new FormControl('', []),
     telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    email_tuteur: new FormControl('', [Validators.required, Validators.email,]),
+    email_tuteur: new FormControl('', []),
     telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    email_mere: new FormControl('', [Validators.required, Validators.email,]),
+    email_mere: new FormControl('', []),
     telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
     nom_parent2: new FormControl('', [Validators.required]),
     nom_parent1: new FormControl('', [Validators.required]),

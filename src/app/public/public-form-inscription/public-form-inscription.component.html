@@ -150,7 +150,7 @@
 
               <div class="col-md-12">
                 <div class="">
-                  <label for="email" class="form-label"> Votre adresse email </label>
+                  <label for="email" class="form-label"> Votre adresse email (*) </label>
                   <input formControlName="email" style="width: 100%;" type="text" id="email" name="email"
                     class="form-control form-control-lg" required placeholder="Votre adresse email" [ngClass]="{
                       'is-invalid':
@@ -314,9 +314,8 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="email_pere" class="form-label"> Adresse email du père </label>
-                  <input formControlName="email_pere" required style="width: 100%;" type="text" id="email_pere"
-                    name="email_pere" class="form-control form-control-lg" placeholder="Adresse email du père"
-                    [ngClass]="{
+                  <input formControlName="email_pere" style="width: 100%;" type="text" id="email_pere" name="email_pere"
+                    class="form-control form-control-lg" placeholder="Adresse email du père" [ngClass]="{
                       'is-invalid':
                       form3Controls['email_pere'].errors &&
                       form3Controls['email_pere'].touched,
@@ -382,9 +381,8 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="email_mere" class="form-label"> Adresse email de la mère </label>
-                  <input formControlName="email_mere" required style="width: 100%;" type="text" id="email_mere"
-                    name="email_mere" class="form-control form-control-lg" placeholder="Adresse email de la mère"
-                    [ngClass]="{
+                  <input formControlName="email_mere" style="width: 100%;" type="text" id="email_mere" name="email_mere"
+                    class="form-control form-control-lg" placeholder="Adresse email de la mère" [ngClass]="{
                       'is-invalid':
                       form3Controls['email_mere'].errors &&
                       form3Controls['email_mere'].touched,
@@ -432,7 +430,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="email_tuteur" class="form-label"> Adresse email du tuteur </label>
-                  <input formControlName="email_tuteur" required style="width: 100%;" type="text" id="email_tuteur"
+                  <input formControlName="email_tuteur" style="width: 100%;" type="text" id="email_tuteur"
                     name="email_tuteur" class="form-control form-control-lg" placeholder="Adresse email du tuteur"
                     [ngClass]="{
                       'is-invalid':
