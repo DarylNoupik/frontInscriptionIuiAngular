@@ -69,12 +69,18 @@
       <div class="col-lg-6 card">
         <div class="contact-form-wrapper">
           <div name="form">
-            <div class="form-header d-flex mb-4">
+            <div class="form-header d-flex mb-4" *ngIf="!mobileView">
               <span class="stepIndicator active" [ngClass]="{finish: step > 2}">Details personnels</span>
               <span class="stepIndicator" [ngClass]="{active: step >= 3, finish: step > 3}">Informations
                 complementaires</span>
               <span class="stepIndicator" [ngClass]="{active: step >= 4, finish: step > 4}">Concours</span>
               <span class="stepIndicator" [ngClass]="{active: step >= 5, finish: step > 5}">Paiement</span>
+            </div>
+            <div class="form-header d-flex mb-4" *ngIf="mobileView">
+              <span class="stepIndicator active" [ngClass]="{finish: step > 2}"></span>
+              <span class="stepIndicator" [ngClass]="{active: step >= 3, finish: step > 3}"></span>
+              <span class="stepIndicator" [ngClass]="{active: step >= 4, finish: step > 4}"></span>
+              <span class="stepIndicator" [ngClass]="{active: step >= 5, finish: step > 5}"></span>
             </div>
 
             <form [formGroup]="formStep1" (ngSubmit)="createAccount(step + 1)" class="row g-3  needs-validation"
@@ -92,6 +98,7 @@
                   }">
                   <div *ngIf="form1Controls['nom'].errors" class="invalid-feedback">
                     <div *ngIf="form1Controls['nom'].errors['required']">Nom requis</div>
+                    <div *ngIf="form1Controls['nom'].errors['minlength']">Nom doit avoir minimun 3 caractères</div>
                   </div>
                   <div *ngIf="form1Controls['nom'].valid" class="valid-feedback">
                     C'est bon!
@@ -118,11 +125,14 @@
                 </div>
               </div>
 
-
               <div class="col-md-12">
                 <label for="telephone" class="form-label">Votre numéro de téléphone (*)</label>
-                <div class="input-group has-validation">
-                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                <div class="input-group  has-validation">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">{{indice}}</button>
+                  <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
+                    <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                  </ul>
                   <input type="text" formControlName="telephone" placeholder="Votre numéro de téléphone "
                     class="form-control  form-control-lg is-invalid" id="telephone"
                     aria-describedby="inputGroupPrepend3 telephoneFeedback" required [ngClass]="{
@@ -146,6 +156,7 @@
                     C'est bon!
                   </div>
                 </div>
+
               </div>
 
               <div class="col-md-12">
@@ -204,6 +215,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="nationalite" class="form-label"> Nationalité (*) </label>
+                  <p>Veuillez entrer une nationalité correcte</p>
                   <input formControlName="nationalite" required style="width: 100%;" type="text" id="nationalite"
                     name="nationalite" class="form-control form-control-lg" placeholder="Entrer votre nationalité "
                     [ngClass]="{
@@ -214,6 +226,8 @@
                   }">
                   <div *ngIf="form2Controls['nationalite'].errors" class="invalid-feedback">
                     <div *ngIf="form2Controls['nationalite'].errors['required']">Nationalité requis</div>
+                    <div *ngIf="form2Controls['nationalite'].errors['minlength']">Nationalité doit avoir minimun 5
+                      caractères</div>
                   </div>
                   <div *ngIf="form2Controls['nationalite'].valid" class="valid-feedback">
                     C'est bon!
@@ -225,6 +239,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="ville" class="form-label">Ville de résidence(*)</label>
+                  <p>Veuillez entrer un ville correcte</p>
                   <input formControlName="ville" required style="width: 100%;" type="text" id="ville" name="ville"
                     class="form-control form-control-lg" placeholder="Ville de résidence" [ngClass]="{
                       'is-invalid':
@@ -234,6 +249,8 @@
                   }">
                   <div *ngIf="form2Controls['ville'].errors" class="invalid-feedback">
                     <div *ngIf="form2Controls['ville'].errors['required']">Ville de résidence requis</div>
+                    <div *ngIf="form2Controls['ville'].errors['minlength']">Ville de résidence doit avoir minimun 5
+                      caractères</div>
                   </div>
                   <div *ngIf="form2Controls['ville'].valid" class="valid-feedback">
                     C'est bon!
@@ -244,6 +261,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="ville" class="form-label">Lieu de naissances(*)</label>
+                  <p>Veuillez entrer un lieu correct</p>
                   <input formControlName="lieu_naissance" required style="width: 100%;" type="text" id="lieu_naissance"
                     name="lieu_naissance" class="form-control form-control-lg"
                     placeholder="Entrer votre lieu de naissance" [ngClass]="{
@@ -253,6 +271,8 @@
                       'is-valid': form2Controls['lieu_naissance'].valid
                   }">
                   <div *ngIf="form2Controls['lieu_naissance'].errors" class="invalid-feedback">
+                    <div *ngIf="form2Controls['lieu_naissance'].errors['minlength']">Ville de résidence doit avoir
+                      minimun 5 caractères</div>
                     <div *ngIf="form2Controls['lieu_naissance'].errors['required']">Lieu de naissances requis</div>
                   </div>
                   <div *ngIf="form2Controls['lieu_naissance'].valid" class="valid-feedback">
@@ -294,7 +314,7 @@
 
               <div class="col-md-12">
                 <div class="">
-                  <label for="nom_parent1" class="form-label">Nom de la Père (*)</label>
+                  <label for="nom_parent1" class="form-label">Nom du Père (*)</label>
                   <input formControlName="nom_parent1" required style="width: 100%;" type="text" id="nom_parent1"
                     name="nom_parent1" class="form-control form-control-lg" placeholder="Nom de votre Père " [ngClass]="{
                       'is-invalid':
@@ -303,6 +323,8 @@
                       'is-valid': form3Controls['nom_parent1'].valid
                   }">
                   <div *ngIf="form3Controls['nom_parent1'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['nom_parent1'].errors['minlength']">Le nom du père doit avoir minimun 3
+                      caractères</div>
                     <div *ngIf="form3Controls['nom_parent1'].errors['required']">Nom père requis</div>
                   </div>
                   <div *ngIf="form3Controls['nom_parent1'].valid" class="valid-feedback">
@@ -314,8 +336,9 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="email_pere" class="form-label"> Adresse email du père </label>
-                  <input formControlName="email_pere" style="width: 100%;" type="text" id="email_pere" name="email_pere"
-                    class="form-control form-control-lg" placeholder="Adresse email du père" [ngClass]="{
+                  <input formControlName="email_pere" style="width: 100%;" type="email" id="email_pere"
+                    name="email_pere" class="form-control form-control-lg" placeholder="Adresse email du père"
+                    [ngClass]="{
                       'is-invalid':
                       form3Controls['email_pere'].errors &&
                       form3Controls['email_pere'].touched,
@@ -331,17 +354,22 @@
                 </div>
               </div>
 
+
               <div class="col-md-12">
-                <label for="telephone_pere" class="form-label">Numéro de téléphone du pere (*)</label>
-                <div class="input-group has-validation">
-                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                <label for="telephone" class="form-label">Numéro de téléphone du pere (*)</label>
+                <div class="input-group  has-validation">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">{{indice}}</button>
+                  <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
+                    <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                  </ul>
                   <input type="text" formControlName="telephone_pere" class="form-control  form-control-lg is-invalid"
                     id="telephone_pere" aria-describedby="inputGroupPrepend3 telephone_pereFeedback" required [ngClass]="{
-                  'is-invalid':
-                  form3Controls['telephone_pere'].errors &&
-                  form3Controls['telephone_pere'].touched,
-                  'is-valid': form3Controls['telephone_pere'].valid
-              }">
+                'is-invalid':
+                form3Controls['telephone_pere'].errors &&
+                form3Controls['telephone_pere'].touched,
+                'is-valid': form3Controls['telephone_pere'].valid
+            }">
                   <div *ngIf="form3Controls['telephone_pere'].errors" class="invalid-feedback">
                     <div *ngIf="form3Controls['telephone_pere'].errors['onlyNumber']">Le numero de téléphone doit être
                       des chiffres uniquement</div>
@@ -370,6 +398,9 @@
                       'is-valid': form3Controls['nom_parent2'].valid
                   }">
                   <div *ngIf="form3Controls['nom_parent2'].errors" class="invalid-feedback">
+                    <div *ngIf="form3Controls['nom_parent2'].errors['minlength']">Le nom de la mère doit avoir minimun 3
+                      caractères</div>
+
                     <div *ngIf="form3Controls['nom_parent2'].errors['required']">Nom mère requis</div>
                   </div>
                   <div *ngIf="form3Controls['nom_parent2'].valid" class="valid-feedback">
@@ -381,8 +412,9 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="email_mere" class="form-label"> Adresse email de la mère </label>
-                  <input formControlName="email_mere" style="width: 100%;" type="text" id="email_mere" name="email_mere"
-                    class="form-control form-control-lg" placeholder="Adresse email de la mère" [ngClass]="{
+                  <input formControlName="email_mere" style="width: 100%;" type="email" id="email_mere"
+                    name="email_mere" class="form-control form-control-lg" placeholder="Adresse email de la mère"
+                    [ngClass]="{
                       'is-invalid':
                       form3Controls['email_mere'].errors &&
                       form3Controls['email_mere'].touched,
@@ -401,28 +433,37 @@
               <div class="col-md-12">
                 <label for="telephone_mere" class="form-label">Numéro de téléphone de la mere (*)</label>
                 <div class="input-group has-validation">
-                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
-                  <input type="text" formControlName="telephone_mere" class="form-control  form-control-lg is-invalid"
-                    id="telephone_mere" aria-describedby="inputGroupPrepend3 telephone_mereFeedback" required [ngClass]="{
+                  <div class="input-group  has-validation">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">{{indice}}</button>
+                    <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
+                      <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                    </ul>
+                    <input type="text" formControlName="telephone_mere" class="form-control  form-control-lg is-invalid"
+                      id="telephone_mere" aria-describedby="inputGroupPrepend3 telephone_mereFeedback" required
+                      [ngClass]="{
                   'is-invalid':
                   form3Controls['telephone_mere'].errors &&
                   form3Controls['telephone_mere'].touched,
                   'is-valid': form3Controls['telephone_mere'].valid
               }">
-                  <div *ngIf="form3Controls['telephone_mere'].errors" class="invalid-feedback">
-                    <div *ngIf="form3Controls['telephone_mere'].errors['required']">Numero de téléphone requis</div>
-                    <div *ngIf="form3Controls['telephone_mere'].errors['min']">Numero de téléphone doit être superieur à
-                      0
-                    </div>
-                    <div *ngIf="form3Controls['telephone_mere'].errors['onlyNumber']">Le numero de téléphone doit être
-                      des chiffres uniquement</div>
+                    <div *ngIf="form3Controls['telephone_mere'].errors" class="invalid-feedback">
+                      <div *ngIf="form3Controls['telephone_mere'].errors['required']">Numero de téléphone requis</div>
+                      <div *ngIf="form3Controls['telephone_mere'].errors['min']">Numero de téléphone doit être
+                        superieur à
+                        0
+                      </div>
+                      <div *ngIf="form3Controls['telephone_mere'].errors['onlyNumber']">Le numero de téléphone doit
+                        être
+                        des chiffres uniquement</div>
 
-                    <div *ngIf="form3Controls['telephone_mere'].errors['minlength']">Numero de téléphone doit avoir
-                      minimun
-                      8 chiffres</div>
-                  </div>
-                  <div *ngIf="form3Controls['telephone_mere'].valid" class="valid-feedback">
-                    C'est bon!
+                      <div *ngIf="form3Controls['telephone_mere'].errors['minlength']">Numero de téléphone doit avoir
+                        minimun
+                        8 chiffres</div>
+                    </div>
+                    <div *ngIf="form3Controls['telephone_mere'].valid" class="valid-feedback">
+                      C'est bon!
+                    </div>
                   </div>
                 </div>
               </div>
@@ -430,7 +471,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="email_tuteur" class="form-label"> Adresse email du tuteur </label>
-                  <input formControlName="email_tuteur" style="width: 100%;" type="text" id="email_tuteur"
+                  <input formControlName="email_tuteur" style="width: 100%;" type="email" id="email_tuteur"
                     name="email_tuteur" class="form-control form-control-lg" placeholder="Adresse email du tuteur"
                     [ngClass]="{
                       'is-invalid':
@@ -451,33 +492,42 @@
               <div class="col-md-12">
                 <label for="telephone_tuteur" class="form-label">Numéro de téléphone du tuteur (*)</label>
                 <div class="input-group has-validation">
-                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
-                  <input type="text" formControlName="telephone_tuteur" class="form-control  form-control-lg is-invalid"
-                    id="telephone_tuteur" aria-describedby="inputGroupPrepend3 telephone_tuteurFeedback" required
-                    [ngClass]="{
-                  'is-invalid':
-                  form3Controls['telephone_tuteur'].errors &&
-                  form3Controls['telephone_tuteur'].touched,
-                  'is-valid': form3Controls['telephone_tuteur'].valid
-              }">
-                  <div *ngIf="form3Controls['telephone_tuteur'].errors" class="invalid-feedback">
-                    <div *ngIf="form3Controls['telephone_tuteur'].errors['required']">Numero de téléphone requis</div>
-                    <div *ngIf="form3Controls['telephone_tuteur'].errors['min']">Numero de téléphone doit être superieur
-                      à
-                      0
+                  <div class="input-group  has-validation">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">{{indice}}</button>
+                    <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
+                      <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                    </ul>
+                    <input type="text" formControlName="telephone_tuteur"
+                      class="form-control  form-control-lg is-invalid" id="telephone_tuteur"
+                      aria-describedby="inputGroupPrepend3 telephone_tuteurFeedback" required [ngClass]="{
+                            'is-invalid':
+                            form3Controls['telephone_tuteur'].errors &&
+                            form3Controls['telephone_tuteur'].touched,
+                            'is-valid': form3Controls['telephone_tuteur'].valid
+                        }">
+                    <div *ngIf="form3Controls['telephone_tuteur'].errors" class="invalid-feedback">
+                      <div *ngIf="form3Controls['telephone_tuteur'].errors['required']">Numero de téléphone requis
+                      </div>
+                      <div *ngIf="form3Controls['telephone_tuteur'].errors['min']">Numero de téléphone doit être
+                        superieur
+                        à
+                        0
+                      </div>
+                      <div *ngIf="form3Controls['telephone_tuteur'].errors['onlyNumber']">Le numero de téléphone
+                        doit être
+                        des chiffres uniquement</div>
+                      <div *ngIf="form3Controls['telephone_tuteur'].errors['minlength']">Numero de téléphone doit
+                        avoir
+                        minimun
+                        8 chiffres</div>
                     </div>
-                    <div *ngIf="form3Controls['telephone_tuteur'].errors['onlyNumber']">Le numero de téléphone doit être
-                      des chiffres uniquement</div>
-                    <div *ngIf="form3Controls['telephone_tuteur'].errors['minlength']">Numero de téléphone doit avoir
-                      minimun
-                      8 chiffres</div>
-                  </div>
-                  <div *ngIf="form3Controls['telephone_tuteur'].valid" class="valid-feedback">
-                    C'est bon!
+                    <div *ngIf="form3Controls['telephone_tuteur'].valid" class="valid-feedback">
+                      C'est bon!
+                    </div>
                   </div>
                 </div>
               </div>
-
 
               <div class="row mt-3">
                 <div class="col-md-6">
@@ -538,7 +588,7 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <label class="form-label">Quel type de baccalauréat avez-vous en votre possession ? (*)</label>
+                <label class="form-label">Quel type de baccalauréat auriez-vous ou avez-vous ? (*)</label>
                 <div class="align-content-center">
                   <div class="form-check">
                     <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Science"
@@ -659,7 +709,7 @@
               <div *ngIf="formStep4.get('cycle')?.value == 'premier'">
                 <div class="col-md-12">
                   <div class="">
-                    <label for="formation1" class="form-label">Choix 1</label>
+                    <label for="formation1" class="form-label">Premier choix</label>
                     <select formControlName="formation1" required style="width: 100%;" type="text" id="formation1"
                       name="formation1" class="form-control form-control-lg" [ngClass]="{
                     'is-invalid':
@@ -667,8 +717,8 @@
                     form4Controls['formation1'].touched,
                     'is-valid': form4Controls['formation1'].valid
                 }">
-                      <option value="">Selectionner le 1er choix</option>
-                      <option value="FA">FA - Ingénieur généraliste par alternance</option>
+                      <option value="">Selectionner le premier choix</option>
+                      <option value="L">L - Ingénieur généraliste par apprentissage ou génie des procédés</option>
                       <option value="OP">OP - Ingénieur généraliste parcours international</option>
                       <option value="X">X - Ingénieur génie Informtique</option>
                     </select>
@@ -685,7 +735,7 @@
                 <div class="col-md-12"
                   *ngIf="formStep4.get('nombre_formation')?.value == '02' || formStep4.get('nombre_formation')?.value == '03'">
                   <div class="">
-                    <label for="formation2" class="form-label">Choix 2</label>
+                    <label for="formation2" class="form-label">Deuxième choix</label>
                     <select formControlName="formation2" required style="width: 100%;" type="text" id="formation2"
                       name="formation2" class="form-control form-control-lg" [ngClass]="{
                     'is-invalid':
@@ -693,9 +743,9 @@
                     form4Controls['formation2'].touched,
                     'is-valid': form4Controls['formation2'].valid
                 }">
-                      <option value="">Selectionner le 2<sub>ème</sub> choix</option>
-                      <option value="FA" *ngIf="formStep4.get('formation1')?.value != 'FA'">FA - Ingénieur généraliste
-                        par alternance</option>
+                      <option value="">Selectionner le deuxième choix</option>
+                      <option value="L" *ngIf="formStep4.get('formation1')?.value != 'L'">L - ingénieur généraliste par
+                        apprentissage ou génie des procédés</option>
                       <option value="OP" *ngIf="formStep4.get('formation1')?.value != 'OP'">OP - Ingénieur généraliste
                         parcours international</option>
                       <option value="X" *ngIf="formStep4.get('formation1')?.value != 'X'">X - Ingénieur génie
@@ -713,7 +763,7 @@
 
                 <div class="col-md-12" *ngIf="formStep4.get('nombre_formation')?.value == '03'">
                   <div class="">
-                    <label for="formation3" class="form-label">Choix 3</label>
+                    <label for="formation3" class="form-label">Troisième 3</label>
                     <select formControlName="formation3" required style="width: 100%;" type="text" id="formation3"
                       name="formation3" class="form-control form-control-lg" [ngClass]="{
                     'is-invalid':
@@ -721,10 +771,10 @@
                     form4Controls['formation3'].touched,
                     'is-valid': form4Controls['formation3'].valid
                 }">
-                      <option value="">Selectionner le 3<sub>ème</sub> choix</option>
-                      <option value="FA"
-                        *ngIf="formStep4.get('formation1')?.value != 'FA' && formStep4.get('formation2')?.value != 'FA'">
-                        FA - Ingénieur généraliste par alternance</option>
+                      <option value="">Selectionner le troisième choix</option>
+                      <option value="L"
+                        *ngIf="formStep4.get('formation1')?.value != 'L' && formStep4.get('formation2')?.value != 'L'">
+                        L - Ingénieur généraliste par apprentissage ou génie des procédés</option>
                       <option value="OP"
                         *ngIf="formStep4.get('formation1')?.value != 'OP' && formStep4.get('formation2')?.value != 'OP'">
                         OP - Ingénieur généraliste parcours international</option>
@@ -747,7 +797,7 @@
               <div *ngIf="formStep4.get('cycle')?.value == 'second'">
                 <div class="col-md-12">
                   <div class="">
-                    <label for="formation1" class="form-label">Choix 1</label>
+                    <label for="formation1" class="form-label">Premier 1</label>
                     <select formControlName="formation1" required style="width: 100%;" type="text" id="formation1"
                       name="formation1" class="form-control form-control-lg" [ngClass]="{
                     'is-invalid':
@@ -755,7 +805,7 @@
                     form4Controls['formation1'].touched,
                     'is-valid': form4Controls['formation1'].valid
                 }">
-                      <option value="">Selectionner le 1er choix</option>
+                      <option value="">Selectionner le premier choix</option>
                       <option value="IP">IP - Ingénieur genie des procédés</option>
                       <option value="I">I - Ingénieur géneraliste parcours international et innovation</option>
                       <option value="X">X - Ingénieur génie Informtique</option>
@@ -773,7 +823,7 @@
                 <div class="col-md-12"
                   *ngIf="formStep4.get('nombre_formation')?.value == '02' || formStep4.get('nombre_formation')?.value == '03'">
                   <div class="">
-                    <label for="formation2" class="form-label">Choix 2</label>
+                    <label for="formation2" class="form-label">Deuxième choix</label>
                     <select formControlName="formation2" required style="width: 100%;" type="text" id="formation2"
                       name="formation2" class="form-control form-control-lg" [ngClass]="{
                     'is-invalid':
@@ -781,7 +831,7 @@
                     form4Controls['formation2'].touched,
                     'is-valid': form4Controls['formation2'].valid
                 }">
-                      <option value="">Selectionner le 2<sub>ème</sub> choix</option>
+                      <option value="">Selectionner le deuxième choix</option>
                       <option value="IP" *ngIf="formStep4.get('formation1')?.value != 'IP'">IP - Ingénieur genie des
                         procédés</option>
                       <option value="I" *ngIf="formStep4.get('formation1')?.value != 'I'">I - Ingénieur géneraliste
@@ -801,7 +851,7 @@
 
                 <div class="col-md-12" *ngIf="formStep4.get('nombre_formation')?.value == '03'">
                   <div class="">
-                    <label for="formation3" class="form-label">Choix 3</label>
+                    <label for="formation3" class="form-label">Troisième choix</label>
                     <select formControlName="formation3" required style="width: 100%;" type="text" id="formation3"
                       name="formation3" class="form-control form-control-lg" [ngClass]="{
                     'is-invalid':
@@ -809,7 +859,7 @@
                     form4Controls['formation3'].touched,
                     'is-valid': form4Controls['formation3'].valid
                 }">
-                      <option value="">Selectionner le 3<sub>ème</sub> choix</option>
+                      <option value="">Selectionner le troisième choix</option>
                       <option value="IP"
                         *ngIf="formStep4.get('formation1')?.value != 'IP' && formStep4.get('formation2')?.value != 'IP'">
                         IP - Ingénieur genie des procédés</option>

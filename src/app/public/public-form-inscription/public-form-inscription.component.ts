@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ISite } from "../../_interfaces/site";
 import { ICandidature } from "../../_interfaces/icandidature";
 import { IUtilisateur } from "../../_interfaces/utilisateur";
@@ -23,11 +23,19 @@ import { createNumberValidator } from 'src/app/shared/validators/number_validato
 })
 export class PublicFormInscriptionComponent implements OnInit {
   public site!: ISite[];
+  public indices: string[] = [
+    "+237", "+30", "+31", "+32", "+33", "+34", "+36", "+39", "+40", "+41", "+43", "+44", "+45", "+46", "+47", "+48", "+49", "+350", "+351", "+352", "+353", "+354", "+355", "+356", "+357", "+358", "+359", "+370", "+371", "+372", "+373", "+374", "+375", "+376", "+377", "+378", "+379", "+380", "+381", "+382", "+383", "+385", "+386", "+387", "+389", "+420", "+421", "+423", "+213", "+244", "+229", "+267", "+226", "+257", "+238", "+236", "+235", "+269", "+242", "+243", "+225", "+253", "+20", "+240", "+291", "+251", "+266", "+261", "+223", "+356", "+222", "+230", "+222", "+258", "+212", "+258", "+234", "+227", "+47", "+256", "+250", "+239", "+221", "+248", "+232", "+421", "+386", "+252", "+27", "+211", "+249", "+232", "+228", "+216", "+90", "+256", "+255", "+256", "+260"
+  ];
+  public lieux = [
+    "Douala", "Yaoundé", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Ngaoundéré", "Bertoua", "Ébolowa", "Loum", "Kumba", "Mbouda", "Dschang", "Foumban", "Kribi", "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Brazzaville", "Pointe-Noire", "Dolisie", "Nkayi", "Owando", "Impfondo", "Madingou", "Sibiti", "Gamboma", "Kinkala", "Kindamba", "Mossendjo", "Makoua", "Ewo", "Ouesso", "N'Djamena", "Moundou", "Sarh", "Abéché", "Kélo", "Doba", "Koumra", "Pala", "Am Timan", "Bongor", "Mongo", "Ati", "Fada", "Massakory", "Biltine", "Bangui", "Bimbo", "Berbérati", "Carnot", "Bria", "Bossangoa", "Bozoum", "Nola", "Kaga-Bandoro", "Sibut", "Mbaïki", "Damara", "Mobaye", "Grimari", "Dékoa",
+    "Rio de Janeiro", "São Paulo", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís", "Libreville", "Port-Gentil", "Franceville", "Oyem", "Moanda", "Mouila", "Lambaréné", "Tchibanga", "Koulamoutou", "Makokou", "Lastoursville", "Mounana", "Gamba", "Bitam", "Ndendé", "Delhi", "Mumbai", "Kolkata", "Chennai", "Bengaluru", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", "Thane", "Quito", "Guayaquil", "Cuenca", "Santo Domingo de los Colorados", "Machala", "Manta", "Portoviejo", "Ambato", "Durán", "Loja", "Esmeraldas", "Quevedo", "Ibarra", "Riobamba", "Latacunga"
+  ];
   uploadedFile!: string;
   public actualDate = new Date();
   selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
+  public indice: string = "+237";
   public showForm: boolean = false;
   public showCentre: boolean = true;
   public candidatureForm: ICandidature = {
@@ -99,8 +107,15 @@ export class PublicFormInscriptionComponent implements OnInit {
   public siteSelected!: ISite;
   public currentDate: Date = new Date();
 
+  mobileView = false;
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.checkDevice();
+  }
+
   formStep1: FormGroup = new FormGroup({
-    nom: new FormControl('', [Validators.required]),
+    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
     prenom: new FormControl('', [Validators.required]),
     telephone: new FormControl('', [Validators.minLength(8), Validators.required, createNumberValidator()]),
     email: new FormControl('', [Validators.required, Validators.email,]),
@@ -108,21 +123,21 @@ export class PublicFormInscriptionComponent implements OnInit {
 
   formStep2: FormGroup = new FormGroup({
     date_naissance: new FormControl('', [Validators.required]),
-    nationalite: new FormControl('', [Validators.required]),
-    ville: new FormControl('', [Validators.required]),
-    lieu_naissance: new FormControl('', [Validators.required]),
+    nationalite: new FormControl('', [Validators.minLength(5), Validators.required]),
+    ville: new FormControl('', [Validators.minLength(5), Validators.required]),
+    lieu_naissance: new FormControl('', [Validators.minLength(5), Validators.required]),
     genre: new FormControl('', [Validators.required]),
   });
 
   formStep3: FormGroup = new FormGroup({
-    email_pere: new FormControl('', []),
+    email_pere: new FormControl('', [Validators.email]),
     telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    email_tuteur: new FormControl('', []),
+    email_tuteur: new FormControl('', [Validators.email]),
     telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    email_mere: new FormControl('', []),
+    email_mere: new FormControl('', [Validators.email]),
     telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    nom_parent2: new FormControl('', [Validators.required]),
-    nom_parent1: new FormControl('', [Validators.required]),
+    nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
   formStep4: FormGroup = new FormGroup({
@@ -189,8 +204,16 @@ export class PublicFormInscriptionComponent implements OnInit {
     this.formStep4.updateValueAndValidity();
   }
 
-  ngOnInit(): void {
+  checkDevice() {
+    if (window.innerWidth <= 587) {
+      this.mobileView = true;
+    } else {
+      this.mobileView = false;
+    }
+  }
 
+  ngOnInit(): void {
+    this.checkDevice();
 
     this.sessionService.getActiveSession().subscribe({
       next: data => {
@@ -317,7 +340,7 @@ export class PublicFormInscriptionComponent implements OnInit {
       prenom: this.formStep1.get('prenom')?.value,
       password: "pass",
       email: this.formStep1.get('email')?.value,
-      telephone: this.formStep1.get('telephone')?.value,
+      telephone: this.indice + "" + this.formStep1.get('telephone')?.value,
       role: "CANDIDAT",
       id_disponibilite: 0,
       idZone: this.selectZone.id
