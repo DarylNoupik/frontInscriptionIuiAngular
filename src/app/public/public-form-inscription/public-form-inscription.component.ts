@@ -35,7 +35,11 @@ export class PublicFormInscriptionComponent implements OnInit {
   selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
-  public indice: string = "+237";
+  public indiceTelephoneCandidat: string = "+237";
+  public indiceTelephonePere: string = "+237";
+  public indiceTelephoneMere: string = "+237";
+  public indiceTelephoneTuteur: string = "+237";
+  public indiceTelephoneTransaction: string = "+237";
   public showForm: boolean = false;
   public showCentre: boolean = true;
   public candidatureForm: ICandidature = {
@@ -312,7 +316,7 @@ export class PublicFormInscriptionComponent implements OnInit {
         this.exitscode = response.existCode;
 
         if (this.showNumberPaiement) {
-          if (this.exitscode.includes(this.candidatureForm.reference_paiement) === true) {
+          if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
             this.codeExists = true;
             this.codeValid = false;
           } else {
@@ -320,10 +324,10 @@ export class PublicFormInscriptionComponent implements OnInit {
             this.codeValid = false;
           }
         } else {
-          if (this.exitscode.includes(this.candidatureForm.reference_paiement) === true) {
+          if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
             this.codeExists = true;
             this.codeValid = false;
-          } else if (this.exitscode.includes(this.candidatureForm.reference_paiement) === false && this.allcodes.includes(this.candidatureForm.reference_paiement) === false) {
+          } else if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === false && this.allcodes.includes(this.candidatureForm.reference_paiement) === false) {
             this.codeExists = true;
             this.codeValid = false;
           } else {
@@ -340,7 +344,7 @@ export class PublicFormInscriptionComponent implements OnInit {
       prenom: this.formStep1.get('prenom')?.value,
       password: "pass",
       email: this.formStep1.get('email')?.value,
-      telephone: this.indice + "" + this.formStep1.get('telephone')?.value,
+      telephone: this.indiceTelephoneCandidat + "" + this.formStep1.get('telephone')?.value,
       role: "CANDIDAT",
       id_disponibilite: 0,
       idZone: this.selectZone.id
@@ -361,14 +365,14 @@ export class PublicFormInscriptionComponent implements OnInit {
       formation_principal: this.formStep4.get('formation_principal')?.value,
 
       reference_paiement: this.formStep5.get('reference_paiement')?.value,
-      telephone_paiement: this.formStep5.get('telephone_paiement')?.value,
+      telephone_paiement: this.indiceTelephoneTransaction + "" + this.formStep5.get('telephone_paiement')?.value,
 
       email_pere: this.formStep3.get('email_pere')?.value,
-      telephone_pere: this.formStep3.get('telephone_pere')?.value,
+      telephone_pere: this.indiceTelephonePere + "" + this.formStep3.get('telephone_pere')?.value,
       email_tuteur: this.formStep3.get('email_tuteur')?.value,
-      telephone_tuteur: this.formStep3.get('telephone_tuteur')?.value,
+      telephone_tuteur: this.indiceTelephoneTuteur + "" + this.formStep3.get('telephone_tuteur')?.value,
       email_mere: this.formStep3.get('email_mere')?.value,
-      telephone_mere: this.formStep3.get('telephone_mere')?.value,
+      telephone_mere: this.indiceTelephoneMere + "" + this.formStep3.get('telephone_mere')?.value,
       nom_parent2: this.formStep3.get('nom_parent2')?.value,
       nom_parent1: this.formStep3.get('nom_parent1')?.value,
 

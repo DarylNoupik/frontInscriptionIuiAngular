@@ -129,9 +129,10 @@
                 <label for="telephone" class="form-label">Votre numéro de téléphone (*)</label>
                 <div class="input-group  has-validation">
                   <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">{{indice}}</button>
+                    aria-expanded="false">{{indiceTelephoneCandidat}}</button>
                   <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                    <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                    <li><a class="dropdown-item" *ngFor="let i of indices"
+                        (click)="indiceTelephoneCandidat = i">{{i}}</a></li>
                   </ul>
                   <input type="text" formControlName="telephone" placeholder="Votre numéro de téléphone "
                     class="form-control  form-control-lg is-invalid" id="telephone"
@@ -359,9 +360,10 @@
                 <label for="telephone" class="form-label">Numéro de téléphone du pere (*)</label>
                 <div class="input-group  has-validation">
                   <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">{{indice}}</button>
+                    aria-expanded="false">{{indiceTelephonePere}}</button>
                   <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                    <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                    <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indiceTelephonePere = i">{{i}}</a>
+                    </li>
                   </ul>
                   <input type="text" formControlName="telephone_pere" class="form-control  form-control-lg is-invalid"
                     id="telephone_pere" aria-describedby="inputGroupPrepend3 telephone_pereFeedback" required [ngClass]="{
@@ -435,9 +437,10 @@
                 <div class="input-group has-validation">
                   <div class="input-group  has-validation">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">{{indice}}</button>
+                      aria-expanded="false">{{indiceTelephoneMere}}</button>
                     <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                      <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                      <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indiceTelephoneMere = i">{{i}}</a>
+                      </li>
                     </ul>
                     <input type="text" formControlName="telephone_mere" class="form-control  form-control-lg is-invalid"
                       id="telephone_mere" aria-describedby="inputGroupPrepend3 telephone_mereFeedback" required
@@ -494,9 +497,10 @@
                 <div class="input-group has-validation">
                   <div class="input-group  has-validation">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">{{indice}}</button>
+                      aria-expanded="false">{{indiceTelephoneTuteur}}</button>
                     <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                      <li><a class="dropdown-item" *ngFor="let i of indices" (click)="indice = i">{{i}}</a></li>
+                      <li><a class="dropdown-item" *ngFor="let i of indices"
+                          (click)="indiceTelephoneTuteur = i">{{i}}</a></li>
                     </ul>
                     <input type="text" formControlName="telephone_tuteur"
                       class="form-control  form-control-lg is-invalid" id="telephone_tuteur"
@@ -968,9 +972,9 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="reference_paiement" class="form-label">Reference de paiement</label>
-                  <input formControlName="reference_paiement" (change)="checkCode()" required style="width: 100%;"
-                    type="text" id="reference_paiement" name="reference_paiement" class="form-control form-control-lg"
-                    placeholder=" Exemple :MP220315.13.49.A18995 " [ngClass]="{
+                  <input formControlName="reference_paiement" (ngModelChange)="checkCode()" required
+                    style="width: 100%;" type="text" id="reference_paiement" name="reference_paiement"
+                    class="form-control form-control-lg" placeholder=" Exemple :MP220315.13.49.A18995 " [ngClass]="{
                     'is-invalid':
                     (form5Controls['reference_paiement'].errors &&
                     form5Controls['reference_paiement'].touched) || codeExists,
@@ -980,8 +984,8 @@
                     <div *ngIf="form5Controls['reference_paiement'].errors['required']">Reference de paiement requis
                     </div>
                   </div>
-                  <div *ngIf=" codeExists" class="invalid-feedback">
-                    <div *ngIf="codeExists">Le code {{formStep5.get('reference_paiement')?.value}} n'est pas valide !!!
+                  <div *ngIf="codeExists" class="invalid-feedback">
+                    <div>Le code {{formStep5.get('reference_paiement')?.value}} n'est pas valide !!!
                       Il a déjà été utilisé ou est incorrect ! <br> Veillez réessayez</div>
                   </div>
                   <div *ngIf="form5Controls['reference_paiement'].valid && codeValid" class="valid-feedback">
@@ -994,7 +998,12 @@
                 <label for="telephone_paiement" class="form-label">Numéro de téléphone ayant éffectué la transaction
                   (*)</label>
                 <div class="input-group has-validation">
-                  <span class="input-group-text" id="inputGroupPrepend3">{{siteSelected?.indicatif || ''}}</span>
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">{{indiceTelephoneTransaction}}</button>
+                  <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
+                    <li><a class="dropdown-item" *ngFor="let i of indices"
+                        (click)="indiceTelephoneTransaction = i">{{i}}</a></li>
+                  </ul>
                   <input type="text" formControlName="telephone_paiement" placeholder=" Exemple : 6 9XX XXX XXX "
                     class="form-control  form-control-lg is-invalid" id="telephone_paiement"
                     aria-describedby="inputGroupPrepend3 telephone_paiementFeedback" required [ngClass]="{
@@ -1030,7 +1039,8 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-button">
-                    <button type="submit" class="button radius-10 w-100" [disabled]="formStep5.invalid">Valider</button>
+                    <button type="submit" class="button radius-10 w-100"
+                      [disabled]="formStep5.invalid || !codeValid">Valider</button>
                   </div>
                 </div>
               </div>
