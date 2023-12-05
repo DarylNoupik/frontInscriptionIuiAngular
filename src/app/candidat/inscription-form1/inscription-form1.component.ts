@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SitesService } from "../../_services/sites.service";
 import { ISite } from "../../_interfaces/site";
 import { ICandidature } from "../../_interfaces/icandidature";
@@ -24,11 +24,23 @@ import { createNumberValidator } from 'src/app/shared/validators/number_validato
 })
 export class InscriptionForm1Component implements OnInit {
   public site!: ISite[];
+  public indices: string[] = [
+    "+237", "+30", "+31", "+32", "+33", "+34", "+36", "+39", "+40", "+41", "+43", "+44", "+45", "+46", "+47", "+48", "+49", "+350", "+351", "+352", "+353", "+354", "+355", "+356", "+357", "+358", "+359", "+370", "+371", "+372", "+373", "+374", "+375", "+376", "+377", "+378", "+379", "+380", "+381", "+382", "+383", "+385", "+386", "+387", "+389", "+420", "+421", "+423", "+213", "+244", "+229", "+267", "+226", "+257", "+238", "+236", "+235", "+269", "+242", "+243", "+225", "+253", "+20", "+240", "+291", "+251", "+266", "+261", "+223", "+356", "+222", "+230", "+222", "+258", "+212", "+258", "+234", "+227", "+47", "+256", "+250", "+239", "+221", "+248", "+232", "+421", "+386", "+252", "+27", "+211", "+249", "+232", "+228", "+216", "+90", "+256", "+255", "+256", "+260"
+  ];
+  public lieux = [
+    "Douala", "Yaoundé", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Ngaoundéré", "Bertoua", "Ébolowa", "Loum", "Kumba", "Mbouda", "Dschang", "Foumban", "Kribi", "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Brazzaville", "Pointe-Noire", "Dolisie", "Nkayi", "Owando", "Impfondo", "Madingou", "Sibiti", "Gamboma", "Kinkala", "Kindamba", "Mossendjo", "Makoua", "Ewo", "Ouesso", "N'Djamena", "Moundou", "Sarh", "Abéché", "Kélo", "Doba", "Koumra", "Pala", "Am Timan", "Bongor", "Mongo", "Ati", "Fada", "Massakory", "Biltine", "Bangui", "Bimbo", "Berbérati", "Carnot", "Bria", "Bossangoa", "Bozoum", "Nola", "Kaga-Bandoro", "Sibut", "Mbaïki", "Damara", "Mobaye", "Grimari", "Dékoa",
+    "Rio de Janeiro", "São Paulo", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís", "Libreville", "Port-Gentil", "Franceville", "Oyem", "Moanda", "Mouila", "Lambaréné", "Tchibanga", "Koulamoutou", "Makokou", "Lastoursville", "Mounana", "Gamba", "Bitam", "Ndendé", "Delhi", "Mumbai", "Kolkata", "Chennai", "Bengaluru", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", "Thane", "Quito", "Guayaquil", "Cuenca", "Santo Domingo de los Colorados", "Machala", "Manta", "Portoviejo", "Ambato", "Durán", "Loja", "Esmeraldas", "Quevedo", "Ibarra", "Riobamba", "Latacunga"
+  ];
   uploadedFile!: string;
   public actualDate = new Date();
   selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
+  public indiceTelephoneCandidat: string = "+237";
+  public indiceTelephonePere: string = "+237";
+  public indiceTelephoneMere: string = "+237";
+  public indiceTelephoneTuteur: string = "+237";
+  public indiceTelephoneTransaction: string = "+237";
   public showForm: boolean = false;
   public showCentre: boolean = true;
   public candidatureForm: ICandidature = {
@@ -100,8 +112,15 @@ export class InscriptionForm1Component implements OnInit {
   public siteSelected!: ISite;
   public currentDate: Date = new Date();
 
+  mobileView = false;
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.checkDevice();
+  }
+
   formStep1: FormGroup = new FormGroup({
-    nom: new FormControl('', [Validators.required]),
+    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
     prenom: new FormControl('', [Validators.required]),
     telephone: new FormControl('', [Validators.minLength(8), Validators.required, createNumberValidator()]),
     email: new FormControl('', [Validators.required, Validators.email,]),
@@ -109,25 +128,27 @@ export class InscriptionForm1Component implements OnInit {
 
   formStep2: FormGroup = new FormGroup({
     date_naissance: new FormControl('', [Validators.required]),
-    nationalite: new FormControl('', [Validators.required]),
-    ville: new FormControl('', [Validators.required]),
-    lieu_naissance: new FormControl('', [Validators.required]),
+    nationalite: new FormControl('', [Validators.minLength(5), Validators.required]),
+    ville: new FormControl('', [Validators.minLength(5), Validators.required]),
+    lieu_naissance: new FormControl('', [Validators.minLength(5), Validators.required]),
     genre: new FormControl('', [Validators.required]),
   });
 
   formStep3: FormGroup = new FormGroup({
-    email_pere: new FormControl('', []),
+    email_pere: new FormControl('', [Validators.email]),
     telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    email_tuteur: new FormControl('', []),
+    email_tuteur: new FormControl('', [Validators.email]),
     telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    email_mere: new FormControl('', []),
+    email_mere: new FormControl('', [Validators.email]),
     telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
-    nom_parent2: new FormControl('', [Validators.required]),
-    nom_parent1: new FormControl('', [Validators.required]),
+    nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
   formStep4: FormGroup = new FormGroup({
     dernier_etablissement: new FormControl('', [Validators.required]),
+    nombre_formation: new FormControl('', [Validators.required]),
+    formation_principal: new FormControl('', []),
     langue: new FormControl('', [Validators.required]),
     paiement: new FormControl({ value: "", disabled: true }, []),
     cycle: new FormControl('', [Validators.required]),
@@ -190,8 +211,16 @@ export class InscriptionForm1Component implements OnInit {
     this.formStep4.updateValueAndValidity();
   }
 
-  ngOnInit(): void {
+  checkDevice() {
+    if (window.innerWidth <= 587) {
+      this.mobileView = true;
+    } else {
+      this.mobileView = false;
+    }
+  }
 
+  ngOnInit(): void {
+    this.checkDevice();
 
     this.sessionService.getActiveSession().subscribe({
       next: data => {
@@ -279,25 +308,30 @@ export class InscriptionForm1Component implements OnInit {
   }
 
   toggleForm(): void {
-    for (let i = 0; i < this.site.length; i++) {
-      if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
-        this.siteSelected = this.site[i];
+    if (this.candidatureForm.centre.length > 0) {
+      for (let i = 0; i < this.site.length; i++) {
+        if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
+          this.siteSelected = this.site[i];
+        }
       }
-    }
-    this.showForm = !this.showForm;
+      this.showForm = !this.showForm;
 
-    for (let i = 0; i < this.centreBySite.length; i++) {
-      if (this.candidatureForm.centre === this.centreBySite[i].nom) {
-        this.msgPaiement = " test ";
-        this.showNumberPaiement = true;
+      for (let i = 0; i < this.centreBySite.length; i++) {
+        if (this.candidatureForm.centre === this.centreBySite[i].nom) {
+          this.msgPaiement = " test ";
+          this.showNumberPaiement = true;
+        }
       }
-    }
-    if (this.msgPaiement === "") {
-      this.msgPaiement = ""
-      this.showNumberPaiement = false;
-    }
+      if (this.msgPaiement === "") {
+        this.msgPaiement = ""
+        this.showNumberPaiement = false;
+      }
 
-    this.showCentre = !this.showForm;
+      this.showCentre = !this.showForm;
+    } else {
+      let msgError = "Veuillez selectionner le centre au préalable avant de continuer.";
+      this.toastr.error(msgError, 'Centre non sélectionné');
+    }
   }
 
   isInCentre(centre: string, listCentre: ICentre[]): boolean {
@@ -315,20 +349,22 @@ export class InscriptionForm1Component implements OnInit {
       (response) => {
         this.allcodes = response.allCode;
         this.exitscode = response.existCode;
+        console.log("allcodes", this.allcodes);
+        console.log("exitscode", this.exitscode);
 
         if (this.showNumberPaiement) {
-          if (this.exitscode.includes(this.candidatureForm.reference_paiement) === true) {
+          if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
             this.codeExists = true;
             this.codeValid = false;
           } else {
             this.codeExists = false;
-            this.codeValid = false;
+            this.codeValid = true;
           }
         } else {
-          if (this.exitscode.includes(this.candidatureForm.reference_paiement) === true) {
+          if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
             this.codeExists = true;
             this.codeValid = false;
-          } else if (this.exitscode.includes(this.candidatureForm.reference_paiement) === false && this.allcodes.includes(this.candidatureForm.reference_paiement) === false) {
+          } else if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === false && this.allcodes.includes(this.candidatureForm.reference_paiement) === false) {
             this.codeExists = true;
             this.codeValid = false;
           } else {
@@ -340,6 +376,17 @@ export class InscriptionForm1Component implements OnInit {
   }
 
   onSubmit() {
+    this.compteform = {
+      name: this.formStep1.get('nom')?.value,
+      prenom: this.formStep1.get('prenom')?.value,
+      password: "pass",
+      email: this.formStep1.get('email')?.value,
+      telephone: this.indiceTelephoneCandidat + "" + this.formStep1.get('telephone')?.value,
+      role: "CANDIDAT",
+      id_disponibilite: 0,
+      idZone: this.selectZone.id
+    };
+
     this.candidatureForm = {
       dernier_Etablissement: this.formStep4.get('dernier_etablissement')?.value,
       langue: this.formStep4.get('langue')?.value,
@@ -355,14 +402,14 @@ export class InscriptionForm1Component implements OnInit {
       formation_principal: this.formStep4.get('formation_principal')?.value,
 
       reference_paiement: this.formStep5.get('reference_paiement')?.value,
-      telephone_paiement: this.formStep5.get('telephone_paiement')?.value,
+      telephone_paiement: this.indiceTelephoneTransaction + "" + this.formStep5.get('telephone_paiement')?.value,
 
       email_pere: this.formStep3.get('email_pere')?.value,
-      telephone_pere: this.formStep3.get('telephone_pere')?.value,
+      telephone_pere: this.indiceTelephonePere + "" + this.formStep3.get('telephone_pere')?.value,
       email_tuteur: this.formStep3.get('email_tuteur')?.value,
-      telephone_tuteur: this.formStep3.get('telephone_tuteur')?.value,
+      telephone_tuteur: this.indiceTelephoneTuteur + "" + this.formStep3.get('telephone_tuteur')?.value,
       email_mere: this.formStep3.get('email_mere')?.value,
-      telephone_mere: this.formStep3.get('telephone_mere')?.value,
+      telephone_mere: this.indiceTelephoneMere + "" + this.formStep3.get('telephone_mere')?.value,
       nom_parent2: this.formStep3.get('nom_parent2')?.value,
       nom_parent1: this.formStep3.get('nom_parent1')?.value,
 
@@ -374,7 +421,7 @@ export class InscriptionForm1Component implements OnInit {
 
       sessionId: this.session.id,
       statut: "En_Attente",
-      compteID: this.candidatureForm.compteID,
+      compteID: Number(localStorage.getItem('idCandidat')) || 0,
       code_examen: 0,
       nombre_choix: this.candidatureForm.nombre_choix,
       centre: this.candidatureForm.centre,
@@ -382,9 +429,15 @@ export class InscriptionForm1Component implements OnInit {
       candidatureActif: true,
     };
 
-    this.compteform.idZone = this.selectZone.id;
-    this.candidatureForm.sessionId = this.session.id;
-    this.addCandidature()
+    this.authService.register(this.compteform).subscribe({
+      next: value => {
+        this.candidatureForm.compteID = value.id;
+        this.addCandidature()
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
     return true;
   }
 
@@ -416,7 +469,6 @@ export class InscriptionForm1Component implements OnInit {
     this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
   }
 
-
   generateCode(currentDate: Date, userCity: string, userId: string): string {
     const year = currentDate.getFullYear().toString().slice(-2); // prend les deux derniers caractères de l'année
     const city = userCity.substring(0, 2).toUpperCase(); // prend les deux premiers caractères de la ville et les convertit en majuscules
@@ -427,10 +479,9 @@ export class InscriptionForm1Component implements OnInit {
     return code;
   }
 
-
-
   createAccount(step: number) {
     this.step = step;
   }
 
 }
+

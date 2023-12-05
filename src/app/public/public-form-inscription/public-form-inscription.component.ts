@@ -278,25 +278,30 @@ export class PublicFormInscriptionComponent implements OnInit {
   }
 
   toggleForm(): void {
-    for (let i = 0; i < this.site.length; i++) {
-      if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
-        this.siteSelected = this.site[i];
+    if (this.candidatureForm.centre.length > 0) {
+      for (let i = 0; i < this.site.length; i++) {
+        if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
+          this.siteSelected = this.site[i];
+        }
       }
-    }
-    this.showForm = !this.showForm;
+      this.showForm = !this.showForm;
 
-    for (let i = 0; i < this.centreBySite.length; i++) {
-      if (this.candidatureForm.centre === this.centreBySite[i].nom) {
-        this.msgPaiement = " test ";
-        this.showNumberPaiement = true;
+      for (let i = 0; i < this.centreBySite.length; i++) {
+        if (this.candidatureForm.centre === this.centreBySite[i].nom) {
+          this.msgPaiement = " test ";
+          this.showNumberPaiement = true;
+        }
       }
-    }
-    if (this.msgPaiement === "") {
-      this.msgPaiement = ""
-      this.showNumberPaiement = false;
-    }
+      if (this.msgPaiement === "") {
+        this.msgPaiement = ""
+        this.showNumberPaiement = false;
+      }
 
-    this.showCentre = !this.showForm;
+      this.showCentre = !this.showForm;
+    } else {
+      let msgError = "Veuillez selectionner le centre au préalable avant de continuer.";
+      this.toastr.error(msgError, 'Centre non sélectionné');
+    }
   }
 
   isInCentre(centre: string, listCentre: ICentre[]): boolean {
@@ -314,6 +319,8 @@ export class PublicFormInscriptionComponent implements OnInit {
       (response) => {
         this.allcodes = response.allCode;
         this.exitscode = response.existCode;
+        console.log("allcodes", this.allcodes);
+        console.log("exitscode", this.exitscode);
 
         if (this.showNumberPaiement) {
           if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
@@ -321,7 +328,7 @@ export class PublicFormInscriptionComponent implements OnInit {
             this.codeValid = false;
           } else {
             this.codeExists = false;
-            this.codeValid = false;
+            this.codeValid = true;
           }
         } else {
           if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
