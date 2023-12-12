@@ -8,6 +8,14 @@ font-weight: 800 !important;
 line-height: normal;
 }
 
+.mb-2{
+    margin-top: 2em;
+}
+
+.carousel-control-prev,.carousel-control-next {
+    width: 3% !important;
+}
+
 .termTitle{
     /* background: linear-gradient(180deg, #D61A1A 0%, #DE640D 99.99%, rgba(214, 26, 26, 0.00) 100%);
 background-clip: text;

@@ -699,6 +699,36 @@
                                             TI
                                         </label>
                                     </div>
+                                    <div class="form-check">
+                                        <input formControlName="serie_bac" required class="form-check-input"
+                                            value="Autre" type="radio" name="serie_bac" id="serie_bac6"
+                                            (click)="checkIfSerieBacc()">
+                                        <label class="form-check-label" for="serie_bac6">
+                                            Autre
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" *ngIf="formStep4.get('serie_bac')?.value == 'Autre'">
+                                <div class="">
+                                    <label for="serie_bac_input" class="form-label">Serie bac (*)</label>
+                                    <input formControlName="serie_bac_input" required style="width: 100%;" type="text"
+                                        id="serie_bac_input" name="serie_bac_input" class="form-control form-control-lg"
+                                        placeholder="Entrer votre type de baccalaureat obtenu" [ngClass]="{
+                                    'is-invalid':
+                                    form4Controls['serie_bac_input'].errors &&
+                                    form4Controls['serie_bac_input'].touched,
+                                    'is-valid': form4Controls['serie_bac_input'].valid
+                                }">
+                                    <div *ngIf="form4Controls['serie_bac_input'].errors" class="invalid-feedback">
+                                        <div *ngIf="form4Controls['serie_bac_input'].errors['required']">Baccalaureat
+                                            requis
+                                        </div>
+                                    </div>
+                                    <div *ngIf="form4Controls['serie_bac_input'].valid" class="valid-feedback">
+                                        C'est bon!
+                                    </div>
                                 </div>
                             </div>
 

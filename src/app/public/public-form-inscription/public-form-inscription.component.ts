@@ -155,6 +155,7 @@ export class PublicFormInscriptionComponent implements OnInit {
     image: new FormControl('', []),
     hasExchange: new FormControl('', [Validators.required]),
     serie_bac: new FormControl('', [Validators.required]),
+    serie_bac_input: new FormControl('', []),
     formation2: new FormControl('', []),
     formation3: new FormControl('', []),
     formation1: new FormControl('', []),
@@ -204,6 +205,15 @@ export class PublicFormInscriptionComponent implements OnInit {
       this.formStep4.get('diplome_universitaire')?.addValidators(Validators.required);
     } else {
       this.formStep4.get('diplome_universitaire')?.removeValidators(Validators.required);
+    }
+    this.formStep4.updateValueAndValidity();
+  }
+
+  checkIfSerieBacc() {
+    if (this.formStep4.get('serie_bac')?.value == 'Autre') {
+      this.formStep4.get('serie_bac_input')?.addValidators(Validators.required);
+    } else {
+      this.formStep4.get('serie_bac_input')?.removeValidators(Validators.required);
     }
     this.formStep4.updateValueAndValidity();
   }
@@ -365,7 +375,7 @@ export class PublicFormInscriptionComponent implements OnInit {
       diplome_universitaire: this.formStep4.get('diplome_universitaire')?.value,
       image: this.formStep4.get('image')?.value,
       hasExchange: this.formStep4.get('hasExchange')?.value,
-      serie_bac: this.formStep4.get('serie_bac')?.value,
+      serie_bac: this.formStep4.get('serie_bac')?.value === 'Autre' ? this.formStep4.get('serie_bac_input')?.value : this.formStep4.get('serie_bac')?.value,
       formation1: this.formStep4.get('formation1')?.value,
       formation2: this.formStep4.get('formation2')?.value,
       formation3: this.formStep4.get('formation3')?.value,
