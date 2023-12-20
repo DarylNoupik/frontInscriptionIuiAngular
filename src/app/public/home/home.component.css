@@ -1,11 +1,32 @@
 .title {
     /* text-shadow: white -1px -1px 0px, white 3px 3px 0px; */
     color: #F5F5F5 !important;
-font-family: Montserrat;
+
 /* font-size: 48px; */
 font-style: normal;
 font-weight: 800 !important;
 line-height: normal;
+}
+
+.message_inscription_carousel {
+    height: 830px;
+}
+
+.message_inscription_carousel img {
+    
+}
+
+.message_inscription {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    transform: translate(0, -50%);
+    width: 100%;
+}
+
+.message_inscription h4 {
+    font-size: 2em;
+    margin-bottom: 1rem;
 }
 
 .mb-2{
@@ -25,7 +46,7 @@ color: #DE640D !important;
 margin-right: 1rem;
 width: 28%;
 margin-block: 1.5em;
-font-family: Montserrat;
+
 font-style: normal;
 font-weight: 800;
 line-height: normal;
@@ -39,7 +60,7 @@ line-height: normal;
 
 .term_content h6 {
     color: #000;
-font-family: Montserrat;
+
 font-style: normal;
 font-weight: 700;
 line-height: normal;
@@ -47,7 +68,7 @@ line-height: normal;
 
 .term_content ul li {
     color: #000;
-    font-family: Montserrat;
+    
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -105,7 +126,7 @@ background: linear-gradient(180deg, #DE640D 0%, #D61A1A 99.99%, rgba(214, 26, 26
 
 .centerInformation h6 {
     color: #fff;
-    font-family: Montserrat;
+    
     font-style: normal;
     line-height: normal;  
 }
@@ -121,7 +142,7 @@ background: linear-gradient(180deg, #DE640D 0%, #D61A1A 99.99%, rgba(214, 26, 26
 
 .centerInformation ul li {
     color: #fff;
-    font-family: Montserrat;
+    
     font-style: normal;
     line-height: normal;
 }

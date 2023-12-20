@@ -1,24 +1,59 @@
 <!-- ========================= hero-2 start ========================= -->
-<section id="home" class="hero-section-wrapper-2" style="overflow: hidden;">
-  <div class="hero-section hero-style-2">
-    <div class="" style="background: url(assets/img/Etudiants.png) no-repeat center/cover;">
-      <div class="row align-items-center">
-        <div class="" style="text-align: center;">
-          <div class="hero-content-wrapper">
-            <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
-            <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
-            <h4 class="wow fadeInUp title mb-2" data-wow-delay=".2s">Bienvenue sur votre espace d'inscription</h4>
+<div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active message_inscription_carousel">
+      <img src="/assets/img/Vue_aerienne_du_campus.png" class="d-block w-100" alt="...">
 
-            <div class="buttons justify-content-center">
-              <a [routerLink]="['/inscription']" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"
-                data-wow-delay=".7s">Inscrivez-vous maintenant</a>
-            </div>
-          </div>
+      <div class="message_inscription">
+        <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
+        <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
+        <h4 class="wow fadeInUp title mb-2" data-wow-delay=".2s">Bienvenue sur votre espace d'inscription</h4>
+
+        <div class="buttons justify-content-center">
+          <a [routerLink]="['/inscription']" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"
+            data-wow-delay=".7s">Inscrivez-vous maintenant</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item message_inscription_carousel">
+      <img src="/assets/img/Vue_aerienne_du_campus1.png" class="d-block w-100" alt="...">
+      <div class="message_inscription">
+        <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
+        <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
+        <h4 class="wow fadeInUp title mb-2" data-wow-delay=".2s">Bienvenue sur votre espace d'inscription</h4>
+
+        <div class="buttons justify-content-center">
+          <a [routerLink]="['/inscription']" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"
+            data-wow-delay=".7s">Inscrivez-vous maintenant</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item message_inscription_carousel">
+      <img src="/assets/img/Etudiants.png" class="d-block w-100" alt="...">
+      <div class="message_inscription">
+        <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
+        <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
+        <h4 class="wow fadeInUp title mb-2" data-wow-delay=".2s">Bienvenue sur votre espace d'inscription</h4>
+
+        <div class="buttons justify-content-center">
+          <a [routerLink]="['/inscription']" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"
+            data-wow-delay=".7s">Inscrivez-vous maintenant</a>
         </div>
       </div>
     </div>
   </div>
-</section>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </a>
+</div>
 <!-- ========================= hero-2 end ========================= -->
 
 <div class="container">
@@ -162,8 +197,31 @@
     </div>
   </div>
   <div class="row centerContent">
-    <div class="col-5"
-      style="border-radius: 30px;background: url(assets/img/Etudiants.png) no-repeat;    background-size: cover;">
+    <div class="col-5" style="border-radius: 30px;">
+      <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active" style="height: 360px;">
+            <img src="/assets/img/Vue_aerienne_du_campus.png" class="d-block w-100 h-100" style="border-radius: 30px;">
+          </div>
+          <div class="carousel-item " style="height: 360px;">
+            <img src="/assets/img/Vue_aerienne_du_campus1.png" class="d-block w-100 h-100" style="border-radius: 30px;">
+          </div>
+          <div class="carousel-item " style="height: 360px;">
+            <img src="/assets/img/Etudiants.png" class="d-block w-100 h-100" style="border-radius: 30px;">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+      </div>
     </div>
     <div class="col-7">
       <div class="centerInformation">
