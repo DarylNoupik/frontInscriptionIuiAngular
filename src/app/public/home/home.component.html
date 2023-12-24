@@ -8,7 +8,7 @@
   <div class="carousel-inner">
     <div class="carousel-item active message_inscription_carousel">
       <img src="/assets/img/Vue_aerienne_du_campus.png" class="d-block w-100" alt="...">
-
+      <div class="message_inscription_background"></div>
       <div class="message_inscription">
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
@@ -22,6 +22,7 @@
     </div>
     <div class="carousel-item message_inscription_carousel">
       <img src="/assets/img/Vue_aerienne_du_campus1.png" class="d-block w-100" alt="...">
+      <div class="message_inscription_background"></div>
       <div class="message_inscription">
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
@@ -35,6 +36,7 @@
     </div>
     <div class="carousel-item message_inscription_carousel">
       <img src="/assets/img/Etudiants.png" class="d-block w-100" alt="...">
+      <div class="message_inscription_background"></div>
       <div class="message_inscription">
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
@@ -62,11 +64,15 @@
       <div class="hero-content-wrapper">
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
         <!--<h2 class="mb-30 wow fadeInUp" data-wow-delay=".4s">&nbsp;</h2>-->
-        <div class="align-items-center term_section justify-content-center">
-          <h4 class="wow fadeInUp title termTitle" data-wow-delay=".2s">Conditions et termes</h4>
-          <div class="design align-items-center justify-content-center">
-            <div class="losange"></div>
-            <div class="line"></div>
+        <div class="row align-items-center  justify-content-center">
+          <div class="col-12 col-md-3">
+            <h4 class="wow fadeInUp title termTitle" data-wow-delay=".2s">Conditions et termes</h4>
+          </div>
+          <div class="col-0 col-md-9 d-none d-sm-block">
+            <div class="design align-items-center justify-content-center">
+              <div class="losange"></div>
+              <div class="line"></div>
+            </div>
           </div>
         </div>
 
@@ -183,26 +189,29 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
           </a>
         </div>
-
         <div class="banner_bloc">
         </div>
-        <div class="align-items-center term_section justify-content-center">
-          <div class="design align-items-center justify-content-center">
-            <div class="line"></div>
-            <div class="losange"></div>
+        <div class="row align-items-center  justify-content-center">
+          <div class="col-0 col-md-9 d-none d-sm-block">
+            <div class="design align-items-center justify-content-center">
+              <div class="losange"></div>
+              <div class="line"></div>
+            </div>
           </div>
-          <h4 class="wow fadeInUp title termTitle centerTitle" data-wow-delay=".2s">Nos centres et sites </h4>
+          <div class="col-12 col-md-3">
+            <h4 class="wow fadeInUp title termTitle text-end" data-wow-delay=".2s">Nos centres et sites</h4>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="row centerContent">
-    <div class="col-5" style="border-radius: 30px;">
-      <div id="carouselExampleIndicators" class="carousel slide " data-ride="carousel">
+    <div class="col-12 col-md-5 mb-4 mb-sm-0" style="border-radius: 30px;">
+      <div id="carouselExampleIndicators1" class="carousel slide " data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators1" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators1" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators1" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active" style="height: 360px;">
@@ -211,19 +220,16 @@
           <div class="carousel-item " style="height: 360px;">
             <img src="/assets/img/Vue_aerienne_du_campus1.png" class="d-block w-100 h-100" style="border-radius: 30px;">
           </div>
-          <div class="carousel-item " style="height: 360px;">
-            <img src="/assets/img/Etudiants.png" class="d-block w-100 h-100" style="border-radius: 30px;">
-          </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </a>
       </div>
     </div>
-    <div class="col-7">
+    <div class="col-12 col-md-7">
       <div class="centerInformation">
         <h6>Le concours se deroule dans deux zones :</h6>
         <ul style="list-style: disc;">
@@ -246,3 +252,6 @@
   <div class="divider"></div>
 
 </div>
+
+<button (click)="goTopPage()" id="goTop" class="btn btn-warning" title="Go to top"><i
+    class="fa-solid fa-arrow-up"></i></button>

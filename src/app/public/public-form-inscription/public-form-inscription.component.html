@@ -8,7 +8,7 @@
       </h4>
       <div>&nbsp;</div>
       <h6>Pour l’enregistrement, vous aurez besoin :</h6>
-      <ul>
+      <ul class="p-0">
         <li>De l’identité de l’élève (nom, prénom, date de naissance, établissement, série du
           baccalauréat clôturant le cycle secondaire…)</li>
         <li>Du contact téléphonique et de l’identité des parents</li>
@@ -20,7 +20,7 @@
   </div>
   <div class="container">
 
-    <div class="col-12" style=" padding-top: 100px;">
+    <div class="col-12" style="text-align: center; padding-top: 100px;">
       <h4 class="wow fadeInUp" data-wow-delay=".4s">{{session.nom}} </h4>
       <h6 class="text-center">Date d'examen: <b style="color: #df650d">{{session.date_examen |
           date:'fullDate':'':'fr-FR' }}</b>
@@ -49,7 +49,8 @@
       </div>
 
       <div *ngFor="let item of site" class="col-lg-4 col-md-8 col-sm-10">
-        <div class="single-pricing wow fadeInUp" style="height: 700px" data-wow-delay=".2s">
+        <div class="single-pricing wow fadeInUp" style="height: 700px; box-shadow: 1px 0px 4px #000000;"
+          data-wow-delay=".2s">
           <div class="image">
             <img src="{{item.image}}" alt="">
           </div>
@@ -554,12 +555,12 @@
               </div>
 
               <div class="row mt-3">
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="form-button">
                     <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="form-button">
                     <button type="submit" class="button radius-10 w-100" [disabled]="formStep3.invalid">Suivant</button>
                   </div>
@@ -997,12 +998,12 @@
               </div>
 
               <div class="row mt-3">
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="form-button">
                     <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="form-button">
                     <button type="submit" class="button radius-10 w-100" [disabled]="formStep4.invalid">Suivant</button>
                   </div>
@@ -1079,12 +1080,12 @@
               </div>
 
               <div class="row mt-3">
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="form-button">
                     <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="form-button">
                     <button type="submit" class="button radius-10 w-100"
                       [disabled]="formStep5.invalid || !codeValid">Valider</button>
