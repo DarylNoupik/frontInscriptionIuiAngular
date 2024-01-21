@@ -248,6 +248,60 @@
       </div>
     </div>
   </div>
+  <div class="banner_bloc banner_bloc_matter">
+    <h4 class="title text-center" data-wow-delay=".2s">Matieres examinatoires</h4>
+  </div>
+  <div class="matter-container">
+    <div class="matter" *ngFor="let matter of matters">
+      <div class="header">
+        {{matter.title}}
+      </div>
+      <div class="body">
+        <table>
+          <thead class="line">
+            <th><i class="fa-solid fa-book book"></i></th>
+            <th>Matieres</th>
+            <th><i class="fa-solid fa-clock"></i></th>
+            <th><i class="fa-solid fa-code"></i></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lesson of matter.content">
+              <td><i class="fa-solid fa-book book"></i></td>
+              <td class="text">{{lesson.title}}</td>
+              <td  class="text clr-primary">{{lesson.duration}}</td>
+              <td  class="text clr-primary">{{lesson.coef}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="formation" *ngIf="matter.formation">
+{{matter.formation}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reference">
+    <h5 class="text title_ref">References</h5>
+    <ul>
+      <li class="text">
+        X : Informatique
+      </li>
+      <li  class="text">
+        I  : Généraliste international et innovation
+      </li>
+      <li  class="text">
+        IP : génie des procédés
+      </li>
+    </ul>
+    <div class="symbols">
+      <div >
+        <i class="fa-solid fa-clock"></i> <span class="text"> : Duree de composition</span>
+      </div>
+      <div  class="text">
+        <i class="fa-solid fa-code"></i> <span class="text"> : Coefficient</span>
+      </div>
+    </div>
+  </div>
   <div class="space"></div>
   <div class="divider"></div>
 
