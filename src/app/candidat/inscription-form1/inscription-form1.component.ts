@@ -15,7 +15,7 @@ import { TokenService } from 'src/app/_services/token.service';
 import { UsersService } from 'src/app/_services/users.service';
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createNumberValidator } from 'src/app/shared/validators/number_validator';
+import { createCamerounianNumberValidator, createInternationalNumberValidator } from 'src/app/shared/validators/number_validator';
 
 @Component({
   selector: 'app-inscription-form1',
@@ -122,7 +122,7 @@ export class InscriptionForm1Component implements OnInit {
   formStep1: FormGroup = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
     prenom: new FormControl('', [Validators.required]),
-    telephone: new FormControl('', [Validators.minLength(8), Validators.required, createNumberValidator()]),
+    telephone: new FormControl('', [Validators.minLength(8), Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email,]),
   });
 
@@ -136,11 +136,12 @@ export class InscriptionForm1Component implements OnInit {
 
   formStep3: FormGroup = new FormGroup({
     email_pere: new FormControl('', [Validators.email]),
-    telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    hasTutor: new FormControl('', [Validators.required]),
+    telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8)]),
     email_tuteur: new FormControl('', [Validators.email]),
-    telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8)]),
     email_mere: new FormControl('', [Validators.email]),
-    telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8)]),
     nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3)]),
     nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
@@ -163,7 +164,7 @@ export class InscriptionForm1Component implements OnInit {
   });
 
   formStep5: FormGroup = new FormGroup({
-    telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8)]),
     reference_paiement: new FormControl('', [Validators.required]),
   });
 
@@ -262,7 +263,7 @@ export class InscriptionForm1Component implements OnInit {
         this.formStep1 = new FormGroup({
           nom: new FormControl(data.name, [Validators.required]),
           prenom: new FormControl(data.prenom, [Validators.required]),
-          telephone: new FormControl(data.telephone.toString(), [Validators.minLength(8), Validators.required, createNumberValidator()]),
+          telephone: new FormControl(data.telephone.toString(), [Validators.minLength(8), Validators.required]),
           email: new FormControl(data.email, [Validators.required, Validators.email,]),
         });
 

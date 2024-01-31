@@ -14,7 +14,7 @@ import { ICentre } from "../../_interfaces/icentre";
 import { query } from "@angular/animations";
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createNumberValidator } from 'src/app/shared/validators/number_validator';
+import { createCamerounianNumberValidator,createInternationalNumberValidator } from 'src/app/shared/validators/number_validator';
 
 @Component({
   selector: 'app-public-form-inscription',
@@ -30,6 +30,17 @@ export class PublicFormInscriptionComponent implements OnInit {
     "Douala", "Yaoundé", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Ngaoundéré", "Bertoua", "Ébolowa", "Loum", "Kumba", "Mbouda", "Dschang", "Foumban", "Kribi", "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Brazzaville", "Pointe-Noire", "Dolisie", "Nkayi", "Owando", "Impfondo", "Madingou", "Sibiti", "Gamboma", "Kinkala", "Kindamba", "Mossendjo", "Makoua", "Ewo", "Ouesso", "N'Djamena", "Moundou", "Sarh", "Abéché", "Kélo", "Doba", "Koumra", "Pala", "Am Timan", "Bongor", "Mongo", "Ati", "Fada", "Massakory", "Biltine", "Bangui", "Bimbo", "Berbérati", "Carnot", "Bria", "Bossangoa", "Bozoum", "Nola", "Kaga-Bandoro", "Sibut", "Mbaïki", "Damara", "Mobaye", "Grimari", "Dékoa",
     "Rio de Janeiro", "São Paulo", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís", "Libreville", "Port-Gentil", "Franceville", "Oyem", "Moanda", "Mouila", "Lambaréné", "Tchibanga", "Koulamoutou", "Makokou", "Lastoursville", "Mounana", "Gamba", "Bitam", "Ndendé", "Delhi", "Mumbai", "Kolkata", "Chennai", "Bengaluru", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", "Thane", "Quito", "Guayaquil", "Cuenca", "Santo Domingo de los Colorados", "Machala", "Manta", "Portoviejo", "Ambato", "Durán", "Loja", "Esmeraldas", "Quevedo", "Ibarra", "Riobamba", "Latacunga"
   ];
+
+  public nationalities: string[] = [
+    "France",
+    "Equateur",
+    "Cameroun",
+    "Bresil",
+    "Congo (RC)",
+    "Inde",
+    "Congo (RDC)",
+  ];
+
   uploadedFile!: string;
   public actualDate = new Date();
   selectZone!: IZone;
@@ -121,9 +132,64 @@ export class PublicFormInscriptionComponent implements OnInit {
   formStep1: FormGroup = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
     prenom: new FormControl('', [Validators.required]),
-    telephone: new FormControl('', [Validators.minLength(8), Validators.required, createNumberValidator()]),
+    telephone: new FormControl('', [Validators.minLength(8), Validators.required, createCamerounianNumberValidator()]),
     email: new FormControl('', [Validators.required, Validators.email,]),
   });
+
+  changeValidator(indice: string, libelle: string, indiceElement: string) {
+    if (indiceElement == "indiceTelephoneCandidat") {
+    this.indiceTelephoneCandidat = indice;
+    }
+    if (indiceElement == "indiceTelephonePere") {
+    this.indiceTelephonePere = indice;
+    }
+    if (indiceElement == "indiceTelephoneMere") {
+    this.indiceTelephoneMere = indice;
+    }
+    if (indiceElement == "indiceTelephoneTuteur") {
+    this.indiceTelephoneTuteur = indice;
+    }
+    if (indiceElement == "indiceTelephoneTransaction") {
+    this.indiceTelephoneTransaction = indice;
+    }
+console.log("indice:",indice);
+console.log("step:",this.step);
+
+
+    if (this.step == 1) {
+      if (indice == "+237") {
+        this.formStep1.get(libelle)!.removeValidators(createInternationalNumberValidator());
+        this.formStep1.get(libelle)!.addValidators(createCamerounianNumberValidator());
+        } else {
+          this.formStep1.get(libelle)!.removeValidators(createCamerounianNumberValidator());
+        this.formStep1.get(libelle)!.addValidators(createInternationalNumberValidator());
+        }
+
+        this.formStep1.updateValueAndValidity();
+    }
+
+    if (this.step == 3) {
+      if (indice == "+237") {
+        this.formStep3.get(libelle)!.removeValidators(createInternationalNumberValidator());
+        this.formStep3.get(libelle)!.addValidators(createCamerounianNumberValidator());
+        } else {
+          this.formStep3.get(libelle)!.removeValidators(createCamerounianNumberValidator());
+        this.formStep3.get(libelle)!.addValidators(createInternationalNumberValidator());
+        }
+        this.formStep3.updateValueAndValidity();
+    }
+
+    if (this.step == 5) {
+      if (indice == "+237") {
+        this.formStep5.get(libelle)!.removeValidators(createInternationalNumberValidator());
+        this.formStep5.get(libelle)!.addValidators(createCamerounianNumberValidator());
+        } else {
+          this.formStep5.get(libelle)!.removeValidators(createCamerounianNumberValidator());
+        this.formStep5.get(libelle)!.addValidators(createInternationalNumberValidator());
+        }
+        this.formStep5.updateValueAndValidity();
+    }
+  }
 
   formStep2: FormGroup = new FormGroup({
     date_naissance: new FormControl('', [Validators.required]),
@@ -135,11 +201,12 @@ export class PublicFormInscriptionComponent implements OnInit {
 
   formStep3: FormGroup = new FormGroup({
     email_pere: new FormControl('', [Validators.email]),
-    telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     email_tuteur: new FormControl('', [Validators.email]),
-    telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     email_mere: new FormControl('', [Validators.email]),
-    telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    hasTutor: new FormControl('', [Validators.required]),
+    telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3)]),
     nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
@@ -162,7 +229,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   });
 
   formStep5: FormGroup = new FormGroup({
-    telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8), createNumberValidator()]),
+    telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     reference_paiement: new FormControl('', [Validators.required]),
   });
 
