@@ -22,7 +22,7 @@ import { createCamerounianNumberValidator, createInternationalNumberValidator } 
   templateUrl: './inscription-form1.component.html',
   styleUrls: ['./inscription-form1.component.css']
 })
-export class InscriptionForm1Component implements OnInit {
+export class InscriptionForm1Component implements   OnInit {
   public site!: ISite[];
   public indices: string[] = [
     "+237", "+30", "+31", "+32", "+33", "+34", "+36", "+39", "+40", "+41", "+43", "+44", "+45", "+46", "+47", "+48", "+49", "+350", "+351", "+352", "+353", "+354", "+355", "+356", "+357", "+358", "+359", "+370", "+371", "+372", "+373", "+374", "+375", "+376", "+377", "+378", "+379", "+380", "+381", "+382", "+383", "+385", "+386", "+387", "+389", "+420", "+421", "+423", "+213", "+244", "+229", "+267", "+226", "+257", "+238", "+236", "+235", "+269", "+242", "+243", "+225", "+253", "+20", "+240", "+291", "+251", "+266", "+261", "+223", "+356", "+222", "+230", "+222", "+258", "+212", "+258", "+234", "+227", "+47", "+256", "+250", "+239", "+221", "+248", "+232", "+421", "+386", "+252", "+27", "+211", "+249", "+232", "+228", "+216", "+90", "+256", "+255", "+256", "+260"
@@ -31,6 +31,17 @@ export class InscriptionForm1Component implements OnInit {
     "Douala", "Yaoundé", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Ngaoundéré", "Bertoua", "Ébolowa", "Loum", "Kumba", "Mbouda", "Dschang", "Foumban", "Kribi", "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Brazzaville", "Pointe-Noire", "Dolisie", "Nkayi", "Owando", "Impfondo", "Madingou", "Sibiti", "Gamboma", "Kinkala", "Kindamba", "Mossendjo", "Makoua", "Ewo", "Ouesso", "N'Djamena", "Moundou", "Sarh", "Abéché", "Kélo", "Doba", "Koumra", "Pala", "Am Timan", "Bongor", "Mongo", "Ati", "Fada", "Massakory", "Biltine", "Bangui", "Bimbo", "Berbérati", "Carnot", "Bria", "Bossangoa", "Bozoum", "Nola", "Kaga-Bandoro", "Sibut", "Mbaïki", "Damara", "Mobaye", "Grimari", "Dékoa",
     "Rio de Janeiro", "São Paulo", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís", "Libreville", "Port-Gentil", "Franceville", "Oyem", "Moanda", "Mouila", "Lambaréné", "Tchibanga", "Koulamoutou", "Makokou", "Lastoursville", "Mounana", "Gamba", "Bitam", "Ndendé", "Delhi", "Mumbai", "Kolkata", "Chennai", "Bengaluru", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", "Thane", "Quito", "Guayaquil", "Cuenca", "Santo Domingo de los Colorados", "Machala", "Manta", "Portoviejo", "Ambato", "Durán", "Loja", "Esmeraldas", "Quevedo", "Ibarra", "Riobamba", "Latacunga"
   ];
+
+  public nationalities: string[] = [
+    "France",
+    "Equateur",
+    "Cameroun",
+    "Bresil",
+    "Congo (RC)",
+    "Inde",
+    "Congo (RDC)",
+  ];
+
   uploadedFile!: string;
   public actualDate = new Date();
   selectZone!: IZone;
@@ -122,9 +133,64 @@ export class InscriptionForm1Component implements OnInit {
   formStep1: FormGroup = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
     prenom: new FormControl('', [Validators.required]),
-    telephone: new FormControl('', [Validators.minLength(8), Validators.required]),
+    telephone: new FormControl('', [Validators.minLength(8), Validators.required, createCamerounianNumberValidator()]),
     email: new FormControl('', [Validators.required, Validators.email,]),
   });
+
+  changeValidator(indice: string, libelle: string, indiceElement: string) {
+    if (indiceElement == "indiceTelephoneCandidat") {
+    this.indiceTelephoneCandidat = indice;
+    }
+    if (indiceElement == "indiceTelephonePere") {
+    this.indiceTelephonePere = indice;
+    }
+    if (indiceElement == "indiceTelephoneMere") {
+    this.indiceTelephoneMere = indice;
+    }
+    if (indiceElement == "indiceTelephoneTuteur") {
+    this.indiceTelephoneTuteur = indice;
+    }
+    if (indiceElement == "indiceTelephoneTransaction") {
+    this.indiceTelephoneTransaction = indice;
+    }
+console.log("indice:",indice);
+console.log("step:",this.step);
+
+
+    if (this.step == 1) {
+      if (indice == "+237") {
+        this.formStep1.get(libelle)!.removeValidators(createInternationalNumberValidator());
+        this.formStep1.get(libelle)!.addValidators(createCamerounianNumberValidator());
+        } else {
+          this.formStep1.get(libelle)!.removeValidators(createCamerounianNumberValidator());
+        this.formStep1.get(libelle)!.addValidators(createInternationalNumberValidator());
+        }
+
+        this.formStep1.updateValueAndValidity();
+    }
+
+    if (this.step == 3) {
+      if (indice == "+237") {
+        this.formStep3.get(libelle)!.removeValidators(createInternationalNumberValidator());
+        this.formStep3.get(libelle)!.addValidators(createCamerounianNumberValidator());
+        } else {
+          this.formStep3.get(libelle)!.removeValidators(createCamerounianNumberValidator());
+        this.formStep3.get(libelle)!.addValidators(createInternationalNumberValidator());
+        }
+        this.formStep3.updateValueAndValidity();
+    }
+
+    if (this.step == 5) {
+      if (indice == "+237") {
+        this.formStep5.get(libelle)!.removeValidators(createInternationalNumberValidator());
+        this.formStep5.get(libelle)!.addValidators(createCamerounianNumberValidator());
+        } else {
+          this.formStep5.get(libelle)!.removeValidators(createCamerounianNumberValidator());
+        this.formStep5.get(libelle)!.addValidators(createInternationalNumberValidator());
+        }
+        this.formStep5.updateValueAndValidity();
+    }
+  }
 
   formStep2: FormGroup = new FormGroup({
     date_naissance: new FormControl('', [Validators.required]),
@@ -136,12 +202,12 @@ export class InscriptionForm1Component implements OnInit {
 
   formStep3: FormGroup = new FormGroup({
     email_pere: new FormControl('', [Validators.email]),
-    hasTutor: new FormControl('', [Validators.required]),
-    telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     email_tuteur: new FormControl('', [Validators.email]),
-    telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     email_mere: new FormControl('', [Validators.email]),
-    telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    hasTutor: new FormControl('', [Validators.required]),
+    telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3)]),
     nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
@@ -154,23 +220,21 @@ export class InscriptionForm1Component implements OnInit {
     paiement: new FormControl({ value: "", disabled: true }, []),
     cycle: new FormControl('', [Validators.required]),
     diplome_universitaire: new FormControl('', []),
-    serie_bac_input: new FormControl('', []),
     image: new FormControl('', []),
     hasExchange: new FormControl('', [Validators.required]),
     serie_bac: new FormControl('', [Validators.required]),
+    serie_bac_input: new FormControl('', []),
     formation2: new FormControl('', []),
     formation3: new FormControl('', []),
     formation1: new FormControl('', []),
   });
 
   formStep5: FormGroup = new FormGroup({
-    telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     reference_paiement: new FormControl('', [Validators.required]),
   });
 
   constructor(
-    private tokenService: TokenService,
-    private userService: UsersService,
     private siteService: SitesService,
     private candidatureService: CandidatureService,
     private router: Router,
@@ -213,6 +277,15 @@ export class InscriptionForm1Component implements OnInit {
     this.formStep4.updateValueAndValidity();
   }
 
+  checkIfSerieBacc() {
+    if (this.formStep4.get('serie_bac')?.value == 'Autre') {
+      this.formStep4.get('serie_bac_input')?.addValidators(Validators.required);
+    } else {
+      this.formStep4.get('serie_bac_input')?.removeValidators(Validators.required);
+    }
+    this.formStep4.updateValueAndValidity();
+  }
+
   checkDevice() {
     if (window.innerWidth <= 587) {
       this.mobileView = true;
@@ -243,33 +316,6 @@ export class InscriptionForm1Component implements OnInit {
         for (let i = 0; i < data.length; i++) {
           this.listCentre[i] = data.nom;
         }
-      },
-    });
-
-    let email = this.tokenService.getEmail();
-    this.userService.getUserByEmail(email).subscribe({
-      next: data => {
-        this.compteform = {
-          name: data.name,
-          prenom: data.prenom,
-          password: data.prenom,
-          email: data.email,
-          telephone: data.telephone.toString(),
-          role: data.role,
-          id_disponibilite: data.id_disponibilite,
-          idZone: data.idZone,
-        };
-
-        this.formStep1 = new FormGroup({
-          nom: new FormControl(data.name, [Validators.required]),
-          prenom: new FormControl(data.prenom, [Validators.required]),
-          telephone: new FormControl(data.telephone.toString(), [Validators.minLength(8), Validators.required]),
-          email: new FormControl(data.email, [Validators.required, Validators.email,]),
-        });
-
-        this.step = this.step + 1;
-
-        this.candidatureForm.compteID = data.id;
       },
     });
   }
@@ -334,15 +380,6 @@ export class InscriptionForm1Component implements OnInit {
       let msgError = "Veuillez selectionner le centre au préalable avant de continuer.";
       this.toastr.error(msgError, 'Centre non sélectionné');
     }
-  }
-
-  checkIfSerieBacc() {
-    if (this.formStep4.get('serie_bac')?.value == 'Autre') {
-      this.formStep4.get('serie_bac_input')?.addValidators(Validators.required);
-    } else {
-      this.formStep4.get('serie_bac_input')?.removeValidators(Validators.required);
-    }
-    this.formStep4.updateValueAndValidity();
   }
 
   isInCentre(centre: string, listCentre: ICentre[]): boolean {
