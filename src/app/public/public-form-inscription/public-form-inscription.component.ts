@@ -14,7 +14,7 @@ import { ICentre } from "../../_interfaces/icentre";
 import { query } from "@angular/animations";
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createCamerounianNumberValidator,createInternationalNumberValidator } from 'src/app/shared/validators/number_validator';
+import { createCamerounianNumberValidator,createInternationalNumberValidator, createStringValidatior, emailValidatior, dateValidator } from 'src/app/shared/validators/number_validator';
 
 @Component({
   selector: 'app-public-form-inscription',
@@ -32,15 +32,16 @@ export class PublicFormInscriptionComponent implements OnInit {
   ];
 
   public nationalities: string[] = [
-    "France",
-    "Equateur",
-    "Cameroun",
-    "Bresil",
-    "Congo (RC)",
-    "Inde",
-    "Congo (RDC)",
-  ];
+    "Français(e)",
+    "Équatorien(e)",
+    "Camerounais(e)",
+    "Brésilien(e)",
+    "Congolais(e) (RC)",
+    "Indien(e)",
+    "Congolais(e) (RDC)",
+];
 
+  public hasActiveSession!: boolean;
   uploadedFile!: string;
   public actualDate = new Date();
   selectZone!: IZone;
@@ -121,6 +122,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   public disableOption3 = false;
   public siteSelected!: ISite;
   public currentDate: Date = new Date();
+  public dateBefore15Date: Date = new Date();
 
   mobileView = false;
 
@@ -130,10 +132,10 @@ export class PublicFormInscriptionComponent implements OnInit {
   }
 
   formStep1: FormGroup = new FormGroup({
-    nom: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    prenom: new FormControl('', [Validators.required]),
+    nom: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
+    prenom: new FormControl('', [Validators.required, createStringValidatior()]),
     telephone: new FormControl('', [Validators.minLength(8), Validators.required, createCamerounianNumberValidator()]),
-    email: new FormControl('', [Validators.required, Validators.email,]),
+    email: new FormControl('', [Validators.required, Validators.email,emailValidatior()]),
   });
 
   changeValidator(indice: string, libelle: string, indiceElement: string) {
@@ -192,23 +194,23 @@ console.log("step:",this.step);
   }
 
   formStep2: FormGroup = new FormGroup({
-    date_naissance: new FormControl('', [Validators.required]),
-    nationalite: new FormControl('', [Validators.minLength(5), Validators.required]),
-    ville: new FormControl('', [Validators.minLength(5), Validators.required]),
-    lieu_naissance: new FormControl('', [Validators.minLength(5), Validators.required]),
+    date_naissance: new FormControl('', [Validators.required, dateValidator()]),
+    nationalite: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
+    ville: new FormControl('', [Validators.minLength(3), Validators.required, createStringValidatior()]),
+    lieu_naissance: new FormControl('', [Validators.minLength(5), Validators.required, createStringValidatior()]),
     genre: new FormControl('', [Validators.required]),
   });
 
   formStep3: FormGroup = new FormGroup({
-    email_pere: new FormControl('', [Validators.email]),
+    email_pere: new FormControl('', [Validators.email, emailValidatior()]),
     telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
-    email_tuteur: new FormControl('', [Validators.email]),
+    email_tuteur: new FormControl('', [Validators.email, emailValidatior()]),
     telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
-    email_mere: new FormControl('', [Validators.email]),
+    email_mere: new FormControl('', [Validators.email, emailValidatior()]),
     hasTutor: new FormControl('', [Validators.required]),
     telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
-    nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
+    nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3),createStringValidatior()]),
   });
 
   formStep4: FormGroup = new FormGroup({
@@ -232,6 +234,21 @@ console.log("step:",this.step);
     telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     reference_paiement: new FormControl('', [Validators.required]),
   });
+
+  changeValidatorOfTutor(answer: string) {
+    if (answer == 'Oui') {
+      this.formStep3.get('telephone_tuteur')?.addValidators([Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]);
+      this.formStep3.get('email_tuteur')?.addValidators([Validators.email, emailValidatior()]);
+    } else {
+      this.formStep3.get('telephone_tuteur')?.removeValidators([Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]);
+      this.formStep3.get('email_tuteur')?.removeValidators([Validators.email, emailValidatior()]);
+
+      this.formStep3.get('telephone_tuteur')?.updateValueAndValidity();
+      this.formStep3.get('email_tuteur')?.updateValueAndValidity();
+    }
+
+    this.formStep3.updateValueAndValidity()
+  }
 
   constructor(
     private siteService: SitesService,
@@ -294,11 +311,15 @@ console.log("step:",this.step);
   }
 
   ngOnInit(): void {
+    this.dateBefore15Date.setFullYear(this.currentDate.getFullYear() - 15);
     this.checkDevice();
 
     this.sessionService.getActiveSession().subscribe({
       next: data => {
         this.session = data;
+        if (data?.id) {
+          this.hasActiveSession = true;
+        }
       },
       error: err => console.log(err)
     });
@@ -398,20 +419,10 @@ console.log("step:",this.step);
         this.exitscode = response.existCode;
         console.log("allcodes", this.allcodes);
         console.log("exitscode", this.exitscode);
+        console.log("reference_paiement", this.formStep5.get('reference_paiement')?.value);
 
-        if (this.showNumberPaiement) {
+        if (this.allcodes.includes(this.formStep5.get('reference_paiement')?.value) === true) {
           if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
-            this.codeExists = true;
-            this.codeValid = false;
-          } else {
-            this.codeExists = false;
-            this.codeValid = true;
-          }
-        } else {
-          if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
-            this.codeExists = true;
-            this.codeValid = false;
-          } else if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === false && this.allcodes.includes(this.candidatureForm.reference_paiement) === false) {
             this.codeExists = true;
             this.codeValid = false;
           } else {

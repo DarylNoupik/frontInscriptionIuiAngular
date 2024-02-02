@@ -18,7 +18,7 @@
 
     </div>
   </div>
-  <div class="container">
+  <div class="container"  *ngIf="hasActiveSession">
 
     <div class="col-12" style="text-align: center; padding-top: 100px;">
       <h4 class="wow fadeInUp" data-wow-delay=".4s">{{session.nom}} </h4>
@@ -31,9 +31,16 @@
       <h5 class="mb-15 wow fadeInUp text-center" data-wow-delay=".2s" style="color: #c0262d;">Enregistrez-vous</h5>
     </div>
   </div>
+  <div class="container"  *ngIf="!hasActiveSession">
+
+    <div class="col-12" style="text-align: center; padding-top: 100px;">
+      <h4 class="wow fadeInUp" data-wow-delay=".4s"  style="color: #c0262d;">Aucune session active !</h4>
+       </div>
+  </div>
+
   <br>
   <div>&nbsp;</div>
-  <div class="container">
+  <div class="container" *ngIf="hasActiveSession">
 
     <div *ngIf="showCentre" class="row justify-content-center">
 
@@ -119,6 +126,7 @@
                   }">
                   <div *ngIf="form1Controls['nom'].errors" class="invalid-feedback">
                     <div *ngIf="form1Controls['nom'].errors['required']">Nom requis</div>
+                    <div *ngIf="form1Controls['nom'].errors['notConform']">Nom non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
                     <div *ngIf="form1Controls['nom'].errors['minlength']">Nom doit avoir minimun 3 caractères</div>
                   </div>
                   <div *ngIf="form1Controls['nom'].valid" class="valid-feedback">
@@ -139,6 +147,7 @@
                   }">
                   <div *ngIf="form1Controls['prenom'].errors" class="invalid-feedback">
                     <div *ngIf="form1Controls['prenom'].errors['required']">Prenom requis</div>
+                    <div *ngIf="form1Controls['prenom'].errors['notConform']">Prenom non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
                   </div>
                   <div *ngIf="form1Controls['prenom'].valid" class="valid-feedback">
                     C'est bon!
@@ -195,6 +204,7 @@
                   <div *ngIf="form1Controls['email'].errors" class="invalid-feedback">
                     <div *ngIf="form1Controls['email'].errors['required']">Email requis</div>
                     <div *ngIf="form1Controls['email'].errors['email']">Email non conforme</div>
+                    <div *ngIf="form1Controls['email'].errors['notConform']">Email non conforme</div>
                   </div>
                   <div *ngIf="form1Controls['email'].valid" class="valid-feedback">
                     C'est bon!
@@ -216,7 +226,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="date_naissance" class="form-label">Date de naissance (*)</label>
-                  <input formControlName="date_naissance" required max="{{currentDate | date:'yyyy-MM-dd'}}"
+                  <input formControlName="date_naissance" required  min="{{dateBefore15Date | date:'yyyy-MM-dd'}}" max="{{currentDate | date:'yyyy-MM-dd'}}"
                     style="width: 100%;" class="form-control form-control-lg" type="date" id="date_naissance"
                     name="date_naissance" placeholder="Date de naissance" [ngClass]="{
                       'is-invalid':
@@ -228,6 +238,8 @@
                     <div *ngIf="form2Controls['date_naissance'].errors['required']">Date de naissance requis</div>
                     <div *ngIf="form2Controls['date_naissance'].errors['max']">La date de naissance ne doit pas être
                       superieure au {{currentDate | date:'yyyy-MM-dd'}}</div>
+                    <div *ngIf="form2Controls['date_naissance'].errors['notConform']">La date de naissance  doit  être
+                      superieure au {{dateBefore15Date | date:'yyyy-MM-dd'}}</div>
                   </div>
                   <div *ngIf="form2Controls['date_naissance'].valid" class="valid-feedback">
                     C'est bon!
@@ -273,6 +285,7 @@
                   }">
                   <div *ngIf="form2Controls['ville'].errors" class="invalid-feedback">
                     <div *ngIf="form2Controls['ville'].errors['required']">Ville de résidence requis</div>
+                    <div *ngIf="form2Controls['ville'].errors['notConform']">Ville non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
                     <div *ngIf="form2Controls['ville'].errors['minlength']">Ville de résidence doit avoir minimun 5
                       caractères</div>
                   </div>
@@ -298,6 +311,7 @@
                     <div *ngIf="form2Controls['lieu_naissance'].errors['minlength']">Ville de résidence doit avoir
                       minimun 5 caractères</div>
                     <div *ngIf="form2Controls['lieu_naissance'].errors['required']">Lieu de naissances requis</div>
+                    <div *ngIf="form2Controls['lieu_naissance'].errors['notConform']">Lieu de naissances  non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
                   </div>
                   <div *ngIf="form2Controls['lieu_naissance'].valid" class="valid-feedback">
                     C'est bon!
@@ -349,6 +363,7 @@
                   <div *ngIf="form3Controls['nom_parent1'].errors" class="invalid-feedback">
                     <div *ngIf="form3Controls['nom_parent1'].errors['minlength']">Le nom du père doit avoir minimun 3
                       caractères</div>
+                    <div *ngIf="form3Controls['nom_parent1'].errors['notConform']">Nom père non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
                     <div *ngIf="form3Controls['nom_parent1'].errors['required']">Nom père requis</div>
                   </div>
                   <div *ngIf="form3Controls['nom_parent1'].valid" class="valid-feedback">
@@ -371,6 +386,7 @@
                   <div *ngIf="form3Controls['email_pere'].errors" class="invalid-feedback">
                     <div *ngIf="form3Controls['email_pere'].errors['required']">Email requis</div>
                     <div *ngIf="form3Controls['email_pere'].errors['email_pere']">Email non conforme</div>
+                    <div *ngIf="form3Controls['email_pere'].errors['notConform']">Email non conforme</div>
                   </div>
                   <div *ngIf="form3Controls['email_pere'].valid" class="valid-feedback">
                     C'est bon!
@@ -426,6 +442,7 @@
                       caractères</div>
 
                     <div *ngIf="form3Controls['nom_parent2'].errors['required']">Nom mère requis</div>
+                    <div *ngIf="form3Controls['nom_parent2'].errors['notConform']">Nom mère non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
                   </div>
                   <div *ngIf="form3Controls['nom_parent2'].valid" class="valid-feedback">
                     C'est bon!
@@ -447,6 +464,7 @@
                   <div *ngIf="form3Controls['email_mere'].errors" class="invalid-feedback">
                     <div *ngIf="form3Controls['email_mere'].errors['required']">Email requis</div>
                     <div *ngIf="form3Controls['email_mere'].errors['email_mere']">Email non conforme</div>
+                    <div *ngIf="form3Controls['email_mere'].errors['notConform']">Email non conforme</div>
                   </div>
                   <div *ngIf="form3Controls['email_mere'].valid" class="valid-feedback">
                     C'est bon!
@@ -494,14 +512,14 @@
                 <label class="form-label">Avez vous un tuteur (*)</label>
                 <div class="align-content-center">
                   <div class="form-check">
-                    <input formControlName="hasTutor" required  class="form-check-input" value="Oui" type="radio"
+                    <input formControlName="hasTutor" (change)="changeValidatorOfTutor('Oui')" required  class="form-check-input" value="Oui" type="radio"
                       name="hasTutor" id="hasTutor1" #hasTutor checked>
                     <label class="form-check-label" for="hasTutor1">
                       Oui
                     </label>
                   </div>
                   <div class="form-check">
-                    <input formControlName="hasTutor" required class="form-check-input" value="Non" type="radio"
+                    <input formControlName="hasTutor"  (change)="changeValidatorOfTutor('Non')"  required class="form-check-input" value="Non" type="radio"
                       name="hasTutor" id="hasTutor2">
                     <label class="form-check-label" for="hasTutor2">
                       Non
