@@ -493,6 +493,8 @@ console.log("step:",this.step);
         this.addCandidature()
       },
       error: err => {
+        let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+        this.toastr.error(msgError, 'Inscription échouée');
         console.log(err);
       }
     });
