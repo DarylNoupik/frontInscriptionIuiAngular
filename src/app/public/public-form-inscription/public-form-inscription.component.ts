@@ -204,10 +204,10 @@ console.log("step:",this.step);
   formStep3: FormGroup = new FormGroup({
     email_pere: new FormControl('', [Validators.email, emailValidatior()]),
     telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
-    email_tuteur: new FormControl('', [Validators.email, emailValidatior()]),
-    telephone_tuteur: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
+    email_tuteur: new FormControl('', []),
+    telephone_tuteur: new FormControl('', []),
     email_mere: new FormControl('', [Validators.email, emailValidatior()]),
-    hasTutor: new FormControl('', [Validators.required]),
+    hasTutor: new FormControl('', []),
     telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
     nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3),createStringValidatior()]),
