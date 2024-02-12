@@ -1,0 +1,22 @@
+<div class="matter-container">
+    <p class="d-flex align-items-center justify-content-between">
+      <a  class="me-2 text-black" data-toggle="collapse" href="#collapseExample{{id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+        {{title}}
+      </a>
+      <img src="/assets/img/arrow_down.png" alt="" srcset="" width="32px" height="32px">
+    </p>
+    <div class="collapse" id="collapseExample{{id}}"> 
+      <div class="card mt-2 card-body">
+        <table>
+            <tbody>
+              <tr *ngFor="let lesson of evaluations">
+                <td><i class="fa-solid fa-book book"></i></td>
+                <td class="text">{{lesson.title}}</td>
+                <td  class="text clr-primary">{{lesson.duration}}</td>
+                <td  class="text clr-primary">{{lesson.coef}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>

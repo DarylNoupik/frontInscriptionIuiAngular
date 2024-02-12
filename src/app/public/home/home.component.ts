@@ -7,12 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  matters: {title: string, formation?: string, content: {title: string, duration: string, coef: number}[] }[] = [
+  filieres = [
+    {
+    title: "Ingénieur nformatique",
+    description: "à ce niveau, vous pourvez faire le concour pour le niveau 1 ou 3"
+  },
+    {
+    title: "Génie des procédés",
+    description: "à ce niveau, vous pourvez faire le concour pour le niveau 1 ou 3"
+  },
+    {
+    title: "Ingénieur Géneraliste",
+    description: "à ce niveau, vous pourvez faire le concour pour le niveau 1 ou 3"
+  },
+]
+  matters: {title: string, formation: string, content: {title: string, duration: string, coef: number}[] }[] = [
     {
     title: '1er Cycle',
+    formation: '',
     content: [
       {
-        title: 'Matématiques',
+        title: 'Mathématiques',
         duration: '2H',
         coef: 4
       },
@@ -22,7 +37,7 @@ export class HomeComponent implements OnInit {
         coef: 3
       },
       {
-        title: 'Anglais - IT',
+        title: 'Logique',
         duration: '2H',
         coef: 4
       },
@@ -30,20 +45,25 @@ export class HomeComponent implements OnInit {
   },
     {
     title: '2ème Cycle',
-    formation: 'X',
+    formation: 'Informatique',
     content: [
       {
-        title: 'Matématiques',
+        title: 'Mathématiques',
         duration: '2H',
         coef: 4
       },
       {
-        title: 'Matématiques',
+        title: 'Physique - Chimie',
+        duration: '2H',
+        coef: 3
+      },
+      {
+        title: 'Logique',
         duration: '2H',
         coef: 4
       },
       {
-        title: 'Matématiques',
+        title: 'Culture générale',
         duration: '2H',
         coef: 4
       },
@@ -51,20 +71,25 @@ export class HomeComponent implements OnInit {
   },
     {
     title: '2ème Cycle',
-    formation: 'I',
+    formation: 'Génie des procédés',
     content: [
       {
-        title: 'Matématiques',
+        title: 'Mathématiques',
         duration: '2H',
         coef: 4
       },
       {
-        title: 'Matématiques',
+        title: 'Chimie',
+        duration: '2H',
+        coef: 3
+      },
+      {
+        title: 'Anglais',
         duration: '2H',
         coef: 4
       },
       {
-        title: 'Matématiques',
+        title: 'Culture générale',
         duration: '2H',
         coef: 4
       },
@@ -75,17 +100,22 @@ export class HomeComponent implements OnInit {
     formation: 'IP',
     content: [
       {
-        title: 'Matématiques',
+        title: 'Mathématiques',
         duration: '2H',
         coef: 4
       },
       {
-        title: 'Matématiques',
+        title: 'Thermodynamique',
+        duration: '2H',
+        coef: 3
+      },
+      {
+        title: 'Anglais',
         duration: '2H',
         coef: 4
       },
       {
-        title: 'Matématiques',
+        title: 'Mécanique générale',
         duration: '2H',
         coef: 4
       },

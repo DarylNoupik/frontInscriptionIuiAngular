@@ -8,6 +8,7 @@ import { PublicRoutingModule } from "./public-routing.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PublicFormInscriptionComponent } from './public-form-inscription/public-form-inscription.component';
 import { InscriptionConfirmComponent } from './inscription-confirm/inscription-confirm.component';
+import { MatterDisplayComponent } from '../shared/components/matter-display/matter-display.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { InscriptionConfirmComponent } from './inscription-confirm/inscription-c
     PLayoutComponent,
     PublicFormInscriptionComponent,
     InscriptionConfirmComponent,
+    MatterDisplayComponent
   ],
   imports: [
     CommonModule,

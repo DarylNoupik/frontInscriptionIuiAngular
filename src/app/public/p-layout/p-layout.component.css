@@ -5,3 +5,7 @@
 .header {
     z-index: 102;
 }
+
+.hero-section-wrapper-2 .header {
+    position: relative;
+}

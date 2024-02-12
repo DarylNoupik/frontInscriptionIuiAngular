@@ -330,6 +330,9 @@ console.log("step:",this.step);
     this.siteService.getAllSite().subscribe({
       next: data => {
         this.site = data;
+        if (  data.length > 0) {
+          this.siteSelected = data[0] ;
+        }
       },
       error: err => console.log(err)
     });
@@ -348,6 +351,10 @@ console.log("step:",this.step);
     this.candidatureForm.centre = center.nom;
     this.candidatureForm.centreExamenId = center.id;
     this.selectZone = zone;
+  }
+
+  selectSite(site: ISite) {
+    this.siteSelected = site;
   }
 
   setStep(step: number) {

@@ -11,6 +11,7 @@ import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from "@angular/common";
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatterDisplayComponent } from './shared/components/matter-display/matter-display.component';
 // import {NgHttpLoaderModule} from "ng-http-loader";
 
 registerLocaleData(localeFr);
@@ -18,7 +19,7 @@ registerLocaleData(localeFr);
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

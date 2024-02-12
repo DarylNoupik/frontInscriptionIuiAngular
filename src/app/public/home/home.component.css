@@ -1,3 +1,11 @@
+.welcome_carousel {
+    height: 500px;
+}
+
+.welcome_carousel > .carousel-inner{
+    height: 500px;
+}
+
 .title {
     /* text-shadow: white -1px -1px 0px, white 3px 3px 0px; */
     color: #F5F5F5 !important;
@@ -21,25 +29,120 @@ line-height: normal;
     height: 100%;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     z-index: 100;
 }
+
 .carousel-control-prev,.carousel-control-next{
     z-index: 102;
 }
+
 .message_inscription_carousel img {
     height: 100%;
     object-fit: cover;
 }
 
+ .container > .content{
+    padding-block: 5em;
+    padding-inline: 7em;
+
+    position: relative;
+    z-index: 2000;
+    margin-top: -38.5%;
+}
+
 .message_inscription h4 {
     font-size: 2em;
+    padding-bottom: 0.5em;
     margin-bottom: 1rem;
 }
 
 .carousel-control-prev,.carousel-control-next {
     width: 3% !important;
+}
+
+.prerequis-part .title {
+    color: #DE640D !important;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.block-part .vertical-bar .losange {
+    margin-left: -56%;
+    width: 0.75em;
+    height: 0.75em;
+    background: #DE640D;
+    transform: rotate(45deg);
+}
+
+.block-part .vertical-bar {
+    margin-right: 1.5em;
+    border-left: 3px dotted #DE640D;
+}
+
+.centers-part .title {
+    color: #DE640D !important;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.centers-part > .vertical-bar {
+    border-left: 3px dotted black;
+}
+
+.centers-part > .vertical-bar .losange {
+    background: black;
+}
+
+.filieres-part .title {
+    color: #DE640D !important;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.filieres-part > div > img {
+    transform: rotate(270deg);
+}
+
+.filieres-part .content .item{
+    background: #D9D9D9;
+    padding: 1em;
+}
+
+.filieres-part .content {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.filieres-part .content .item p{
+    margin-bottom: 0;
+}
+
+.evaluations-part .title {
+    color: #DE640D !important;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.evaluations-part > div > img {
+    transform: rotate(270deg);
+}
+
+.evaluations-part .content .item{
+    background: #D9D9D9;
+    padding: 1em;
+}
+
+.evaluations-part .content {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
 .termTitle{
@@ -91,17 +194,9 @@ display: flex;
 width: 100%;
 }
 
-.losange {
-    width: 1em;
-    height: 1em;
-    background: black;
-    transform: rotate(45deg);
-}
 
-.line {
-    width: 100%;
-    border-bottom: 3px dotted;
-}
+
+
 
 .divider {
     width: 100%;
