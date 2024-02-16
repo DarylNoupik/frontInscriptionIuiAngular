@@ -1,94 +1,313 @@
-<section class="container"  *ngIf="hasActiveSession">
-  <section class="main-header align-items-center row justify-content-between">
-    <section class="first-title px-3 col-12 col-md-4">
-      <h5 class="text-white">
-        Inscrivez-vous maintenant pour la session de:
-      </h5>
-      <span>{{session.nom}}</span>
-    </section>
-    <section class="col-12 py-4 px-3 second-title col-md-4">
-      <div class="h-75">
-        <h5 class="text-white">Date limite des inscriptions en ligne:</h5>
-        <span>{{session.date_limite |date: 'fullDate':'':'fr-FR' }}</span>
-      </div>
-    </section>
-    <section class="col-12 py-3 px-3 third-title  col-md-4">
-      <div>
-        <h5>Date d’examen :</h5>
-        <span>{{session.date_examen | date:'fullDate':'':'fr-FR' }}</span>
-      </div>
-    </section>
+<div class="container" *ngIf="!hasActiveSession">
+  <section id="pricing" class="pricing-section pricing-style-1 bg-white contact-section contact-style-6">
+    <div class="col-12" style="text-align: center; ">
+      <h6 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #c0262d;">Bienvenue sur la plateforme
+        d’enregistrement en ligne au concours d’entrée à
+        L’Institut Ucac-Icam.
+      </h6>
+      <div>&nbsp;</div>
+    </div>
+    <div class="col-12" style="text-align: center; ">
+      <h6 class="wow fadeInUp" data-wow-delay=".4s" style="color: #c0262d;">Aucune session active !</h6>
+    </div>
   </section>
-</section>
+</div>
 
-<section class="bande-container mt-4 d-flex flex " *ngIf="hasActiveSession">
-  <img class="presentation_image" src="/assets/img/background.png" alt="" srcset="">
+<section class="container" *ngIf="hasActiveSession">
+  <div class="main-header  flex d-flex  align-items-center justify-content-between p-3" style="background-color: #eee;">
+    <h5 class="fw-bold">Session de : {{session.nom}}</h5>
+    <div>
+      <h6 class="fw-bold">Date limite des inscriptions en ligne: <span class="text-warning">{{session.date_limite |
+          date: 'fullDate':'':'fr-FR' }}</span></h6>
+      <h6 class="fw-bold">
+        Date d’examen : <span class="text-warning">{{session.date_examen | date:'fullDate':'':'fr-FR' }}</span>
+      </h6>
+    </div>
+  </div>
 
-<div class="zones">
-  <div class="zone_list_container">
-    <section class="bande">
-    </section>
-    <section class="pays_bound mt-3 p-3">
-      <span class="">Choississzez votre pays</span>
-  
-      <div class="pays_container mt-5">
-        <div *ngFor="let item of site" (click)="selectSite(item)"  class="pays cursor-pointer single-pricing wow mb-4 fadeInUp d-flex flex align-items-center">
-          <div class="image me-2">
-            <img src="{{item.image}}" alt="">
+  <div class="main mt-4" *ngIf="showForm">
+    <h6 class="fw-bold">Choississzez votre pays</h6>
+    <div class=" row">
+      <div class="col-12 col-md-4">
+        <div class="card mb-3" *ngFor="let item of site" (click)="selectSite(item)"
+          [ngClass]="{'active': (item.nom == siteSelected.nom) }">
+          <div class="card-body flex d-flex justify-content-between  align-items-center">
+            <div class="flex d-flex  align-items-center">
+              <div class="image me-2 " style="width: 10%;">
+                <img class="w-100" src="{{item.image}}" alt="">
+              </div>
+              <h6 class="card-title mb-0" [ngClass]="{'text-white': (item.nom == siteSelected.nom) }">{{item.nom}}</h6>
+            </div>
+            <img src="/assets/img/arrow_down.png" style="transform: rotate(268deg);" alt="" class="me-2" srcset=""
+              width="32px" height="32px" *ngIf="item.nom == siteSelected.nom">
+            <img src="/assets/img/arrow_down.png" alt="" class="me-2" srcset="" width="32px" height="32px"
+              *ngIf="item.nom != siteSelected.nom">
+
           </div>
-          <span>{{item.nom}}</span>
         </div>
       </div>
-    </section>
-   </div>
-  
-    <section class="zone_select_container">
-      <section class="bande1 d-flex flex justify-content-center align-items-center">
-        <span>Choississez votre centre d’examen</span>
-      </section>
-
-      <section class="site p-5 flex d-flex justify-content-between flex-column">
-        <div class="mb-5">
-          <div class="pays cursor-pointer single-pricing wow mb-4 fadeInUp d-flex flex align-items-center">
-            <div class="image me-2">
-              <img src="{{siteSelected.image}}" alt="">
-            </div>
-            <span>{{siteSelected.nom}}</span>
+      <div class="col-12 mt-3 mt-md-0 col-md-8 center-container flex d-flex justify-content-between flex-column">
+        <div>
+          <div class=" p-4 " style="background-color: #eee;">
+            <h6 class="mb-0 fw-bold">Choississez votre centre d’examen</h6>
           </div>
-  
-          <ul class="ps-0">
-            <li *ngFor="let centre of siteSelected.centreExamenList" class="mb-3">
+
+          <div class="mt-4 mb-4 justify-content-between center-items-container row">
+            <div class="col-12 col-md-4" *ngFor="let centre of siteSelected.centreExamenList">
               <input [(ngModel)]="candidatureForm.centre" value="{{centre.nom}}" required name="examcenter"
                 style="width: 20px; height: 20px;" type="radio" (click)="selectCenter(centre, siteSelected.zone)"
                 class="form-input"> &nbsp;
               {{centre.nom}}
-            </li>
-          </ul>
+            </div>
+          </div>
+        </div>
+        <div class="center-items-container flex d-flex justify-content-between flex-column ">
+          <a (click)="toggleForm()" class="btn btn-warning btn-lg" tabindex="-1" role="button" aria-disabled="true"
+            style="    margin-bottom: auto;
+        width: fit-content;
+        margin-left: auto;">Continuer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!showForm">
+    <div class=" flex d-flex  align-items-center justify-content-center p-3 mt-3 mb-3 bg-warning w-75 w-md-50 ms-auto">
+      <h6 class="fw-bold text-white">Centre selectionné : Douala</h6>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-3 col-md-8">
+        <div class=" block-part d-flex flex bg-white mt-4 p-4">
+          <div class="vertical-bar">
+            <div class="losange"></div>
+          </div>
+          <div>
+            <h5 class="wow fadeInUp title mb-2 text-decoration-underline " data-wow-delay=".2s">Informations
+              personnelles</h5>
+            <p>
+              Constitue la première étape de votre inscription à notre concours. Nous vous invitons à fournir vos
+              détails essentiels, . Ces informations nous permettent de vous identifier et de vous contacter facilement
+              pour toute communication importante concernant le concours. Veuillez remplir avec précision pour garantir
+              une inscription réussie
+            </p>
+          </div>
         </div>
 
-        <a (click)="toggleForm()" style=" bottom: 15px;cursor: pointer;"
-            class="button radius-30">Continuer</a>
-      </section>
-    </section>
-</div>
-</section>
+        <form class="needs-validation row " novalidate [formGroup]="formStep1" (ngSubmit)="setStep(step + 1)">
+          <div class="col-12 col-md-6">
+            <div class="mb-4">
+              <label for="nom" class="fw-bold form-label">Noms (*)</label>
+              <div class="input-group mb-3">
+                <input type="text" required formControlName="nom" class="form-control" placeholder="nom" aria-label="nom"
+                  aria-describedby="basic-addon1" class="form-control" placeholder="Votre(Vos) Nom(s)" [ngClass]="{
+        'is-invalid':
+        form1Controls['nom'].errors &&
+        form1Controls['nom'].touched,
+        'is-valid': form1Controls['nom'].valid
+    }">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
+              </div>
+              <div *ngIf="form1Controls['nom'].errors" class="invalid-feedback">
+                <div *ngIf="form1Controls['nom'].errors['required']">Nom requis</div>
+                <div *ngIf="form1Controls['nom'].errors['notConform']">Nom non conforme, ce dernier ne doit pas
+                  uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
+                <div *ngIf="form1Controls['nom'].errors['minlength']">Nom doit avoir minimun 3 caractères</div>
+              </div>
+              <div *ngIf="form1Controls['nom'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="telephone" class="fw-bold form-label">Numero de telephone(*)</label>
+              <div class="input-group mb-3">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item"  href="#" (click)="changeValidator(indice, 'telephone','indiceTelephoneCandidat')"  *ngFor="let indice of indices">{{indice}}</a></li>
+                </ul>
+                <input type="text" required formControlName="telephone" aria-label="telephone" class="form-control"
+                                placeholder="         (_ _ _)   (_ _ _)     (_ _ _)" [ngClass]="{
+                      'is-invalid':
+                      form1Controls['telephone'].errors &&
+                      form1Controls['telephone'].touched,
+                      'is-valid': form1Controls['telephone'].valid
+                  }"  aria-label="Text input with dropdown button"/>
+              </div>
+              <div *ngIf="form1Controls['telephone'].errors" class="invalid-feedback">
+                <div *ngIf="form1Controls['telephone'].errors['required']">Numero de téléphone requis</div>
+                <div *ngIf="form1Controls['telephone'].errors['notConform']">Le numero de téléphone doit être
+                  des chiffres uniquement et respecter le format du pays selectionné</div>
+                <div *ngIf="form1Controls['telephone'].errors['min']">Numero de téléphone doit être superieur à
+                  0
+                </div>
+                <div *ngIf="form1Controls['telephone'].errors['minlength']">Numero de téléphone doit avoir
+                  minimun
+                  8 chiffres</div>
+              </div>
+              <div *ngIf="form1Controls['telephone'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="date_naissance" class="fw-bold form-label">Date de naissance (*)</label>
+              <div class="input-group mb-3">
+                <input required type="date" formControlName="date_naissance" class="form-control" placeholder="date_naissance"
+                  aria-label="date_naissance" aria-describedby="basic-addon1" class="form-control"
+                  placeholder="Votre(Vos) Nom(s)" [ngClass]="{
+        'is-invalid':
+        form1Controls['date_naissance'].errors &&
+        form1Controls['date_naissance'].touched,
+        'is-valid': form1Controls['date_naissance'].valid
+    }">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar"></i></span>
+              </div>
+              <div *ngIf="form2Controls['date_naissance'].errors" class="invalid-feedback">
+                <div *ngIf="form2Controls['date_naissance'].errors['required']">Date de naissance requis</div>
+                <div *ngIf="form2Controls['date_naissance'].errors['max']">La date de naissance ne doit pas être
+                  superieure au {{currentDate | date:'yyyy-MM-dd'}}</div>
+                <div *ngIf="form2Controls['date_naissance'].errors['notConform']">La date de naissance doit être
+                  superieure au {{dateBefore15Date | date:'yyyy-MM-dd'}}</div>
+              </div>
+              <div *ngIf="form2Controls['date_naissance'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="lieu_naissance" class="fw-bold form-label">Lieu de naissance (*)</label>
+              <select aria-label="Default select example" formControlName="lieu_naissance" required style="width: 100%;" id="lieu_naissance"
+              name="lieu_naissance" required  class="form-select" placeholder="Entrer votre nationalité "
+              [ngClass]="{
+                'is-invalid':
+                form2Controls['lieu_naissance'].errors &&
+                form2Controls['lieu_naissance'].touched,
+                'is-valid': form2Controls['lieu_naissance'].valid
+            }">
+                <option value="{{lieu_naissance}}" *ngFor="let lieu_naissance of lieux">{{lieu_naissance}}</option>
+              </select>
+              <div *ngIf="form2Controls['lieu_naissance'].errors" class="invalid-feedback">
+                <div *ngIf="form2Controls['lieu_naissance'].errors['minlength']">Lieu de naissances doit avoir
+                  minimun 5 caractères</div>
+                <div *ngIf="form2Controls['lieu_naissance'].errors['required']">Lieu de naissances requis</div>
+                <div *ngIf="form2Controls['lieu_naissance'].errors['notConform']">Lieu de naissances  non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
+              </div>
+              <div *ngIf="form1Controls['lieu_naissance'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="nom" class="fw-bold form-label">Genre(*)</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" required formControlName="genre" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="M">
+                  <label class="form-check-label" for="inlineRadio1">Masculin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" required formControlName="genre" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="F">
+                  <label class="form-check-label" for="inlineRadio2">Feminin</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="mb-4">
+              <label for="prenom" class="fw-bold form-label">Prenom (*)</label>
+              <div class="input-group mb-3">
+                <input type="text" required formControlName="prenom" class="form-control" placeholder="prenom" aria-label="prenom"
+                  aria-describedby="basic-addon1" class="form-control" placeholder="Votre(Vos) Nom(s)" [ngClass]="{
+        'is-invalid':
+        form1Controls['prenom'].errors &&
+        form1Controls['prenom'].touched,
+        'is-valid': form1Controls['prenom'].valid
+    }">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
+              </div>
+              <div *ngIf="form1Controls['prenom'].errors" class="invalid-feedback">
+                <div *ngIf="form1Controls['prenom'].errors['required']">Prenom requis</div>
+                <div *ngIf="form1Controls['prenom'].errors['notConform']">Prenom non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
+              </div>
+              <div *ngIf="form1Controls['prenom'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="email" class="fw-bold form-label">Email (*)</label>
+              <div class="input-group mb-3">
+                <input type="email" required formControlName="email" class="form-control" placeholder="email" aria-label="email"
+                  aria-describedby="basic-addon1" class="form-control" placeholder="" [ngClass]="{
+        'is-invalid':
+        form1Controls['email'].errors &&
+        form1Controls['email'].touched,
+        'is-valid': form1Controls['email'].valid
+    }">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+              </div>
+              <div *ngIf="form1Controls['email'].errors" class="invalid-feedback">
+                <div *ngIf="form1Controls['email'].errors['required']">Email requis</div>
+                <div *ngIf="form1Controls['email'].errors['email']">Email non conforme</div>
+                <div *ngIf="form1Controls['email'].errors['notConform']">Email non conforme</div>
+              </div>
+              <div *ngIf="form1Controls['email'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
+ 
+            <div class="mb-4">
+              <label for="nationalite" class="fw-bold form-label">Nationalité(*)</label>
+              <select required aria-label="Default select example" formControlName="nationalite" required style="width: 100%;" id="nationalite"
+              name="nationalite"  class="form-select" placeholder="Entrer votre nationalité "
+              [ngClass]="{
+                'is-invalid':
+                form1Controls['nationalite'].errors &&
+                form1Controls['nationalite'].touched,
+                'is-valid': form1Controls['nationalite'].valid
+            }">
+                <option value="{{nationality}}" *ngFor="let nationality of nationalities">{{nationality}}</option>
+              </select>
+              <div *ngIf="form1Controls['nationalite'].errors" class="invalid-feedback">
+                <div *ngIf="form1Controls['nationalite'].errors['required']">Nationalité requis</div>
+                <div *ngIf="form1Controls['nationalite'].errors['minlength']">Nationalité doit avoir minimun 5
+                  caractères</div>
+              </div>
+              <div *ngIf="form1Controls['nationalite'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="ville" class="fw-bold form-label">Ville de résidence(*)</label>
+              <select required aria-label="Default select example" formControlName="ville" required style="width: 100%;" id="ville"
+              name="ville"  class="form-select" placeholder="Entrer votre nationalité "
+              [ngClass]="{
+                'is-invalid':
+                form1Controls['ville'].errors &&
+                form1Controls['ville'].touched,
+                'is-valid': form1Controls['ville'].valid
+            }">
+                <option value="{{ville}}" *ngFor="let ville of villes">{{ville}}</option>
+              </select>
+              <div *ngIf="form1Controls['ville'].errors" class="invalid-feedback">
+                <div *ngIf="form1Controls['ville'].errors['required']">Ville de résidence requis</div>
+                <div *ngIf="form1Controls['ville'].errors['notConform']">Ville non conforme, ce dernier ne doit pas uniquement avoir des espaces ou des chiffres ou des carectères spéciaux</div>
+                <div *ngIf="form1Controls['ville'].errors['minlength']">Ville de résidence doit avoir minimun 5
+                  caractères</div>
+              </div>
+              <div *ngIf="form1Controls['ville'].valid" class="valid-feedback">
+                C'est bon!
+              </div>
+            </div>
 
+            <div class="form-button">
+              <button type="submit" class="button radius-10 w-100" [disabled]="formStep1.invalid">Suivant</button>
+            </div>
+          </div>
+        </form>
 
-<section id="pricing" class="pricing-section pricing-style-1 bg-white contact-section contact-style-6"  *ngIf="!hasActiveSession">
-  <div class="container">
+        <div class="col-12 col-md-6">
 
-    <div class="col-12" style="text-align: center; ">
-      <h4 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #c0262d;">Bienvenue sur la plateforme
-        d’enregistrement en ligne au concours d’entrée à
-        L’Institut Ucac-Icam.
-      </h4>
-      <div>&nbsp;</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+
+      </div>
     </div>
   </div>
 </section>
-
-<div class="container"  *ngIf="!hasActiveSession">
-  <div class="col-12" style="text-align: center; ">
-    <h4 class="wow fadeInUp" data-wow-delay=".4s"  style="color: #c0262d;">Aucune session active !</h4>
-     </div>
-</div>

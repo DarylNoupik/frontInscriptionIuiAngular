@@ -30,6 +30,7 @@ export class PublicFormInscriptionComponent implements OnInit {
     "Douala", "Yaoundé", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Ngaoundéré", "Bertoua", "Ébolowa", "Loum", "Kumba", "Mbouda", "Dschang", "Foumban", "Kribi", "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Brazzaville", "Pointe-Noire", "Dolisie", "Nkayi", "Owando", "Impfondo", "Madingou", "Sibiti", "Gamboma", "Kinkala", "Kindamba", "Mossendjo", "Makoua", "Ewo", "Ouesso", "N'Djamena", "Moundou", "Sarh", "Abéché", "Kélo", "Doba", "Koumra", "Pala", "Am Timan", "Bongor", "Mongo", "Ati", "Fada", "Massakory", "Biltine", "Bangui", "Bimbo", "Berbérati", "Carnot", "Bria", "Bossangoa", "Bozoum", "Nola", "Kaga-Bandoro", "Sibut", "Mbaïki", "Damara", "Mobaye", "Grimari", "Dékoa",
     "Rio de Janeiro", "São Paulo", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís", "Libreville", "Port-Gentil", "Franceville", "Oyem", "Moanda", "Mouila", "Lambaréné", "Tchibanga", "Koulamoutou", "Makokou", "Lastoursville", "Mounana", "Gamba", "Bitam", "Ndendé", "Delhi", "Mumbai", "Kolkata", "Chennai", "Bengaluru", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", "Thane", "Quito", "Guayaquil", "Cuenca", "Santo Domingo de los Colorados", "Machala", "Manta", "Portoviejo", "Ambato", "Durán", "Loja", "Esmeraldas", "Quevedo", "Ibarra", "Riobamba", "Latacunga"
   ];
+  public villes = [];
 
   public nationalities: string[] = [
     "Français(e)",
@@ -132,6 +133,11 @@ export class PublicFormInscriptionComponent implements OnInit {
   }
 
   formStep1: FormGroup = new FormGroup({
+    date_naissance: new FormControl('', [Validators.required, dateValidator()]),
+    nationalite: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
+    ville: new FormControl('', [Validators.minLength(3), Validators.required, createStringValidatior()]),
+    lieu_naissance: new FormControl('', [Validators.minLength(5), Validators.required, createStringValidatior()]),
+    genre: new FormControl('', [Validators.required]),
     nom: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
     prenom: new FormControl('', [Validators.required, createStringValidatior()]),
     telephone: new FormControl('', [Validators.minLength(8), Validators.required, createCamerounianNumberValidator()]),
