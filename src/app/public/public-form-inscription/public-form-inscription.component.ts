@@ -43,6 +43,7 @@ export class PublicFormInscriptionComponent implements OnInit {
 
   public hasActiveSession!: boolean;
   uploadedFile!: string;
+  selectedFile! : File;
   public actualDate = new Date();
   selectZone!: IZone;
   public centreBySite: any;
@@ -508,6 +509,20 @@ console.log("step:",this.step);
   addCandidature() {
     this.candidatureService.addCandidature(this.candidatureForm).subscribe({
       next: (data) => {
+        const formData = new FormData();
+        formData.append('image', this.selectedFile);
+
+        this.candidatureService.uploadImage(this.selectedFile, data.id!).subscribe(
+          (response) => {
+            console.log('Image uploaded successfully:', response);
+            // Traitez la réponse comme nécessaire
+          },
+          (error) => {
+            console.error('Error uploading image:', error);
+            // Traitez les erreurs comme nécessaire
+          }
+        );
+
         localStorage.setItem('haveCandidature', 'true');
         this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
         this.router.navigate(['/confirm'], { queryParams: { id: this.candidatureForm.compteID, name: this.compteform.name + "  " + this.compteform.prenom, code: data.code_examen, password: this.compteform.password } });
@@ -531,6 +546,7 @@ console.log("step:",this.step);
 
   async onFileChanged(event: any) {
     this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
+    this.selectedFile = event!.target!.files[0] as File;
   }
 
   generateCode(currentDate: Date, userCity: string, userId: string): string {

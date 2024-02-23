@@ -1,4 +1,5 @@
 export interface ICandidature {
+  id? : number;
   sessionId: number;
   langue: string,
   hasExchange: string,
