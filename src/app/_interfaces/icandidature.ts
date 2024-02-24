@@ -1,25 +1,13 @@
 export interface ICandidature {
-  id? : number;
-  sessionId: number;
   langue: string,
-  hasExchange: string,
-  nom_parent1: string,
-  nom_parent2: string,
-  diplome_universitaire: string,
-  email_pere: string,
-  telephone_pere: string,
-  email_tuteur: string,
-  formation_principal: string,
-  telephone_tuteur: string,
-  telephone_mere: string,
-  email_mere: string,
+  email_parents: string,
   statut: string,
-  code_examen?: number,
+  code_examen: number
   cycle: string,
-  serie_bac: string,
   compteID: number,
   nationalite: string,
   genre: string,
+  tel_parents: string,
   date_naissance: string,
   image: string,
   formation2: string,
@@ -30,9 +18,8 @@ export interface ICandidature {
   telephone_paiement: string,
   dernier_Etablissement: string,
   lieu_de_naissance: string,
-  ville: string,
-  nombre_choix: number,
-  centre: string,
-  centreExamenId?: number,
-  candidatureActif: boolean
+  ville : string,
+  nombre_choix : number,
+  centre : string
+  candidatureActif : boolean
 }

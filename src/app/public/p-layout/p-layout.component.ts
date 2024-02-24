@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from 'src/app/_services/token.service';
 
 @Component({
   selector: 'app-p-layout',
@@ -8,16 +7,9 @@ import { TokenService } from 'src/app/_services/token.service';
 })
 export class PLayoutComponent implements OnInit {
 
-  userIsConnected: boolean = false;
-  constructor(private tokenService: TokenService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    let token: string | null = this.tokenService.getToken();
-    if (token != null) {
-      if (this.tokenService.isLogged()) {
-        this.userIsConnected = true;
-      }
-    }
   }
 
 }

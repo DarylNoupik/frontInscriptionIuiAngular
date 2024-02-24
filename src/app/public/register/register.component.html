@@ -52,8 +52,8 @@
               <div class="col-md-12" [hidden]="step==2">
                 <div class="single-input">
                   <!--<label for="name">Name</label>-->
-                  <input required type="number" id="telephone" name="telephone" [(ngModel)]="form.telephone"
-                    #telephone="ngModel" class="form-input col-12" placeholder="Telephone"  >
+                  <input required type="text" id="telephone" name="telephone" [(ngModel)]="form.telephone"
+                    #telephone="ngModel" class="form-input col-12" placeholder="Telephone">
                 </div>
                 <div *ngIf="telephone.invalid && telephone.touched" style="text-align: start;color: #c0262d;">
                   Le numéro de telepone est requis.
