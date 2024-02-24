@@ -6,5 +6,6 @@ export interface IUtilisateurResponseModel {
   email: string,
   telephone: number,
   role: string,
-  id_disponibilite: number
+  id_disponibilite: number,
+  idZone?: number
 }

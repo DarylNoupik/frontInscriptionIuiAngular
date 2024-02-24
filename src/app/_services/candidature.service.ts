@@ -20,6 +20,8 @@ export class CandidatureService {
   //urlCodeTest : string = 'http://localhost:9090/candidature/all-codes';
   urlCodeTest: string = 'http://51.178.136.105:9090/candidature/all-codes';
 
+  urlUploadImage : string = "http://51.178.136.105:9090/file/uploadFile/";
+
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
@@ -28,6 +30,12 @@ export class CandidatureService {
 
   addCandidature(candidature: ICandidature): Observable<ICandidature> {
     return this.http.post<ICandidature>(this.url, candidature);
+  }
+
+  uploadImage(file: File, candidatureId: number): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(this.urlUploadImage+candidatureId, formData);
   }
 
   allCodes(): Observable<ICodeValidatorModels> {

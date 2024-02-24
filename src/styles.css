@@ -1,6 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;800&display=swap');
+
 body {
     margin: 0;
     padding: 0;
 }
+
+a {
+    text-decoration: none;
+}
+
+
+h1, h2,h3,h4,h5,h6, p, li, a, span, strong{
+    font-family: 'Poppins', sans-serif !important;
+}
+
+
 /* #de640d */
+
+/* Importing Bootstrap SCSS file. */
+/* @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/dist/css/bootstrap.min.css"; */
+
+/* @import url("assets/css/bootstrap-5.0.0-alpha-2.min.css"); */

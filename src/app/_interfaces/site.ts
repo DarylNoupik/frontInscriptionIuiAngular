@@ -9,5 +9,7 @@ export interface ISite {
   image: string,
   pays: string,
   zone :  IZone,
-  centre : ICentre[]
+  centreExamenList : ICentre[],
+  indicatif : string,
+  msgPaiement : string
 }

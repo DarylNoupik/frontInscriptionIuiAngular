@@ -5,19 +5,24 @@ import { RegisterComponent } from './register/register.component';
 import { PLayoutComponent } from './p-layout/p-layout.component';
 import { RouterModule } from "@angular/router";
 import { PublicRoutingModule } from "./public-routing.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { PublicFormInscriptionComponent } from './public-form-inscription/public-form-inscription.component';
+import { InscriptionConfirmComponent } from './inscription-confirm/inscription-confirm.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     RegisterComponent,
     PLayoutComponent,
+    PublicFormInscriptionComponent,
+    InscriptionConfirmComponent,
   ],
   imports: [
     CommonModule,
     PublicRoutingModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PublicModule { }

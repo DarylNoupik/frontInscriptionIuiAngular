@@ -10,14 +10,12 @@ export class ResultatComponent implements OnInit {
 
   public candidatureStatut: ICandidature = {
     langue: "",
-    email_parents: "",
+    hasExchange: "",
     statut: "En_Attente",
-    code_examen: 0,
     cycle: "",
     compteID: Number(localStorage.getItem('idCandidat')),
     nationalite: "",
     genre: "",
-    tel_parents: "",
     date_naissance: "",
     image: "",
     formation2: "",
@@ -31,7 +29,19 @@ export class ResultatComponent implements OnInit {
     ville: "",
     nombre_choix: 0,
     centre: "",
-    candidatureActif: true
+    candidatureActif: true,
+    sessionId: 0,
+    serie_bac: '',
+    nom_parent1: '',
+    nom_parent2: '',
+    diplome_universitaire: '',
+    email_pere: '',
+    telephone_pere: '',
+    email_tuteur: '',
+    telephone_tuteur: '',
+    telephone_mere: '',
+    email_mere: '',
+    formation_principal: ''
   };
   constructor() { }
 
