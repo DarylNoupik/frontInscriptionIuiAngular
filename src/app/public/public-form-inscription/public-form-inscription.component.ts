@@ -245,14 +245,15 @@ console.log("step:",this.step);
       this.formStep3.get('email_tuteur')?.updateValueAndValidity();
       
     } else {
-      this.formStep3.get('telephone_tuteur')?.removeValidators([Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]);
-      this.formStep3.get('email_tuteur')?.removeValidators([Validators.email, emailValidatior()]);
+      this.formStep3.get('telephone_tuteur')?.clearValidators();
+      this.formStep3.get('email_tuteur')?.clearValidators();
 
       this.formStep3.get('telephone_tuteur')?.updateValueAndValidity();
       this.formStep3.get('email_tuteur')?.updateValueAndValidity();
     }
 
     this.formStep3.updateValueAndValidity()
+    console.log(this.formStep3.invalid);
   }
 
   constructor(
