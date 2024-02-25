@@ -438,18 +438,27 @@ console.log("step:",this.step);
       });
   }
 
+  generateRandomPassword(length: number): string {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+    }
+    return password;
+  }
+
   onSubmit() {
     this.compteform = {
       name: this.formStep1.get('nom')?.value,
       prenom: this.formStep1.get('prenom')?.value,
-      password: "pass",
+      password: this.generateRandomPassword(8),
       email: this.formStep1.get('email')?.value,
       telephone: this.indiceTelephoneCandidat + "" + this.formStep1.get('telephone')?.value,
       role: "CANDIDAT",
       id_disponibilite: 0,
       idZone: this.selectZone.id
     };
-
     this.candidatureForm = {
       dernier_Etablissement: this.formStep4.get('dernier_etablissement')?.value,
       langue: this.formStep4.get('langue')?.value,
