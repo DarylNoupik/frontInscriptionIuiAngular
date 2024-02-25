@@ -253,7 +253,62 @@ console.log("step:",this.step);
     }
 
     this.formStep3.updateValueAndValidity()
-    console.log(this.formStep3.invalid);
+  }
+
+  changeValidatorFormation(){
+    if (this.formStep4.get('nombre_formation')?.value == "01")
+    {
+      this.formStep4.get('formation1')?.setValidators([Validators.required]);
+
+      this.formStep4.get('formation2')?.clearValidators();
+      this.formStep4.get('formation3')?.clearValidators();
+
+      this.formStep4.get('formation2')?.setValue("")
+      this.formStep4.get('formation3')?.setValue("")
+
+      this.formStep4.get('formation1')?.updateValueAndValidity();
+      this.formStep4.get('formation2')?.updateValueAndValidity();
+      this.formStep4.get('formation3')?.updateValueAndValidity();
+
+      console.log("formation1 "+this.formStep4.get('formation1')?.value)
+      console.log("formation2 "+this.formStep4.get('formation2')?.value)
+      console.log("formation3 "+this.formStep4.get('formation3')?.value)
+    }
+
+    if (this.formStep4.get('nombre_formation')?.value == "02")
+    {
+      this.formStep4.get('formation1')?.setValidators([Validators.required]);
+      this.formStep4.get('formation2')?.setValidators([Validators.required]);
+
+      this.formStep4.get('formation3')?.clearValidators();
+
+      this.formStep4.get('formation3')?.setValue("")
+
+      this.formStep4.get('formation1')?.updateValueAndValidity();
+      this.formStep4.get('formation2')?.updateValueAndValidity();
+      this.formStep4.get('formation3')?.updateValueAndValidity();
+
+      console.log("formation1 "+this.formStep4.get('formation1')?.value)
+      console.log("formation2 "+this.formStep4.get('formation2')?.value)
+      console.log("formation3 "+this.formStep4.get('formation3')?.value)
+    }
+
+    if (this.formStep4.get('nombre_formation')?.value == "03")
+    {
+      this.formStep4.get('formation1')?.setValidators([Validators.required]);
+      this.formStep4.get('formation2')?.setValidators([Validators.required]);
+      this.formStep4.get('formation3')?.setValidators([Validators.required]);
+
+      this.formStep4.get('formation1')?.updateValueAndValidity();
+      this.formStep4.get('formation2')?.updateValueAndValidity();
+      this.formStep4.get('formation3')?.updateValueAndValidity();
+
+      console.log("formation1 "+this.formStep4.get('formation1')?.value)
+      console.log("formation2 "+this.formStep4.get('formation2')?.value)
+      console.log("formation3 "+this.formStep4.get('formation3')?.value)
+    }
+    
+    this.formStep4.updateValueAndValidity();
   }
 
   constructor(
@@ -356,7 +411,7 @@ console.log("step:",this.step);
     this.step = step;
   }
 
-  updateSelections() {
+  /*updateSelections() {
     if ((this.formStep4.get('formation1')?.value && !this.formStep4.get('formation2')?.value && !this.formStep4.get('formation3')?.value) || (!this.formStep4.get('formation1')?.value && this.formStep4.get('formation2')?.value && !this.formStep4.get('formation3')?.value) || (!this.formStep4.get('formation1')?.value && !this.formStep4.get('formation2')?.value && this.formStep4.get('formation3')?.value)) {
       this.candidatureForm.nombre_choix = 1;
       this.disableOption1 = false;
@@ -379,7 +434,7 @@ console.log("step:",this.step);
       this.disableOption3 = false;
       this.candidatureForm.nombre_choix = 0;
     }
-  }
+  }*/
 
   toggleForm(): void {
     if (this.candidatureForm.centre.length > 0) {

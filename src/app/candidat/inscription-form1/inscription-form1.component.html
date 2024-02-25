@@ -763,7 +763,7 @@
               <div class="">
                 <label for="nombre_formation" class="form-label">Indiquez le nombre de formations auquel vous
                   candidatez (*)</label>
-                <select formControlName="nombre_formation" required style="width: 100%;" type="text"
+                <select formControlName="nombre_formation" (change)="changeValidatorFormation()" required style="width: 100%;" type="text"
                   id="nombre_formation" name="nombre_formation" class="form-control form-control-lg" [ngClass]="{
                 'is-invalid':
                 form4Controls['nombre_formation'].errors &&
@@ -789,7 +789,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="formation1" class="form-label">Premier choix</label>
-                  <select formControlName="formation1" required style="width: 100%;" type="text" id="formation1"
+                  <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
                     name="formation1" class="form-control form-control-lg" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation1'].errors &&
@@ -815,7 +815,7 @@
                 *ngIf="formStep4.get('nombre_formation')?.value == '02' || formStep4.get('nombre_formation')?.value == '03'">
                 <div class="">
                   <label for="formation2" class="form-label">Deuxième choix</label>
-                  <select formControlName="formation2" required style="width: 100%;" type="text" id="formation2"
+                  <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
                     name="formation2" class="form-control form-control-lg" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation2'].errors &&
@@ -843,7 +843,7 @@
               <div class="col-md-12" *ngIf="formStep4.get('nombre_formation')?.value == '03'">
                 <div class="">
                   <label for="formation3" class="form-label">Troisième 3</label>
-                  <select formControlName="formation3" required style="width: 100%;" type="text" id="formation3"
+                  <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
                     name="formation3" class="form-control form-control-lg" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation3'].errors &&
@@ -877,7 +877,7 @@
               <div class="col-md-12">
                 <div class="">
                   <label for="formation1" class="form-label">Premier 1</label>
-                  <select formControlName="formation1" required style="width: 100%;" type="text" id="formation1"
+                  <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
                     name="formation1" class="form-control form-control-lg" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation1'].errors &&
@@ -903,7 +903,7 @@
                 *ngIf="formStep4.get('nombre_formation')?.value == '02' || formStep4.get('nombre_formation')?.value == '03'">
                 <div class="">
                   <label for="formation2" class="form-label">Deuxième choix</label>
-                  <select formControlName="formation2" required style="width: 100%;" type="text" id="formation2"
+                  <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
                     name="formation2" class="form-control form-control-lg" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation2'].errors &&
@@ -931,7 +931,7 @@
               <div class="col-md-12" *ngIf="formStep4.get('nombre_formation')?.value == '03'">
                 <div class="">
                   <label for="formation3" class="form-label">Troisième choix</label>
-                  <select formControlName="formation3" required style="width: 100%;" type="text" id="formation3"
+                  <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
                     name="formation3" class="form-control form-control-lg" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation3'].errors &&
