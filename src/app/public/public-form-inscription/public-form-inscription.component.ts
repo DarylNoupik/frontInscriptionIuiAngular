@@ -226,9 +226,9 @@ console.log("step:",this.step);
     hasExchange: new FormControl('', [Validators.required]),
     serie_bac: new FormControl('', [Validators.required]),
     serie_bac_input: new FormControl('', []),
-    formation2: new FormControl('', []),
-    formation3: new FormControl('', []),
-    formation1: new FormControl('', []),
+    formation2: new FormControl('', [Validators.required]),
+    formation3: new FormControl('', [Validators.required]),
+    formation1: new FormControl('', [Validators.required]),
   });
 
   formStep5: FormGroup = new FormGroup({

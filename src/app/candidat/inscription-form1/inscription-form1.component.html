@@ -790,7 +790,7 @@
                 <div class="">
                   <label for="formation1" class="form-label">Premier choix</label>
                   <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
-                    name="formation1" class="form-control form-control-lg" [ngClass]="{
+                    name="formation1" class="form-control form-control-lg" [required]="form4Controls['formation1'].invalid" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation1'].errors &&
                   form4Controls['formation1'].touched,
@@ -816,7 +816,7 @@
                 <div class="">
                   <label for="formation2" class="form-label">Deuxième choix</label>
                   <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
-                    name="formation2" class="form-control form-control-lg" [ngClass]="{
+                    name="formation2" class="form-control form-control-lg" [required]="form4Controls['formation2'].invalid" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation2'].errors &&
                   form4Controls['formation2'].touched,
@@ -844,7 +844,7 @@
                 <div class="">
                   <label for="formation3" class="form-label">Troisième 3</label>
                   <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
-                    name="formation3" class="form-control form-control-lg" [ngClass]="{
+                    name="formation3" class="form-control form-control-lg" [required]="form4Controls['formation3'].invalid" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation3'].errors &&
                   form4Controls['formation3'].touched,
@@ -878,7 +878,7 @@
                 <div class="">
                   <label for="formation1" class="form-label">Premier 1</label>
                   <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
-                    name="formation1" class="form-control form-control-lg" [ngClass]="{
+                    name="formation1" class="form-control form-control-lg" [required]="form4Controls['formation1'].invalid" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation1'].errors &&
                   form4Controls['formation1'].touched,
@@ -904,7 +904,7 @@
                 <div class="">
                   <label for="formation2" class="form-label">Deuxième choix</label>
                   <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
-                    name="formation2" class="form-control form-control-lg" [ngClass]="{
+                    name="formation2" class="form-control form-control-lg" [required]="form4Controls['formation2'].invalid" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation2'].errors &&
                   form4Controls['formation2'].touched,
@@ -932,7 +932,7 @@
                 <div class="">
                   <label for="formation3" class="form-label">Troisième choix</label>
                   <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
-                    name="formation3" class="form-control form-control-lg" [ngClass]="{
+                    name="formation3" class="form-control form-control-lg" [required]="form4Controls['formation3'].invalid" [ngClass]="{
                   'is-invalid':
                   form4Controls['formation3'].errors &&
                   form4Controls['formation3'].touched,
