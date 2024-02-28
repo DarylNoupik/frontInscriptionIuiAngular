@@ -529,11 +529,22 @@ console.log("step:",this.step);
     return this.formStep5.controls;
   }
 
-  checkIf2Cycle() {
-    if (this.formStep4.get('cycle')?.value == '2nd cycle') {
+  checkIf2Cycle(answer: string) {
+    if (answer == 'second') {
       this.formStep4.get('diplome_universitaire')?.addValidators(Validators.required);
+
+      this.formStep4.get('formation1')?.setValue("")
+      this.formStep4.get('formation2')?.setValue("")
+      this.formStep4.get('formation3')?.setValue("")
+
+      this.formStep4.get('diplome_universitaire')?.updateValueAndValidity();
     } else {
-      this.formStep4.get('diplome_universitaire')?.removeValidators(Validators.required);
+      this.formStep4.get('diplome_universitaire')?.clearValidators();
+      this.formStep4.get('formation1')?.setValue("")
+      this.formStep4.get('formation2')?.setValue("")
+      this.formStep4.get('formation3')?.setValue("")
+
+      this.formStep4.get('diplome_universitaire')?.updateValueAndValidity();
     }
     this.formStep4.updateValueAndValidity();
   }

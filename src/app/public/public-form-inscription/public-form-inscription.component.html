@@ -338,9 +338,16 @@
                 </div>
               </div>
 
-              <div class="col-md-12 mt-3">
-                <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100" [disabled]="formStep2.invalid">Suivant</button>
+              <div class="row mt-3">
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button type="submit" class="button radius-10 w-100" [disabled]="formStep2.invalid">Suivant</button>
+                  </div>
                 </div>
               </div>
             </form>
@@ -728,14 +735,14 @@
                 <label class="form-label">Concourir pour (*)</label>
                 <div class="align-content-center">
                   <div class="form-check">
-                    <input formControlName="cycle" required (click)="checkIf2Cycle()" class="form-check-input"
+                    <input formControlName="cycle" required (click)="checkIf2Cycle('premier')" class="form-check-input"
                       value="premier" type="radio" name="cycle" id="cycle1" checked>
                     <label class="form-check-label" for="cycle1">
                       1er cycle
                     </label>
                   </div>
                   <div class="form-check">
-                    <input formControlName="cycle" (click)="checkIf2Cycle()" required class="form-check-input"
+                    <input formControlName="cycle" (click)="checkIf2Cycle('second')" required class="form-check-input"
                       value="second" type="radio" name="cycle" id="cycle2">
                     <label class="form-check-label" for="cycle2">
                       2nd cycle
