@@ -787,7 +787,7 @@ console.log("step:",this.step);
 
         localStorage.setItem('haveCandidature', 'true');
         this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
-        this.router.navigate(['/confirm'], { queryParams: { id: this.candidatureForm.compteID, name: this.compteform.name + "  " + this.compteform.prenom, code: data.code_examen, password: this.compteform.password } });
+        this.router.navigate(['/confirm'], { state: { id: this.candidatureForm.compteID, name: this.compteform.name + "  " + this.compteform.prenom, code: data.code_examen, password: this.compteform.password } });
       },
       error: (err) => {
         let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";

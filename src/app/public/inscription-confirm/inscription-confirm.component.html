@@ -1,3 +1,9 @@
+<div *ngIf="isLoadingPDF" class="loading-overlay">
+  <!-- Écran de chargement -->
+  <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Chargement...</span>
+  </div>
+</div>
 <section id="contact" class="contact-section contact-style-6">
   <div class="container">
     <div>&nbsp;</div>
@@ -27,7 +33,7 @@
 
 
 
-      <div class="buttons justify-content-center align-self-center">
+      <div id="message" class="buttons justify-content-center align-self-center">
         <h6>
           Veuillez bien enregistrer votre code. Vous pouvez l'utiliser avec votre adresse mail ou numero de téléphone
           pour vous connecter
@@ -36,15 +42,15 @@
         <br>
       </div>
 
-      <div class="align-self-center">
+      <div id="print" class="align-self-center">
         <h6>
-          <a (click)="printPDF()" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"> Cliquer ici pour
+          <a (click)="convertToPDF()" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"> Cliquer ici pour
             sauvegarder votre code !</a>
         </h6>
         <br>
       </div>
 
-      <div class="buttons justify-content-center align-self-center">
+      <div id="backHome" class="buttons justify-content-center align-self-center">
         <a [routerLink]="['/home']" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"
           data-wow-delay=".7s">Retournez à la page d'Accueil</a>
       </div>

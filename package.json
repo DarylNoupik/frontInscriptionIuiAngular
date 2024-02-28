@@ -25,6 +25,7 @@
     "@cloudinary/ng": "^1.11.0",
     "@cloudinary/url-gen": "^1.9.1",
     "@types/jspdf": "^2.0.0",
+    "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "jwt-decode": "^3.1.2",
     "ng-http-loader": "^0.0.1",
