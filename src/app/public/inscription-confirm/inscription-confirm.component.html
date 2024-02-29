@@ -1,60 +1,153 @@
 <div *ngIf="isLoadingPDF" class="loading-overlay">
   <!-- Écran de chargement -->
   <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Chargement...</span>
+    <span class="sr-only">Chargement...</span>
   </div>
 </div>
 <section id="contact" class="contact-section contact-style-6">
   <div class="container">
     <div>&nbsp;</div>
     <div class="row justify-content-center">
-
       <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
         <div class="section-title text-center mb-60">
-          <h4 class="wow fadeInUp" data-wow-delay=".4s">{{session.nom}}</h4>
+          <h4 class="wow fadeInUp" data-wow-delay=".4s">{{ session.nom }}</h4>
           <div>&nbsp;</div>
-          <h5 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #c0262d;">Candidature déjà enregistrée pour
-            cette session d'examen au nom de {{name}} <br> <span *ngIf="!userIsConnected"> Mot de passe: {{password}} </span></h5>
-          <h5 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #ff4433;">Votre code d'examen est : {{code}}
-          </h5>
-
+          <p class="w-lg-50">
+            <strong
+              ><span
+                style="
+                  color: rgb(73, 200, 73);
+                  background-color: rgb(255, 255, 255);
+                "
+                >Cher {{ name }} Votre candidature a été enregistrée avec
+                succès👌🎯</span
+              ></strong
+            >
+          </p>
+          <div class="row d-flex justify-content-center text-center">
+            <div class="col-md-6 col-lg-4 col-xl-4">
+              <div
+                class="d-flex flex-column justify-content-center align-items-start h-100"
+              >
+                <div class="d-flex align-items-center text-center p-3">
+                  <div class="px-2">
+                    <h6
+                      class="mb-0"
+                      style="
+                        color: rgb(224, 160, 75);
+                        font-family: 'Courier New', Courier, monospace;
+                      "
+                    >
+                      Votre code d&#39;examen
+                    </h6>
+                    <p class="mb-0">
+                      <strong
+                        ><span style="color: rgb(159, 77, 72)">{{
+                          code
+                        }}</span></strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-5 col-xl-4">
+              <div></div>
+              <div class="d-flex align-items-center text-center p-3">
+                <div class="px-2">
+                  <h6
+                    class="mb-0"
+                    style="
+                      color: rgb(216, 152, 68);
+                      font-family: 'Courier New', Courier, monospace;
+                    "
+                  >
+                    Votre mot de passe de connexion est :
+                  </h6>
+                  <p class="mb-0">
+                    <strong
+                      ><span style="color: rgb(160, 73, 68)">{{
+                        password
+                      }}</span></strong
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
+      <p class="w-lg-50">
+        <span class="badge bg-primary">Note :</span
+        ><em
+          ><br /><strong
+            ><span style="font-style: normal !important"
+              >Une fois votre candidature enregistrée  vous pouvez vous
+              connecter en renseignant votre email et le mot de passe ci
+              dessus.</span
+            ></strong
+          ></em
+        ><em
+          >Le code d&#39;examen correspond à votre numéro de banc le jour de
+          l&#39;examen bien vouloir garder ses informations</em
+        >
+      </p>
+
       <div class="col-12">
-
-        <h6 class="text-center">Date d'examen: <b style="color: #df650d">{{session.date_examen | date:
-            'fullDate':'':'fr-FR'}}</b></h6><br />
-        <h6 class="text-center">Date limite des inscriptions au concours <b style="color: #df650d">{{session.date_limite
-            | date:'fullDate':'':'fr-FR' }}</b></h6>
-        <br>
-
+        <h6 class="text-center">
+          Date d'examen:
+          <b style="color: #df650d">{{
+            session.date_examen | date : "fullDate" : "" : "fr-FR"
+          }}</b>
+        </h6>
+        <br />
+        <h6 class="text-center">
+          Date limite des inscriptions au concours
+          <b style="color: #df650d">{{
+            session.date_limite | date : "fullDate" : "" : "fr-FR"
+          }}</b>
+        </h6>
+        <br />
       </div>
 
-
-
-      <div id="message" class="buttons justify-content-center align-self-center">
+      <div
+        id="message"
+        class="buttons justify-content-center align-self-center"
+      >
         <h6>
-          Veuillez bien enregistrer votre code. Vous pouvez l'utiliser avec votre adresse mail ou numero de téléphone
-          pour vous connecter
-          sur la platefrome et suivre l'évolution de votre candidature.
+          Veuillez bien enregistrer votre code. Vous pouvez l'utiliser avec
+          votre adresse mail ou numéro de téléphone pour vous connecter sur la
+          plateforme et suivre l'évolution de votre candidature.
         </h6>
-        <br>
+        <br />
       </div>
 
       <div id="print" class="align-self-center">
         <h6>
-          <a (click)="convertToPDF()" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"> Cliquer ici pour
-            sauvegarder votre code !</a>
+          <a
+            (click)="convertToPDF()"
+            rel="nofollow"
+            class="button button-lg radius-10 wow fadeInUp"
+          >
+            Cliquer ici pour sauvegarder votre code !</a
+          >
         </h6>
-        <br>
+        <br />
       </div>
 
-      <div id="backHome" class="buttons justify-content-center align-self-center">
-        <a [routerLink]="['/home']" rel="nofollow" class="button button-lg radius-10 wow fadeInUp"
-          data-wow-delay=".7s">Retournez à la page d'Accueil</a>
+      <div
+        id="backHome"
+        class="buttons justify-content-center align-self-center"
+      >
+        <a
+          [routerLink]="['/home']"
+          rel="nofollow"
+          class="button button-lg radius-10 wow fadeInUp"
+          data-wow-delay=".7s"
+          >Retournez à la page d'Accueil</a
+        >
       </div>
     </div>
-
   </div>
 </section>

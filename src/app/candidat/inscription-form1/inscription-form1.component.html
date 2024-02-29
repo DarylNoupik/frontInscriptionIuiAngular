@@ -1,1238 +1,2469 @@
-<section id="pricing" class="pricing-section pricing-style-1 bg-white contact-section contact-style-6">
-    <div class="container">
-
-        <div class="col-12" style="text-align: center; padding-top: 100px;">
-            <h4 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #c0262d;">Bienvenue sur la plateforme
-                d’enregistrement en ligne au concours d’entrée à
-                L’Institut Ucac-Icam.
-            </h4>
-            <div>&nbsp;</div>
-            <h6>Pour l’enregistrement, vous aurez besoin :</h6>
-            <ul class="p-0">
-                <li>De l’identité de l’élève (nom, prénom, date de naissance, établissement, série du
-                    baccalauréat clôturant le cycle secondaire…)</li>
-                <li>Du contact téléphonique et de l’identité des parents</li>
-                <li>D’un compte de paiement en ligne (orange money, Momo, Airtel)</li>
-                <li>Le payement des frais du concours se fait via le compte marchand de l'institut</li>
-            </ul>
-
-        </div>
+<section
+  id="pricing"
+  class="pricing-section pricing-style-1 bg-white contact-section contact-style-6"
+>
+  <div class="container">
+    <div class="col-12" style="text-align: center; padding-top: 100px">
+      <h4
+        class="mb-15 wow fadeInUp"
+        data-wow-delay=".2s"
+        style="color: #c0262d"
+      >
+        Bienvenue sur la plateforme d’enregistrement en ligne au concours
+        d’entrée à L’Institut Ucac-Icam.
+      </h4>
+      <div>&nbsp;</div>
+      <h6>Pour l’enregistrement, vous aurez besoin :</h6>
+      <ul class="p-0">
+        <li>
+          De l’identité de l’élève (nom, prénom, date de naissance,
+          établissement, série du baccalauréat clôturant le cycle secondaire…)
+        </li>
+        <li>Du contact téléphonique et de l’identité des parents</li>
+        <li>D’un compte de paiement en ligne (orange money, Momo, Airtel)</li>
+        <li>
+          Le payement des frais du concours se fait via le compte marchand de
+          l'institut
+        </li>
+      </ul>
     </div>
-    <div class="container">
-
-        <div class="col-12" style="text-align: center; padding-top: 100px;">
-            <h4 class="wow fadeInUp" data-wow-delay=".4s">{{session.nom}} </h4>
-            <h6 class="text-center">Date d'examen: <b style="color: #df650d">{{session.date_examen |
-                    date:'fullDate':'':'fr-FR' }}</b>
-            </h6><br />
-            <h6 class="text-center">Date limite des inscriptions en ligne: <b
-                    style="color: #df650d">{{session.date_limite |
-                    date: 'fullDate':'':'fr-FR' }}</b></h6>
-            <br>
-            <h5 class="mb-15 wow fadeInUp text-center" data-wow-delay=".2s" style="color: #c0262d;">Enregistrez-vous
+  </div>
+  <div class="container">
+    <div class="col-12" style="text-align: center; padding-top: 100px">
+      <h4 class="wow fadeInUp" data-wow-delay=".4s">{{ session.nom }}</h4>
+      <h6 class="text-center">
+        Date d'examen:
+        <b style="color: #df650d">{{
+          session.date_examen | date : "fullDate" : "" : "fr-FR"
+        }}</b>
+      </h6>
+      <br />
+      <h6 class="text-center">
+        Date limite des inscriptions en ligne:
+        <b style="color: #df650d">{{
+          session.date_limite | date : "fullDate" : "" : "fr-FR"
+        }}</b>
+      </h6>
+      <br />
+      <h5
+        class="mb-15 wow fadeInUp text-center"
+        data-wow-delay=".2s"
+        style="color: #c0262d"
+      >
+        Enregistrez-vous
+      </h5>
+    </div>
+  </div>
+  <br />
+  <div>&nbsp;</div>
+  <div class="container">
+    <div *ngIf="showCentre" class="row justify-content-center">
+      <div class="row justify-content-center">
+        <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
+          <div class="section-title text-center mb-60">
+            <h5
+              class="mb-15 wow fadeInUp"
+              data-wow-delay=".2s"
+              style="color: #c0262d"
+            >
+              Choisissez votre centre d'examen
             </h5>
-        </div>
-    </div>
-    <br>
-    <div>&nbsp;</div>
-    <div class="container">
-
-        <div *ngIf="showCentre" class="row justify-content-center">
-
-            <div class="row justify-content-center">
-                <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
-                    <div class="section-title text-center mb-60">
-                        <h5 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #c0262d;">Choisissez votre
-                            centre d'examen
-                        </h5>
-                        <div>&nbsp;</div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div *ngFor="let item of site" class="col-lg-4 col-md-8 col-sm-10">
-                <div class="single-pricing wow fadeInUp" style="height: 700px; box-shadow: 1px 0px 4px #000000;"
-                    data-wow-delay=".2s">
-                    <div class="image">
-                        <img src="{{item.image}}" alt="">
-                    </div>
-                    <!--<h6>Pro Design</h6>-->
-                    <h4>{{item.nom}}</h4>
-                    <!--<h3>$ 29.00</h3>-->
-                    <ul>
-                        <li *ngFor="let item2 of item.centreExamenList">
-                            <input [(ngModel)]="candidatureForm.centre" value="{{item2.nom}}" required name="examcenter"
-                                style="width: 20px; height: 20px;" type="radio" (click)="selectCenter(item2, item.zone)"
-                                class="form-input"> &nbsp;
-                            {{item2.nom}}
-                        </li>
-                    </ul><!---->
-                    <a (click)="toggleForm()" style="position: absolute; bottom: 15px;"
-                        class="button  radius-30">Continuer</a>
-                </div>
-            </div>
-        </div>
-
-        <div *ngIf="showForm" class="container row justify-content-center ">
-
             <div>&nbsp;</div>
-            <div class="row justify-content-center">
-                <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
-                    <div class="section-title text-center mb-60">
-                        <h5 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: #c0262d;">Veuillez renseigner
-                            vos
-                            informations</h5>
-                        <h6 class="mb-15 wow fadeInUp" data-wow-delay=".2s" style="color: black;">Centre sélectionné :
-                            {{candidatureForm.centre}}</h6>
+          </div>
+        </div>
+      </div>
 
+      <div *ngFor="let item of site" class="col-lg-4 col-md-8 col-sm-10">
+        <div
+          class="single-pricing wow fadeInUp"
+          style="height: 700px; box-shadow: 1px 0px 4px #000000"
+          data-wow-delay=".2s"
+        >
+          <div class="image">
+            <img src="{{ item.image }}" alt="" />
+          </div>
+          <h4>{{ item.nom }}</h4>
+          <ul>
+            <li *ngFor="let item2 of item.centreExamenList">
+              <input
+                [(ngModel)]="candidatureForm.centre"
+                value="{{ item2.nom }}"
+                required
+                name="examcenter"
+                style="width: 20px; height: 20px"
+                type="radio"
+                (click)="selectCenter(item2, item.zone)"
+                class="form-input"
+              />
+              &nbsp;
+              {{ item2.nom }}
+            </li>
+          </ul>
+          <!---->
+          <a
+            (click)="toggleForm()"
+            style="position: absolute; bottom: 15px"
+            class="button radius-30"
+            >Continuer</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showForm" class="container row justify-content-center">
+      <div>&nbsp;</div>
+      <div class="row justify-content-center">
+        <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
+          <div class="section-title text-center mb-60">
+            <h5
+              class="mb-15 wow fadeInUp"
+              data-wow-delay=".2s"
+              style="color: #c0262d"
+            >
+              Veuillez renseigner vos informations
+            </h5>
+            <h6
+              class="mb-15 wow fadeInUp"
+              data-wow-delay=".2s"
+              style="color: black"
+            >
+              Centre sélectionné : {{ candidatureForm.centre }}
+            </h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 card">
+        <div class="contact-form-wrapper">
+          <div name="form">
+            <div class="form-header d-flex mb-4" *ngIf="!mobileView">
+              <span
+                class="stepIndicator active"
+                [ngClass]="{ finish: step > 2 }"
+                >Détails personnels</span
+              >
+              <span
+                class="stepIndicator"
+                [ngClass]="{ active: step >= 3, finish: step > 3 }"
+                >Informations complémentaires</span
+              >
+              <span
+                class="stepIndicator"
+                [ngClass]="{ active: step >= 4, finish: step > 4 }"
+                >Concours</span
+              >
+              <span
+                class="stepIndicator"
+                [ngClass]="{ active: step >= 5, finish: step > 5 }"
+                >Paiement</span
+              >
+            </div>
+            <div class="form-header d-flex mb-4" *ngIf="mobileView">
+              <span
+                class="stepIndicator active"
+                [ngClass]="{ finish: step > 2 }"
+              ></span>
+              <span
+                class="stepIndicator"
+                [ngClass]="{ active: step >= 3, finish: step > 3 }"
+              ></span>
+              <span
+                class="stepIndicator"
+                [ngClass]="{ active: step >= 4, finish: step > 4 }"
+              ></span>
+              <span
+                class="stepIndicator"
+                [ngClass]="{ active: step >= 5, finish: step > 5 }"
+              ></span>
+            </div>
+
+            <form
+              [formGroup]="formStep1"
+              (ngSubmit)="setStepNext(step + 1)"
+              class="row g-3 needs-validation"
+              novalidate
+              [hidden]="!(step == 1)"
+              [ngClass]="{
+                'was-validated': formStep1.invalid && clickSuivant == 1
+              }"
+            >
+              <p class="text-center mb-4">
+                Informations personnelles pour la création de comptes
+              </p>
+              <div class="col-md-12">
+                <div class="">
+                  <label for="nom" class="form-label">Noms (*)</label>
+                  <input
+                    formControlName="nom"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    class="form-control form-control-lg"
+                    placeholder="Votre(Vos) Nom(s)"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form1Controls['nom'].errors &&
+                        form1Controls['nom'].touched,
+                      'is-valid custom-form-control-valid':
+                        form1Controls['nom'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form1Controls['nom'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="form1Controls['nom'].errors['required']">
+                      Nom requis
                     </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-6 card">
-                <div class="contact-form-wrapper">
-                    <div name="form">
-                        <div class="form-header d-flex mb-4" *ngIf="!mobileView">
-                            <span class="stepIndicator active" [ngClass]="{finish: step > 2}">Details personnels</span>
-                            <span class="stepIndicator" [ngClass]="{active: step >= 3, finish: step > 3}">Informations
-                                complementaires</span>
-                            <span class="stepIndicator"
-                                [ngClass]="{active: step >= 4, finish: step > 4}">Concours</span>
-                            <span class="stepIndicator"
-                                [ngClass]="{active: step >= 5, finish: step > 5}">Paiement</span>
-                        </div>
-                        <div class="form-header d-flex mb-4" *ngIf="mobileView">
-                            <span class="stepIndicator active" [ngClass]="{finish: step > 2}"></span>
-                            <span class="stepIndicator" [ngClass]="{active: step >= 3, finish: step > 3}"></span>
-                            <span class="stepIndicator" [ngClass]="{active: step >= 4, finish: step > 4}"></span>
-                            <span class="stepIndicator" [ngClass]="{active: step >= 5, finish: step > 5}"></span>
-                        </div>
-
-                       
-            <form [formGroup]="formStep1" (ngSubmit)="setStepNext(step + 1)" class="row g-3  needs-validation"
-            novalidate [hidden]="!(step == 1)" [ngClass]="{
-                'was-validated':
-                formStep1.invalid &&
-                clickSuivant == 1
-            }">
-            <p class="text-center mb-4">Informations personnelles pour la création de comptes</p>
-            <div class="col-md-12">
-              <div class="">
-                <label for="nom" class="form-label">Noms (*)</label>
-                <input formControlName="nom" required style="width: 100%;" type="text" id="nom" name="nom"
-                  class="form-control form-control-lg" placeholder="Votre(Vos) Nom(s)" [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form1Controls['nom'].errors &&
-                    form1Controls['nom'].touched,
-                    'is-valid custom-form-control-valid': form1Controls['nom'].valid
-                }">
-                <div *ngIf="form1Controls['nom'].errors" class="invalid-feedback">
-                  <div *ngIf="form1Controls['nom'].errors['required']">Nom requis</div>
-                  <div *ngIf="form1Controls['nom'].errors['minlength']">Nom doit avoir minimun 3 caractères</div>
-                </div>
-                <div *ngIf="form1Controls['nom'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="prenom" class="form-label"> Prénoms (*) </label>
-                <input formControlName="prenom" required style="width: 100%;" type="text" id="prenom" name="prenom"
-                  class="form-control form-control-lg" placeholder=" Votre(Vos) Prénom(s) " [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form1Controls['prenom'].errors &&
-                    form1Controls['prenom'].touched,
-                    'is-valid custom-form-control-valid': form1Controls['prenom'].valid
-                }">
-                <div *ngIf="form1Controls['prenom'].errors" class="invalid-feedback">
-                  <div *ngIf="form1Controls['prenom'].errors['required']">Prenom requis</div>
-                </div>
-                <div *ngIf="form1Controls['prenom'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label for="telephone" class="form-label">Votre numéro de téléphone (*)</label>
-              <div class="input-group  has-validation">
-                <button class="btn btn-outline-secondary d
-                ropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">{{indiceTelephoneCandidat}}</button>
-                <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                  <li><a class="dropdown-item" *ngFor="let i of indices"
-                      (click)="changeValidator(i, 'telephone','indiceTelephoneCandidat')">{{i}}</a></li>
-                </ul>
-                <input type="text" formControlName="telephone" placeholder="Votre numéro de téléphone "
-                  class="form-control  form-control-lg is-invalid custom-form-control-invalid" id="telephone"
-                  aria-describedby="inputGroupPrepend3 telephoneFeedback" required [ngClass]="{
-  'is-invalid custom-form-control-invalid':
-  form1Controls['telephone'].errors &&
-  form1Controls['telephone'].touched,
-  'is-valid custom-form-control-valid': form1Controls['telephone'].valid
-}">
-                <div *ngIf="form1Controls['telephone'].errors" class="invalid-feedback">
-                  <div *ngIf="form1Controls['telephone'].errors['required']">Numero de téléphone requis</div>
-                  <div *ngIf="form1Controls['telephone'].errors['notConform']">Le numero de téléphone doit être
-                    des chiffres uniquement et respecter le format du pays selectionné</div>
-                  <div *ngIf="form1Controls['telephone'].errors['min']">Numero de téléphone doit être superieur à
-                    0
+                    <div *ngIf="form1Controls['nom'].errors['minlength']">
+                      Nom doit avoir minimun 3 caractères
+                    </div>
                   </div>
-                  <div *ngIf="form1Controls['telephone'].errors['minlength']">Numero de téléphone doit avoir
-                    minimun
-                    8 chiffres</div>
-                </div>
-                <div *ngIf="form1Controls['telephone'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="email" class="form-label"> Votre adresse email (*) </label>
-                <input formControlName="email" style="width: 100%;" type="text" id="email" name="email"
-                  class="form-control form-control-lg" required placeholder="Votre adresse email" [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form1Controls['email'].errors &&
-                    form1Controls['email'].touched,
-                    'is-valid custom-form-control-valid': form1Controls['email'].valid
-                }">
-                <div *ngIf="form1Controls['email'].errors" class="invalid-feedback">
-                  <div *ngIf="form1Controls['email'].errors['required']">Email requis</div>
-                  <div *ngIf="form1Controls['email'].errors['email']">Email non conforme</div>
-                </div>
-                <div *ngIf="form1Controls['email'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="form-button">
-                <button type="submit" class="button radius-10 w-100">Suivant</button>
-              </div>
-            </div>
-
-          </form>
-
-          <form [hidden]="!(step == 2)" [formGroup]="formStep2" (ngSubmit)="setStepNext(step + 1)"
-            class="row g-3 needs-validation" novalidate [ngClass]="{
-              'was-validated':
-              formStep2.invalid &&
-              clickSuivant == 1
-          }">
-            <p class="text-center mb-4">Informations supplementaires</p>
-            <div class="col-md-12">
-              <div class="">
-                <label for="date_naissance" class="form-label">Date de naissance (*)</label>
-                <input formControlName="date_naissance" required max="{{currentDate | date:'yyyy-MM-dd'}}"
-                  style="width: 100%;" class="form-control form-control-lg" type="date" id="date_naissance"
-                  name="date_naissance" placeholder="Date de naissance" [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form2Controls['date_naissance'].errors &&
-                    form2Controls['date_naissance'].touched,
-                    'is-valid custom-form-control-valid': form2Controls['date_naissance'].valid
-                }">
-                <div *ngIf="form2Controls['date_naissance'].errors" class="invalid-feedback">
-                  <div *ngIf="form2Controls['date_naissance'].errors['required']">Date de naissance requis</div>
-                  <div *ngIf="form2Controls['date_naissance'].errors['max']">La date de naissance ne doit pas être
-                    superieure au {{currentDate | date:'yyyy-MM-dd'}}</div>
-                </div>
-                <div *ngIf="form2Controls['date_naissance'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="nationalite" class="form-label"> Nationalité (*) </label>
-                <p>Veuillez entrer une nationalité correcte</p>
-                <select formControlName="nationalite" required style="width: 100%;" id="nationalite"
-                name="nationalite" class="form-control form-control-lg" placeholder="Entrer votre nationalité "
-                [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form2Controls['nationalite'].errors &&
-                  form2Controls['nationalite'].touched,
-                  'is-valid custom-form-control-valid': form2Controls['nationalite'].valid
-              }">
-              <option value="{{nationality}}" *ngFor="let nationality of nationalities">{{nationality}}</option>
-              </select>
-                <div *ngIf="form2Controls['nationalite'].errors" class="invalid-feedback">
-                  <div *ngIf="form2Controls['nationalite'].errors['required']">Nationalité requis</div>
-                  <div *ngIf="form2Controls['nationalite'].errors['minlength']">Nationalité doit avoir minimun 5
-                    caractères</div>
-                </div>
-                <div *ngIf="form2Controls['nationalite'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="ville" class="form-label">Ville de résidence(*)</label>
-                <p>Veuillez entrer un ville correcte</p>
-                <input formControlName="ville" required style="width: 100%;" type="text" id="ville" name="ville"
-                  class="form-control form-control-lg" placeholder="Ville de résidence" [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form2Controls['ville'].errors &&
-                    form2Controls['ville'].touched,
-                    'is-valid custom-form-control-valid': form2Controls['ville'].valid
-                }">
-                <div *ngIf="form2Controls['ville'].errors" class="invalid-feedback">
-                  <div *ngIf="form2Controls['ville'].errors['required']">Ville de résidence requis</div>
-                  <div *ngIf="form2Controls['ville'].errors['minlength']">Ville de résidence doit avoir minimun 5
-                    caractères</div>
-                </div>
-                <div *ngIf="form2Controls['ville'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="ville" class="form-label">Lieu de naissances(*)</label>
-                <p>Veuillez entrer un lieu correct</p>
-                <input formControlName="lieu_naissance" required style="width: 100%;" type="text" id="lieu_naissance"
-                  name="lieu_naissance" class="form-control form-control-lg"
-                  placeholder="Entrer votre lieu de naissance" [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form2Controls['lieu_naissance'].errors &&
-                    form2Controls['lieu_naissance'].touched,
-                    'is-valid custom-form-control-valid': form2Controls['lieu_naissance'].valid
-                }">
-                <div *ngIf="form2Controls['lieu_naissance'].errors" class="invalid-feedback">
-                  <div *ngIf="form2Controls['lieu_naissance'].errors['minlength']">Ville de résidence doit avoir
-                    minimun 5 caractères</div>
-                  <div *ngIf="form2Controls['lieu_naissance'].errors['required']">Lieu de naissances requis</div>
-                </div>
-                <div *ngIf="form2Controls['lieu_naissance'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="align-content-center">
-                <div class="form-check">
-                  <input formControlName="genre" required class="form-check-input" value="M" type="radio" name="genre"
-                    id="genre1" checked [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form2Controls['genre'].errors &&
-                      form2Controls['genre'].touched,
-                      'is-valid custom-form-control-valid': form2Controls['genre'].valid
-                  }">
-                  <label class="form-check-label" for="genre1">
-                    Masculin
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="genre" required class="form-check-input" value="F" type="radio" name="genre"
-                    id="genre2" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form2Controls['genre'].errors &&
-                      form2Controls['genre'].touched,
-                      'is-valid custom-form-control-valid': form2Controls['genre'].valid
-                  }">
-                  <label class="form-check-label" for="genre2">
-                    Féminin
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-3">
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
-                </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100">Suivant</button>
-                </div>
-              </div>
-            </div>
-          </form>
-
-          <form [hidden]="!(step==3)" [formGroup]="formStep3" (ngSubmit)="setStepNext(step + 1)"
-            class="row g-3 needs-validation" novalidate [ngClass]="{
-              'was-validated':
-              formStep3.invalid &&
-              clickSuivant == 1
-          }">
-            <p class="text-center mb-4">Informations relatives aux tuteurs/parents</p>
-
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="nom_parent1" class="form-label">Nom du Père (*)</label>
-                <input formControlName="nom_parent1" required style="width: 100%;" type="text" id="nom_parent1"
-                  name="nom_parent1" class="form-control form-control-lg" placeholder="Nom de votre Père " [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form3Controls['nom_parent1'].errors &&
-                    form3Controls['nom_parent1'].touched,
-                    'is-valid custom-form-control-valid': form3Controls['nom_parent1'].valid
-                }">
-                <div *ngIf="form3Controls['nom_parent1'].errors" class="invalid-feedback">
-                  <div *ngIf="form3Controls['nom_parent1'].errors['minlength']">Le nom du père doit avoir minimun 3
-                    caractères</div>
-                  <div *ngIf="form3Controls['nom_parent1'].errors['required']">Nom père requis</div>
-                </div>
-                <div *ngIf="form3Controls['nom_parent1'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="email_pere" class="form-label"> Adresse email du père </label>
-                <input formControlName="email_pere" style="width: 100%;" type="email" id="email_pere"
-                  name="email_pere" class="form-control form-control-lg" placeholder="Adresse email du père"
-                  [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form3Controls['email_pere'].errors &&
-                    form3Controls['email_pere'].touched,
-                    'is-valid custom-form-control-valid': form3Controls['email_pere'].valid
-                }">
-                <div *ngIf="form3Controls['email_pere'].errors" class="invalid-feedback">
-                  <div *ngIf="form3Controls['email_pere'].errors['required']">Email requis</div>
-                  <div *ngIf="form3Controls['email_pere'].errors['email_pere']">Email non conforme</div>
-                </div>
-                <div *ngIf="form3Controls['email_pere'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label for="telephone" class="form-label">Numéro de téléphone du pere (*)</label>
-              <div class="input-group  has-validation">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">{{indiceTelephonePere}}</button>
-                <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                  <li><a class="dropdown-item" *ngFor="let i of indices" (click)="changeValidator(i, 'telephone_pere','indiceTelephonePere')">{{i}}</a>
-                  </li>
-                </ul>
-                <input type="text" formControlName="telephone_pere" class="form-control  form-control-lg is-invalid custom-form-control-invalid"
-                  id="telephone_pere" aria-describedby="inputGroupPrepend3 telephone_pereFeedback" required [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form3Controls['telephone_pere'].errors &&
-                    form3Controls['telephone_pere'].touched,
-                    'is-valid custom-form-control-valid': form3Controls['telephone_pere'].valid
-                }">
-                <div *ngIf="form3Controls['telephone_pere'].errors" class="invalid-feedback">
-                  <div *ngIf="form3Controls['telephone_pere'].errors['notConform']">Le numero de téléphone doit être
-                    des chiffres uniquement et respecter le format du pays selectionné</div>
-                  <div *ngIf="form3Controls['telephone_pere'].errors['required']">Numero de téléphone requis</div>
-                  <div *ngIf="form3Controls['telephone_pere'].errors['min']">Numero de téléphone doit être superieur à
-                    0
+                  <div
+                    *ngIf="form1Controls['nom'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
                   </div>
-                  <div *ngIf="form3Controls['telephone_pere'].errors['minlength']">Numero de téléphone doit avoir
-                    minimun
-                    8 chiffres</div>
-                </div>
-                <div *ngIf="form3Controls['telephone_pere'].valid" class="valid-feedback">
-                  C'est bon!
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-12">
-              <div class="">
-                <label for="nom_parent2" class="form-label">Nom de la Mère (*)</label>
-                <input formControlName="nom_parent2" required style="width: 100%;" type="text" id="nom_parent2"
-                  name="nom_parent2" class="form-control form-control-lg" placeholder="Nom de votre Mère " [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form3Controls['nom_parent2'].errors &&
-                    form3Controls['nom_parent2'].touched,
-                    'is-valid custom-form-control-valid': form3Controls['nom_parent2'].valid
-                }">
-                <div *ngIf="form3Controls['nom_parent2'].errors" class="invalid-feedback">
-                  <div *ngIf="form3Controls['nom_parent2'].errors['minlength']">Le nom de la mère doit avoir minimun 3
-                    caractères</div>
-
-                  <div *ngIf="form3Controls['nom_parent2'].errors['required']">Nom mère requis</div>
-                </div>
-                <div *ngIf="form3Controls['nom_parent2'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="email_mere" class="form-label"> Adresse email de la mère </label>
-                <input formControlName="email_mere" style="width: 100%;" type="email" id="email_mere"
-                  name="email_mere" class="form-control form-control-lg" placeholder="Adresse email de la mère"
-                  [ngClass]="{
-                    'is-invalid custom-form-control-invalid':
-                    form3Controls['email_mere'].errors &&
-                    form3Controls['email_mere'].touched,
-                    'is-valid custom-form-control-valid': form3Controls['email_mere'].valid
-                }">
-                <div *ngIf="form3Controls['email_mere'].errors" class="invalid-feedback">
-                  <div *ngIf="form3Controls['email_mere'].errors['required']">Email requis</div>
-                  <div *ngIf="form3Controls['email_mere'].errors['email_mere']">Email non conforme</div>
-                </div>
-                <div *ngIf="form3Controls['email_mere'].valid" class="valid-feedback">
-                  C'est bon!
+              <div class="col-md-12">
+                <div class="">
+                  <label for="prenom" class="form-label"> Prénoms (*) </label>
+                  <input
+                    formControlName="prenom"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="prenom"
+                    name="prenom"
+                    class="form-control form-control-lg"
+                    placeholder=" Votre(Vos) Prénom(s) "
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form1Controls['prenom'].errors &&
+                        form1Controls['prenom'].touched,
+                      'is-valid custom-form-control-valid':
+                        form1Controls['prenom'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form1Controls['prenom'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="form1Controls['prenom'].errors['required']">
+                      Prenom requis
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form1Controls['prenom'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-12">
-              <label for="telephone_mere" class="form-label">Numéro de téléphone de la mere (*)</label>
-              <div class="input-group has-validation">
-                <div class="input-group  has-validation">
-                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">{{indiceTelephoneMere}}</button>
-                  <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                    <li><a class="dropdown-item" *ngFor="let i of indices" (click)="changeValidator(i, 'telephone_mere', 'indiceTelephoneMere')">{{i}}</a>
+              <div class="col-md-12">
+                <label for="telephone" class="form-label"
+                  >Votre numéro de téléphone (*)</label
+                >
+                <div class="input-group has-validation">
+                  <button
+                    class="btn btn-outline-secondary d ropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {{ indiceTelephoneCandidat }}
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    style="
+                      max-height: 270px;
+                      overflow: hidden;
+                      overflow-y: scroll;
+                    "
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        *ngFor="let i of indices"
+                        (click)="
+                          changeValidator(
+                            i,
+                            'telephone',
+                            'indiceTelephoneCandidat'
+                          )
+                        "
+                        >{{ i }}</a
+                      >
                     </li>
                   </ul>
-                  <input type="text" formControlName="telephone_mere" class="form-control  form-control-lg is-invalid custom-form-control-invalid"
-                    id="telephone_mere" aria-describedby="inputGroupPrepend3 telephone_mereFeedback" required
+                  <input
+                    type="text"
+                    formControlName="telephone"
+                    placeholder="Votre numéro de téléphone "
+                    class="form-control form-control-lg is-invalid custom-form-control-invalid"
+                    id="telephone"
+                    aria-describedby="inputGroupPrepend3 telephoneFeedback"
+                    required
                     [ngClass]="{
                       'is-invalid custom-form-control-invalid':
-                      form3Controls['telephone_mere'].errors &&
-                      form3Controls['telephone_mere'].touched,
-                      'is-valid custom-form-control-valid': form3Controls['telephone_mere'].valid
-                  }">
-                  <div *ngIf="form3Controls['telephone_mere'].errors" class="invalid-feedback">
-                    <div *ngIf="form3Controls['telephone_mere'].errors['required']">Numero de téléphone requis</div>
-                    <div *ngIf="form3Controls['telephone_mere'].errors['min']">Numero de téléphone doit être
-                      superieur à
-                      0
+                        form1Controls['telephone'].errors &&
+                        form1Controls['telephone'].touched,
+                      'is-valid custom-form-control-valid':
+                        form1Controls['telephone'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form1Controls['telephone'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="form1Controls['telephone'].errors['required']">
+                      Numéro de téléphone requis
                     </div>
-                    <div *ngIf="form3Controls['telephone_mere'].errors['notConform']">Le numero de téléphone doit être
-                      des chiffres uniquement et respecter le format du pays selectionné</div>
-
-                    <div *ngIf="form3Controls['telephone_mere'].errors['minlength']">Numero de téléphone doit avoir minimun 8 chiffres</div>
+                    <div
+                      *ngIf="form1Controls['telephone'].errors['notConform']"
+                    >
+                      Le numéro de téléphone doit être des chiffres uniquement
+                      et respecter le format du pays selectionné
+                    </div>
+                    <div *ngIf="form1Controls['telephone'].errors['min']">
+                      Numéro de téléphone doit être superieur à 0
+                    </div>
+                    <div *ngIf="form1Controls['telephone'].errors['minlength']">
+                      Numéro de téléphone doit avoir minimun 8 chiffres
+                    </div>
                   </div>
-                  <div *ngIf="form3Controls['telephone_mere'].valid" class="valid-feedback">
+                  <div
+                    *ngIf="form1Controls['telephone'].valid"
+                    class="valid-feedback"
+                  >
                     C'est bon!
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-12">
-              <label class="form-label">Avez vous un tuteur (*)</label>
-              <div class="align-content-center">
-                <div class="form-check">
-                  <input formControlName="hasTutor" (change)="changeValidatorOfTutor('Oui')" required  class="form-check-input" value="Oui" type="radio"
-                    name="hasTutor" id="hasTutor1" #hasTutor checked [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form3Controls['hasTutor'].errors &&
-                      form3Controls['hasTutor'].touched,
-                      'is-valid custom-form-control-valid': form3Controls['hasTutor'].valid
-                  }">
-                  <label class="form-check-label" for="hasTutor1">
-                    Oui
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="hasTutor" (change)="changeValidatorOfTutor('Non')" required class="form-check-input" value="Non" type="radio"
-                    name="hasTutor" id="hasTutor2" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form3Controls['hasTutor'].errors &&
-                      form3Controls['hasTutor'].touched,
-                      'is-valid custom-form-control-valid': form3Controls['hasTutor'].valid
-                  }">
-                  <label class="form-check-label" for="hasTutor2">
-                    Non
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div *ngIf="formStep3.get('hasTutor')?.value == 'Oui'">
-              <div>
-                <div class="col-md-12">
-                  <label for="email_tuteur" class="form-label"> Adresse email du tuteur </label>
-                  <input formControlName="email_tuteur" style="width: 100%;" type="email" id="email_tuteur"
-                    name="email_tuteur" class="form-control form-control-lg" placeholder="Adresse email du tuteur"
-                    [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form3Controls['email_tuteur'].errors &&
-                      form3Controls['email_tuteur'].touched,
-                      'is-valid custom-form-control-valid': form3Controls['email_tuteur'].valid
-                  }">
-                  <div *ngIf="form3Controls['email_tuteur'].errors" class="invalid-feedback">
-                    <div *ngIf="form3Controls['email_tuteur'].errors['required']">Email requis</div>
-                    <div *ngIf="form3Controls['email_tuteur'].errors['email_tuteur']">Email non conforme</div>
-                  </div>
-                  <div *ngIf="form3Controls['email_tuteur'].valid" class="valid-feedback">
-                    C'est bon!
-                  </div>
-                </div>
-              </div>
-              
               <div class="col-md-12">
-                <label for="telephone_tuteur" class="form-label">Numéro de téléphone du tuteur (*)</label>
-                <div class="input-group has-validation">
-                  <div class="input-group  has-validation">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">{{indiceTelephoneTuteur}}</button>
-                    <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                      <li><a class="dropdown-item" *ngFor="let i of indices"
-                          (click)="changeValidator(i, 'telephone_tuteur', 'indiceTelephoneTuteur')">{{i}}</a></li>
-                    </ul>
-                    <input type="text" formControlName="telephone_tuteur"
-                      class="form-control  form-control-lg is-invalid custom-form-control-invalid" id="telephone_tuteur"
-                      aria-describedby="inputGroupPrepend3 telephone_tuteurFeedback" required [ngClass]="{
-                            'is-invalid custom-form-control-invalid':
-                            form3Controls['telephone_tuteur'].errors &&
-                            form3Controls['telephone_tuteur'].touched,
-                            'is-valid custom-form-control-valid': form3Controls['telephone_tuteur'].valid
-                        }">
-                    <div *ngIf="form3Controls['telephone_tuteur'].errors" class="invalid-feedback">
-                      <div *ngIf="form3Controls['telephone_tuteur'].errors['required']">Numero de téléphone requis
-                      </div>
-                      <div *ngIf="form3Controls['telephone_tuteur'].errors['min']">Numero de téléphone doit être
-                        superieur
-                        à
-                        0
-                      </div>
-                      <div *ngIf="form3Controls['telephone_tuteur'].errors['notConform']">Le numero de téléphone
-                        doit être
-                        des chiffres uniquement</div>
-                      <div *ngIf="form3Controls['telephone_tuteur'].errors['minlength']">Numero de téléphone doit
-                        avoir
-                        minimun
-                        8 chiffres</div>
+                <div class="">
+                  <label for="email" class="form-label">
+                    Votre adresse email (*)
+                  </label>
+                  <input
+                    formControlName="email"
+                    style="width: 100%"
+                    type="text"
+                    id="email"
+                    name="email"
+                    class="form-control form-control-lg"
+                    required
+                    placeholder="Votre adresse email"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form1Controls['email'].errors &&
+                        form1Controls['email'].touched,
+                      'is-valid custom-form-control-valid':
+                        form1Controls['email'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form1Controls['email'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="form1Controls['email'].errors['required']">
+                      Email requis
                     </div>
-                    <div *ngIf="form3Controls['telephone_tuteur'].valid" class="valid-feedback">
+                    <div *ngIf="form1Controls['email'].errors['email']">
+                      Email non conforme
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form1Controls['email'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-button">
+                  <button type="submit" class="button radius-10 w-100">
+                    Suivant
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <form
+              [hidden]="!(step == 2)"
+              [formGroup]="formStep2"
+              (ngSubmit)="setStepNext(step + 1)"
+              class="row g-3 needs-validation"
+              novalidate
+              [ngClass]="{
+                'was-validated': formStep2.invalid && clickSuivant == 1
+              }"
+            >
+              <p class="text-center mb-4">Informations supplémentaires</p>
+              <div class="col-md-12">
+                <div class="">
+                  <label for="date_naissance" class="form-label"
+                    >Date de naissance (*)</label
+                  >
+                  <input
+                    formControlName="date_naissance"
+                    required
+                    max="{{ currentDate | date : 'yyyy-MM-dd' }}"
+                    style="width: 100%"
+                    class="form-control form-control-lg"
+                    type="date"
+                    id="date_naissance"
+                    name="date_naissance"
+                    placeholder="Date de naissance"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form2Controls['date_naissance'].errors &&
+                        form2Controls['date_naissance'].touched,
+                      'is-valid custom-form-control-valid':
+                        form2Controls['date_naissance'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form2Controls['date_naissance'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="form2Controls['date_naissance'].errors['required']"
+                    >
+                      Date de naissance requis
+                    </div>
+                    <div *ngIf="form2Controls['date_naissance'].errors['max']">
+                      La date de naissance ne doit pas être superieure au
+                      {{ currentDate | date : "yyyy-MM-dd" }}
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form2Controls['date_naissance'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="nationalite" class="form-label">
+                    Nationalité (*)
+                  </label>
+                  <p>Veuillez entrer une nationalité correcte</p>
+                  <select
+                    formControlName="nationalite"
+                    required
+                    style="width: 100%"
+                    id="nationalite"
+                    name="nationalite"
+                    class="form-control form-control-lg"
+                    placeholder="Entrer votre nationalité "
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form2Controls['nationalite'].errors &&
+                        form2Controls['nationalite'].touched,
+                      'is-valid custom-form-control-valid':
+                        form2Controls['nationalite'].valid
+                    }"
+                  >
+                    <option
+                      value="{{ nationality }}"
+                      *ngFor="let nationality of nationalities"
+                    >
+                      {{ nationality }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="form2Controls['nationalite'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="form2Controls['nationalite'].errors['required']"
+                    >
+                      Nationalité requis
+                    </div>
+                    <div
+                      *ngIf="form2Controls['nationalite'].errors['minlength']"
+                    >
+                      Nationalité doit avoir minimun 5 caractères
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form2Controls['nationalite'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="ville" class="form-label"
+                    >Ville de résidence(*)</label
+                  >
+                  <p>Veuillez entrer un ville correcte</p>
+                  <input
+                    formControlName="ville"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="ville"
+                    name="ville"
+                    class="form-control form-control-lg"
+                    placeholder="Ville de résidence"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form2Controls['ville'].errors &&
+                        form2Controls['ville'].touched,
+                      'is-valid custom-form-control-valid':
+                        form2Controls['ville'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form2Controls['ville'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="form2Controls['ville'].errors['required']">
+                      Ville de résidence requis
+                    </div>
+                    <div *ngIf="form2Controls['ville'].errors['minlength']">
+                      Ville de résidence doit avoir minimun 5 caractères
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form2Controls['ville'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="ville" class="form-label"
+                    >Lieu de naissances(*)</label
+                  >
+                  <p>Veuillez entrer un lieu correct</p>
+                  <input
+                    formControlName="lieu_naissance"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="lieu_naissance"
+                    name="lieu_naissance"
+                    class="form-control form-control-lg"
+                    placeholder="Entrer votre lieu de naissance"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form2Controls['lieu_naissance'].errors &&
+                        form2Controls['lieu_naissance'].touched,
+                      'is-valid custom-form-control-valid':
+                        form2Controls['lieu_naissance'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form2Controls['lieu_naissance'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form2Controls['lieu_naissance'].errors['minlength']
+                      "
+                    >
+                      Ville de résidence doit avoir minimun 5 caractères
+                    </div>
+                    <div
+                      *ngIf="form2Controls['lieu_naissance'].errors['required']"
+                    >
+                      Lieu de naissances requis
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form2Controls['lieu_naissance'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input
+                      formControlName="genre"
+                      required
+                      class="form-check-input"
+                      value="M"
+                      type="radio"
+                      name="genre"
+                      id="genre1"
+                      checked
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form2Controls['genre'].errors &&
+                          form2Controls['genre'].touched,
+                        'is-valid custom-form-control-valid':
+                          form2Controls['genre'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="genre1">
+                      Masculin
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="genre"
+                      required
+                      class="form-check-input"
+                      value="F"
+                      type="radio"
+                      name="genre"
+                      id="genre2"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form2Controls['genre'].errors &&
+                          form2Controls['genre'].touched,
+                        'is-valid custom-form-control-valid':
+                          form2Controls['genre'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="genre2">
+                      Féminin
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button
+                      type="button"
+                      class="button radius-10 w-100"
+                      (click)="setStepBack(step - 1)"
+                    >
+                      Précédent
+                    </button>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button type="submit" class="button radius-10 w-100">
+                      Suivant
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <form
+              [hidden]="!(step == 3)"
+              [formGroup]="formStep3"
+              (ngSubmit)="setStepNext(step + 1)"
+              class="row g-3 needs-validation"
+              novalidate
+              [ngClass]="{
+                'was-validated': formStep3.invalid && clickSuivant == 1
+              }"
+            >
+              <p class="text-center mb-4">
+                Informations relatives aux tuteurs/parents
+              </p>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="nom_parent1" class="form-label"
+                    >Nom du Père (*)</label
+                  >
+                  <input
+                    formControlName="nom_parent1"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="nom_parent1"
+                    name="nom_parent1"
+                    class="form-control form-control-lg"
+                    placeholder="Nom de votre Père "
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form3Controls['nom_parent1'].errors &&
+                        form3Controls['nom_parent1'].touched,
+                      'is-valid custom-form-control-valid':
+                        form3Controls['nom_parent1'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form3Controls['nom_parent1'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="form3Controls['nom_parent1'].errors['minlength']"
+                    >
+                      Le nom du père doit avoir minimun 3 caractères
+                    </div>
+                    <div
+                      *ngIf="form3Controls['nom_parent1'].errors['required']"
+                    >
+                      Nom père requis
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form3Controls['nom_parent1'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="email_pere" class="form-label">
+                    Adresse email du père
+                  </label>
+                  <input
+                    formControlName="email_pere"
+                    style="width: 100%"
+                    type="email"
+                    id="email_pere"
+                    name="email_pere"
+                    class="form-control form-control-lg"
+                    placeholder="Adresse email du père"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form3Controls['email_pere'].errors &&
+                        form3Controls['email_pere'].touched,
+                      'is-valid custom-form-control-valid':
+                        form3Controls['email_pere'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form3Controls['email_pere'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="form3Controls['email_pere'].errors['required']">
+                      Email requis
+                    </div>
+                    <div
+                      *ngIf="form3Controls['email_pere'].errors['email_pere']"
+                    >
+                      Email non conforme
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form3Controls['email_pere'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="telephone" class="form-label"
+                  >Numéro de téléphone du pere (*)</label
+                >
+                <div class="input-group has-validation">
+                  <button
+                    class="btn btn-outline-secondary dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {{ indiceTelephonePere }}
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    style="
+                      max-height: 270px;
+                      overflow: hidden;
+                      overflow-y: scroll;
+                    "
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        *ngFor="let i of indices"
+                        (click)="
+                          changeValidator(
+                            i,
+                            'telephone_pere',
+                            'indiceTelephonePere'
+                          )
+                        "
+                        >{{ i }}</a
+                      >
+                    </li>
+                  </ul>
+                  <input
+                    type="text"
+                    formControlName="telephone_pere"
+                    class="form-control form-control-lg is-invalid custom-form-control-invalid"
+                    id="telephone_pere"
+                    aria-describedby="inputGroupPrepend3 telephone_pereFeedback"
+                    required
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form3Controls['telephone_pere'].errors &&
+                        form3Controls['telephone_pere'].touched,
+                      'is-valid custom-form-control-valid':
+                        form3Controls['telephone_pere'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form3Controls['telephone_pere'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form3Controls['telephone_pere'].errors['notConform']
+                      "
+                    >
+                      Le numero de téléphone doit être des chiffres uniquement
+                      et respecter le format du pays selectionné
+                    </div>
+                    <div
+                      *ngIf="form3Controls['telephone_pere'].errors['required']"
+                    >
+                      Numero de téléphone requis
+                    </div>
+                    <div *ngIf="form3Controls['telephone_pere'].errors['min']">
+                      Numero de téléphone doit être superieur à 0
+                    </div>
+                    <div
+                      *ngIf="
+                        form3Controls['telephone_pere'].errors['minlength']
+                      "
+                    >
+                      Numero de téléphone doit avoir minimun 8 chiffres
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form3Controls['telephone_pere'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="nom_parent2" class="form-label"
+                    >Nom de la Mère (*)</label
+                  >
+                  <input
+                    formControlName="nom_parent2"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="nom_parent2"
+                    name="nom_parent2"
+                    class="form-control form-control-lg"
+                    placeholder="Nom de votre Mère "
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form3Controls['nom_parent2'].errors &&
+                        form3Controls['nom_parent2'].touched,
+                      'is-valid custom-form-control-valid':
+                        form3Controls['nom_parent2'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form3Controls['nom_parent2'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="form3Controls['nom_parent2'].errors['minlength']"
+                    >
+                      Le nom de la mère doit avoir minimun 3 caractères
+                    </div>
+
+                    <div
+                      *ngIf="form3Controls['nom_parent2'].errors['required']"
+                    >
+                      Nom mère requis
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form3Controls['nom_parent2'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="email_mere" class="form-label">
+                    Adresse email de la mère
+                  </label>
+                  <input
+                    formControlName="email_mere"
+                    style="width: 100%"
+                    type="email"
+                    id="email_mere"
+                    name="email_mere"
+                    class="form-control form-control-lg"
+                    placeholder="Adresse email de la mère"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form3Controls['email_mere'].errors &&
+                        form3Controls['email_mere'].touched,
+                      'is-valid custom-form-control-valid':
+                        form3Controls['email_mere'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form3Controls['email_mere'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="form3Controls['email_mere'].errors['required']">
+                      Email requis
+                    </div>
+                    <div
+                      *ngIf="form3Controls['email_mere'].errors['email_mere']"
+                    >
+                      Email non conforme
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form3Controls['email_mere'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="telephone_mere" class="form-label"
+                  >Numéro de téléphone de la mere (*)</label
+                >
+                <div class="input-group has-validation">
+                  <div class="input-group has-validation">
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {{ indiceTelephoneMere }}
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      style="
+                        max-height: 270px;
+                        overflow: hidden;
+                        overflow-y: scroll;
+                      "
+                    >
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          *ngFor="let i of indices"
+                          (click)="
+                            changeValidator(
+                              i,
+                              'telephone_mere',
+                              'indiceTelephoneMere'
+                            )
+                          "
+                          >{{ i }}</a
+                        >
+                      </li>
+                    </ul>
+                    <input
+                      type="text"
+                      formControlName="telephone_mere"
+                      class="form-control form-control-lg is-invalid custom-form-control-invalid"
+                      id="telephone_mere"
+                      aria-describedby="inputGroupPrepend3 telephone_mereFeedback"
+                      required
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form3Controls['telephone_mere'].errors &&
+                          form3Controls['telephone_mere'].touched,
+                        'is-valid custom-form-control-valid':
+                          form3Controls['telephone_mere'].valid
+                      }"
+                    />
+                    <div
+                      *ngIf="form3Controls['telephone_mere'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          form3Controls['telephone_mere'].errors['required']
+                        "
+                      >
+                        Numero de téléphone requis
+                      </div>
+                      <div
+                        *ngIf="form3Controls['telephone_mere'].errors['min']"
+                      >
+                        Numero de téléphone doit être superieur à 0
+                      </div>
+                      <div
+                        *ngIf="
+                          form3Controls['telephone_mere'].errors['notConform']
+                        "
+                      >
+                        Le numero de téléphone doit être des chiffres uniquement
+                        et respecter le format du pays selectionné
+                      </div>
+
+                      <div
+                        *ngIf="
+                          form3Controls['telephone_mere'].errors['minlength']
+                        "
+                      >
+                        Numéro de téléphone doit avoir minimun 8 chiffres
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="form3Controls['telephone_mere'].valid"
+                      class="valid-feedback"
+                    >
                       C'est bon!
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="row mt-3">
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
-                </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100">Suivant</button>
-                </div>
-              </div>
-            </div>
-          </form>
-
-          <form [hidden]="!(step==4)" [formGroup]="formStep4" (ngSubmit)="setStepNext(step + 1)"
-            class="row g-3 needs-validation" novalidate [ngClass]="{
-              'was-validated':
-              formStep4.invalid &&
-              clickSuivant == 1
-          }">
-            <p class="text-center mb-4">Informations sur votre scolarité</p>
-
-            <div class="col-md-12">
-              <label class="form-label">Langue parlée (*)</label>
-              <div class="align-content-center">
-                <div class="form-check">
-                  <input formControlName="langue" required class="form-check-input" value="Francais" type="radio"
-                    name="langue" id="langue1" checked [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['langue'].errors &&
-                      form4Controls['langue'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['langue'].valid
-                  }">
-                  <label class="form-check-label" for="langue1">
-                    Français
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="langue" required class="form-check-input" value="Anglais" type="radio"
-                    name="langue" id="langue2" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['langue'].errors &&
-                      form4Controls['langue'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['langue'].valid
-                  }">
-                  <label class="form-check-label" for="langue2">
-                    Anglais
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="dernier_etablissement" class="form-label">Dernier établissement fréquenté (*)</label>
-                <input formControlName="dernier_etablissement" required style="width: 100%;" type="text"
-                  id="dernier_etablissement" name="dernier_etablissement" class="form-control form-control-lg"
-                  placeholder="Entrer votre dernier établissement" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['dernier_etablissement'].errors &&
-                  form4Controls['dernier_etablissement'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['dernier_etablissement'].valid
-              }">
-                <div *ngIf="form4Controls['dernier_etablissement'].errors" class="invalid-feedback">
-                  <div *ngIf="form4Controls['dernier_etablissement'].errors['required']">Dernier établissement requis
+              <div class="col-md-12">
+                <label class="form-label">Avez vous un tuteur (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input
+                      formControlName="hasTutor"
+                      (change)="changeValidatorOfTutor('Oui')"
+                      required
+                      class="form-check-input"
+                      value="Oui"
+                      type="radio"
+                      name="hasTutor"
+                      id="hasTutor1"
+                      #hasTutor
+                      checked
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form3Controls['hasTutor'].errors &&
+                          form3Controls['hasTutor'].touched,
+                        'is-valid custom-form-control-valid':
+                          form3Controls['hasTutor'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="hasTutor1">
+                      Oui
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="hasTutor"
+                      (change)="changeValidatorOfTutor('Non')"
+                      required
+                      class="form-check-input"
+                      value="Non"
+                      type="radio"
+                      name="hasTutor"
+                      id="hasTutor2"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form3Controls['hasTutor'].errors &&
+                          form3Controls['hasTutor'].touched,
+                        'is-valid custom-form-control-valid':
+                          form3Controls['hasTutor'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="hasTutor2">
+                      Non
+                    </label>
                   </div>
                 </div>
-                <div *ngIf="form4Controls['dernier_etablissement'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
               </div>
-            </div>
-            <div class="col-md-12">
-              <label class="form-label">Quel type de baccalauréat auriez-vous ou avez-vous ? (*)</label>
-              <div class="align-content-center">
-                <div class="form-check">
-                  <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Science"
-                    type="radio" name="serie_bac" id="serie_bac1" (click)="checkIfSerieBacc('GCE A Level Science')" checked [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['serie_bac'].errors &&
-                      form4Controls['serie_bac'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
-                  }">
-                  <label class="form-check-label" for="serie_bac1">
-                    GCE A Level Science
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Arts"
-                    type="radio" name="serie_bac" id="serie_bac2" (click)="checkIfSerieBacc('GCE A Level Arts')" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['serie_bac'].errors &&
-                      form4Controls['serie_bac'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
-                  }">
-                  <label class="form-check-label" for="serie_bac2">
-                    GCE A Level Arts
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="serie_bac" required class="form-check-input" value="C" type="radio"
-                    name="serie_bac" id="serie_bac3" (click)="checkIfSerieBacc('C')" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['serie_bac'].errors &&
-                      form4Controls['serie_bac'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
-                  }">
-                  <label class="form-check-label" for="serie_bac3">
-                    C
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="serie_bac" required class="form-check-input" value="D" type="radio"
-                    name="serie_bac" id="serie_bac4" (click)="checkIfSerieBacc('D')" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['serie_bac'].errors &&
-                      form4Controls['serie_bac'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
-                  }">
-                  <label class="form-check-label" for="serie_bac4">
-                    D
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="serie_bac" required class="form-check-input" value="TI" type="radio"
-                    name="serie_bac" id="serie_bac5" (click)="checkIfSerieBacc('TI')" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['serie_bac'].errors &&
-                      form4Controls['serie_bac'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
-                  }">
-                  <label class="form-check-label" for="serie_bac5">
-                    TI
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="serie_bac" required class="form-check-input" value="Autre" type="radio"
-                    name="serie_bac" id="serie_bac6" (click)="checkIfSerieBacc('Autre')" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['serie_bac'].errors &&
-                      form4Controls['serie_bac'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
-                  }">
-                  <label class="form-check-label" for="serie_bac6">
-                    Autre
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12" *ngIf="formStep4.get('serie_bac')?.value == 'Autre'">
-              <div class="">
-                <label for="serie_bac_input" class="form-label">Serie baccalaureat (*)</label>
-                <input formControlName="serie_bac_input" required style="width: 100%;" type="text"
-                  id="serie_bac_input" name="serie_bac_input" class="form-control form-control-lg"
-                  placeholder="Entrer votre type de baccalaureat obtenu" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['serie_bac_input'].errors &&
-                  form4Controls['serie_bac_input'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['serie_bac_input'].valid
-              }">
-                <div *ngIf="form4Controls['serie_bac_input'].errors" class="invalid-feedback">
-                  <div *ngIf="form4Controls['serie_bac_input'].errors['required']">Baccalaureat requis
+
+              <div *ngIf="formStep3.get('hasTutor')?.value == 'Oui'">
+                <div>
+                  <div class="col-md-12">
+                    <label for="email_tuteur" class="form-label">
+                      Adresse email du tuteur
+                    </label>
+                    <input
+                      formControlName="email_tuteur"
+                      style="width: 100%"
+                      type="email"
+                      id="email_tuteur"
+                      name="email_tuteur"
+                      class="form-control form-control-lg"
+                      placeholder="Adresse email du tuteur"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form3Controls['email_tuteur'].errors &&
+                          form3Controls['email_tuteur'].touched,
+                        'is-valid custom-form-control-valid':
+                          form3Controls['email_tuteur'].valid
+                      }"
+                    />
+                    <div
+                      *ngIf="form3Controls['email_tuteur'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="form3Controls['email_tuteur'].errors['required']"
+                      >
+                        Email requis
+                      </div>
+                      <div
+                        *ngIf="
+                          form3Controls['email_tuteur'].errors['email_tuteur']
+                        "
+                      >
+                        Email non conforme
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="form3Controls['email_tuteur'].valid"
+                      class="valid-feedback"
+                    >
+                      C'est bon!
+                    </div>
                   </div>
                 </div>
-                <div *ngIf="form4Controls['serie_bac_input'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
 
-            <div>
-              <label>Choix des formations</label>
-              <p>Le concours permet d'accéder à 3 formations</p>
-              <p>Veillez cocher la (ou les) formation(s) auxquelles vous shouaitez postuler </p>
-            </div>
-
-            <div class="col-md-12">
-              <label class="form-label">Concourir pour (*)</label>
-              <div class="align-content-center">
-                <div class="form-check">
-                  <input formControlName="cycle" required (click)="checkIf2Cycle('premier')" class="form-check-input"
-                    value="premier" type="radio" name="cycle" id="cycle1" checked [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['cycle'].errors &&
-                      form4Controls['cycle'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['cycle'].valid
-                  }">
-                  <label class="form-check-label" for="cycle1">
-                    1er cycle
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="cycle" (click)="checkIf2Cycle('second')" required class="form-check-input"
-                    value="second" type="radio" name="cycle" id="cycle2" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['cycle'].errors &&
-                      form4Controls['cycle'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['cycle'].valid
-                  }">
-                  <label class="form-check-label" for="cycle2">
-                    2nd cycle
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12" *ngIf="formStep4.get('cycle')?.value == 'second'">
-              <div class="">
-                <label for="diplome_universitaire" class="form-label">Diplome universitaire fréquenté (*)</label>
-                <input formControlName="diplome_universitaire" required style="width: 100%;" type="text"
-                  id="diplome_universitaire" name="diplome_universitaire" class="form-control form-control-lg"
-                  placeholder="Entrer votre diplome universitaire" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['diplome_universitaire'].errors &&
-                  form4Controls['diplome_universitaire'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['diplome_universitaire'].valid
-              }">
-                <div *ngIf="form4Controls['diplome_universitaire'].errors" class="invalid-feedback">
-                  <div *ngIf="form4Controls['diplome_universitaire'].errors['required']">Diplome universitaire requis
+                <div class="col-md-12">
+                  <label for="telephone_tuteur" class="form-label"
+                    >Numéro de téléphone du tuteur (*)</label
+                  >
+                  <div class="input-group has-validation">
+                    <div class="input-group has-validation">
+                      <button
+                        class="btn btn-outline-secondary dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        {{ indiceTelephoneTuteur }}
+                      </button>
+                      <ul
+                        class="dropdown-menu"
+                        style="
+                          max-height: 270px;
+                          overflow: hidden;
+                          overflow-y: scroll;
+                        "
+                      >
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            *ngFor="let i of indices"
+                            (click)="
+                              changeValidator(
+                                i,
+                                'telephone_tuteur',
+                                'indiceTelephoneTuteur'
+                              )
+                            "
+                            >{{ i }}</a
+                          >
+                        </li>
+                      </ul>
+                      <input
+                        type="text"
+                        formControlName="telephone_tuteur"
+                        class="form-control form-control-lg is-invalid custom-form-control-invalid"
+                        id="telephone_tuteur"
+                        aria-describedby="inputGroupPrepend3 telephone_tuteurFeedback"
+                        required
+                        [ngClass]="{
+                          'is-invalid custom-form-control-invalid':
+                            form3Controls['telephone_tuteur'].errors &&
+                            form3Controls['telephone_tuteur'].touched,
+                          'is-valid custom-form-control-valid':
+                            form3Controls['telephone_tuteur'].valid
+                        }"
+                      />
+                      <div
+                        *ngIf="form3Controls['telephone_tuteur'].errors"
+                        class="invalid-feedback"
+                      >
+                        <div
+                          *ngIf="
+                            form3Controls['telephone_tuteur'].errors['required']
+                          "
+                        >
+                          Numero de téléphone requis
+                        </div>
+                        <div
+                          *ngIf="
+                            form3Controls['telephone_tuteur'].errors['min']
+                          "
+                        >
+                          Numero de téléphone doit être superieur à 0
+                        </div>
+                        <div
+                          *ngIf="
+                            form3Controls['telephone_tuteur'].errors[
+                              'notConform'
+                            ]
+                          "
+                        >
+                          Le numero de téléphone doit être des chiffres
+                          uniquement
+                        </div>
+                        <div
+                          *ngIf="
+                            form3Controls['telephone_tuteur'].errors[
+                              'minlength'
+                            ]
+                          "
+                        >
+                          Numero de téléphone doit avoir minimun 8 chiffres
+                        </div>
+                      </div>
+                      <div
+                        *ngIf="form3Controls['telephone_tuteur'].valid"
+                        class="valid-feedback"
+                      >
+                        C'est bon!
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div *ngIf="form4Controls['diplome_universitaire'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
               </div>
-            </div>
 
-
-            <div>
-              <label>Priorité des formations</label>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="nombre_formation" class="form-label">Indiquez le nombre de formations auquel vous
-                  candidatez (*)</label>
-                <select formControlName="nombre_formation" (change)="changeValidatorFormation()" required style="width: 100%;" type="text"
-                  id="nombre_formation" name="nombre_formation" class="form-control form-control-lg" [ngClass]="{
-                'is-invalid custom-form-control-invalid':
-                form4Controls['nombre_formation'].errors &&
-                form4Controls['nombre_formation'].touched,
-                'is-valid custom-form-control-valid': form4Controls['nombre_formation'].valid
-            }">
-                  <option value="">Selectionner le nombre de formations</option>
-                  <option value="01">01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                </select>
-                <div *ngIf="form4Controls['nombre_formation'].errors" class="invalid-feedback">
-                  <div *ngIf="form4Controls['nombre_formation'].errors['required']">Nombre de formation requis
+              <div class="row mt-3">
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button
+                      type="button"
+                      class="button radius-10 w-100"
+                      (click)="setStepBack(step - 1)"
+                    >
+                      Précédent
+                    </button>
                   </div>
                 </div>
-                <div *ngIf="form4Controls['nombre_formation'].valid" class="valid-feedback">
-                  C'est bon!
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button type="submit" class="button radius-10 w-100">
+                      Suivant
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
 
-            <div *ngIf="formStep4.get('cycle')?.value == 'premier'">
+            <form
+              [hidden]="!(step == 4)"
+              [formGroup]="formStep4"
+              (ngSubmit)="setStepNext(step + 1)"
+              class="row g-3 needs-validation"
+              novalidate
+              [ngClass]="{
+                'was-validated': formStep4.invalid && clickSuivant == 1
+              }"
+            >
+              <p class="text-center mb-4">Informations sur votre scolarité</p>
+
+              <div class="col-md-12">
+                <label class="form-label">Langue parlée (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input
+                      formControlName="langue"
+                      required
+                      class="form-check-input"
+                      value="Francais"
+                      type="radio"
+                      name="langue"
+                      id="langue1"
+                      checked
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['langue'].errors &&
+                          form4Controls['langue'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['langue'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="langue1">
+                      Français
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="langue"
+                      required
+                      class="form-check-input"
+                      value="Anglais"
+                      type="radio"
+                      name="langue"
+                      id="langue2"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['langue'].errors &&
+                          form4Controls['langue'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['langue'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="langue2">
+                      Anglais
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <div class="col-md-12">
                 <div class="">
-                  <label for="formation1" class="form-label">Premier choix</label>
-                  <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
-                    name="formation1" class="form-control form-control-lg" [required]="form4Controls['formation1'].invalid" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['formation1'].errors &&
-                  form4Controls['formation1'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['formation1'].valid
-              }">
-                    <option value="">Selectionner le premier choix</option>
-                    <option value="L">L - Ingénieur généraliste par apprentissage ou génie des procédés</option>
-                    <option value="OP">OP - Ingénieur généraliste parcours international</option>
-                    <option value="X">X - Ingénieur génie Informtique</option>
-                  </select>
-                  <div *ngIf="form4Controls['formation1'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['formation1'].errors['required']">Premier choix requis
+                  <label for="dernier_etablissement" class="form-label"
+                    >Dernier établissement fréquenté (*)</label
+                  >
+                  <input
+                    formControlName="dernier_etablissement"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="dernier_etablissement"
+                    name="dernier_etablissement"
+                    class="form-control form-control-lg"
+                    placeholder="Entrer votre dernier établissement"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form4Controls['dernier_etablissement'].errors &&
+                        form4Controls['dernier_etablissement'].touched,
+                      'is-valid custom-form-control-valid':
+                        form4Controls['dernier_etablissement'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form4Controls['dernier_etablissement'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form4Controls['dernier_etablissement'].errors[
+                          'required'
+                        ]
+                      "
+                    >
+                      Dernier établissement requis
                     </div>
                   </div>
-                  <div *ngIf="form4Controls['formation1'].valid" class="valid-feedback">
+                  <div
+                    *ngIf="form4Controls['dernier_etablissement'].valid"
+                    class="valid-feedback"
+                  >
                     C'est bon!
                   </div>
                 </div>
               </div>
-
-              <div class="col-md-12"
-                *ngIf="formStep4.get('nombre_formation')?.value == '02' || formStep4.get('nombre_formation')?.value == '03'">
+              <div class="col-md-12">
+                <label class="form-label"
+                  >Quel type de baccalauréat auriez-vous ou avez-vous ?
+                  (*)</label
+                >
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input
+                      formControlName="serie_bac"
+                      required
+                      class="form-check-input"
+                      value="GCE A Level Science"
+                      type="radio"
+                      name="serie_bac"
+                      id="serie_bac1"
+                      (click)="checkIfSerieBacc('GCE A Level Science')"
+                      checked
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['serie_bac'].errors &&
+                          form4Controls['serie_bac'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['serie_bac'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="serie_bac1">
+                      GCE A Level Science
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="serie_bac"
+                      required
+                      class="form-check-input"
+                      value="GCE A Level Arts"
+                      type="radio"
+                      name="serie_bac"
+                      id="serie_bac2"
+                      (click)="checkIfSerieBacc('GCE A Level Arts')"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['serie_bac'].errors &&
+                          form4Controls['serie_bac'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['serie_bac'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="serie_bac2">
+                      GCE A Level Arts
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="serie_bac"
+                      required
+                      class="form-check-input"
+                      value="C"
+                      type="radio"
+                      name="serie_bac"
+                      id="serie_bac3"
+                      (click)="checkIfSerieBacc('C')"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['serie_bac'].errors &&
+                          form4Controls['serie_bac'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['serie_bac'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="serie_bac3"> C </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="serie_bac"
+                      required
+                      class="form-check-input"
+                      value="D"
+                      type="radio"
+                      name="serie_bac"
+                      id="serie_bac4"
+                      (click)="checkIfSerieBacc('D')"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['serie_bac'].errors &&
+                          form4Controls['serie_bac'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['serie_bac'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="serie_bac4"> D </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="serie_bac"
+                      required
+                      class="form-check-input"
+                      value="TI"
+                      type="radio"
+                      name="serie_bac"
+                      id="serie_bac5"
+                      (click)="checkIfSerieBacc('TI')"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['serie_bac'].errors &&
+                          form4Controls['serie_bac'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['serie_bac'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="serie_bac5">
+                      TI
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="serie_bac"
+                      required
+                      class="form-check-input"
+                      value="Autre"
+                      type="radio"
+                      name="serie_bac"
+                      id="serie_bac6"
+                      (click)="checkIfSerieBacc('Autre')"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['serie_bac'].errors &&
+                          form4Controls['serie_bac'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['serie_bac'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="serie_bac6">
+                      Autre
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-md-12"
+                *ngIf="formStep4.get('serie_bac')?.value == 'Autre'"
+              >
                 <div class="">
-                  <label for="formation2" class="form-label">Deuxième choix</label>
-                  <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
-                    name="formation2" class="form-control form-control-lg" [required]="form4Controls['formation2'].invalid" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['formation2'].errors &&
-                  form4Controls['formation2'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['formation2'].valid
-              }">
-                    <option value="">Selectionner le deuxième choix</option>
-                    <option value="L" *ngIf="formStep4.get('formation1')?.value != 'L'">L - ingénieur généraliste par
-                      apprentissage ou génie des procédés</option>
-                    <option value="OP" *ngIf="formStep4.get('formation1')?.value != 'OP'">OP - Ingénieur généraliste
-                      parcours international</option>
-                    <option value="X" *ngIf="formStep4.get('formation1')?.value != 'X'">X - Ingénieur génie
-                      Informtique</option>
-                  </select>
-                  <div *ngIf="form4Controls['formation2'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['formation2'].errors['required']">Second choix requis
+                  <label for="serie_bac_input" class="form-label"
+                    >Serie baccalaureat (*)</label
+                  >
+                  <input
+                    formControlName="serie_bac_input"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="serie_bac_input"
+                    name="serie_bac_input"
+                    class="form-control form-control-lg"
+                    placeholder="Entrer votre type de baccalaureat obtenu"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form4Controls['serie_bac_input'].errors &&
+                        form4Controls['serie_bac_input'].touched,
+                      'is-valid custom-form-control-valid':
+                        form4Controls['serie_bac_input'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form4Controls['serie_bac_input'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form4Controls['serie_bac_input'].errors['required']
+                      "
+                    >
+                      Baccalaureat requis
                     </div>
                   </div>
-                  <div *ngIf="form4Controls['formation2'].valid" class="valid-feedback">
+                  <div
+                    *ngIf="form4Controls['serie_bac_input'].valid"
+                    class="valid-feedback"
+                  >
                     C'est bon!
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-12" *ngIf="formStep4.get('nombre_formation')?.value == '03'">
+              <div>
+                <label>Choix des formations</label>
+                <p>Le concours permet d'accéder à 3 formations</p>
+                <p>
+                  Veuillez cocher la (ou les) formation(s) auxquelles vous
+                  souhaitez postuler
+                </p>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Concourir pour (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input
+                      formControlName="cycle"
+                      required
+                      (click)="checkIf2Cycle('premier')"
+                      class="form-check-input"
+                      value="premier"
+                      type="radio"
+                      name="cycle"
+                      id="cycle1"
+                      checked
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['cycle'].errors &&
+                          form4Controls['cycle'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['cycle'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="cycle1">
+                      1er cycle
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="cycle"
+                      (click)="checkIf2Cycle('second')"
+                      required
+                      class="form-check-input"
+                      value="second"
+                      type="radio"
+                      name="cycle"
+                      id="cycle2"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['cycle'].errors &&
+                          form4Controls['cycle'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['cycle'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="cycle2">
+                      2nd cycle
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="col-md-12"
+                *ngIf="formStep4.get('cycle')?.value == 'second'"
+              >
                 <div class="">
-                  <label for="formation3" class="form-label">Troisième 3</label>
-                  <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
-                    name="formation3" class="form-control form-control-lg" [required]="form4Controls['formation3'].invalid" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['formation3'].errors &&
-                  form4Controls['formation3'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['formation3'].valid
-              }">
-                    <option value="">Selectionner le troisième choix</option>
-                    <option value="L"
-                      *ngIf="formStep4.get('formation1')?.value != 'L' && formStep4.get('formation2')?.value != 'L'">
-                      L - Ingénieur généraliste par apprentissage ou génie des procédés</option>
-                    <option value="OP"
-                      *ngIf="formStep4.get('formation1')?.value != 'OP' && formStep4.get('formation2')?.value != 'OP'">
-                      OP - Ingénieur généraliste parcours international</option>
-                    <option value="X"
-                      *ngIf="formStep4.get('formation1')?.value != 'X' && formStep4.get('formation2')?.value != 'X'">X
-                      - Ingénieur génie Informtique
-                    </option>
-                  </select>
-                  <div *ngIf="form4Controls['formation3'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['formation3'].errors['required']">Troisième choix requis
+                  <label for="diplome_universitaire" class="form-label"
+                    >Diplôme universitaire obtenu (*)</label
+                  >
+                  <input
+                    formControlName="diplome_universitaire"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="diplome_universitaire"
+                    name="diplome_universitaire"
+                    class="form-control form-control-lg"
+                    placeholder="Entrer votre Diplôme universitaire"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form4Controls['diplome_universitaire'].errors &&
+                        form4Controls['diplome_universitaire'].touched,
+                      'is-valid custom-form-control-valid':
+                        form4Controls['diplome_universitaire'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form4Controls['diplome_universitaire'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form4Controls['diplome_universitaire'].errors[
+                          'required'
+                        ]
+                      "
+                    >
+                      Diplôme universitaire requis
                     </div>
                   </div>
-                  <div *ngIf="form4Controls['formation3'].valid" class="valid-feedback">
+                  <div
+                    *ngIf="form4Controls['diplome_universitaire'].valid"
+                    class="valid-feedback"
+                  >
                     C'est bon!
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div *ngIf="formStep4.get('cycle')?.value == 'second'">
+              <div>
+                <label>Priorité des formations</label>
+              </div>
+
               <div class="col-md-12">
                 <div class="">
-                  <label for="formation1" class="form-label">Premier 1</label>
-                  <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
-                    name="formation1" class="form-control form-control-lg" [required]="form4Controls['formation1'].invalid" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['formation1'].errors &&
-                  form4Controls['formation1'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['formation1'].valid
-              }">
-                    <option value="">Selectionner le premier choix</option>
-                    <option value="IP">IP - Ingénieur genie des procédés</option>
-                    <option value="I">I - Ingénieur géneraliste parcours international et innovation</option>
-                    <option value="X">X - Ingénieur génie Informtique</option>
-                  </select>
-                  <div *ngIf="form4Controls['formation1'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['formation1'].errors['required']">Premier choix requis
-                    </div>
-                  </div>
-                  <div *ngIf="form4Controls['formation1'].valid" class="valid-feedback">
-                    C'est bon!
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12"
-                *ngIf="formStep4.get('nombre_formation')?.value == '02' || formStep4.get('nombre_formation')?.value == '03'">
-                <div class="">
-                  <label for="formation2" class="form-label">Deuxième choix</label>
-                  <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
-                    name="formation2" class="form-control form-control-lg" [required]="form4Controls['formation2'].invalid" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['formation2'].errors &&
-                  form4Controls['formation2'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['formation2'].valid
-              }">
-                    <option value="">Selectionner le deuxième choix</option>
-                    <option value="IP" *ngIf="formStep4.get('formation1')?.value != 'IP'">IP - Ingénieur genie des
-                      procédés</option>
-                    <option value="I" *ngIf="formStep4.get('formation1')?.value != 'I'">I - Ingénieur géneraliste
-                      parcours international et innovation</option>
-                    <option value="X" *ngIf="formStep4.get('formation1')?.value != 'X'">X - Ingénieur génie
-                      Informtique</option>
-                  </select>
-                  <div *ngIf="form4Controls['formation2'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['formation2'].errors['required']">Second choix requis
-                    </div>
-                  </div>
-                  <div *ngIf="form4Controls['formation2'].valid" class="valid-feedback">
-                    C'est bon!
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-12" *ngIf="formStep4.get('nombre_formation')?.value == '03'">
-                <div class="">
-                  <label for="formation3" class="form-label">Troisième choix</label>
-                  <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
-                    name="formation3" class="form-control form-control-lg" [required]="form4Controls['formation3'].invalid" [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  form4Controls['formation3'].errors &&
-                  form4Controls['formation3'].touched,
-                  'is-valid custom-form-control-valid': form4Controls['formation3'].valid
-              }">
-                    <option value="">Selectionner le troisième choix</option>
-                    <option value="IP"
-                      *ngIf="formStep4.get('formation1')?.value != 'IP' && formStep4.get('formation2')?.value != 'IP'">
-                      IP - Ingénieur genie des procédés</option>
-                    <option value="I"
-                      *ngIf="formStep4.get('formation1')?.value != 'I' && formStep4.get('formation2')?.value != 'I'">
-                      I - Ingénieur géneraliste parcours international et innovation</option>
-                    <option value="X"
-                      *ngIf="formStep4.get('formation1')?.value != 'X' && formStep4.get('formation2')?.value != 'X'">X
-                      - Ingénieur génie Informtique
+                  <label for="nombre_formation" class="form-label"
+                    >Indiquez le nombre de formations auquel vous candidatez
+                    (*)</label
+                  >
+                  <select
+                    formControlName="nombre_formation"
+                    (change)="changeValidatorFormation()"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="nombre_formation"
+                    name="nombre_formation"
+                    class="form-control form-control-lg"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form4Controls['nombre_formation'].errors &&
+                        form4Controls['nombre_formation'].touched,
+                      'is-valid custom-form-control-valid':
+                        form4Controls['nombre_formation'].valid
+                    }"
+                  >
+                    <option value="">
+                      Sélectionner le nombre de formations
                     </option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
                   </select>
-                  <div *ngIf="form4Controls['formation3'].errors" class="invalid-feedback">
-                    <div *ngIf="form4Controls['formation3'].errors['required']">Troisième choix requis
+                  <div
+                    *ngIf="form4Controls['nombre_formation'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form4Controls['nombre_formation'].errors['required']
+                      "
+                    >
+                      Nombre de formation requis
                     </div>
                   </div>
-                  <div *ngIf="form4Controls['formation3'].valid" class="valid-feedback">
+                  <div
+                    *ngIf="form4Controls['nombre_formation'].valid"
+                    class="valid-feedback"
+                  >
                     C'est bon!
                   </div>
                 </div>
               </div>
-            </div>
 
-
-            <div class="col-md-12">
-              <label class="form-label">Frais de concours correspondant</label>
-              <div class="align-content-center">
-                <div class="form-check">
-                  <input formControlName="paiement" value="20 000FCFA"
-                    [checked]="formStep4.get('nombre_formation')?.value == '01'" required class="form-check-input"
-                    type="radio" name="paiement" id="paiement1" [disabled]="true" [readOnly]="true">
-                  <label class="form-check-label" for="paiement1">
-                    Concourir pour une formation(20 000FCFA)
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="paiement" name="paiement" value="25 000 FCFA"
-                    [checked]="formStep4.get('nombre_formation')?.value == '02'" class="form-check-input" type="radio"
-                    name="paiement" id="paiement2" [disabled]="true" [readOnly]="true">
-                  <label class="form-check-label" for="paiement2">
-                    Concourir pour deux formations(25 000 FCFA)
-                  </label>
-                </div>
-
-                <div class="form-check">
-                  <input formControlName="paiement" name="paiement" value="30 000 FCFA"
-                    [checked]="formStep4.get('nombre_formation')?.value == '03'" required class="form-check-input"
-                    type="radio" name="paiement" id="paiement3" [disabled]="true" [readOnly]="true">
-                  <label class="form-check-label" for="paiement3">
-                    Concourir pour trois formations(30 000 FCFA)
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label class="form-label">Voulez vous une bourse ? (*)</label>
-              <div class="align-content-center">
-                <div class="form-check">
-                  <input formControlName="hasExchange" required class="form-check-input" value="Oui" type="radio"
-                    name="hasExchange" id="hasExchange1" checked [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['hasExchange'].errors &&
-                      form4Controls['hasExchange'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['hasExchange'].valid
-                  }">
-                  <label class="form-check-label" for="hasExchange1">
-                    Oui
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input formControlName="hasExchange" required class="form-check-input" value="Non" type="radio"
-                    name="hasExchange" id="hasExchange2" [ngClass]="{
-                      'is-invalid custom-form-control-invalid':
-                      form4Controls['hasExchange'].errors &&
-                      form4Controls['hasExchange'].touched,
-                      'is-valid custom-form-control-valid': form4Controls['hasExchange'].valid
-                  }">
-                  <label class="form-check-label" for="hasExchange2">
-                    Non
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label for="image">Photo</label>
-              <div class="align-content-center">
-                <input formControlName="image" type="file" id="image" class="form-control form-control-lg"
-                  (change)="onFileChanged($event)" accept=".jpg, .jpeg, .png" name="image"> &nbsp;
-                <div class="image-preview" *ngIf="uploadedFile != '' && uploadedFile != undefined">
-                  <img src="{{uploadedFile}}" alt="" srcset="" loading="lazy">
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-3">
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
-                </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100">Suivant</button>
-                </div>
-              </div>
-            </div>
-          </form>
-
-          <form *ngIf="step == 5" [formGroup]="formStep5" (ngSubmit)="onSubmit()" class="row g-3 needs-validation"
-            novalidate [ngClass]="{
-              'was-validated':
-              formStep5.invalid &&
-              clickSubmit == 1
-          }">
-            <div class="col-md-12">
-              <p> {{siteSelected.msgPaiement}} </p>
-            </div>
-
-            <div class="col-md-12">
-              <div class="">
-                <label for="reference_paiement" class="form-label">Reference de paiement</label>
-                <input formControlName="reference_paiement" (ngModelChange)="checkCode()" required
-                  style="width: 100%;" type="text" id="reference_paiement" name="reference_paiement"
-                  class="form-control form-control-lg" placeholder=" Exemple :MP220315.13.49.A18995 " [ngClass]="{
-                  'is-invalid custom-form-control-invalid':
-                  (form5Controls['reference_paiement'].errors &&
-                  form5Controls['reference_paiement'].touched) || codeExists || (!codeValid && clickSubmit==1),
-                  'is-valid custom-form-control-valid': form5Controls['reference_paiement'].valid && codeValid
-              }">
-                <div *ngIf="form5Controls['reference_paiement'].errors" class="invalid-feedback">
-                  <div *ngIf="form5Controls['reference_paiement'].errors['required']">Reference de paiement requis
-                  </div>
-                </div>
-                <div *ngIf="(codeExists || !codeValid) && !form5Controls['reference_paiement'].errors" class="invalid-feedback">
-                  <div>Le code {{formStep5.get('reference_paiement')?.value}} n'est pas valide !!!
-                    Il a déjà été utilisé ou est incorrect ! <br> Veillez réessayez</div>
-                </div>
-                <div *ngIf="form5Controls['reference_paiement'].valid && codeValid" class="valid-feedback">
-                  Le code {{formStep5.get('reference_paiement')?.value }} est valide
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-12">
-              <label for="telephone_paiement" class="form-label">Numéro de téléphone ayant éffectué la transaction
-                (*)</label>
-              <div class="input-group has-validation">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">{{indiceTelephoneTransaction}}</button>
-                <ul class="dropdown-menu" style="max-height: 270px;overflow: hidden;overflow-y: scroll;">
-                  <li><a class="dropdown-item" *ngFor="let i of indices"
-                      (click)="indiceTelephoneTransaction = i">{{i}}</a></li>
-                </ul>
-                <input type="text" formControlName="telephone_paiement" placeholder=" Exemple : 6 9XX XXX XXX "
-                  class="form-control  form-control-lg is-invalid custom-form-control-invalid" id="telephone_paiement"
-                  aria-describedby="inputGroupPrepend3 telephone_paiementFeedback" required [ngClass]="{
-          'is-invalid custom-form-control-invalid':
-          form5Controls['telephone_paiement'].errors &&
-          form5Controls['telephone_paiement'].touched,
-          'is-valid custom-form-control-valid': form5Controls['telephone_paiement'].valid
-          }">
-                <div *ngIf="form5Controls['telephone_paiement'].errors" class="invalid-feedback">
-                  <div *ngIf="form5Controls['telephone_paiement'].errors['required']">Numero de téléphone requis</div>
-                  <div *ngIf="form5Controls['telephone_paiement'].errors['notConform']">Le numero de téléphone doit être
-                    des chiffres uniquement et respecter le format du pays selectionné</div>
-                  <div *ngIf="form5Controls['telephone_paiement'].errors['min']">Numero de téléphone doit être
-                    superieur à
-                    0
-                  </div>
-                  <div *ngIf="form5Controls['telephone_paiement'].errors['minlength']">Numero de téléphone doit avoir
-                    minimun
-                    8 chiffres</div>
-                </div>
-                <div *ngIf="form5Controls['telephone_paiement'].valid" class="valid-feedback">
-                  C'est bon!
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-3">
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
-                </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100">Valider</button>
-                </div>
-              </div>
-            </div>
-          </form>
+              <div *ngIf="formStep4.get('cycle')?.value == 'premier'">
+                <div class="col-md-12">
+                  <div class="">
+                    <label for="formation1" class="form-label"
+                      >Premier choix</label
+                    >
+                    <select
+                      formControlName="formation1"
+                      style="width: 100%"
+                      type="text"
+                      id="formation1"
+                      name="formation1"
+                      class="form-control form-control-lg"
+                      [required]="form4Controls['formation1'].invalid"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['formation1'].errors &&
+                          form4Controls['formation1'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['formation1'].valid
+                      }"
+                    >
+                      <option value="">Sélectionner le premier choix</option>
+                      <option value="L">
+                        L - Ingénieur généraliste par apprentissage ou génie des
+                        procédés
+                      </option>
+                      <option value="OP">
+                        OP - Ingénieur généraliste parcours international
+                      </option>
+                      <option value="X">
+                        X - Ingénieur génie Informatique
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="form4Controls['formation1'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="form4Controls['formation1'].errors['required']"
+                      >
+                        Premier choix requis
+                      </div>
                     </div>
+                    <div
+                      *ngIf="form4Controls['formation1'].valid"
+                      class="valid-feedback"
+                    >
+                      C'est bon!
+                    </div>
+                  </div>
                 </div>
-            </div>
+
+                <div
+                  class="col-md-12"
+                  *ngIf="
+                    formStep4.get('nombre_formation')?.value == '02' ||
+                    formStep4.get('nombre_formation')?.value == '03'
+                  "
+                >
+                  <div class="">
+                    <label for="formation2" class="form-label"
+                      >Deuxième choix</label
+                    >
+                    <select
+                      formControlName="formation2"
+                      style="width: 100%"
+                      type="text"
+                      id="formation2"
+                      name="formation2"
+                      class="form-control form-control-lg"
+                      [required]="form4Controls['formation2'].invalid"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['formation2'].errors &&
+                          form4Controls['formation2'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['formation2'].valid
+                      }"
+                    >
+                      <option value="">Sélectionner le deuxième choix</option>
+                      <option
+                        value="L"
+                        *ngIf="formStep4.get('formation1')?.value != 'L'"
+                      >
+                        L - ingénieur généraliste par apprentissage ou génie des
+                        procédés
+                      </option>
+                      <option
+                        value="OP"
+                        *ngIf="formStep4.get('formation1')?.value != 'OP'"
+                      >
+                        OP - Ingénieur généraliste parcours international
+                      </option>
+                      <option
+                        value="X"
+                        *ngIf="formStep4.get('formation1')?.value != 'X'"
+                      >
+                        X - Ingénieur génie Informatique
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="form4Controls['formation2'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="form4Controls['formation2'].errors['required']"
+                      >
+                        Second choix requis
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="form4Controls['formation2'].valid"
+                      class="valid-feedback"
+                    >
+                      C'est bon!
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-12"
+                  *ngIf="formStep4.get('nombre_formation')?.value == '03'"
+                >
+                  <div class="">
+                    <label for="formation3" class="form-label"
+                      >Troisième 3</label
+                    >
+                    <select
+                      formControlName="formation3"
+                      style="width: 100%"
+                      type="text"
+                      id="formation3"
+                      name="formation3"
+                      class="form-control form-control-lg"
+                      [required]="form4Controls['formation3'].invalid"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['formation3'].errors &&
+                          form4Controls['formation3'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['formation3'].valid
+                      }"
+                    >
+                      <option value="">Sélectionner le troisième choix</option>
+                      <option
+                        value="L"
+                        *ngIf="
+                          formStep4.get('formation1')?.value != 'L' &&
+                          formStep4.get('formation2')?.value != 'L'
+                        "
+                      >
+                        L - Ingénieur généraliste par apprentissage ou génie des
+                        procédés
+                      </option>
+                      <option
+                        value="OP"
+                        *ngIf="
+                          formStep4.get('formation1')?.value != 'OP' &&
+                          formStep4.get('formation2')?.value != 'OP'
+                        "
+                      >
+                        OP - Ingénieur généraliste parcours international
+                      </option>
+                      <option
+                        value="X"
+                        *ngIf="
+                          formStep4.get('formation1')?.value != 'X' &&
+                          formStep4.get('formation2')?.value != 'X'
+                        "
+                      >
+                        X - Ingénieur génie Informatique
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="form4Controls['formation3'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="form4Controls['formation3'].errors['required']"
+                      >
+                        Troisième choix requis
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="form4Controls['formation3'].valid"
+                      class="valid-feedback"
+                    >
+                      C'est bon!
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="formStep4.get('cycle')?.value == 'second'">
+                <div class="col-md-12">
+                  <div class="">
+                    <label for="formation1" class="form-label"
+                      >Premier choix</label
+                    >
+                    <select
+                      formControlName="formation1"
+                      style="width: 100%"
+                      type="text"
+                      id="formation1"
+                      name="formation1"
+                      class="form-control form-control-lg"
+                      [required]="form4Controls['formation1'].invalid"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['formation1'].errors &&
+                          form4Controls['formation1'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['formation1'].valid
+                      }"
+                    >
+                      <option value="">Sélectionner le premier choix</option>
+                      <option value="IP">
+                        IP - Ingénieur génie des procédés
+                      </option>
+                      <option value="I">
+                        I - Ingénieur géneraliste parcours international et
+                        innovation
+                      </option>
+                      <option value="X">
+                        X - Ingénieur génie Informatique
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="form4Controls['formation1'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="form4Controls['formation1'].errors['required']"
+                      >
+                        Premier choix requis
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="form4Controls['formation1'].valid"
+                      class="valid-feedback"
+                    >
+                      C'est bon!
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-12"
+                  *ngIf="
+                    formStep4.get('nombre_formation')?.value == '02' ||
+                    formStep4.get('nombre_formation')?.value == '03'
+                  "
+                >
+                  <div class="">
+                    <label for="formation2" class="form-label"
+                      >Deuxième choix</label
+                    >
+                    <select
+                      formControlName="formation2"
+                      style="width: 100%"
+                      type="text"
+                      id="formation2"
+                      name="formation2"
+                      class="form-control form-control-lg"
+                      [required]="form4Controls['formation2'].invalid"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['formation2'].errors &&
+                          form4Controls['formation2'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['formation2'].valid
+                      }"
+                    >
+                      <option value="">Sélectionner le deuxième choix</option>
+                      <option
+                        value="IP"
+                        *ngIf="formStep4.get('formation1')?.value != 'IP'"
+                      >
+                        IP - Ingénieur génie des procédés
+                      </option>
+                      <option
+                        value="I"
+                        *ngIf="formStep4.get('formation1')?.value != 'I'"
+                      >
+                        I - Ingénieur géneraliste parcours international et
+                        innovation
+                      </option>
+                      <option
+                        value="X"
+                        *ngIf="formStep4.get('formation1')?.value != 'X'"
+                      >
+                        X - Ingénieur génie Informatique
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="form4Controls['formation2'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="form4Controls['formation2'].errors['required']"
+                      >
+                        Second choix requis
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="form4Controls['formation2'].valid"
+                      class="valid-feedback"
+                    >
+                      C'est bon!
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-12"
+                  *ngIf="formStep4.get('nombre_formation')?.value == '03'"
+                >
+                  <div class="">
+                    <label for="formation3" class="form-label"
+                      >Troisième choix</label
+                    >
+                    <select
+                      formControlName="formation3"
+                      style="width: 100%"
+                      type="text"
+                      id="formation3"
+                      name="formation3"
+                      class="form-control form-control-lg"
+                      [required]="form4Controls['formation3'].invalid"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['formation3'].errors &&
+                          form4Controls['formation3'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['formation3'].valid
+                      }"
+                    >
+                      <option value="">Sélectionner le troisième choix</option>
+                      <option
+                        value="IP"
+                        *ngIf="
+                          formStep4.get('formation1')?.value != 'IP' &&
+                          formStep4.get('formation2')?.value != 'IP'
+                        "
+                      >
+                        IP - Ingénieur génie des procédés
+                      </option>
+                      <option
+                        value="I"
+                        *ngIf="
+                          formStep4.get('formation1')?.value != 'I' &&
+                          formStep4.get('formation2')?.value != 'I'
+                        "
+                      >
+                        I - Ingénieur géneraliste parcours international et
+                        innovation
+                      </option>
+                      <option
+                        value="X"
+                        *ngIf="
+                          formStep4.get('formation1')?.value != 'X' &&
+                          formStep4.get('formation2')?.value != 'X'
+                        "
+                      >
+                        X - Ingénieur génie Informatique
+                      </option>
+                    </select>
+                    <div
+                      *ngIf="form4Controls['formation3'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="form4Controls['formation3'].errors['required']"
+                      >
+                        Troisième choix requis
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="form4Controls['formation3'].valid"
+                      class="valid-feedback"
+                    >
+                      C'est bon!
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label"
+                  >Frais de concours correspondant</label
+                >
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input
+                      formControlName="paiement"
+                      value="20 000FCFA"
+                      [checked]="
+                        formStep4.get('nombre_formation')?.value == '01'
+                      "
+                      required
+                      class="form-check-input"
+                      type="radio"
+                      name="paiement"
+                      id="paiement1"
+                      [disabled]="true"
+                      [readOnly]="true"
+                    />
+                    <label class="form-check-label" for="paiement1">
+                      Concourir pour une formation(20 000FCFA)
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="paiement"
+                      name="paiement"
+                      value="25 000 FCFA"
+                      [checked]="
+                        formStep4.get('nombre_formation')?.value == '02'
+                      "
+                      class="form-check-input"
+                      type="radio"
+                      name="paiement"
+                      id="paiement2"
+                      [disabled]="true"
+                      [readOnly]="true"
+                    />
+                    <label class="form-check-label" for="paiement2">
+                      Concourir pour deux formations(25 000 FCFA)
+                    </label>
+                  </div>
+
+                  <div class="form-check">
+                    <input
+                      formControlName="paiement"
+                      name="paiement"
+                      value="30 000 FCFA"
+                      [checked]="
+                        formStep4.get('nombre_formation')?.value == '03'
+                      "
+                      required
+                      class="form-check-input"
+                      type="radio"
+                      name="paiement"
+                      id="paiement3"
+                      [disabled]="true"
+                      [readOnly]="true"
+                    />
+                    <label class="form-check-label" for="paiement3">
+                      Concourir pour trois formations(30 000 FCFA)
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Voulez vous une bourse ? (*)</label>
+                <div class="align-content-center">
+                  <div class="form-check">
+                    <input
+                      formControlName="hasExchange"
+                      required
+                      class="form-check-input"
+                      value="Oui"
+                      type="radio"
+                      name="hasExchange"
+                      id="hasExchange1"
+                      checked
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['hasExchange'].errors &&
+                          form4Controls['hasExchange'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['hasExchange'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="hasExchange1">
+                      Oui
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      formControlName="hasExchange"
+                      required
+                      class="form-check-input"
+                      value="Non"
+                      type="radio"
+                      name="hasExchange"
+                      id="hasExchange2"
+                      [ngClass]="{
+                        'is-invalid custom-form-control-invalid':
+                          form4Controls['hasExchange'].errors &&
+                          form4Controls['hasExchange'].touched,
+                        'is-valid custom-form-control-valid':
+                          form4Controls['hasExchange'].valid
+                      }"
+                    />
+                    <label class="form-check-label" for="hasExchange2">
+                      Non
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="image">Photo</label>
+                <div class="align-content-center">
+                  <input
+                    formControlName="image"
+                    type="file"
+                    id="image"
+                    class="form-control form-control-lg"
+                    (change)="onFileChanged($event)"
+                    accept=".jpg, .jpeg, .png"
+                    name="image"
+                  />
+                  &nbsp;
+                  <div
+                    class="image-preview"
+                    *ngIf="uploadedFile != '' && uploadedFile != undefined"
+                  >
+                    <img
+                      src="{{ uploadedFile }}"
+                      alt=""
+                      srcset=""
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button
+                      type="button"
+                      class="button radius-10 w-100"
+                      (click)="setStepBack(step - 1)"
+                    >
+                      Précédent
+                    </button>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button type="submit" class="button radius-10 w-100">
+                      Suivant
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <form
+              *ngIf="step == 5"
+              [formGroup]="formStep5"
+              (ngSubmit)="onSubmit()"
+              class="row g-3 needs-validation"
+              novalidate
+              [ngClass]="{
+                'was-validated': formStep5.invalid && clickSubmit == 1
+              }"
+            >
+              <div class="col-md-12">
+                <p>{{ siteSelected.msgPaiement }}</p>
+              </div>
+
+              <div class="col-md-12">
+                <div class="">
+                  <label for="reference_paiement" class="form-label"
+                    >Référence de paiement</label
+                  >
+                  <input
+                    formControlName="reference_paiement"
+                    (ngModelChange)="checkCode()"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="reference_paiement"
+                    name="reference_paiement"
+                    class="form-control form-control-lg"
+                    placeholder=" Exemple :MP220315.13.49.A18995 "
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        (form5Controls['reference_paiement'].errors &&
+                          form5Controls['reference_paiement'].touched) ||
+                        codeExists ||
+                        (!codeValid && clickSubmit == 1),
+                      'is-valid custom-form-control-valid':
+                        form5Controls['reference_paiement'].valid && codeValid
+                    }"
+                  />
+                  <div
+                    *ngIf="form5Controls['reference_paiement'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['required']
+                      "
+                    >
+                      Référence de paiement requis
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="
+                      (codeExists || !codeValid) &&
+                      !form5Controls['reference_paiement'].errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div>
+                      Le code
+                      {{ formStep5.get("reference_paiement")?.value }} n'est pas
+                      valide !!! Il a déjà été utilisé ou est incorrect ! <br />
+                      Veuillez réessayez
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="
+                      form5Controls['reference_paiement'].valid && codeValid
+                    "
+                    class="valid-feedback"
+                  >
+                    Le code {{ formStep5.get("reference_paiement")?.value }} est
+                    valide
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="telephone_paiement" class="form-label"
+                  >Numéro de téléphone ayant éffectué la transaction (*)</label
+                >
+                <div class="input-group has-validation">
+                  <button
+                    class="btn btn-outline-secondary dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {{ indiceTelephoneTransaction }}
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    style="
+                      max-height: 270px;
+                      overflow: hidden;
+                      overflow-y: scroll;
+                    "
+                  >
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        *ngFor="let i of indices"
+                        (click)="indiceTelephoneTransaction = i"
+                        >{{ i }}</a
+                      >
+                    </li>
+                  </ul>
+                  <input
+                    type="text"
+                    formControlName="telephone_paiement"
+                    placeholder=" Exemple : 6 9XX XXX XXX "
+                    class="form-control form-control-lg is-invalid custom-form-control-invalid"
+                    id="telephone_paiement"
+                    aria-describedby="inputGroupPrepend3 telephone_paiementFeedback"
+                    required
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form5Controls['telephone_paiement'].errors &&
+                        form5Controls['telephone_paiement'].touched,
+                      'is-valid custom-form-control-valid':
+                        form5Controls['telephone_paiement'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form5Controls['telephone_paiement'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form5Controls['telephone_paiement'].errors['required']
+                      "
+                    >
+                      Numéro de téléphone requis
+                    </div>
+                    <div
+                      *ngIf="
+                        form5Controls['telephone_paiement'].errors['notConform']
+                      "
+                    >
+                      Le numéro de téléphone doit être des chiffres uniquement
+                      et respecter le format du pays selectionné
+                    </div>
+                    <div
+                      *ngIf="form5Controls['telephone_paiement'].errors['min']"
+                    >
+                      Numéro de téléphone doit être superieur à 0
+                    </div>
+                    <div
+                      *ngIf="
+                        form5Controls['telephone_paiement'].errors['minlength']
+                      "
+                    >
+                      Numéro de téléphone doit avoir minimun 8 chiffres
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="form5Controls['telephone_paiement'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button
+                      type="button"
+                      class="button radius-10 w-100"
+                      (click)="setStepBack(step - 1)"
+                    >
+                      Précédent
+                    </button>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-button">
+                    <button type="submit" class="button radius-10 w-100">
+                      Valider
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-
+      </div>
     </div>
+  </div>
 
-
-    <br>
-
+  <br />
 </section>

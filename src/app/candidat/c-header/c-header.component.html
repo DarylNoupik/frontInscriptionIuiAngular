@@ -1,6 +1,5 @@
 <!-- ========================= hero-section-wrapper-2 start ========================= -->
 <section id="home" class="hero-section-wrapper-2">
-
   <!-- ========================= header-2 start ========================= -->
   <header class="header header-2">
     <div class="navbar-area">
@@ -11,29 +10,57 @@
               <a class="navbar-brand" [routerLink]="['home']">
                 <img src="assets/img/LogoUcacIcamjpg.jpg" alt="Logo" />
               </a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
-                aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent2"
+                aria-controls="navbarSupportedContent2"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
                 <span class="toggler-icon"></span>
                 <span class="toggler-icon"></span>
                 <span class="toggler-icon"></span>
               </button>
 
-              <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent2">
+              <div
+                class="collapse navbar-collapse sub-menu-bar"
+                id="navbarSupportedContent2"
+              >
                 <ul id="nav2" class="navbar-nav ml-auto">
                   <li class="nav-item">
-                    <a class="page-scroll " routerLinkActive="active" [routerLink]="['home']"
-                      href="index.html">Accueil</a>
+                    <a
+                      class="page-scroll"
+                      routerLinkActive="active"
+                      [routerLink]="['home']"
+                      href="index.html"
+                      >Accueil</a
+                    >
                   </li>
                   <li class="nav-item" *ngIf="false">
-                    <a class="page-scroll" [routerLink]="['inscription']" routerLinkActive="active">Inscription</a>
+                    <a
+                      class="page-scroll"
+                      [routerLink]="['inscription']"
+                      routerLinkActive="active"
+                      >Inscription</a
+                    >
                   </li>
                   <li class="nav-item">
-                    <a class="page-scroll" [routerLink]="['resultat']" [routerLinkActive]="['active']">Résultat</a>
+                    <a
+                      class="page-scroll"
+                      [routerLink]="['resultat']"
+                      [routerLinkActive]="['active']"
+                      >Résultat</a
+                    >
                   </li>
                 </ul>
-                <a (click)="logout()" class="button button-sm radius-10 d-none d-lg-flex"><img
-                    src="assets/img/person.svg"> {{candidat.name + ' '+candidat.prenom
-                  }} -- Se Déconnecter </a>
+                <a
+                  (click)="logout()"
+                  class="button button-sm radius-10 d-none d-lg-flex"
+                  ><img src="assets/img/person.svg" alt="logo personne" />
+                  {{ candidat.name + " " + candidat.prenom }} -- Se Déconnecter
+                </a>
               </div>
               <!-- navbar collapse -->
             </nav>
