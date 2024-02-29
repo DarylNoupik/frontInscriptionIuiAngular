@@ -8,6 +8,7 @@ import { ActivatedRoute, Navigation, Router } from "@angular/router";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DatePipe } from "@angular/common";
+import { PLayoutComponent } from '../p-layout/p-layout.component';
 
 
 @Component({
@@ -37,6 +38,8 @@ export class InscriptionConfirmComponent implements OnInit {
   public code: string | null = "";
   public nav: any;
 
+  userIsConnected: boolean = false;
+
   constructor(
     private sessionService: SessionService,
     private candidatureService: CandidatureService,
@@ -45,6 +48,7 @@ export class InscriptionConfirmComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private datePipe: DatePipe,
+    private pLayoutComponent: PLayoutComponent
   ) {
       this.nav = router.getCurrentNavigation()?.extras.state;
    }
@@ -58,6 +62,13 @@ export class InscriptionConfirmComponent implements OnInit {
       },
       error: err => console.log(err)
     });
+
+    let token: string | null = this.tokenService.getToken();
+    if (token != null) {
+      if (this.tokenService.isLogged()) {
+        this.userIsConnected = true;
+      }
+    }
     
     this.id = this.nav?.['id'];
     this.name = this.nav?.['name'];

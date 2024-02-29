@@ -63,4 +63,9 @@ export class PLayoutComponent implements OnInit {
     }
   }
 
+  //Help for a better capture to print the inscription confirmation message
+  changeUserIsConnected(answer : boolean):void {
+    this.userIsConnected = answer;
+  }
+
 }

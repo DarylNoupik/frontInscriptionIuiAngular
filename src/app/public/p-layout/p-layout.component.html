@@ -46,10 +46,11 @@
                   <li class="nav-item">
                     <a class="page-scroll" [routerLink]="['candidat/resultat']" [routerLinkActive]="['active']">Résultat</a>
                   </li>
-                </ul>
-                <a (click)="logout()" class="button button-sm radius-10 d-none d-lg-flex"><img
+                  <a id="logout" (click)="logout()" class="button button-sm radius-10 d-none d-lg-flex"><img
                     src="assets/img/person.svg"> {{candidat.name + ' '+candidat.prenom
                   }} -- Se Déconnecter </a>
+                </ul>
+                
               </div>
               <!-- navbar collapse -->
             </nav>
