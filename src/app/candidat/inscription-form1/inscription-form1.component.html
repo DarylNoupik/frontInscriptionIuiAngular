@@ -508,14 +508,14 @@
               <label class="form-label">Avez vous un tuteur (*)</label>
               <div class="align-content-center">
                 <div class="form-check">
-                  <input formControlName="hasTutor" required  class="form-check-input" value="Oui" type="radio"
+                  <input formControlName="hasTutor" (change)="changeValidatorOfTutor('Oui')" required  class="form-check-input" value="Oui" type="radio"
                     name="hasTutor" id="hasTutor1" #hasTutor checked>
                   <label class="form-check-label" for="hasTutor1">
                     Oui
                   </label>
                 </div>
                 <div class="form-check">
-                  <input formControlName="hasTutor" required class="form-check-input" value="Non" type="radio"
+                  <input formControlName="hasTutor" (change)="changeValidatorOfTutor('Non')" required class="form-check-input" value="Non" type="radio"
                     name="hasTutor" id="hasTutor2">
                   <label class="form-check-label" for="hasTutor2">
                     Non

@@ -18,7 +18,7 @@
                 <span class="toggler-icon"></span>
               </button>
 
-              <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent2">
+              <div *ngIf="!userIsConnected" class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent2">
                 <ul id="nav2" class="navbar-nav ml-auto">
                   <li class="nav-item">
                     <a [routerLink]="['home']" [routerLinkActive]="['active']" class="page-scroll">Accueil</a>
@@ -32,6 +32,24 @@
                   <a [routerLink]="['auth/login']" class="button button-sm radius-10 d-none d-lg-flex">Connexion</a>
                 </ul>
 
+              </div>
+
+              <div *ngIf="userIsConnected" class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent2">
+                <ul id="nav2" class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="page-scroll " routerLinkActive="active" [routerLink]="['candidat/home']"
+                      href="index.html">Accueil</a>
+                  </li>
+                  <li class="nav-item" *ngIf="false">
+                    <a class="page-scroll" [routerLink]="['candidat/inscription']" routerLinkActive="active">Inscription</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="page-scroll" [routerLink]="['candidat/resultat']" [routerLinkActive]="['active']">Résultat</a>
+                  </li>
+                </ul>
+                <a (click)="logout()" class="button button-sm radius-10 d-none d-lg-flex"><img
+                    src="assets/img/person.svg"> {{candidat.name + ' '+candidat.prenom
+                  }} -- Se Déconnecter </a>
               </div>
               <!-- navbar collapse -->
             </nav>
