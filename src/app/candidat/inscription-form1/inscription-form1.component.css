@@ -155,3 +155,21 @@ input.invalid {
 .image-preview img {
   height: -webkit-fill-available;
 }
+
+.was-validated .form-control.custom-form-control-invalid:valid{
+  border-color: #dc3545;
+}
+
+
+.was-validated .form-control.custom-form-control-valid:valid{
+  border-color: #198754;
+}
+
+/*
+.custom-form-control-valid{
+  border-color: #198754;
+}
+
+.custom-form-control-invalid{
+  border-color: #dc3545;
+}*/

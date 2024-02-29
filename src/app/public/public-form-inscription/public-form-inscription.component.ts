@@ -226,6 +226,8 @@ export class PublicFormInscriptionComponent implements OnInit {
 ];
 
   public hasActiveSession!: boolean;
+  clickSuivant: number = 0;
+  clickSubmit: number = 0;
   uploadedFile!: string;
   selectedFile! : File;
   public actualDate = new Date();
@@ -549,11 +551,13 @@ console.log("step:",this.step);
     this.formStep4.updateValueAndValidity();
   }
 
-  checkIfSerieBacc() {
-    if (this.formStep4.get('serie_bac')?.value == 'Autre') {
+  checkIfSerieBacc(answer: string) {
+    if (answer == 'Autre') {
       this.formStep4.get('serie_bac_input')?.addValidators(Validators.required);
+      this.formStep4.get('serie_bac_input')?.updateValueAndValidity();
     } else {
-      this.formStep4.get('serie_bac_input')?.removeValidators(Validators.required);
+      this.formStep4.get('serie_bac_input')?.clearValidators();
+      this.formStep4.get('serie_bac_input')?.updateValueAndValidity();
     }
     this.formStep4.updateValueAndValidity();
   }
@@ -602,8 +606,33 @@ console.log("step:",this.step);
     this.selectZone = zone;
   }
 
-  setStep(step: number) {
+  setStepBack(step: number)
+  {
     this.step = step;
+  }
+  setStepNext(step: number) {
+    this.clickSuivant = 1;
+    if ((step == 2) && this.formStep1.valid )
+    {
+      this.step = step;
+      this.clickSuivant = 0;
+    }
+    if ((step == 3) && this.formStep2.valid)
+    {
+      this.step = step;
+      this.clickSuivant = 0;
+    }
+    if ((step == 4) && this.formStep3.valid)
+    {
+      this.step = step;
+      this.clickSuivant = 0;
+    }
+    if ((step == 5) && this.formStep4.valid)
+    {
+      this.step = step;
+      this.clickSuivant = 0;
+    }
+    
   }
 
   /*updateSelections() {
@@ -686,6 +715,10 @@ console.log("step:",this.step);
             this.codeValid = true;
           }
         }
+        else{
+          this.codeExists = false;
+          this.codeValid = false;
+        }
       });
   }
 
@@ -700,70 +733,77 @@ console.log("step:",this.step);
   }
 
   onSubmit() {
-    this.compteform = {
-      name: this.formStep1.get('nom')?.value,
-      prenom: this.formStep1.get('prenom')?.value,
-      password: this.generateRandomPassword(8),
-      email: this.formStep1.get('email')?.value,
-      telephone: this.indiceTelephoneCandidat + "" + this.formStep1.get('telephone')?.value,
-      role: "CANDIDAT",
-      id_disponibilite: 0,
-      idZone: this.selectZone.id
-    };
-    this.candidatureForm = {
-      dernier_Etablissement: this.formStep4.get('dernier_etablissement')?.value,
-      langue: this.formStep4.get('langue')?.value,
-      paiement: this.formStep4.get('paiement')?.value,
-      cycle: this.formStep4.get('cycle')?.value,
-      diplome_universitaire: this.formStep4.get('diplome_universitaire')?.value,
-      image: this.formStep4.get('image')?.value,
-      hasExchange: this.formStep4.get('hasExchange')?.value,
-      serie_bac: this.formStep4.get('serie_bac')?.value === 'Autre' ? this.formStep4.get('serie_bac_input')?.value : this.formStep4.get('serie_bac')?.value,
-      formation1: this.formStep4.get('formation1')?.value,
-      formation2: this.formStep4.get('formation2')?.value,
-      formation3: this.formStep4.get('formation3')?.value,
-      formation_principal: this.formStep4.get('formation_principal')?.value,
 
-      reference_paiement: this.formStep5.get('reference_paiement')?.value,
-      telephone_paiement: this.indiceTelephoneTransaction + "" + this.formStep5.get('telephone_paiement')?.value,
+    this.clickSubmit = 1;
+    if (this.formStep5.valid && this.codeValid)
+    {
+      this.clickSubmit = 0;
 
-      email_pere: this.formStep3.get('email_pere')?.value,
-      telephone_pere: this.indiceTelephonePere + "" + this.formStep3.get('telephone_pere')?.value,
-      email_tuteur: this.formStep3.get('email_tuteur')?.value,
-      telephone_tuteur: this.indiceTelephoneTuteur + "" + this.formStep3.get('telephone_tuteur')?.value,
-      email_mere: this.formStep3.get('email_mere')?.value,
-      telephone_mere: this.indiceTelephoneMere + "" + this.formStep3.get('telephone_mere')?.value,
-      nom_parent2: this.formStep3.get('nom_parent2')?.value,
-      nom_parent1: this.formStep3.get('nom_parent1')?.value,
-
-      date_naissance: this.formStep2.get('date_naissance')?.value,
-      nationalite: this.formStep2.get('nationalite')?.value,
-      ville: this.formStep2.get('ville')?.value,
-      lieu_de_naissance: this.formStep2.get('lieu_naissance')?.value,
-      genre: this.formStep2.get('genre')?.value,
-
-      sessionId: this.session.id,
-      statut: "En_Attente",
-      compteID: Number(localStorage.getItem('idCandidat')) || 0,
-      code_examen: 0,
-      nombre_choix: this.candidatureForm.nombre_choix,
-      centre: this.candidatureForm.centre,
-      centreExamenId: this.candidatureForm.centreExamenId,
-      candidatureActif: true,
-    };
-
-    this.authService.register(this.compteform).subscribe({
-      next: value => {
-        this.candidatureForm.compteID = value.id;
-        this.addCandidature()
-      },
-      error: err => {
-        let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
-        this.toastr.error(msgError, 'Inscription échouée');
-        console.log(err);
-      }
-    });
-    return true;
+      this.compteform = {
+        name: this.formStep1.get('nom')?.value,
+        prenom: this.formStep1.get('prenom')?.value,
+        password: this.generateRandomPassword(8),
+        email: this.formStep1.get('email')?.value,
+        telephone: this.indiceTelephoneCandidat + "" + this.formStep1.get('telephone')?.value,
+        role: "CANDIDAT",
+        id_disponibilite: 0,
+        idZone: this.selectZone.id
+      };
+      this.candidatureForm = {
+        dernier_Etablissement: this.formStep4.get('dernier_etablissement')?.value,
+        langue: this.formStep4.get('langue')?.value,
+        paiement: this.formStep4.get('paiement')?.value,
+        cycle: this.formStep4.get('cycle')?.value,
+        diplome_universitaire: this.formStep4.get('diplome_universitaire')?.value,
+        image: this.formStep4.get('image')?.value,
+        hasExchange: this.formStep4.get('hasExchange')?.value,
+        serie_bac: this.formStep4.get('serie_bac')?.value === 'Autre' ? this.formStep4.get('serie_bac_input')?.value : this.formStep4.get('serie_bac')?.value,
+        formation1: this.formStep4.get('formation1')?.value,
+        formation2: this.formStep4.get('formation2')?.value,
+        formation3: this.formStep4.get('formation3')?.value,
+        formation_principal: this.formStep4.get('formation_principal')?.value,
+  
+        reference_paiement: this.formStep5.get('reference_paiement')?.value,
+        telephone_paiement: this.indiceTelephoneTransaction + "" + this.formStep5.get('telephone_paiement')?.value,
+  
+        email_pere: this.formStep3.get('email_pere')?.value,
+        telephone_pere: this.indiceTelephonePere + "" + this.formStep3.get('telephone_pere')?.value,
+        email_tuteur: this.formStep3.get('email_tuteur')?.value,
+        telephone_tuteur: this.indiceTelephoneTuteur + "" + this.formStep3.get('telephone_tuteur')?.value,
+        email_mere: this.formStep3.get('email_mere')?.value,
+        telephone_mere: this.indiceTelephoneMere + "" + this.formStep3.get('telephone_mere')?.value,
+        nom_parent2: this.formStep3.get('nom_parent2')?.value,
+        nom_parent1: this.formStep3.get('nom_parent1')?.value,
+  
+        date_naissance: this.formStep2.get('date_naissance')?.value,
+        nationalite: this.formStep2.get('nationalite')?.value,
+        ville: this.formStep2.get('ville')?.value,
+        lieu_de_naissance: this.formStep2.get('lieu_naissance')?.value,
+        genre: this.formStep2.get('genre')?.value,
+  
+        sessionId: this.session.id,
+        statut: "En_Attente",
+        compteID: Number(localStorage.getItem('idCandidat')) || 0,
+        code_examen: 0,
+        nombre_choix: this.candidatureForm.nombre_choix,
+        centre: this.candidatureForm.centre,
+        centreExamenId: this.candidatureForm.centreExamenId,
+        candidatureActif: true,
+      };
+  
+      this.authService.register(this.compteform).subscribe({
+        next: value => {
+          this.candidatureForm.compteID = value.id;
+          this.addCandidature()
+        },
+        error: err => {
+          let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+          this.toastr.error(msgError, 'Inscription échouée');
+          console.log(err);
+        }
+      });
+    }
+    
   }
 
   addCandidature() {
@@ -819,8 +859,8 @@ console.log("step:",this.step);
     return code;
   }
 
-  createAccount(step: number) {
+  /*createAccount(step: number) {
     this.step = step;
-  }
+  }*/
 
 }

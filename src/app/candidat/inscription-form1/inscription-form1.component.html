@@ -111,18 +111,22 @@
                         </div>
 
                        
-            <form [formGroup]="formStep1" (ngSubmit)="createAccount(step + 1)" class="row g-3  needs-validation"
-            novalidate [hidden]="!(step == 1)">
+            <form [formGroup]="formStep1" (ngSubmit)="setStepNext(step + 1)" class="row g-3  needs-validation"
+            novalidate [hidden]="!(step == 1)" [ngClass]="{
+                'was-validated':
+                formStep1.invalid &&
+                clickSuivant == 1
+            }">
             <p class="text-center mb-4">Informations personnelles pour la création de comptes</p>
             <div class="col-md-12">
               <div class="">
                 <label for="nom" class="form-label">Noms (*)</label>
                 <input formControlName="nom" required style="width: 100%;" type="text" id="nom" name="nom"
                   class="form-control form-control-lg" placeholder="Votre(Vos) Nom(s)" [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form1Controls['nom'].errors &&
                     form1Controls['nom'].touched,
-                    'is-valid': form1Controls['nom'].valid
+                    'is-valid custom-form-control-valid': form1Controls['nom'].valid
                 }">
                 <div *ngIf="form1Controls['nom'].errors" class="invalid-feedback">
                   <div *ngIf="form1Controls['nom'].errors['required']">Nom requis</div>
@@ -139,10 +143,10 @@
                 <label for="prenom" class="form-label"> Prénoms (*) </label>
                 <input formControlName="prenom" required style="width: 100%;" type="text" id="prenom" name="prenom"
                   class="form-control form-control-lg" placeholder=" Votre(Vos) Prénom(s) " [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form1Controls['prenom'].errors &&
                     form1Controls['prenom'].touched,
-                    'is-valid': form1Controls['prenom'].valid
+                    'is-valid custom-form-control-valid': form1Controls['prenom'].valid
                 }">
                 <div *ngIf="form1Controls['prenom'].errors" class="invalid-feedback">
                   <div *ngIf="form1Controls['prenom'].errors['required']">Prenom requis</div>
@@ -164,12 +168,12 @@
                       (click)="changeValidator(i, 'telephone','indiceTelephoneCandidat')">{{i}}</a></li>
                 </ul>
                 <input type="text" formControlName="telephone" placeholder="Votre numéro de téléphone "
-                  class="form-control  form-control-lg is-invalid" id="telephone"
+                  class="form-control  form-control-lg is-invalid custom-form-control-invalid" id="telephone"
                   aria-describedby="inputGroupPrepend3 telephoneFeedback" required [ngClass]="{
-  'is-invalid':
+  'is-invalid custom-form-control-invalid':
   form1Controls['telephone'].errors &&
   form1Controls['telephone'].touched,
-  'is-valid': form1Controls['telephone'].valid
+  'is-valid custom-form-control-valid': form1Controls['telephone'].valid
 }">
                 <div *ngIf="form1Controls['telephone'].errors" class="invalid-feedback">
                   <div *ngIf="form1Controls['telephone'].errors['required']">Numero de téléphone requis</div>
@@ -194,10 +198,10 @@
                 <label for="email" class="form-label"> Votre adresse email (*) </label>
                 <input formControlName="email" style="width: 100%;" type="text" id="email" name="email"
                   class="form-control form-control-lg" required placeholder="Votre adresse email" [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form1Controls['email'].errors &&
                     form1Controls['email'].touched,
-                    'is-valid': form1Controls['email'].valid
+                    'is-valid custom-form-control-valid': form1Controls['email'].valid
                 }">
                 <div *ngIf="form1Controls['email'].errors" class="invalid-feedback">
                   <div *ngIf="form1Controls['email'].errors['required']">Email requis</div>
@@ -211,14 +215,18 @@
 
             <div class="col-md-12">
               <div class="form-button">
-                <button type="submit" class="button radius-10 w-100" [disabled]="formStep1.invalid">Suivant</button>
+                <button type="submit" class="button radius-10 w-100">Suivant</button>
               </div>
             </div>
 
           </form>
 
-          <form [hidden]="!(step == 2)" [formGroup]="formStep2" (ngSubmit)="setStep(step + 1)"
-            class="row g-3 needs-validation was-validated" novalidate>
+          <form [hidden]="!(step == 2)" [formGroup]="formStep2" (ngSubmit)="setStepNext(step + 1)"
+            class="row g-3 needs-validation" novalidate [ngClass]="{
+              'was-validated':
+              formStep2.invalid &&
+              clickSuivant == 1
+          }">
             <p class="text-center mb-4">Informations supplementaires</p>
             <div class="col-md-12">
               <div class="">
@@ -226,10 +234,10 @@
                 <input formControlName="date_naissance" required max="{{currentDate | date:'yyyy-MM-dd'}}"
                   style="width: 100%;" class="form-control form-control-lg" type="date" id="date_naissance"
                   name="date_naissance" placeholder="Date de naissance" [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form2Controls['date_naissance'].errors &&
                     form2Controls['date_naissance'].touched,
-                    'is-valid': form2Controls['date_naissance'].valid
+                    'is-valid custom-form-control-valid': form2Controls['date_naissance'].valid
                 }">
                 <div *ngIf="form2Controls['date_naissance'].errors" class="invalid-feedback">
                   <div *ngIf="form2Controls['date_naissance'].errors['required']">Date de naissance requis</div>
@@ -249,10 +257,10 @@
                 <select formControlName="nationalite" required style="width: 100%;" id="nationalite"
                 name="nationalite" class="form-control form-control-lg" placeholder="Entrer votre nationalité "
                 [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form2Controls['nationalite'].errors &&
                   form2Controls['nationalite'].touched,
-                  'is-valid': form2Controls['nationalite'].valid
+                  'is-valid custom-form-control-valid': form2Controls['nationalite'].valid
               }">
               <option value="{{nationality}}" *ngFor="let nationality of nationalities">{{nationality}}</option>
               </select>
@@ -273,10 +281,10 @@
                 <p>Veuillez entrer un ville correcte</p>
                 <input formControlName="ville" required style="width: 100%;" type="text" id="ville" name="ville"
                   class="form-control form-control-lg" placeholder="Ville de résidence" [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form2Controls['ville'].errors &&
                     form2Controls['ville'].touched,
-                    'is-valid': form2Controls['ville'].valid
+                    'is-valid custom-form-control-valid': form2Controls['ville'].valid
                 }">
                 <div *ngIf="form2Controls['ville'].errors" class="invalid-feedback">
                   <div *ngIf="form2Controls['ville'].errors['required']">Ville de résidence requis</div>
@@ -296,10 +304,10 @@
                 <input formControlName="lieu_naissance" required style="width: 100%;" type="text" id="lieu_naissance"
                   name="lieu_naissance" class="form-control form-control-lg"
                   placeholder="Entrer votre lieu de naissance" [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form2Controls['lieu_naissance'].errors &&
                     form2Controls['lieu_naissance'].touched,
-                    'is-valid': form2Controls['lieu_naissance'].valid
+                    'is-valid custom-form-control-valid': form2Controls['lieu_naissance'].valid
                 }">
                 <div *ngIf="form2Controls['lieu_naissance'].errors" class="invalid-feedback">
                   <div *ngIf="form2Controls['lieu_naissance'].errors['minlength']">Ville de résidence doit avoir
@@ -316,14 +324,24 @@
               <div class="align-content-center">
                 <div class="form-check">
                   <input formControlName="genre" required class="form-check-input" value="M" type="radio" name="genre"
-                    id="genre1" checked>
+                    id="genre1" checked [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form2Controls['genre'].errors &&
+                      form2Controls['genre'].touched,
+                      'is-valid custom-form-control-valid': form2Controls['genre'].valid
+                  }">
                   <label class="form-check-label" for="genre1">
                     Masculin
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="genre" required class="form-check-input" value="F" type="radio" name="genre"
-                    id="genre2">
+                    id="genre2" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form2Controls['genre'].errors &&
+                      form2Controls['genre'].touched,
+                      'is-valid custom-form-control-valid': form2Controls['genre'].valid
+                  }">
                   <label class="form-check-label" for="genre2">
                     Féminin
                   </label>
@@ -334,19 +352,23 @@
             <div class="row mt-3">
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
+                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100" [disabled]="formStep2.invalid">Suivant</button>
+                  <button type="submit" class="button radius-10 w-100">Suivant</button>
                 </div>
               </div>
             </div>
           </form>
 
-          <form [hidden]="!(step==3)" [formGroup]="formStep3" (ngSubmit)="setStep(step + 1)"
-            class="row g-3 needs-validation was-validated" novalidate>
+          <form [hidden]="!(step==3)" [formGroup]="formStep3" (ngSubmit)="setStepNext(step + 1)"
+            class="row g-3 needs-validation" novalidate [ngClass]="{
+              'was-validated':
+              formStep3.invalid &&
+              clickSuivant == 1
+          }">
             <p class="text-center mb-4">Informations relatives aux tuteurs/parents</p>
 
 
@@ -355,10 +377,10 @@
                 <label for="nom_parent1" class="form-label">Nom du Père (*)</label>
                 <input formControlName="nom_parent1" required style="width: 100%;" type="text" id="nom_parent1"
                   name="nom_parent1" class="form-control form-control-lg" placeholder="Nom de votre Père " [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form3Controls['nom_parent1'].errors &&
                     form3Controls['nom_parent1'].touched,
-                    'is-valid': form3Controls['nom_parent1'].valid
+                    'is-valid custom-form-control-valid': form3Controls['nom_parent1'].valid
                 }">
                 <div *ngIf="form3Controls['nom_parent1'].errors" class="invalid-feedback">
                   <div *ngIf="form3Controls['nom_parent1'].errors['minlength']">Le nom du père doit avoir minimun 3
@@ -377,10 +399,10 @@
                 <input formControlName="email_pere" style="width: 100%;" type="email" id="email_pere"
                   name="email_pere" class="form-control form-control-lg" placeholder="Adresse email du père"
                   [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form3Controls['email_pere'].errors &&
                     form3Controls['email_pere'].touched,
-                    'is-valid': form3Controls['email_pere'].valid
+                    'is-valid custom-form-control-valid': form3Controls['email_pere'].valid
                 }">
                 <div *ngIf="form3Controls['email_pere'].errors" class="invalid-feedback">
                   <div *ngIf="form3Controls['email_pere'].errors['required']">Email requis</div>
@@ -401,12 +423,12 @@
                   <li><a class="dropdown-item" *ngFor="let i of indices" (click)="changeValidator(i, 'telephone_pere','indiceTelephonePere')">{{i}}</a>
                   </li>
                 </ul>
-                <input type="text" formControlName="telephone_pere" class="form-control  form-control-lg is-invalid"
+                <input type="text" formControlName="telephone_pere" class="form-control  form-control-lg is-invalid custom-form-control-invalid"
                   id="telephone_pere" aria-describedby="inputGroupPrepend3 telephone_pereFeedback" required [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form3Controls['telephone_pere'].errors &&
                     form3Controls['telephone_pere'].touched,
-                    'is-valid': form3Controls['telephone_pere'].valid
+                    'is-valid custom-form-control-valid': form3Controls['telephone_pere'].valid
                 }">
                 <div *ngIf="form3Controls['telephone_pere'].errors" class="invalid-feedback">
                   <div *ngIf="form3Controls['telephone_pere'].errors['notConform']">Le numero de téléphone doit être
@@ -430,10 +452,10 @@
                 <label for="nom_parent2" class="form-label">Nom de la Mère (*)</label>
                 <input formControlName="nom_parent2" required style="width: 100%;" type="text" id="nom_parent2"
                   name="nom_parent2" class="form-control form-control-lg" placeholder="Nom de votre Mère " [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form3Controls['nom_parent2'].errors &&
                     form3Controls['nom_parent2'].touched,
-                    'is-valid': form3Controls['nom_parent2'].valid
+                    'is-valid custom-form-control-valid': form3Controls['nom_parent2'].valid
                 }">
                 <div *ngIf="form3Controls['nom_parent2'].errors" class="invalid-feedback">
                   <div *ngIf="form3Controls['nom_parent2'].errors['minlength']">Le nom de la mère doit avoir minimun 3
@@ -453,10 +475,10 @@
                 <input formControlName="email_mere" style="width: 100%;" type="email" id="email_mere"
                   name="email_mere" class="form-control form-control-lg" placeholder="Adresse email de la mère"
                   [ngClass]="{
-                    'is-invalid':
+                    'is-invalid custom-form-control-invalid':
                     form3Controls['email_mere'].errors &&
                     form3Controls['email_mere'].touched,
-                    'is-valid': form3Controls['email_mere'].valid
+                    'is-valid custom-form-control-valid': form3Controls['email_mere'].valid
                 }">
                 <div *ngIf="form3Controls['email_mere'].errors" class="invalid-feedback">
                   <div *ngIf="form3Controls['email_mere'].errors['required']">Email requis</div>
@@ -478,13 +500,13 @@
                     <li><a class="dropdown-item" *ngFor="let i of indices" (click)="changeValidator(i, 'telephone_mere', 'indiceTelephoneMere')">{{i}}</a>
                     </li>
                   </ul>
-                  <input type="text" formControlName="telephone_mere" class="form-control  form-control-lg is-invalid"
+                  <input type="text" formControlName="telephone_mere" class="form-control  form-control-lg is-invalid custom-form-control-invalid"
                     id="telephone_mere" aria-describedby="inputGroupPrepend3 telephone_mereFeedback" required
                     [ngClass]="{
-                      'is-invalid':
+                      'is-invalid custom-form-control-invalid':
                       form3Controls['telephone_mere'].errors &&
                       form3Controls['telephone_mere'].touched,
-                      'is-valid': form3Controls['telephone_mere'].valid
+                      'is-valid custom-form-control-valid': form3Controls['telephone_mere'].valid
                   }">
                   <div *ngIf="form3Controls['telephone_mere'].errors" class="invalid-feedback">
                     <div *ngIf="form3Controls['telephone_mere'].errors['required']">Numero de téléphone requis</div>
@@ -509,14 +531,24 @@
               <div class="align-content-center">
                 <div class="form-check">
                   <input formControlName="hasTutor" (change)="changeValidatorOfTutor('Oui')" required  class="form-check-input" value="Oui" type="radio"
-                    name="hasTutor" id="hasTutor1" #hasTutor checked>
+                    name="hasTutor" id="hasTutor1" #hasTutor checked [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form3Controls['hasTutor'].errors &&
+                      form3Controls['hasTutor'].touched,
+                      'is-valid custom-form-control-valid': form3Controls['hasTutor'].valid
+                  }">
                   <label class="form-check-label" for="hasTutor1">
                     Oui
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="hasTutor" (change)="changeValidatorOfTutor('Non')" required class="form-check-input" value="Non" type="radio"
-                    name="hasTutor" id="hasTutor2">
+                    name="hasTutor" id="hasTutor2" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form3Controls['hasTutor'].errors &&
+                      form3Controls['hasTutor'].touched,
+                      'is-valid custom-form-control-valid': form3Controls['hasTutor'].valid
+                  }">
                   <label class="form-check-label" for="hasTutor2">
                     Non
                   </label>
@@ -531,10 +563,10 @@
                   <input formControlName="email_tuteur" style="width: 100%;" type="email" id="email_tuteur"
                     name="email_tuteur" class="form-control form-control-lg" placeholder="Adresse email du tuteur"
                     [ngClass]="{
-                      'is-invalid':
+                      'is-invalid custom-form-control-invalid':
                       form3Controls['email_tuteur'].errors &&
                       form3Controls['email_tuteur'].touched,
-                      'is-valid': form3Controls['email_tuteur'].valid
+                      'is-valid custom-form-control-valid': form3Controls['email_tuteur'].valid
                   }">
                   <div *ngIf="form3Controls['email_tuteur'].errors" class="invalid-feedback">
                     <div *ngIf="form3Controls['email_tuteur'].errors['required']">Email requis</div>
@@ -557,12 +589,12 @@
                           (click)="changeValidator(i, 'telephone_tuteur', 'indiceTelephoneTuteur')">{{i}}</a></li>
                     </ul>
                     <input type="text" formControlName="telephone_tuteur"
-                      class="form-control  form-control-lg is-invalid" id="telephone_tuteur"
+                      class="form-control  form-control-lg is-invalid custom-form-control-invalid" id="telephone_tuteur"
                       aria-describedby="inputGroupPrepend3 telephone_tuteurFeedback" required [ngClass]="{
-                            'is-invalid':
+                            'is-invalid custom-form-control-invalid':
                             form3Controls['telephone_tuteur'].errors &&
                             form3Controls['telephone_tuteur'].touched,
-                            'is-valid': form3Controls['telephone_tuteur'].valid
+                            'is-valid custom-form-control-valid': form3Controls['telephone_tuteur'].valid
                         }">
                     <div *ngIf="form3Controls['telephone_tuteur'].errors" class="invalid-feedback">
                       <div *ngIf="form3Controls['telephone_tuteur'].errors['required']">Numero de téléphone requis
@@ -591,19 +623,23 @@
             <div class="row mt-3">
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
+                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100" [disabled]="formStep3.invalid">Suivant</button>
+                  <button type="submit" class="button radius-10 w-100">Suivant</button>
                 </div>
               </div>
             </div>
           </form>
 
-          <form [hidden]="!(step==4)" [formGroup]="formStep4" (ngSubmit)="setStep(step + 1)"
-            class="row g-3 needs-validation was-validated" novalidate>
+          <form [hidden]="!(step==4)" [formGroup]="formStep4" (ngSubmit)="setStepNext(step + 1)"
+            class="row g-3 needs-validation" novalidate [ngClass]="{
+              'was-validated':
+              formStep4.invalid &&
+              clickSuivant == 1
+          }">
             <p class="text-center mb-4">Informations sur votre scolarité</p>
 
             <div class="col-md-12">
@@ -611,14 +647,24 @@
               <div class="align-content-center">
                 <div class="form-check">
                   <input formControlName="langue" required class="form-check-input" value="Francais" type="radio"
-                    name="langue" id="langue1" checked>
+                    name="langue" id="langue1" checked [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['langue'].errors &&
+                      form4Controls['langue'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['langue'].valid
+                  }">
                   <label class="form-check-label" for="langue1">
                     Français
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="langue" required class="form-check-input" value="Anglais" type="radio"
-                    name="langue" id="langue2">
+                    name="langue" id="langue2" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['langue'].errors &&
+                      form4Controls['langue'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['langue'].valid
+                  }">
                   <label class="form-check-label" for="langue2">
                     Anglais
                   </label>
@@ -632,10 +678,10 @@
                 <input formControlName="dernier_etablissement" required style="width: 100%;" type="text"
                   id="dernier_etablissement" name="dernier_etablissement" class="form-control form-control-lg"
                   placeholder="Entrer votre dernier établissement" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['dernier_etablissement'].errors &&
                   form4Controls['dernier_etablissement'].touched,
-                  'is-valid': form4Controls['dernier_etablissement'].valid
+                  'is-valid custom-form-control-valid': form4Controls['dernier_etablissement'].valid
               }">
                 <div *ngIf="form4Controls['dernier_etablissement'].errors" class="invalid-feedback">
                   <div *ngIf="form4Controls['dernier_etablissement'].errors['required']">Dernier établissement requis
@@ -651,42 +697,72 @@
               <div class="align-content-center">
                 <div class="form-check">
                   <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Science"
-                    type="radio" name="serie_bac" id="serie_bac1" checked>
+                    type="radio" name="serie_bac" id="serie_bac1" (click)="checkIfSerieBacc('GCE A Level Science')" checked [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['serie_bac'].errors &&
+                      form4Controls['serie_bac'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
+                  }">
                   <label class="form-check-label" for="serie_bac1">
                     GCE A Level Science
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="serie_bac" required class="form-check-input" value="GCE A Level Arts"
-                    type="radio" name="serie_bac" id="serie_bac2">
+                    type="radio" name="serie_bac" id="serie_bac2" (click)="checkIfSerieBacc('GCE A Level Arts')" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['serie_bac'].errors &&
+                      form4Controls['serie_bac'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
+                  }">
                   <label class="form-check-label" for="serie_bac2">
                     GCE A Level Arts
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="serie_bac" required class="form-check-input" value="C" type="radio"
-                    name="serie_bac" id="serie_bac3">
+                    name="serie_bac" id="serie_bac3" (click)="checkIfSerieBacc('C')" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['serie_bac'].errors &&
+                      form4Controls['serie_bac'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
+                  }">
                   <label class="form-check-label" for="serie_bac3">
                     C
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="serie_bac" required class="form-check-input" value="D" type="radio"
-                    name="serie_bac" id="serie_bac4">
+                    name="serie_bac" id="serie_bac4" (click)="checkIfSerieBacc('D')" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['serie_bac'].errors &&
+                      form4Controls['serie_bac'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
+                  }">
                   <label class="form-check-label" for="serie_bac4">
                     D
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="serie_bac" required class="form-check-input" value="TI" type="radio"
-                    name="serie_bac" id="serie_bac5">
+                    name="serie_bac" id="serie_bac5" (click)="checkIfSerieBacc('TI')" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['serie_bac'].errors &&
+                      form4Controls['serie_bac'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
+                  }">
                   <label class="form-check-label" for="serie_bac5">
                     TI
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="serie_bac" required class="form-check-input" value="Autre" type="radio"
-                    name="serie_bac" id="serie_bac6" (click)="checkIfSerieBacc()">
+                    name="serie_bac" id="serie_bac6" (click)="checkIfSerieBacc('Autre')" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['serie_bac'].errors &&
+                      form4Controls['serie_bac'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['serie_bac'].valid
+                  }">
                   <label class="form-check-label" for="serie_bac6">
                     Autre
                   </label>
@@ -699,10 +775,10 @@
                 <input formControlName="serie_bac_input" required style="width: 100%;" type="text"
                   id="serie_bac_input" name="serie_bac_input" class="form-control form-control-lg"
                   placeholder="Entrer votre type de baccalaureat obtenu" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['serie_bac_input'].errors &&
                   form4Controls['serie_bac_input'].touched,
-                  'is-valid': form4Controls['serie_bac_input'].valid
+                  'is-valid custom-form-control-valid': form4Controls['serie_bac_input'].valid
               }">
                 <div *ngIf="form4Controls['serie_bac_input'].errors" class="invalid-feedback">
                   <div *ngIf="form4Controls['serie_bac_input'].errors['required']">Baccalaureat requis
@@ -725,14 +801,24 @@
               <div class="align-content-center">
                 <div class="form-check">
                   <input formControlName="cycle" required (click)="checkIf2Cycle('premier')" class="form-check-input"
-                    value="premier" type="radio" name="cycle" id="cycle1" checked>
+                    value="premier" type="radio" name="cycle" id="cycle1" checked [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['cycle'].errors &&
+                      form4Controls['cycle'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['cycle'].valid
+                  }">
                   <label class="form-check-label" for="cycle1">
                     1er cycle
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="cycle" (click)="checkIf2Cycle('second')" required class="form-check-input"
-                    value="second" type="radio" name="cycle" id="cycle2">
+                    value="second" type="radio" name="cycle" id="cycle2" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['cycle'].errors &&
+                      form4Controls['cycle'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['cycle'].valid
+                  }">
                   <label class="form-check-label" for="cycle2">
                     2nd cycle
                   </label>
@@ -746,10 +832,10 @@
                 <input formControlName="diplome_universitaire" required style="width: 100%;" type="text"
                   id="diplome_universitaire" name="diplome_universitaire" class="form-control form-control-lg"
                   placeholder="Entrer votre diplome universitaire" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['diplome_universitaire'].errors &&
                   form4Controls['diplome_universitaire'].touched,
-                  'is-valid': form4Controls['diplome_universitaire'].valid
+                  'is-valid custom-form-control-valid': form4Controls['diplome_universitaire'].valid
               }">
                 <div *ngIf="form4Controls['diplome_universitaire'].errors" class="invalid-feedback">
                   <div *ngIf="form4Controls['diplome_universitaire'].errors['required']">Diplome universitaire requis
@@ -772,10 +858,10 @@
                   candidatez (*)</label>
                 <select formControlName="nombre_formation" (change)="changeValidatorFormation()" required style="width: 100%;" type="text"
                   id="nombre_formation" name="nombre_formation" class="form-control form-control-lg" [ngClass]="{
-                'is-invalid':
+                'is-invalid custom-form-control-invalid':
                 form4Controls['nombre_formation'].errors &&
                 form4Controls['nombre_formation'].touched,
-                'is-valid': form4Controls['nombre_formation'].valid
+                'is-valid custom-form-control-valid': form4Controls['nombre_formation'].valid
             }">
                   <option value="">Selectionner le nombre de formations</option>
                   <option value="01">01</option>
@@ -798,10 +884,10 @@
                   <label for="formation1" class="form-label">Premier choix</label>
                   <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
                     name="formation1" class="form-control form-control-lg" [required]="form4Controls['formation1'].invalid" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['formation1'].errors &&
                   form4Controls['formation1'].touched,
-                  'is-valid': form4Controls['formation1'].valid
+                  'is-valid custom-form-control-valid': form4Controls['formation1'].valid
               }">
                     <option value="">Selectionner le premier choix</option>
                     <option value="L">L - Ingénieur généraliste par apprentissage ou génie des procédés</option>
@@ -824,10 +910,10 @@
                   <label for="formation2" class="form-label">Deuxième choix</label>
                   <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
                     name="formation2" class="form-control form-control-lg" [required]="form4Controls['formation2'].invalid" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['formation2'].errors &&
                   form4Controls['formation2'].touched,
-                  'is-valid': form4Controls['formation2'].valid
+                  'is-valid custom-form-control-valid': form4Controls['formation2'].valid
               }">
                     <option value="">Selectionner le deuxième choix</option>
                     <option value="L" *ngIf="formStep4.get('formation1')?.value != 'L'">L - ingénieur généraliste par
@@ -852,10 +938,10 @@
                   <label for="formation3" class="form-label">Troisième 3</label>
                   <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
                     name="formation3" class="form-control form-control-lg" [required]="form4Controls['formation3'].invalid" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['formation3'].errors &&
                   form4Controls['formation3'].touched,
-                  'is-valid': form4Controls['formation3'].valid
+                  'is-valid custom-form-control-valid': form4Controls['formation3'].valid
               }">
                     <option value="">Selectionner le troisième choix</option>
                     <option value="L"
@@ -886,10 +972,10 @@
                   <label for="formation1" class="form-label">Premier 1</label>
                   <select formControlName="formation1" style="width: 100%;" type="text" id="formation1"
                     name="formation1" class="form-control form-control-lg" [required]="form4Controls['formation1'].invalid" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['formation1'].errors &&
                   form4Controls['formation1'].touched,
-                  'is-valid': form4Controls['formation1'].valid
+                  'is-valid custom-form-control-valid': form4Controls['formation1'].valid
               }">
                     <option value="">Selectionner le premier choix</option>
                     <option value="IP">IP - Ingénieur genie des procédés</option>
@@ -912,10 +998,10 @@
                   <label for="formation2" class="form-label">Deuxième choix</label>
                   <select formControlName="formation2" style="width: 100%;" type="text" id="formation2"
                     name="formation2" class="form-control form-control-lg" [required]="form4Controls['formation2'].invalid" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['formation2'].errors &&
                   form4Controls['formation2'].touched,
-                  'is-valid': form4Controls['formation2'].valid
+                  'is-valid custom-form-control-valid': form4Controls['formation2'].valid
               }">
                     <option value="">Selectionner le deuxième choix</option>
                     <option value="IP" *ngIf="formStep4.get('formation1')?.value != 'IP'">IP - Ingénieur genie des
@@ -940,10 +1026,10 @@
                   <label for="formation3" class="form-label">Troisième choix</label>
                   <select formControlName="formation3" style="width: 100%;" type="text" id="formation3"
                     name="formation3" class="form-control form-control-lg" [required]="form4Controls['formation3'].invalid" [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   form4Controls['formation3'].errors &&
                   form4Controls['formation3'].touched,
-                  'is-valid': form4Controls['formation3'].valid
+                  'is-valid custom-form-control-valid': form4Controls['formation3'].valid
               }">
                     <option value="">Selectionner le troisième choix</option>
                     <option value="IP"
@@ -1005,14 +1091,24 @@
               <div class="align-content-center">
                 <div class="form-check">
                   <input formControlName="hasExchange" required class="form-check-input" value="Oui" type="radio"
-                    name="hasExchange" id="hasExchange1" checked>
+                    name="hasExchange" id="hasExchange1" checked [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['hasExchange'].errors &&
+                      form4Controls['hasExchange'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['hasExchange'].valid
+                  }">
                   <label class="form-check-label" for="hasExchange1">
                     Oui
                   </label>
                 </div>
                 <div class="form-check">
                   <input formControlName="hasExchange" required class="form-check-input" value="Non" type="radio"
-                    name="hasExchange" id="hasExchange2">
+                    name="hasExchange" id="hasExchange2" [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                      form4Controls['hasExchange'].errors &&
+                      form4Controls['hasExchange'].touched,
+                      'is-valid custom-form-control-valid': form4Controls['hasExchange'].valid
+                  }">
                   <label class="form-check-label" for="hasExchange2">
                     Non
                   </label>
@@ -1034,19 +1130,23 @@
             <div class="row mt-3">
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
+                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100" [disabled]="formStep4.invalid">Suivant</button>
+                  <button type="submit" class="button radius-10 w-100">Suivant</button>
                 </div>
               </div>
             </div>
           </form>
 
           <form *ngIf="step == 5" [formGroup]="formStep5" (ngSubmit)="onSubmit()" class="row g-3 needs-validation"
-            novalidate>
+            novalidate [ngClass]="{
+              'was-validated':
+              formStep5.invalid &&
+              clickSubmit == 1
+          }">
             <div class="col-md-12">
               <p> {{siteSelected.msgPaiement}} </p>
             </div>
@@ -1057,16 +1157,16 @@
                 <input formControlName="reference_paiement" (ngModelChange)="checkCode()" required
                   style="width: 100%;" type="text" id="reference_paiement" name="reference_paiement"
                   class="form-control form-control-lg" placeholder=" Exemple :MP220315.13.49.A18995 " [ngClass]="{
-                  'is-invalid':
+                  'is-invalid custom-form-control-invalid':
                   (form5Controls['reference_paiement'].errors &&
-                  form5Controls['reference_paiement'].touched) || codeExists,
-                  'is-valid': form5Controls['reference_paiement'].valid
+                  form5Controls['reference_paiement'].touched) || codeExists || (!codeValid && clickSubmit==1),
+                  'is-valid custom-form-control-valid': form5Controls['reference_paiement'].valid && codeValid
               }">
                 <div *ngIf="form5Controls['reference_paiement'].errors" class="invalid-feedback">
                   <div *ngIf="form5Controls['reference_paiement'].errors['required']">Reference de paiement requis
                   </div>
                 </div>
-                <div *ngIf="codeExists" class="invalid-feedback">
+                <div *ngIf="(codeExists || !codeValid) && !form5Controls['reference_paiement'].errors" class="invalid-feedback">
                   <div>Le code {{formStep5.get('reference_paiement')?.value}} n'est pas valide !!!
                     Il a déjà été utilisé ou est incorrect ! <br> Veillez réessayez</div>
                 </div>
@@ -1087,12 +1187,12 @@
                       (click)="indiceTelephoneTransaction = i">{{i}}</a></li>
                 </ul>
                 <input type="text" formControlName="telephone_paiement" placeholder=" Exemple : 6 9XX XXX XXX "
-                  class="form-control  form-control-lg is-invalid" id="telephone_paiement"
+                  class="form-control  form-control-lg is-invalid custom-form-control-invalid" id="telephone_paiement"
                   aria-describedby="inputGroupPrepend3 telephone_paiementFeedback" required [ngClass]="{
-          'is-invalid':
+          'is-invalid custom-form-control-invalid':
           form5Controls['telephone_paiement'].errors &&
           form5Controls['telephone_paiement'].touched,
-          'is-valid': form5Controls['telephone_paiement'].valid
+          'is-valid custom-form-control-valid': form5Controls['telephone_paiement'].valid
           }">
                 <div *ngIf="form5Controls['telephone_paiement'].errors" class="invalid-feedback">
                   <div *ngIf="form5Controls['telephone_paiement'].errors['required']">Numero de téléphone requis</div>
@@ -1115,13 +1215,12 @@
             <div class="row mt-3">
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="button" class="button radius-10 w-100" (click)="setStep(step - 1)">Précédent</button>
+                  <button type="button" class="button radius-10 w-100" (click)="setStepBack(step - 1)">Précédent</button>
                 </div>
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-button">
-                  <button type="submit" class="button radius-10 w-100"
-                    [disabled]="formStep5.invalid || !codeValid">Valider</button>
+                  <button type="submit" class="button radius-10 w-100">Valider</button>
                 </div>
               </div>
             </div>
