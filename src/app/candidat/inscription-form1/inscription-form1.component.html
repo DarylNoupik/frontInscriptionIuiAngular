@@ -2308,7 +2308,7 @@
                         (form5Controls['reference_paiement'].errors &&
                           form5Controls['reference_paiement'].touched) ||
                         codeExists ||
-                        (!codeValid && clickSubmit == 1),
+                        (!codeValid && clickSubmit == 1) || (!codeExists && !codeValid && changed==1),
                       'is-valid custom-form-control-valid':
                         form5Controls['reference_paiement'].valid && codeValid
                     }"

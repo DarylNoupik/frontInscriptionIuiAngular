@@ -2397,7 +2397,7 @@
                         (form5Controls['reference_paiement'].errors &&
                           form5Controls['reference_paiement'].touched) ||
                         codeExists ||
-                        (!codeValid && clickSubmit == 1),
+                        (!codeValid && clickSubmit == 1) || (!codeExists && !codeValid && changed==1),
                       'is-valid custom-form-control-valid':
                         form5Controls['reference_paiement'].valid && codeValid
                     }"
@@ -2510,19 +2510,7 @@
                     >
                       Numéro de téléphone doit être superieur à 0
                     </div>
-                    <div
-                      *ngIf="
-                        form5Controls['telephone_paiement'].errors['notConform']
-                      "
-                    >
-                      Le numéro de téléphone doit être des chiffres uniquement
-                      et respecter le format du pays selectionné
-                    </div>
-                    <div
-                      *ngIf="form5Controls['telephone_paiement'].errors['min']"
-                    >
-                      Numéro de téléphone doit être superieur à 0
-                    </div>
+                    
                     <div
                       *ngIf="
                         form5Controls['telephone_paiement'].errors['minlength']

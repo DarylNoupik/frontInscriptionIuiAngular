@@ -228,6 +228,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   public hasActiveSession!: boolean;
   clickSuivant: number = 0;
   clickSubmit: number = 0;
+  changed: number = 0;
   uploadedFile!: string;
   selectedFile! : File;
   public actualDate = new Date();
@@ -698,6 +699,7 @@ console.log("step:",this.step);
   }
 
   checkCode() {
+    this.changed = 1;
     this.candidatureService.allCodes().subscribe(
       (response) => {
         this.allcodes = response.allCode;
