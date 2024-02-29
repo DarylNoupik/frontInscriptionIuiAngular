@@ -16,6 +16,7 @@ import { UsersService } from 'src/app/_services/users.service';
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { createCamerounianNumberValidator, createInternationalNumberValidator, createStringValidatior, dateValidator, emailValidatior } from 'src/app/shared/validators/number_validator';
+import { IUtilisateurResponseModel } from 'src/app/_interfaces/utilisateur-response-model';
 
 @Component({
   selector: 'app-inscription-form1',
@@ -226,6 +227,18 @@ export class InscriptionForm1Component implements OnInit {
     'Zimbabwéen(ne)',
 ];
 
+public candidat : IUtilisateurResponseModel = {
+  id: 0,
+  name: "",
+  prenom: "",
+  password: "",
+  email: "",
+  telephone: 0,
+  role: "",
+  id_disponibilite: 0,
+  idZone : 0
+};
+
   public hasActiveSession!: boolean;
   uploadedFile!: string;
   selectedFile! : File;
@@ -318,10 +331,10 @@ export class InscriptionForm1Component implements OnInit {
   }
 
   formStep1: FormGroup = new FormGroup({
-    nom: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
-    prenom: new FormControl('', [Validators.required, createStringValidatior()]),
-    telephone: new FormControl('', [Validators.minLength(8), Validators.required, createCamerounianNumberValidator()]),
-    email: new FormControl('', [Validators.required, Validators.email,emailValidatior()]),
+    nom: new FormControl(this.candidat.name, [Validators.required, Validators.minLength(3), createStringValidatior()]),
+    prenom: new FormControl(this.candidat.prenom, [Validators.required, createStringValidatior()]),
+    telephone: new FormControl(this.candidat.telephone, [Validators.minLength(8), Validators.required, createCamerounianNumberValidator()]),
+    email: new FormControl(this.candidat.email, [Validators.required, Validators.email,emailValidatior()]),
   });
 
   changeValidator(indice: string, libelle: string, indiceElement: string) {
@@ -500,6 +513,8 @@ console.log("step:",this.step);
     private siteService: SitesService,
     private candidatureService: CandidatureService,
     private router: Router,
+    private tokenService: TokenService,
+    private  userService : UsersService,
     private toastr: ToastrService,
     private sessionService: SessionService,
     private http: HttpClient,
@@ -595,6 +610,27 @@ console.log("step:",this.step);
         }
       },
     });
+
+    let email = this.tokenService.getEmail();
+    this.userService.getUserByEmail(email).subscribe(
+      data => {
+        console.log(data);
+          this.candidat = data;
+          this.formStep1.get('nom')?.setValue(this.candidat.name);
+          this.formStep1.get('prenom')?.setValue(this.candidat.prenom);
+          this.formStep1.get('telephone')?.setValue(this.candidat.telephone);
+          this.formStep1.get('email')?.setValue(this.candidat.email);
+
+          this.formStep1.get('name')?.updateValueAndValidity();
+          this.formStep1.get('prenom')?.updateValueAndValidity();
+          this.formStep1.get('telephone')?.updateValueAndValidity();
+          this.formStep1.get('email')?.updateValueAndValidity();
+
+          this.formStep1.updateValueAndValidity();
+
+      },
+      error => console.log(error)
+    );
   }
 
   selectCenter(center: ICentre, zone: IZone) {
