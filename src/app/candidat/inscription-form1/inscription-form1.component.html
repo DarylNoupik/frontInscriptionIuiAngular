@@ -2288,7 +2288,55 @@
                 <p>{{ siteSelected.msgPaiement }}</p>
               </div>
 
-              <div class="col-md-12">
+              <div *ngIf="siteSelected.nom === 'Cameroun' || siteSelected.indicatif === '+237'" class="col-md-12">
+                <div class="">
+                  <label for="date_transaction" class="form-label"
+                    >Date de la transaction (*)</label
+                  >
+                  <input
+                    formControlName="date_transaction"
+                    required
+                    (ngModelChange)="checkCode()" 
+                    max="{{ todayDate | date : 'yyyy-MM-dd' }}"
+                    style="width: 100%"
+                    class="form-control form-control-lg"
+                    type="date"
+                    id="date_transaction"
+                    name="date_transaction"
+                    placeholder="Date de la transaction"
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form5Controls['date_transaction'].errors &&
+                        form5Controls['date_transaction'].touched,
+                      'is-valid custom-form-control-valid':
+                        form5Controls['date_transaction'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form5Controls['date_transaction'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="form5Controls['date_transaction'].errors['required']"
+                    >
+                      Date de transaction requise
+                    </div>
+                    <div *ngIf="form5Controls['date_transaction'].errors['max']">
+                      La date de transaction ne doit pas être supérieure au
+                      {{ todayDate | date : "yyyy-MM-dd" }}
+                    </div>
+                    
+                  </div>
+                  <div
+                    *ngIf="form5Controls['date_transaction'].valid"
+                    class="valid-feedback"
+                  >
+                    C'est bon!
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="siteSelected.nom !== 'Cameroun' || siteSelected.indicatif !== '+237'" class="col-md-12">
                 <div class="">
                   <label for="reference_paiement" class="form-label"
                     >Référence de paiement</label
@@ -2324,11 +2372,35 @@
                     >
                       Référence de paiement requis
                     </div>
+
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['noDate']
+                      "
+                    >
+                      Date de transaction requise. Veuillez renseigner la date de la transaction
+                    </div>
+
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['invalidFormat']
+                      "
+                    >
+                      Format invalide. Veuillez vérifier le code reçu sur votre numéro de téléphone et rééssayer
+                    </div>
+
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['invalidDate']
+                      "
+                    >
+                      Le code entré n'est pas compatible à la date de la transaction. Veuillez vérifier la date et votre code de transaction et rééssayer
+                    </div>
                   </div>
                   <div
                     *ngIf="
-                      (codeExists || !codeValid) &&
-                      !form5Controls['reference_paiement'].errors
+                      ((codeExists || !codeValid) &&
+                      !form5Controls['reference_paiement'].errors) && (siteSelected.nom !== 'Cameroun' || siteSelected.indicatif !== '+237')
                     "
                     class="invalid-feedback"
                   >
@@ -2342,6 +2414,78 @@
                   <div
                     *ngIf="
                       form5Controls['reference_paiement'].valid && codeValid
+                    "
+                    class="valid-feedback"
+                  >
+                    Le code {{ formStep5.get("reference_paiement")?.value }} est
+                    valide
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="siteSelected.nom === 'Cameroun' || siteSelected.indicatif === '+237'" class="col-md-12">
+                <div class="">
+                  <label for="reference_paiement" class="form-label"
+                    >Référence de paiement</label
+                  >
+                  <input
+                    formControlName="reference_paiement"
+                    (ngModelChange)="checkCode()"
+                    required
+                    style="width: 100%"
+                    type="text"
+                    id="reference_paiement"
+                    name="reference_paiement"
+                    class="form-control form-control-lg"
+                    placeholder=" Exemple :MP220315.13.49.A18995 "
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        (form5Controls['reference_paiement'].errors &&
+                          form5Controls['reference_paiement'].touched),
+                      'is-valid custom-form-control-valid':
+                        form5Controls['reference_paiement'].valid
+                    }"
+                  />
+                  <div
+                    *ngIf="form5Controls['reference_paiement'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['required']
+                      "
+                    >
+                      Reference de paiement requis
+                    </div>
+
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['noDate']
+                      "
+                    >
+                      Date de transaction requise. Veuillez renseigner la date de la transaction
+                    </div>
+
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['invalidFormat']
+                      "
+                    >
+                      Format invalide. Veuillez vérifier le code reçu sur votre numéro de téléphone et rééssayer
+                    </div>
+
+                    <div
+                      *ngIf="
+                        form5Controls['reference_paiement'].errors['invalidDate']
+                      "
+                    >
+                      Le code entré n'est pas compatible à la date de la transaction. Veuillez vérifier la date et votre code de transaction et rééssayer
+                    </div>
+                  </div>
+                  
+                  <div
+                    *ngIf="
+                      form5Controls['reference_paiement'].valid
                     "
                     class="valid-feedback"
                   >

@@ -15,7 +15,7 @@ import { TokenService } from 'src/app/_services/token.service';
 import { UsersService } from 'src/app/_services/users.service';
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createCamerounianNumberValidator, createInternationalNumberValidator, createStringValidatior, dateValidator, emailValidatior } from 'src/app/shared/validators/number_validator';
+import { createCamerounianNumberValidator, createInternationalNumberValidator, createStringValidatior, dateTransactionValidator, dateValidator, emailValidatior, reference_paiement_cameroun } from 'src/app/shared/validators/number_validator';
 import { IUtilisateurResponseModel } from 'src/app/_interfaces/utilisateur-response-model';
 
 @Component({
@@ -324,6 +324,7 @@ public candidat : IUtilisateurResponseModel = {
   public disableOption3 = false;
   public siteSelected!: ISite;
   public currentDate: Date = new Date();
+  public todayDate: Date = new Date();
   public dateBefore15Date: Date = new Date();
 
   mobileView = false;
@@ -433,6 +434,7 @@ console.log("step:",this.step);
   });
 
   formStep5: FormGroup = new FormGroup({
+    date_transaction: new FormControl('', [Validators.required, dateTransactionValidator()]),
     telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
     reference_paiement: new FormControl('', [Validators.required]),
   });
@@ -667,6 +669,19 @@ console.log("step:",this.step);
     }
     if ((step == 5) && this.formStep4.valid)
     {
+      if (this.siteSelected.nom != "Cameroun" || this.siteSelected.indicatif != "+237")
+      {
+        this.formStep5.get("date_transaction")?.clearValidators();
+        this.formStep5.get("date_transaction")?.updateValueAndValidity();
+        this.formStep5.updateValueAndValidity();
+      }
+      else{
+        this.formStep5.get("reference_paiement")?.addValidators(
+          reference_paiement_cameroun('date_transaction')
+        );
+        this.formStep5.get("date_transaction")?.updateValueAndValidity();
+        this.formStep5.updateValueAndValidity();
+      }
       this.step = step;
       this.clickSuivant = 0;
     }
@@ -759,6 +774,9 @@ console.log("step:",this.step);
           this.codeValid = false;
         }
       });
+
+      this.formStep5.get('reference_paiement')?.updateValueAndValidity();
+      this.formStep5.updateValueAndValidity();
   }
 
   generateRandomPassword(length: number): string {
@@ -773,7 +791,7 @@ console.log("step:",this.step);
 
   onSubmit() {
     this.clickSubmit = 1;
-    if (this.formStep5.valid && this.codeValid)
+    if (this.formStep5.valid && this.codeValid || (this.formStep5.valid && (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237")))
     {
       this.clickSubmit = 0;
 

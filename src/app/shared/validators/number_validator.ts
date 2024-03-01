@@ -119,3 +119,93 @@ export function dateValidator(): ValidatorFn {
     return null;
   };
 }
+
+export function dateTransactionValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+
+    if (!value) {
+      return null;
+    }
+
+    let date = new Date(value);
+
+    let dateCurrent = new Date();
+
+    let dateBefore15 = new Date();
+    dateBefore15.setFullYear(dateCurrent.getFullYear() - 15);
+
+    let dateBefore30 = new Date();
+    dateBefore30.setFullYear(dateCurrent.getFullYear() - 30);
+
+    if (date.getTime() > dateCurrent.getTime()) {
+      return {
+        max: true,
+      };
+    }
+
+    return null;
+  };
+}
+
+export function reference_paiement_cameroun(dateToCompare: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (!value) {
+      // Champ vide, pas d'erreur de validation
+      return null;
+    }
+
+    // Vérification du format de la chaîne de caractères
+    const regex = /^MP(\d{6})\.(\d{4})\..*$/;
+    if (!regex.test(value)) {
+      return { invalidFormat: true };
+    }
+
+    // Extraction de la date de la chaîne de caractères
+    const dateStringMP = value.substring(2, 8); // Récupère les 6 chiffres représentant la date
+    console.log("date code MP :" + dateStringMP);
+    const yearMP = parseInt(dateStringMP.substring(0, 2), 10); // Année à partir des deux premiers chiffres (ajoute 2000 car les deux chiffres représentent l'année sur 2 chiffres)
+    const monthMP = parseInt(dateStringMP.substring(2, 4), 10); // Mois (0-indexé)
+    const dayMP = parseInt(dateStringMP.substring(4, 6), 10); // Jour
+
+    const formattedMonthMP = monthMP < 10 ? '0' + monthMP : monthMP;
+    const formattedDayMP = dayMP < 10 ? '0' + dayMP : dayMP;
+
+    console.log("year "+yearMP +" -month " + monthMP +" -day " + dayMP)
+    const dateMP = ""+yearMP + formattedMonthMP + formattedDayMP+"";
+
+
+    // Validation de la date par rapport à la date passée en paramètre
+    
+    const dateTransactionControl = control.root;
+    const dateToCompare2 = new Date(dateTransactionControl?.get(dateToCompare)?.value);
+
+    const yearTR = dateToCompare2.getFullYear().toString().slice(-2); // Obtenez les deux derniers chiffres de l'année
+    const monthTR = dateToCompare2.getMonth() + 1; // Les mois sont 0-indexés, alors on ajoute 1
+    const dayTR = dateToCompare2.getDate();
+
+    // Formattez le mois et le jour pour qu'ils aient toujours deux chiffres (ajoutez un zéro devant si nécessaire)
+    const formattedMonth = monthTR < 10 ? '0' + monthTR : monthTR;
+    const formattedDay = dayTR < 10 ? '0' + dayTR : dayTR;
+
+    // Concaténez les parties formatées pour obtenir la chaîne de caractères finale
+    const dateStringTR = yearTR + formattedMonth.toString() + formattedDay.toString();
+
+    if (dateTransactionControl?.get(dateToCompare)?.value == "")
+    {
+      return { noDate: true }
+    }
+    else{
+      console.log("*********")
+      console.log("dateMP " + dateMP)
+      console.log("dateTR " + dateStringTR)
+      if (dateMP !== dateStringTR) {
+        return { invalidDate: true };
+      }
+    }
+    
+
+    return null; // La validation réussit
+  };
+}
