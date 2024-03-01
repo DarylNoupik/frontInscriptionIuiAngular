@@ -21,6 +21,25 @@ export function createCamerounianNumberValidator(): ValidatorFn {
   };
 }
 
+export function orangeCameroonNumberValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+
+    if (!value) {
+      return null; // La validation réussit si la valeur est vide
+    }
+
+    // Expression régulière pour valider les numéros Orange Cameroun
+    const regExp = new RegExp(/^(69\d{7}|65[5-9]\d{6})$/);
+
+    if (regExp.test(value)) {
+      return null; // La validation réussit si la valeur correspond à l'expression régulière
+    } else {
+      return { notOrangeCameroon: true }; // Une erreur de validation est renvoyée si la valeur ne correspond pas
+    }
+  };
+}
+
 export function createInternationalNumberValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;

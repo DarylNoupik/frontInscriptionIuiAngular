@@ -14,7 +14,7 @@ import { ICentre } from "../../_interfaces/icentre";
 import { query } from "@angular/animations";
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createCamerounianNumberValidator,createInternationalNumberValidator, createStringValidatior, emailValidatior, dateValidator, dateTransactionValidator, reference_paiement_cameroun } from 'src/app/shared/validators/number_validator';
+import { createCamerounianNumberValidator,createInternationalNumberValidator, createStringValidatior, emailValidatior, dateValidator, dateTransactionValidator, reference_paiement_cameroun, orangeCameroonNumberValidator } from 'src/app/shared/validators/number_validator';
 
 @Component({
   selector: 'app-public-form-inscription',
@@ -639,10 +639,12 @@ console.log("step:",this.step);
         this.formStep5.updateValueAndValidity();
       }
       else{
-        console.log("date : " + this.formStep5.get("date_transaction")?.value)
         this.formStep5.get("reference_paiement")?.addValidators(
           reference_paiement_cameroun('date_transaction')
         );
+
+        this.formStep5.get("telephone_paiement")?.setValidators([Validators.required, Validators.minLength(8), orangeCameroonNumberValidator()]);
+        this.formStep5.get("telephone_paiement")?.updateValueAndValidity();
         this.formStep5.get("date_transaction")?.updateValueAndValidity();
         this.formStep5.updateValueAndValidity();
       }

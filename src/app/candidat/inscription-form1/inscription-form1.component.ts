@@ -15,7 +15,7 @@ import { TokenService } from 'src/app/_services/token.service';
 import { UsersService } from 'src/app/_services/users.service';
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createCamerounianNumberValidator, createInternationalNumberValidator, createStringValidatior, dateTransactionValidator, dateValidator, emailValidatior, reference_paiement_cameroun } from 'src/app/shared/validators/number_validator';
+import { createCamerounianNumberValidator, createInternationalNumberValidator, createStringValidatior, dateTransactionValidator, dateValidator, emailValidatior, orangeCameroonNumberValidator, reference_paiement_cameroun } from 'src/app/shared/validators/number_validator';
 import { IUtilisateurResponseModel } from 'src/app/_interfaces/utilisateur-response-model';
 
 @Component({
@@ -679,6 +679,8 @@ console.log("step:",this.step);
         this.formStep5.get("reference_paiement")?.addValidators(
           reference_paiement_cameroun('date_transaction')
         );
+        this.formStep5.get("telephone_paiement")?.setValidators([Validators.required, Validators.minLength(8), orangeCameroonNumberValidator()]);
+        this.formStep5.get("telephone_paiement")?.updateValueAndValidity();
         this.formStep5.get("date_transaction")?.updateValueAndValidity();
         this.formStep5.updateValueAndValidity();
       }

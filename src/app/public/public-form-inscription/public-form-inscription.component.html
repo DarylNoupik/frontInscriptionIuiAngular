@@ -2639,6 +2639,14 @@
                       Le numéro de téléphone doit être des chiffres uniquement
                       et respecter le format du pays selectionné
                     </div>
+
+                    <div
+                      *ngIf="
+                        form5Controls['telephone_paiement'].errors['notOrangeCameroon']
+                      "
+                    >
+                      Le numéro de téléphone entré n'est pas un numéro Orange Cameroun
+                    </div>
                     <div
                       *ngIf="form5Controls['telephone_paiement'].errors['min']"
                     >
