@@ -102,12 +102,14 @@ export class InscriptionConfirmComponent implements OnInit {
     var boutonPrint = document.getElementById('print')!;
     var boutonAccueil = document.getElementById('backHome')!;
     var menu = document.getElementById('nav2')!;
-    var message = document.getElementById('message')!;
+    //var message = document.getElementById('message')!;
+    var note = document.getElementById('note')!;
     
     boutonPrint.style.display = 'none';
     boutonAccueil.style.display = 'none';    
     menu.style.display = 'none';    
-    message.style.display = 'none';    
+    //message.style.display = 'none';    
+    note.style.display = 'none';    
 
     html2canvas(dataNav).then(canvas1 => {
       // Capture du second élément
@@ -120,18 +122,20 @@ export class InscriptionConfirmComponent implements OnInit {
           // Création d'un PDF avec une orientation paysage
           let pdf = new jsPDF('l', 'mm', 'a4'); // 'l' pour paysage, 'mm' pour millimètres, 'a4' pour le format A4
 
+          // Ajout du second élément au PDF juste en dessous du premier
+          const contentDataURL2 = canvas2.toDataURL('image/png');
+          pdf.addImage(contentDataURL2, 'PNG', -73.75, 15, imgWidth*1.5, imgHeight2*1.5);
+
           // Ajout du premier élément au PDF
           const contentDataURL1 = canvas1.toDataURL('image/png');
           pdf.addImage(contentDataURL1, 'PNG', 15, 10, imgWidth*1.5, imgHeight1*1.5);
 
-          // Ajout du second élément au PDF juste en dessous du premier
-          const contentDataURL2 = canvas2.toDataURL('image/png');
-          pdf.addImage(contentDataURL2, 'PNG', -73.75, imgHeight1*1.5 + 10, imgWidth*1.5, imgHeight2*1.5);
-
+    
           boutonPrint.style.display = '';
           boutonAccueil.style.display = '';
           menu.style.display = '';
-          message.style.display = '';
+          //message.style.display = '';
+          note.style.display = '';
           // Sauvegarde du PDF en mode paysage
           pdf.save('candidat.pdf');
 

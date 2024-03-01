@@ -343,15 +343,7 @@
                     <div *ngIf="form1Controls['telephone'].errors['required']">
                       Numero de téléphone requis
                     </div>
-                    <div
-                      *ngIf="form1Controls['telephone'].errors['notConform']"
-                    >
-                      Le numero de téléphone doit être des chiffres uniquement
-                      et respecter le format du pays selectionné
-                    </div>
-                    <div *ngIf="form1Controls['telephone'].errors['min']">
-                      Numero de téléphone doit être superieur à 0
-                    </div>
+                    
                     <div
                       *ngIf="form1Controls['telephone'].errors['notConform']"
                     >
@@ -403,9 +395,7 @@
                     <div *ngIf="form1Controls['email'].errors['required']">
                       Email requis
                     </div>
-                    <div *ngIf="form1Controls['email'].errors['email']">
-                      Email non conforme
-                    </div>
+                    
                     <div *ngIf="form1Controls['email'].errors['notConform']">
                       Email non conforme
                     </div>

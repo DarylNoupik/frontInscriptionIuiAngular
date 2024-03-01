@@ -10,39 +10,42 @@
     <div class="row justify-content-center">
       <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
         <div class="section-title text-center mb-60">
-          <h4 class="wow fadeInUp" data-wow-delay=".4s">{{ session.nom }}</h4>
+          <h4 class="wow fadeInUp" data-wow-delay=".4s" style="color: #c81537">{{ session.nom }}</h4>
           <div>&nbsp;</div>
-          <p class="w-lg-50">
+
+          <h5 class="mb-15 wow fadeInUp" data-wow-delay=".2s">Cher <b>{{ name }}</b>,  
+            votre candidature a été enregistrée avec
+            succès👌🎯 <br> 
+          </h5>
+          <!--<p class="w-lg-50">
             <strong
               ><span
                 style="
                   color: rgb(73, 200, 73);
                   background-color: rgb(255, 255, 255);
                 "
-                >Cher {{ name }} Votre candidature a été enregistrée avec
-                succès👌🎯</span
-              ></strong
+                >Cher <b>{{ name }}</b>,  
+                votre candidature a été enregistrée avec
+                succès👌🎯
+              </span>
+            </strong
             >
-          </p>
-          <div class="row d-flex justify-content-center text-center">
+          </p>-->
+
+          <!--Connected User-->
+          <div *ngIf="!userIsConnected" class="row d-flex justify-content-center text-center">
             <div class="col-md-6 col-lg-4 col-xl-4">
               <div
                 class="d-flex flex-column justify-content-center align-items-start h-100"
               >
                 <div class="d-flex align-items-center text-center p-3">
                   <div class="px-2">
-                    <h6
-                      class="mb-0"
-                      style="
-                        color: rgb(224, 160, 75);
-                        font-family: 'Courier New', Courier, monospace;
-                      "
-                    >
-                      Votre code d&#39;examen
+                    <h6 class="mb-0">
+                      Votre code d&#39;examen: <br>
                     </h6>
                     <p class="mb-0">
                       <strong
-                        ><span style="color: rgb(159, 77, 72)">{{
+                        ><span style="color: #df650d">{{
                           code
                         }}</span></strong
                       >
@@ -51,22 +54,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-lg-5 col-xl-4">
+            <div class="col-md-6 col-lg-4 col-xl-4">
               <div></div>
               <div class="d-flex align-items-center text-center p-3">
                 <div class="px-2">
                   <h6
-                    class="mb-0"
-                    style="
-                      color: rgb(216, 152, 68);
-                      font-family: 'Courier New', Courier, monospace;
-                    "
-                  >
-                    Votre mot de passe de connexion est :
+                    class="mb-0">
+                    Votre mot de passe est : <br>
                   </h6>
                   <p class="mb-0">
                     <strong
-                      ><span style="color: rgb(160, 73, 68)">{{
+                      ><span style="color: #df650d">{{
                         password
                       }}</span></strong
                     >
@@ -75,24 +73,31 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="userIsConnected" class="row d-flex justify-content-center text-center">
+            <div class="col-md-6 col-lg-4 col-xl-4">
+              <div
+                class="d-flex flex-column justify-content-center align-items-start h-100"
+              >
+                <div class="d-flex align-items-center text-center p-3">
+                  <div class="px-2">
+                    <h6 class="mb-0">
+                      Votre code d&#39;examen: <br>
+                    </h6>
+                    <p class="mb-0">
+                      <strong
+                        ><span style="color: #df650d">{{
+                          code
+                        }}</span></strong
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <p class="w-lg-50">
-        <span class="badge bg-primary">Note :</span
-        ><em
-          ><br /><strong
-            ><span style="font-style: normal !important"
-              >Une fois votre candidature enregistrée  vous pouvez vous
-              connecter en renseignant votre email et le mot de passe ci
-              dessus.</span
-            ></strong
-          ></em
-        ><em
-          >Le code d&#39;examen correspond à votre numéro de banc le jour de
-          l&#39;examen bien vouloir garder ses informations</em
-        >
-      </p>
 
       <div class="col-12">
         <h6 class="text-center">
@@ -111,17 +116,23 @@
         <br />
       </div>
 
-      <div
-        id="message"
-        class="buttons justify-content-center align-self-center"
-      >
-        <h6>
-          Veuillez bien enregistrer votre code. Vous pouvez l'utiliser avec
-          votre adresse mail ou numéro de téléphone pour vous connecter sur la
-          plateforme et suivre l'évolution de votre candidature.
-        </h6>
-        <br />
-      </div>
+      <p id="note" class="w-lg-50">
+        <span class="badge" style="background-color: #c81537;">Note :</span
+        ><em
+          ><br />
+          <strong>
+            <span style="font-style: normal !important">
+              Une fois votre candidature enregistrée  vous pouvez vous
+              connecter en renseignant votre email et le mot de passe ci
+              dessus. 
+            </span>
+            </strong
+          ></em
+        ><em
+          > Le code d&#39;examen correspond à votre numéro de banc le jour de
+          l&#39;examen. Bien vouloir garder ces informations</em
+        >
+      </p>
 
       <div id="print" class="align-self-center">
         <h6>
