@@ -175,12 +175,6 @@ export function reference_paiement_cameroun(dateToCompare: string): ValidatorFn 
       return null;
     }
 
-    // Vérification du format de la chaîne de caractères
-    const regex = /^MP(\d{6})\.(\d{4})\..*$/;
-    if (!regex.test(value)) {
-      return { invalidFormat: true };
-    }
-
     // Extraction de la date de la chaîne de caractères
     const dateStringMP = value.substring(2, 8); // Récupère les 6 chiffres représentant la date
     console.log("date code MP :" + dateStringMP);
@@ -222,6 +216,12 @@ export function reference_paiement_cameroun(dateToCompare: string): ValidatorFn 
       if (dateMP !== dateStringTR) {
         return { invalidDate: true };
       }
+    }
+
+    // Vérification du format de la chaîne de caractères
+    const regex = /^MP(\d{6})\.(\d{4})\..*$/;
+    if (!regex.test(value)) {
+      return { invalidFormat: true };
     }
     
 
