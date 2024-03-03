@@ -198,6 +198,19 @@
               <p class="text-center mb-4">
                 Informations personnelles pour la création de comptes
               </p>
+              <p id="note" class="w-lg-50">
+                <span class="badge" style="background-color: #c81537"
+                  >Note :</span
+                ><em
+                  ><br />
+                  <strong>
+                    <span style="font-style: normal !important">
+                      Vos noms et prénoms devront être renseignés conformément à
+                      la structure de l'acte de naissance
+                    </span>
+                  </strong></em
+                >
+              </p>
               <div class="col-md-12">
                 <div class="">
                   <label for="nom" class="form-label">Noms (*)</label>
@@ -343,7 +356,7 @@
                     <div *ngIf="form1Controls['telephone'].errors['required']">
                       Numero de téléphone requis
                     </div>
-                    
+
                     <div
                       *ngIf="form1Controls['telephone'].errors['notConform']"
                     >
@@ -395,7 +408,7 @@
                     <div *ngIf="form1Controls['email'].errors['required']">
                       Email requis
                     </div>
-                    
+
                     <div *ngIf="form1Controls['email'].errors['notConform']">
                       Email non conforme
                     </div>
@@ -629,7 +642,7 @@
                         form2Controls['lieu_naissance'].errors['notConform']
                       "
                     >
-                      Lieu de naissances non conforme, ce dernier ne doit pas
+                      Lieu de naissance non conforme, ce dernier ne doit pas
                       uniquement avoir des espaces ou des chiffres ou des
                       caractères spéciaux
                     </div>
@@ -2367,7 +2380,13 @@
                 <p>{{ siteSelected.msgPaiement }}</p>
               </div>
 
-              <div *ngIf="siteSelected.nom === 'Cameroun' || siteSelected.indicatif === '+237'" class="col-md-12">
+              <div
+                *ngIf="
+                  siteSelected.nom === 'Cameroun' ||
+                  siteSelected.indicatif === '+237'
+                "
+                class="col-md-12"
+              >
                 <div class="">
                   <label for="date_transaction" class="form-label"
                     >Date de la transaction (*)</label
@@ -2375,7 +2394,7 @@
                   <input
                     formControlName="date_transaction"
                     required
-                    (ngModelChange)="checkCode()" 
+                    (ngModelChange)="checkCode()"
                     max="{{ todayDate | date : 'yyyy-MM-dd' }}"
                     style="width: 100%"
                     class="form-control form-control-lg"
@@ -2396,15 +2415,18 @@
                     class="invalid-feedback"
                   >
                     <div
-                      *ngIf="form5Controls['date_transaction'].errors['required']"
+                      *ngIf="
+                        form5Controls['date_transaction'].errors['required']
+                      "
                     >
                       Date de transaction requise
                     </div>
-                    <div *ngIf="form5Controls['date_transaction'].errors['max']">
+                    <div
+                      *ngIf="form5Controls['date_transaction'].errors['max']"
+                    >
                       La date de transaction ne doit pas être supérieure au
                       {{ todayDate | date : "yyyy-MM-dd" }}
                     </div>
-                    
                   </div>
                   <div
                     *ngIf="form5Controls['date_transaction'].valid"
@@ -2415,7 +2437,13 @@
                 </div>
               </div>
 
-              <div *ngIf="siteSelected.nom !== 'Cameroun' || siteSelected.indicatif !== '+237'" class="col-md-12">
+              <div
+                *ngIf="
+                  siteSelected.nom !== 'Cameroun' ||
+                  siteSelected.indicatif !== '+237'
+                "
+                class="col-md-12"
+              >
                 <div class="">
                   <label for="reference_paiement" class="form-label"
                     >Référence de paiement</label
@@ -2435,7 +2463,8 @@
                         (form5Controls['reference_paiement'].errors &&
                           form5Controls['reference_paiement'].touched) ||
                         codeExists ||
-                        (!codeValid && clickSubmit == 1) || (!codeExists && !codeValid && changed==1),
+                        (!codeValid && clickSubmit == 1) ||
+                        (!codeExists && !codeValid && changed == 1),
                       'is-valid custom-form-control-valid':
                         form5Controls['reference_paiement'].valid && codeValid
                     }"
@@ -2457,29 +2486,39 @@
                         form5Controls['reference_paiement'].errors['noDate']
                       "
                     >
-                      Date de transaction requise. Veuillez renseigner la date de la transaction
+                      Date de transaction requise. Veuillez renseigner la date
+                      de la transaction
                     </div>
 
                     <div
                       *ngIf="
-                        form5Controls['reference_paiement'].errors['invalidFormat']
+                        form5Controls['reference_paiement'].errors[
+                          'invalidFormat'
+                        ]
                       "
                     >
-                      Format invalide. Veuillez vérifier le code reçu sur votre numéro de téléphone et rééssayer
+                      Format invalide. Veuillez vérifier le code reçu sur votre
+                      numéro de téléphone et rééssayer
                     </div>
 
                     <div
                       *ngIf="
-                        form5Controls['reference_paiement'].errors['invalidDate']
+                        form5Controls['reference_paiement'].errors[
+                          'invalidDate'
+                        ]
                       "
                     >
-                      Le code entré n'est pas compatible à la date de la transaction. Veuillez vérifier la date et votre code de transaction et rééssayer
+                      Le code entré n'est pas compatible à la date de la
+                      transaction. Veuillez vérifier la date et votre code de
+                      transaction et rééssayer
                     </div>
                   </div>
                   <div
                     *ngIf="
-                      ((codeExists || !codeValid) &&
-                      !form5Controls['reference_paiement'].errors) && (siteSelected.nom !== 'Cameroun' || siteSelected.indicatif !== '+237')
+                      (codeExists || !codeValid) &&
+                      !form5Controls['reference_paiement'].errors &&
+                      (siteSelected.nom !== 'Cameroun' ||
+                        siteSelected.indicatif !== '+237')
                     "
                     class="invalid-feedback"
                   >
@@ -2502,7 +2541,13 @@
                 </div>
               </div>
 
-              <div *ngIf="siteSelected.nom === 'Cameroun' || siteSelected.indicatif === '+237'" class="col-md-12">
+              <div
+                *ngIf="
+                  siteSelected.nom === 'Cameroun' ||
+                  siteSelected.indicatif === '+237'
+                "
+                class="col-md-12"
+              >
                 <div class="">
                   <label for="reference_paiement" class="form-label"
                     >Référence de paiement</label
@@ -2519,8 +2564,8 @@
                     placeholder=" Exemple :MP220315.13.49.A18995 "
                     [ngClass]="{
                       'is-invalid custom-form-control-invalid':
-                        (form5Controls['reference_paiement'].errors &&
-                          form5Controls['reference_paiement'].touched),
+                        form5Controls['reference_paiement'].errors &&
+                        form5Controls['reference_paiement'].touched,
                       'is-valid custom-form-control-valid':
                         form5Controls['reference_paiement'].valid
                     }"
@@ -2542,30 +2587,35 @@
                         form5Controls['reference_paiement'].errors['noDate']
                       "
                     >
-                      Date de transaction requise. Veuillez renseigner la date de la transaction
+                      Date de transaction requise. Veuillez renseigner la date
+                      de la transaction
                     </div>
 
                     <div
                       *ngIf="
-                        form5Controls['reference_paiement'].errors['invalidFormat']
+                        form5Controls['reference_paiement'].errors[
+                          'invalidFormat'
+                        ]
                       "
                     >
-                      Code invalide. Veuillez vérifier le code reçu sur votre numéro de téléphone et rééssayer
+                      Code invalide. Veuillez vérifier le code reçu sur votre
+                      numéro de téléphone et rééssayer
                     </div>
 
                     <div
                       *ngIf="
-                        form5Controls['reference_paiement'].errors['invalidDate']
+                        form5Controls['reference_paiement'].errors[
+                          'invalidDate'
+                        ]
                       "
                     >
-                      Code invalide. Veuillez vérifier le code reçu sur votre numéro de téléphone et rééssayer
+                      Code invalide. Veuillez vérifier le code reçu sur votre
+                      numéro de téléphone et rééssayer
                     </div>
                   </div>
-                  
+
                   <div
-                    *ngIf="
-                      form5Controls['reference_paiement'].valid
-                    "
+                    *ngIf="form5Controls['reference_paiement'].valid"
                     class="valid-feedback"
                   >
                     Le code {{ formStep5.get("reference_paiement")?.value }} est
@@ -2642,17 +2692,20 @@
 
                     <div
                       *ngIf="
-                        form5Controls['telephone_paiement'].errors['notOrangeCameroon']
+                        form5Controls['telephone_paiement'].errors[
+                          'notOrangeCameroon'
+                        ]
                       "
                     >
-                      Le numéro de téléphone entré n'est pas un numéro Orange Cameroun
+                      Le numéro de téléphone entré n'est pas un numéro Orange
+                      Cameroun
                     </div>
                     <div
                       *ngIf="form5Controls['telephone_paiement'].errors['min']"
                     >
                       Numéro de téléphone doit être superieur à 0
                     </div>
-                    
+
                     <div
                       *ngIf="
                         form5Controls['telephone_paiement'].errors['minlength']
