@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class SessionService {
 
-  url: string = 'http://51.178.136.105:8080/session/active';
+  url: string = 'http://79.137.39.180:8080/session/active';
   // url: string = 'http://localhost:8080/api/v1/admin/session/active';
 
   constructor(private http: HttpClient) { }
