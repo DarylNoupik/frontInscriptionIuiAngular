@@ -16,9 +16,9 @@ export class AuthenticationService {
 
 
   //url:string = 'http://localhost:8081/token';
-  url: string = 'http://79.137.39.180:8081/token';
+  url: string = 'https://inscription.ucac-icam.com:8081/token';
   //url_register:string = 'http://localhost:8081/register';
-  url_register: string = 'http://79.137.39.180:8081/register';
+  url_register: string = 'https://inscription.ucac-icam.com:8081/register';
 
   constructor(private http: HttpClient, private baseUrlSvr: BaseUrlService, private router: Router) {
     //let url = `${this.baseUrlSvr.getOrigin()}${environment.accountPath}`;

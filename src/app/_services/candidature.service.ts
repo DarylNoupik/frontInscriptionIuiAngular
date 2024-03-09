@@ -13,14 +13,14 @@ import { ICodeValidatorModels } from '../_interfaces/icode-validator-models';
 export class CandidatureService {
 
   //url:string = 'http://localhost:9090/candidature/Candidats';
-  url: string = 'http://79.137.39.180:9090/candidature/Candidats';
-  urlhasCandidature: string = 'http://79.137.39.180:9090/candidature/';
+  url: string = 'https://inscription.ucac-icam.com:9090/candidature/Candidats';
+  urlhasCandidature: string = 'https://inscription.ucac-icam.com:9090/candidature/';
   //urlhasCandidature:string = 'http://localhost:9090/candidature/';
   idCcompte: string = "";
   //urlCodeTest : string = 'http://localhost:9090/candidature/all-codes';
-  urlCodeTest: string = 'http://79.137.39.180:9090/candidature/all-codes';
+  urlCodeTest: string = 'https://inscription.ucac-icam.com:9090/candidature/all-codes';
 
-  urlUploadImage : string = "http://79.137.39.180:9090/file/uploadFile/";
+  urlUploadImage : string = "https://inscription.ucac-icam.com:9090/file/uploadFile/";
 
   constructor(
     private http: HttpClient,

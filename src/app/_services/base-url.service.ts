@@ -13,7 +13,7 @@ export class BaseUrlService {
     this.origin =
       // 'http://' + window.location.hostname + ':' + environment.port + '/';
       // 'http://' + window.location.hostname;
-      'http://79.137.39.180';
+      'https://inscription.ucac-icam.com';
   }
 
   getOrigin() {
