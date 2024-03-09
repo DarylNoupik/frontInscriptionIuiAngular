@@ -100,7 +100,7 @@
                 name="examcenter"
                 style="width: 20px; height: 20px"
                 type="radio"
-                (click)="selectCenter(item2, item.zone)"
+                (click)="selectCenter(item2, item.zone, item.indicatif)"
                 class="form-input"
               />
               &nbsp;
@@ -302,13 +302,14 @@
                   >Votre numéro de téléphone (*)</label
                 >
                 <div class="input-group has-validation">
+                  
                   <button
-                    class="btn btn-outline-secondary d ropdown-toggle"
+                    class="btn btn-outline-secondary dropdown-toggle"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {{ indiceTelephoneCandidat }}
+                    {{ indiceTelephonePere }}
                   </button>
                   <ul
                     class="dropdown-menu"

@@ -235,7 +235,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
-  public indiceTelephoneCandidat: string = "+237";
+  public indiceTelephoneCandidat: string = "+27";
   public indiceTelephonePere: string = "+237";
   public indiceTelephoneMere: string = "+237";
   public indiceTelephoneTuteur: string = "+237";
@@ -603,10 +603,15 @@ console.log("step:",this.step);
     });
   }
 
-  selectCenter(center: ICentre, zone: IZone) {
+  selectCenter(center: ICentre, zone: IZone, indicatif: any) {
     this.candidatureForm.centre = center.nom;
     this.candidatureForm.centreExamenId = center.id;
     this.selectZone = zone;
+    this.indiceTelephoneCandidat = indicatif;
+    this.indiceTelephonePere  = indicatif;
+    this.indiceTelephoneMere = indicatif;
+    this.indiceTelephoneTransaction = indicatif;
+    this.indiceTelephoneTuteur = indicatif;
   }
 
   setStepBack(step: number)

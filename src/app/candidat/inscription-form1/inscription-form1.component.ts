@@ -667,7 +667,7 @@ console.log("step:",this.step);
       this.step = step;
       this.clickSuivant = 0;
     }
-    if ((step == 5) && this.formStep4.valid)
+    if ((step == 5) && this.formStep4.valid) 
     {
       if (this.siteSelected.nom != "Cameroun" || this.siteSelected.indicatif != "+237")
       {
