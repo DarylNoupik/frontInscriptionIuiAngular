@@ -2324,10 +2324,18 @@
                     formControlName="image"
                     type="file"
                     id="image"
+                    required
                     class="form-control form-control-lg"
                     (change)="onFileChanged($event)"
                     accept=".jpg, .jpeg, .png"
-                    name="image"
+                    name="image" 
+                    [ngClass]="{
+                      'is-invalid custom-form-control-invalid':
+                        form4Controls['hasExchange'].errors &&
+                        form4Controls['hasExchange'].touched,
+                      'is-valid custom-form-control-valid':
+                        form4Controls['hasExchange'].valid
+                    }"
                   />
                   &nbsp;
                   <div
@@ -2383,7 +2391,7 @@
               <div
                 *ngIf="
                   siteSelected.nom === 'Cameroun' ||
-                  siteSelected.indicatif === '+237'
+                  siteSelected.indicatif === '+237' || siteSelected.nom === 'République du Congo' || siteSelected.indicatif === '+242'
                 "
                 class="col-md-12"
               >
@@ -2439,8 +2447,7 @@
 
               <div
                 *ngIf="
-                  siteSelected.nom !== 'Cameroun' ||
-                  siteSelected.indicatif !== '+237'
+                  (siteSelected.nom !== 'Cameroun' || siteSelected.indicatif !== '+237') && (siteSelected.nom !== 'République du Congo' || siteSelected.indicatif !== '+242')
                 "
                 class="col-md-12"
               >
@@ -2544,7 +2551,7 @@
               <div
                 *ngIf="
                   siteSelected.nom === 'Cameroun' ||
-                  siteSelected.indicatif === '+237'
+                  siteSelected.indicatif === '+237' || siteSelected.nom === 'République du Congo' || siteSelected.indicatif === '+242'
                 "
                 class="col-md-12"
               >
