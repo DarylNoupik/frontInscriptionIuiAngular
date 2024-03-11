@@ -111,6 +111,43 @@ export class InscriptionConfirmComponent implements OnInit {
     //message.style.display = 'none';    
     note.style.display = 'none';    
 
+    console.log("Height" + window.innerHeight);
+    console.log("Width" + window.innerWidth);
+
+    // Obtenir la largeur de l'écran
+    const screenWidth = window.innerWidth;
+
+    // Variable à contrôler en fonction de la taille de l'écran
+    let scale: number;
+    let position: number;
+
+    // Contrôler la valeur de la variable en fonction de la taille de l'écran
+    if (screenWidth >= 1400) {
+      scale = 1.5; //-73.75
+      position = -73.75
+    } else if (screenWidth >= 1200 && screenWidth < 1400) {
+      scale = 1.3;//-73.75 0
+      position = -45
+    }else if (screenWidth >= 992 && screenWidth < 1200) {
+      scale = 1;//-73.75 0
+      position = -0
+    } else if (screenWidth >= 768 && screenWidth < 992) {
+      scale = 0.9;//0
+      position = 15
+    }else if (screenWidth >= 600 && screenWidth < 768) {
+      scale = 0.6; //60
+      position = 60
+    } else if (screenWidth >= 450 && screenWidth < 600) {
+      scale = 0.4; //90
+      position = 90
+    }else if (screenWidth >= 350 && screenWidth < 450) {
+      scale = 0.35; //90
+      position = 90
+    } else {
+      scale = 0.27; //100
+      position = 100
+    }
+
     html2canvas(dataNav).then(canvas1 => {
       // Capture du second élément
       html2canvas(dataBody).then(canvas2 => {
@@ -124,11 +161,11 @@ export class InscriptionConfirmComponent implements OnInit {
 
           // Ajout du second élément au PDF juste en dessous du premier
           const contentDataURL2 = canvas2.toDataURL('image/png');
-          pdf.addImage(contentDataURL2, 'PNG', -73.75, 15, imgWidth*1.5, imgHeight2*1.5);
+          pdf.addImage(contentDataURL2, 'PNG', position, 15, imgWidth*scale, imgHeight2*scale);
 
           // Ajout du premier élément au PDF
           const contentDataURL1 = canvas1.toDataURL('image/png');
-          pdf.addImage(contentDataURL1, 'PNG', 15, 10, imgWidth*1.5, imgHeight1*1.5);
+          pdf.addImage(contentDataURL1, 'PNG', 15, 10, imgWidth*scale, imgHeight1*scale);
 
     
           boutonPrint.style.display = '';

@@ -399,8 +399,8 @@ console.log("step:",this.step);
   formStep2: FormGroup = new FormGroup({
     date_naissance: new FormControl('', [Validators.required, dateValidator()]),
     nationalite: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
-    ville: new FormControl('', [Validators.minLength(3), Validators.required, createStringValidatior()]),
-    lieu_naissance: new FormControl('', [Validators.minLength(5), Validators.required, createStringValidatior()]),
+    ville: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
+    lieu_naissance: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
     genre: new FormControl('', [Validators.required]),
   });
 
@@ -424,7 +424,7 @@ console.log("step:",this.step);
     paiement: new FormControl({ value: "", disabled: true }, []),
     cycle: new FormControl('', [Validators.required]),
     diplome_universitaire: new FormControl('', []),
-    image: new FormControl('', []),
+    image: new FormControl('', [Validators.required]),
     hasExchange: new FormControl('', [Validators.required]),
     serie_bac: new FormControl('', [Validators.required]),
     serie_bac_input: new FormControl('', []),
@@ -669,18 +669,25 @@ console.log("step:",this.step);
     }
     if ((step == 5) && this.formStep4.valid) 
     {
-      if (this.siteSelected.nom != "Cameroun" || this.siteSelected.indicatif != "+237")
+      if ((this.siteSelected.nom === "Cameroun" || this.siteSelected.nom === "République du Congo") || (this.siteSelected.indicatif === "+242" || this.siteSelected.indicatif === "+237"))
       {
-        this.formStep5.get("date_transaction")?.clearValidators();
-        this.formStep5.get("date_transaction")?.updateValueAndValidity();
-        this.formStep5.updateValueAndValidity();
-      }
-      else{
-        this.formStep5.get("reference_paiement")?.addValidators(
+        if (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237")
+        {
+          this.formStep5.get("telephone_paiement")?.setValidators([Validators.required, Validators.minLength(8), orangeCameroonNumberValidator()]);
+          this.formStep5.get("telephone_paiement")?.updateValueAndValidity();
+        }
+
+          this.formStep5.get("reference_paiement")?.addValidators(
           reference_paiement_cameroun('date_transaction')
         );
-        this.formStep5.get("telephone_paiement")?.setValidators([Validators.required, Validators.minLength(8), orangeCameroonNumberValidator()]);
-        this.formStep5.get("telephone_paiement")?.updateValueAndValidity();
+
+        
+        this.formStep5.get("date_transaction")?.updateValueAndValidity();
+        this.formStep5.updateValueAndValidity();
+        
+      }
+      else{
+        this.formStep5.get("date_transaction")?.clearValidators();
         this.formStep5.get("date_transaction")?.updateValueAndValidity();
         this.formStep5.updateValueAndValidity();
       }
@@ -793,7 +800,7 @@ console.log("step:",this.step);
 
   onSubmit() {
     this.clickSubmit = 1;
-    if (this.formStep5.valid && this.codeValid || (this.formStep5.valid && (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237")))
+    if (this.formStep5.valid && this.codeValid || (this.formStep5.valid && (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237" || this.siteSelected.nom === "République du Congo" || this.siteSelected.indicatif === "+242")))
     {
       this.clickSubmit = 0;
 
