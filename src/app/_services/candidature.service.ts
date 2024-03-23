@@ -12,15 +12,16 @@ import { ICodeValidatorModels } from '../_interfaces/icode-validator-models';
 })
 export class CandidatureService {
 
-  //url:string = 'http://localhost:9090/candidature/Candidats';
-  url: string = 'https://inscription.ucac-icam.com:9090/candidature/Candidats';
-  urlhasCandidature: string = 'https://inscription.ucac-icam.com:9090/candidature/';
-  //urlhasCandidature:string = 'http://localhost:9090/candidature/';
+  url:string = 'http://51.178.136.105:9090/candidature/Candidats';
+  //url: string = 'https://inscription.ucac-icam.com:9090/candidature/Candidats';
+  //urlhasCandidature: string = 'https://inscription.ucac-icam.com:9090/candidature/';
+  urlhasCandidature:string = 'http://51.178.136.105:9090/candidature/';
   idCcompte: string = "";
-  //urlCodeTest : string = 'http://localhost:9090/candidature/all-codes';
-  urlCodeTest: string = 'https://inscription.ucac-icam.com:9090/candidature/all-codes';
+  urlCodeTest : string = 'http://51.178.136.105:9090/candidature/all-codes';
+  //urlCodeTest: string = 'https://inscription.ucac-icam.com:9090/candidature/all-codes';
 
-  urlUploadImage : string = "https://inscription.ucac-icam.com:9090/file/uploadFile/";
+  urlUploadImage : string = "http://51.178.136.105:9090/file/uploadFile/";
+  //urlUploadImage : string = "https://inscription.ucac-icam.com:9090/file/uploadFile/";
 
   constructor(
     private http: HttpClient,

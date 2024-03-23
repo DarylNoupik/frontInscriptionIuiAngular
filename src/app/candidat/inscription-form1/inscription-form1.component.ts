@@ -15,7 +15,7 @@ import { TokenService } from 'src/app/_services/token.service';
 import { UsersService } from 'src/app/_services/users.service';
 import { IZone } from 'src/app/_interfaces/izone';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { createCamerounianNumberValidator, createInternationalNumberValidator, createStringValidatior, dateTransactionValidator, dateValidator, emailValidatior, orangeCameroonNumberValidator, reference_paiement_cameroun } from 'src/app/shared/validators/number_validator';
+import { createCamerounianNumberValidator, createInternationalNumberValidator, createStringValidatior, dateTransactionValidator, dateValidator, emailValidatior, orangeCameroonNumberValidator, reference_paiement_cameroun, reference_paiement_gabon, reference_paiement_tchad } from 'src/app/shared/validators/number_validator';
 import { IUtilisateurResponseModel } from 'src/app/_interfaces/utilisateur-response-model';
 
 @Component({
@@ -669,7 +669,7 @@ console.log("step:",this.step);
     }
     if ((step == 5) && this.formStep4.valid) 
     {
-      if ((this.siteSelected.nom === "Cameroun" || this.siteSelected.nom === "République du Congo") || (this.siteSelected.indicatif === "+242" || this.siteSelected.indicatif === "+237"))
+      if ((this.siteSelected.nom === "Cameroun" || this.siteSelected.nom === "République du Congo" || this.siteSelected.nom === "Tchad" || this.siteSelected.nom === "Gabon") || (this.siteSelected.indicatif === "+242" || this.siteSelected.indicatif === "+237" || this.siteSelected.indicatif === "+235" || this.siteSelected.indicatif === "+241"))
       {
         if (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237")
         {
@@ -677,9 +677,22 @@ console.log("step:",this.step);
           this.formStep5.get("telephone_paiement")?.updateValueAndValidity();
         }
 
+        if(this.siteSelected.nom === "Tchad" || this.siteSelected.indicatif === "+235")
+        {
           this.formStep5.get("reference_paiement")?.addValidators(
-          reference_paiement_cameroun('date_transaction')
-        );
+            reference_paiement_tchad('date_transaction')
+          );
+        }
+        else if(this.siteSelected.nom === "Gabon" || this.siteSelected.indicatif === "+241"){
+          this.formStep5.get("reference_paiement")?.addValidators(
+            reference_paiement_gabon('date_transaction')
+          );
+        }
+        else{
+          this.formStep5.get("reference_paiement")?.addValidators(
+            reference_paiement_cameroun('date_transaction')
+          );
+        }         
 
         
         this.formStep5.get("date_transaction")?.updateValueAndValidity();
@@ -800,7 +813,7 @@ console.log("step:",this.step);
 
   onSubmit() {
     this.clickSubmit = 1;
-    if (this.formStep5.valid && this.codeValid || (this.formStep5.valid && (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237" || this.siteSelected.nom === "République du Congo" || this.siteSelected.indicatif === "+242")))
+    if (this.formStep5.valid && this.codeValid || (this.formStep5.valid && (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237" || this.siteSelected.nom === "République du Congo" || this.siteSelected.indicatif === "+242" || this.siteSelected.nom === "Tchad" || this.siteSelected.indicatif === "+235" || this.siteSelected.nom === "Gabon" || this.siteSelected.indicatif === "+241")))
     {
       this.clickSubmit = 0;
 
