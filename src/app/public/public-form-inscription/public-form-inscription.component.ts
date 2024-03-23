@@ -13,7 +13,8 @@ import { AuthenticationService } from "../../_services/authentication.service";
 import { ICentre } from "../../_interfaces/icentre";
 import { query } from "@angular/animations";
 import { IZone } from 'src/app/_interfaces/izone';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { createCamerounianNumberValidator,createInternationalNumberValidator, createStringValidatior, emailValidatior, dateValidator, dateTransactionValidator, reference_paiement_cameroun, orangeCameroonNumberValidator, reference_paiement_tchad, reference_paiement_gabon } from 'src/app/shared/validators/number_validator';
 
 @Component({
@@ -235,7 +236,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
-  public indiceTelephoneCandidat: string = "+27";
+  public indiceTelephoneCandidat: string = "+235";
   public indiceTelephonePere: string = "+237";
   public indiceTelephoneMere: string = "+237";
   public indiceTelephoneTuteur: string = "+237";
@@ -323,7 +324,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   formStep1: FormGroup = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
     prenom: new FormControl('', [Validators.required, createStringValidatior()]),
-    telephone: new FormControl('', [Validators.minLength(8), Validators.required, createCamerounianNumberValidator()]),
+    telephone: new FormControl('', [Validators.minLength(8), Validators.required, this.createTelephoneValidator()]),
     email: new FormControl('', [Validators.required, Validators.email,emailValidatior()]),
   });
 
@@ -900,6 +901,38 @@ console.log("step:",this.step);
     const dateString = `${year}${month}${day}`;
     const code = `${city}-${dateString}-${userId}`;
     return code;
+  }
+
+  createTelephoneValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      var numberSize  = 0;
+      if (!value) {
+        return null;
+      }
+      if(this.indiceTelephoneCandidat == "+235" || this.indiceTelephonePere == "+235" || this.indiceTelephoneMere == "+235" || this.indiceTelephoneTransaction =="+235" || this.indiceTelephoneTuteur =="+235" ||
+      this.indiceTelephoneCandidat == "+236" || this.indiceTelephonePere == "+236" || this.indiceTelephoneMere == "+236" || this.indiceTelephoneTransaction =="+236" || this.indiceTelephoneTuteur =="+236"){
+        const regExp = new RegExp(/^6(5|7|8|9)[0-9]{7}$/);
+        const regExpAll = new RegExp(/^[0-9]{8}$/);
+        if (regExp.test(value) || regExpAll.test(value)) {
+          return null;
+        } else {
+          return {
+            notConform: true,
+          };
+        }
+      }else{
+        const regExp = new RegExp(/^6(5|7|8|9)[0-9]{7}$/);
+        const regExpAll = new RegExp(/^[0-9]{9}$/);
+        if (regExp.test(value) || regExpAll.test(value)) {
+          return null;
+        } else {
+          return {
+            notConform: true,
+          };
+        }
+      }
+    };
   }
 
   /*createAccount(step: number) {
