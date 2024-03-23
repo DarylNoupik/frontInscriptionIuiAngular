@@ -302,7 +302,6 @@
                   >Votre numéro de téléphone (*)</label
                 >
                 <div class="input-group has-validation">
-                  
                   <button
                     class="btn btn-outline-secondary dropdown-toggle"
                     type="button"
@@ -2329,7 +2328,7 @@
                     class="form-control form-control-lg"
                     (change)="onFileChanged($event)"
                     accept=".jpg, .jpeg, .png"
-                    name="image" 
+                    name="image"
                     [ngClass]="{
                       'is-invalid custom-form-control-invalid':
                         form4Controls['hasExchange'].errors &&
@@ -2392,8 +2391,13 @@
               <div
                 *ngIf="
                   siteSelected.nom === 'Cameroun' ||
-                  siteSelected.indicatif === '+237' || siteSelected.nom === 'République du Congo' || siteSelected.indicatif === '+242' 
-                  || siteSelected.nom === 'Tchad' || siteSelected.indicatif === '+235' || siteSelected.nom === 'Gabon' || siteSelected.indicatif === '+241'
+                  siteSelected.indicatif === '+237' ||
+                  siteSelected.nom === 'République du Congo' ||
+                  siteSelected.indicatif === '+242' ||
+                  siteSelected.nom === 'Tchad' ||
+                  siteSelected.indicatif === '+235' ||
+                  siteSelected.nom === 'Gabon' ||
+                  siteSelected.indicatif === '+241'
                 "
                 class="col-md-12"
               >
@@ -2449,8 +2453,14 @@
 
               <div
                 *ngIf="
-                  (siteSelected.nom !== 'Cameroun' || siteSelected.indicatif !== '+237') && (siteSelected.nom !== 'République du Congo' || siteSelected.indicatif !== '+242') 
-                  && (siteSelected.nom !== 'Tchad' || siteSelected.indicatif !== '+235') && (siteSelected.nom !== 'Gabon' || siteSelected.indicatif !== '+241')
+                  (siteSelected.nom !== 'Cameroun' ||
+                    siteSelected.indicatif !== '+237') &&
+                  (siteSelected.nom !== 'République du Congo' ||
+                    siteSelected.indicatif !== '+242') &&
+                  (siteSelected.nom !== 'Tchad' ||
+                    siteSelected.indicatif !== '+235') &&
+                  (siteSelected.nom !== 'Gabon' ||
+                    siteSelected.indicatif !== '+241')
                 "
                 class="col-md-12"
               >
@@ -2554,8 +2564,13 @@
               <div
                 *ngIf="
                   siteSelected.nom === 'Cameroun' ||
-                  siteSelected.indicatif === '+237' || siteSelected.nom === 'République du Congo' || siteSelected.indicatif === '+242' 
-                  || siteSelected.nom === 'Tchad' || siteSelected.indicatif === '+235' || siteSelected.nom === 'Gabon' || siteSelected.indicatif === '+241'
+                  siteSelected.indicatif === '+237' ||
+                  siteSelected.nom === 'République du Congo' ||
+                  siteSelected.indicatif === '+242' ||
+                  siteSelected.nom === 'Tchad' ||
+                  siteSelected.indicatif === '+235' ||
+                  siteSelected.nom === 'Gabon' ||
+                  siteSelected.indicatif === '+241'
                 "
                 class="col-md-12"
               >
@@ -2572,7 +2587,7 @@
                     id="reference_paiement"
                     name="reference_paiement"
                     class="form-control form-control-lg"
-                    placeholder=" Exemple :MP220315.13.49.A18995 "
+                    [placeholder]="getPlaceholderForCountry(siteSelected.nom)"
                     [ngClass]="{
                       'is-invalid custom-form-control-invalid':
                         form5Controls['reference_paiement'].errors &&
