@@ -1,35 +1,284 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ISite } from "../../_interfaces/site";
-import { ICandidature } from "../../_interfaces/icandidature";
-import { IUtilisateur } from "../../_interfaces/utilisateur";
-import { ISessionModel } from "../../_interfaces/isession-model";
-import { SitesService } from "../../_services/sites.service";
-import { CandidatureService } from "../../_services/candidature.service";
-import { Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
-import { SessionService } from "../../_services/session.service";
-import { HttpClient } from "@angular/common/http";
-import { AuthenticationService } from "../../_services/authentication.service";
-import { ICentre } from "../../_interfaces/icentre";
-import { query } from "@angular/animations";
+import { ISite } from '../../_interfaces/site';
+import { ICandidature } from '../../_interfaces/icandidature';
+import { IUtilisateur } from '../../_interfaces/utilisateur';
+import { ISessionModel } from '../../_interfaces/isession-model';
+import { SitesService } from '../../_services/sites.service';
+import { CandidatureService } from '../../_services/candidature.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { SessionService } from '../../_services/session.service';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { ICentre } from '../../_interfaces/icentre';
+import { query } from '@angular/animations';
 import { IZone } from 'src/app/_interfaces/izone';
 
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { createCamerounianNumberValidator,createInternationalNumberValidator, createStringValidatior, emailValidatior, dateValidator, dateTransactionValidator, reference_paiement_cameroun, orangeCameroonNumberValidator, reference_paiement_tchad, reference_paiement_gabon } from 'src/app/shared/validators/number_validator';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import {
+  createCamerounianNumberValidator,
+  createInternationalNumberValidator,
+  createStringValidatior,
+  emailValidatior,
+  dateValidator,
+  dateTransactionValidator,
+  reference_paiement_cameroun,
+  orangeCameroonNumberValidator,
+  reference_paiement_tchad,
+  reference_paiement_gabon,
+} from 'src/app/shared/validators/number_validator';
 
 @Component({
   selector: 'app-public-form-inscription',
   templateUrl: './public-form-inscription.component.html',
-  styleUrls: ['./public-form-inscription.component.css']
+  styleUrls: ['./public-form-inscription.component.css'],
 })
 export class PublicFormInscriptionComponent implements OnInit {
   public site!: ISite[];
   public indices: string[] = [
-    "+237", "+30", "+31", "+32", "+33", "+34", "+36", "+39", "+40", "+41", "+43", "+44", "+45", "+46", "+47", "+48", "+49", "+350", "+351", "+352", "+353", "+354", "+355", "+356", "+357", "+358", "+359", "+370", "+371", "+372", "+373", "+374", "+375", "+376", "+377", "+378", "+379", "+380", "+381", "+382", "+383", "+385", "+386", "+387", "+389", "+420", "+421", "+423", "+213", "+244", "+229", "+267", "+226", "+257", "+238", "+236", "+235", "+269", "+242", "+243", "+225", "+253", "+20", "+240", "+291", "+251", "+266", "+261", "+223", "+356", "+222", "+230", "+222", "+258", "+212", "+258", "+234", "+227", "+47", "+256", "+250", "+239", "+221", "+248", "+232", "+421", "+386", "+252", "+27", "+211", "+249", "+232", "+228", "+216", "+90", "+256", "+255", "+256", "+260"
+    '+237',
+    '+30',
+    '+31',
+    '+32',
+    '+33',
+    '+34',
+    '+36',
+    '+39',
+    '+40',
+    '+41',
+    '+43',
+    '+44',
+    '+45',
+    '+46',
+    '+47',
+    '+48',
+    '+49',
+    '+350',
+    '+351',
+    '+352',
+    '+353',
+    '+354',
+    '+355',
+    '+356',
+    '+357',
+    '+358',
+    '+359',
+    '+370',
+    '+371',
+    '+372',
+    '+373',
+    '+374',
+    '+375',
+    '+376',
+    '+377',
+    '+378',
+    '+379',
+    '+380',
+    '+381',
+    '+382',
+    '+383',
+    '+385',
+    '+386',
+    '+387',
+    '+389',
+    '+420',
+    '+421',
+    '+423',
+    '+213',
+    '+244',
+    '+229',
+    '+267',
+    '+226',
+    '+257',
+    '+238',
+    '+236',
+    '+235',
+    '+269',
+    '+242',
+    '+243',
+    '+225',
+    '+253',
+    '+20',
+    '+240',
+    '+291',
+    '+251',
+    '+266',
+    '+261',
+    '+223',
+    '+356',
+    '+222',
+    '+230',
+    '+222',
+    '+258',
+    '+212',
+    '+258',
+    '+234',
+    '+227',
+    '+47',
+    '+256',
+    '+250',
+    '+239',
+    '+221',
+    '+248',
+    '+232',
+    '+421',
+    '+386',
+    '+252',
+    '+27',
+    '+211',
+    '+249',
+    '+232',
+    '+228',
+    '+216',
+    '+90',
+    '+256',
+    '+255',
+    '+256',
+    '+260',
   ];
   public lieux = [
-    "Douala", "Yaoundé", "Garoua", "Bafoussam", "Maroua", "Bamenda", "Ngaoundéré", "Bertoua", "Ébolowa", "Loum", "Kumba", "Mbouda", "Dschang", "Foumban", "Kribi", "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg", "Montpellier", "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre", "Saint-Étienne", "Toulon", "Brazzaville", "Pointe-Noire", "Dolisie", "Nkayi", "Owando", "Impfondo", "Madingou", "Sibiti", "Gamboma", "Kinkala", "Kindamba", "Mossendjo", "Makoua", "Ewo", "Ouesso", "N'Djamena", "Moundou", "Sarh", "Abéché", "Kélo", "Doba", "Koumra", "Pala", "Am Timan", "Bongor", "Mongo", "Ati", "Fada", "Massakory", "Biltine", "Bangui", "Bimbo", "Berbérati", "Carnot", "Bria", "Bossangoa", "Bozoum", "Nola", "Kaga-Bandoro", "Sibut", "Mbaïki", "Damara", "Mobaye", "Grimari", "Dékoa",
-    "Rio de Janeiro", "São Paulo", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte", "Manaus", "Curitiba", "Recife", "Porto Alegre", "Belém", "Goiânia", "Guarulhos", "Campinas", "São Luís", "Libreville", "Port-Gentil", "Franceville", "Oyem", "Moanda", "Mouila", "Lambaréné", "Tchibanga", "Koulamoutou", "Makokou", "Lastoursville", "Mounana", "Gamba", "Bitam", "Ndendé", "Delhi", "Mumbai", "Kolkata", "Chennai", "Bengaluru", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Lucknow", "Surat", "Kanpur", "Nagpur", "Indore", "Thane", "Quito", "Guayaquil", "Cuenca", "Santo Domingo de los Colorados", "Machala", "Manta", "Portoviejo", "Ambato", "Durán", "Loja", "Esmeraldas", "Quevedo", "Ibarra", "Riobamba", "Latacunga"
+    'Douala',
+    'Yaoundé',
+    'Garoua',
+    'Bafoussam',
+    'Maroua',
+    'Bamenda',
+    'Ngaoundéré',
+    'Bertoua',
+    'Ébolowa',
+    'Loum',
+    'Kumba',
+    'Mbouda',
+    'Dschang',
+    'Foumban',
+    'Kribi',
+    'Paris',
+    'Marseille',
+    'Lyon',
+    'Toulouse',
+    'Nice',
+    'Nantes',
+    'Strasbourg',
+    'Montpellier',
+    'Bordeaux',
+    'Lille',
+    'Rennes',
+    'Reims',
+    'Le Havre',
+    'Saint-Étienne',
+    'Toulon',
+    'Brazzaville',
+    'Pointe-Noire',
+    'Dolisie',
+    'Nkayi',
+    'Owando',
+    'Impfondo',
+    'Madingou',
+    'Sibiti',
+    'Gamboma',
+    'Kinkala',
+    'Kindamba',
+    'Mossendjo',
+    'Makoua',
+    'Ewo',
+    'Ouesso',
+    "N'Djamena",
+    'Moundou',
+    'Sarh',
+    'Abéché',
+    'Kélo',
+    'Doba',
+    'Koumra',
+    'Pala',
+    'Am Timan',
+    'Bongor',
+    'Mongo',
+    'Ati',
+    'Fada',
+    'Massakory',
+    'Biltine',
+    'Bangui',
+    'Bimbo',
+    'Berbérati',
+    'Carnot',
+    'Bria',
+    'Bossangoa',
+    'Bozoum',
+    'Nola',
+    'Kaga-Bandoro',
+    'Sibut',
+    'Mbaïki',
+    'Damara',
+    'Mobaye',
+    'Grimari',
+    'Dékoa',
+    'Rio de Janeiro',
+    'São Paulo',
+    'Brasília',
+    'Salvador',
+    'Fortaleza',
+    'Belo Horizonte',
+    'Manaus',
+    'Curitiba',
+    'Recife',
+    'Porto Alegre',
+    'Belém',
+    'Goiânia',
+    'Guarulhos',
+    'Campinas',
+    'São Luís',
+    'Libreville',
+    'Port-Gentil',
+    'Franceville',
+    'Oyem',
+    'Moanda',
+    'Mouila',
+    'Lambaréné',
+    'Tchibanga',
+    'Koulamoutou',
+    'Makokou',
+    'Lastoursville',
+    'Mounana',
+    'Gamba',
+    'Bitam',
+    'Ndendé',
+    'Delhi',
+    'Mumbai',
+    'Kolkata',
+    'Chennai',
+    'Bengaluru',
+    'Hyderabad',
+    'Ahmedabad',
+    'Pune',
+    'Jaipur',
+    'Lucknow',
+    'Surat',
+    'Kanpur',
+    'Nagpur',
+    'Indore',
+    'Thane',
+    'Quito',
+    'Guayaquil',
+    'Cuenca',
+    'Santo Domingo de los Colorados',
+    'Machala',
+    'Manta',
+    'Portoviejo',
+    'Ambato',
+    'Durán',
+    'Loja',
+    'Esmeraldas',
+    'Quevedo',
+    'Ibarra',
+    'Riobamba',
+    'Latacunga',
   ];
 
   public nationalities: string[] = [
@@ -224,49 +473,49 @@ export class PublicFormInscriptionComponent implements OnInit {
     'Yéménite',
     'Zambien(ne)',
     'Zimbabwéen(ne)',
-];
+  ];
 
   public hasActiveSession!: boolean;
   clickSuivant: number = 0;
   clickSubmit: number = 0;
   changed: number = 0;
   uploadedFile!: string;
-  selectedFile! : File;
+  selectedFile!: File;
   public actualDate = new Date();
   selectZone!: IZone;
   public centreBySite: any;
   public step: number = 1;
-  public indiceTelephoneCandidat: string = "+235";
-  public indiceTelephonePere: string = "+237";
-  public indiceTelephoneMere: string = "+237";
-  public indiceTelephoneTuteur: string = "+237";
-  public indiceTelephoneTransaction: string = "+237";
+  public indiceTelephoneCandidat: string = '+235';
+  public indiceTelephonePere: string = '+237';
+  public indiceTelephoneMere: string = '+237';
+  public indiceTelephoneTuteur: string = '+237';
+  public indiceTelephoneTransaction: string = '+237';
   public showForm: boolean = false;
   public showCentre: boolean = true;
   public candidatureForm: ICandidature = {
-    langue: "",
-    hasExchange: "",
-    serie_bac: "",
-    statut: "En_Attente",
-    cycle: "",
+    langue: '',
+    hasExchange: '',
+    serie_bac: '',
+    statut: 'En_Attente',
+    cycle: '',
     compteID: Number(localStorage.getItem('idCandidat')),
     code_examen: 0,
     sessionId: 0,
-    nationalite: "",
-    genre: "",
-    date_naissance: "",
-    image: "",
-    formation2: "",
-    formation3: "",
-    paiement: "",
-    formation1: "",
-    reference_paiement: "",
-    telephone_paiement: "",
-    dernier_Etablissement: "",
-    lieu_de_naissance: "",
-    ville: "",
+    nationalite: '',
+    genre: '',
+    date_naissance: '',
+    image: '',
+    formation2: '',
+    formation3: '',
+    paiement: '',
+    formation1: '',
+    reference_paiement: '',
+    telephone_paiement: '',
+    dernier_Etablissement: '',
+    lieu_de_naissance: '',
+    ville: '',
     nombre_choix: 0,
-    centre: "",
+    centre: '',
     centreExamenId: 0,
     candidatureActif: true,
     nom_parent1: '',
@@ -278,28 +527,28 @@ export class PublicFormInscriptionComponent implements OnInit {
     telephone_tuteur: '',
     telephone_mere: '',
     email_mere: '',
-    formation_principal: ''
+    formation_principal: '',
   };
   public compteform: IUtilisateur = {
-    name: "",
-    prenom: "",
-    password: "pass",
-    email: "",
-    telephone: "",
-    role: "CANDIDAT",
+    name: '',
+    prenom: '',
+    password: 'pass',
+    email: '',
+    telephone: '',
+    role: 'CANDIDAT',
     id_disponibilite: 0,
-    idZone: 1
+    idZone: 1,
   };
   public session: ISessionModel = {
     id: 0,
-    nom: "",
+    nom: '',
     date_debut: new Date(),
     date_limite: new Date(),
     date_examen: new Date(),
-    statut: false
+    statut: false,
   };
   public listCentre: any;
-  public msgPaiement: string = "";
+  public msgPaiement: string = '';
   public showNumberPaiement: boolean = false;
   public showPersonnalForm: boolean = false;
   public allcodes: any;
@@ -322,85 +571,151 @@ export class PublicFormInscriptionComponent implements OnInit {
   }
 
   formStep1: FormGroup = new FormGroup({
-    nom: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
-    prenom: new FormControl('', [Validators.required, createStringValidatior()]),
-    telephone: new FormControl('', [Validators.minLength(8), Validators.required, this.createTelephoneValidator()]),
-    email: new FormControl('', [Validators.required, Validators.email,emailValidatior()]),
+    nom: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      createStringValidatior(),
+    ]),
+    prenom: new FormControl('', [
+      Validators.required,
+      createStringValidatior(),
+    ]),
+    telephone: new FormControl('', [
+      Validators.minLength(8),
+      Validators.required,
+      this.createTelephoneValidator(),
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      emailValidatior(),
+    ]),
   });
 
   changeValidator(indice: string, libelle: string, indiceElement: string) {
-    if (indiceElement == "indiceTelephoneCandidat") {
-    this.indiceTelephoneCandidat = indice;
+    if (indiceElement == 'indiceTelephoneCandidat') {
+      this.indiceTelephoneCandidat = indice;
     }
-    if (indiceElement == "indiceTelephonePere") {
-    this.indiceTelephonePere = indice;
+    if (indiceElement == 'indiceTelephonePere') {
+      this.indiceTelephonePere = indice;
     }
-    if (indiceElement == "indiceTelephoneMere") {
-    this.indiceTelephoneMere = indice;
+    if (indiceElement == 'indiceTelephoneMere') {
+      this.indiceTelephoneMere = indice;
     }
-    if (indiceElement == "indiceTelephoneTuteur") {
-    this.indiceTelephoneTuteur = indice;
+    if (indiceElement == 'indiceTelephoneTuteur') {
+      this.indiceTelephoneTuteur = indice;
     }
-    if (indiceElement == "indiceTelephoneTransaction") {
-    this.indiceTelephoneTransaction = indice;
+    if (indiceElement == 'indiceTelephoneTransaction') {
+      this.indiceTelephoneTransaction = indice;
     }
-console.log("indice:",indice);
-console.log("step:",this.step);
-
+    console.log('indice:', indice);
+    console.log('step:', this.step);
 
     if (this.step == 1) {
-      if (indice == "+237") {
-        this.formStep1.get(libelle)!.removeValidators(createInternationalNumberValidator());
-        this.formStep1.get(libelle)!.addValidators(createCamerounianNumberValidator());
-        } else {
-          this.formStep1.get(libelle)!.removeValidators(createCamerounianNumberValidator());
-        this.formStep1.get(libelle)!.addValidators(createInternationalNumberValidator());
-        }
+      if (indice == '+237') {
+        this.formStep1
+          .get(libelle)!
+          .removeValidators(createInternationalNumberValidator());
+        this.formStep1
+          .get(libelle)!
+          .addValidators(createCamerounianNumberValidator());
+      } else {
+        this.formStep1
+          .get(libelle)!
+          .removeValidators(createCamerounianNumberValidator());
+        this.formStep1
+          .get(libelle)!
+          .addValidators(createInternationalNumberValidator());
+      }
 
-        this.formStep1.updateValueAndValidity();
+      this.formStep1.updateValueAndValidity();
     }
 
     if (this.step == 3) {
-      if (indice == "+237") {
-        this.formStep3.get(libelle)!.removeValidators(createInternationalNumberValidator());
-        this.formStep3.get(libelle)!.addValidators(createCamerounianNumberValidator());
-        } else {
-          this.formStep3.get(libelle)!.removeValidators(createCamerounianNumberValidator());
-        this.formStep3.get(libelle)!.addValidators(createInternationalNumberValidator());
-        }
-        this.formStep3.updateValueAndValidity();
+      if (indice == '+237') {
+        this.formStep3
+          .get(libelle)!
+          .removeValidators(createInternationalNumberValidator());
+        this.formStep3
+          .get(libelle)!
+          .addValidators(createCamerounianNumberValidator());
+      } else {
+        this.formStep3
+          .get(libelle)!
+          .removeValidators(createCamerounianNumberValidator());
+        this.formStep3
+          .get(libelle)!
+          .addValidators(createInternationalNumberValidator());
+      }
+      this.formStep3.updateValueAndValidity();
     }
 
     if (this.step == 5) {
-      if (indice == "+237") {
-        this.formStep5.get(libelle)!.removeValidators(createInternationalNumberValidator());
-        this.formStep5.get(libelle)!.addValidators(createCamerounianNumberValidator());
-        } else {
-          this.formStep5.get(libelle)!.removeValidators(createCamerounianNumberValidator());
-        this.formStep5.get(libelle)!.addValidators(createInternationalNumberValidator());
-        }
-        this.formStep5.updateValueAndValidity();
+      if (indice == '+237') {
+        this.formStep5
+          .get(libelle)!
+          .removeValidators(createInternationalNumberValidator());
+        this.formStep5
+          .get(libelle)!
+          .addValidators(createCamerounianNumberValidator());
+      } else {
+        this.formStep5
+          .get(libelle)!
+          .removeValidators(createCamerounianNumberValidator());
+        this.formStep5
+          .get(libelle)!
+          .addValidators(createInternationalNumberValidator());
+      }
+      this.formStep5.updateValueAndValidity();
     }
   }
 
   formStep2: FormGroup = new FormGroup({
     date_naissance: new FormControl('', [Validators.required, dateValidator()]),
-    nationalite: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
-    ville: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
-    lieu_naissance: new FormControl('', [Validators.minLength(2), Validators.required, createStringValidatior()]),
+    nationalite: new FormControl('', [
+      Validators.minLength(2),
+      Validators.required,
+      createStringValidatior(),
+    ]),
+    ville: new FormControl('', [
+      Validators.minLength(2),
+      Validators.required,
+      createStringValidatior(),
+    ]),
+    lieu_naissance: new FormControl('', [
+      Validators.minLength(2),
+      Validators.required,
+      createStringValidatior(),
+    ]),
     genre: new FormControl('', [Validators.required]),
   });
 
   formStep3: FormGroup = new FormGroup({
     email_pere: new FormControl('', [Validators.email, emailValidatior()]),
-    telephone_pere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
+    telephone_pere: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      createCamerounianNumberValidator(),
+    ]),
     email_tuteur: new FormControl('', []),
     telephone_tuteur: new FormControl('', []),
     email_mere: new FormControl('', [Validators.email, emailValidatior()]),
     hasTutor: new FormControl('', []),
-    telephone_mere: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
-    nom_parent2: new FormControl('', [Validators.required, Validators.minLength(3), createStringValidatior()]),
-    nom_parent1: new FormControl('', [Validators.required, Validators.minLength(3),createStringValidatior()]),
+    telephone_mere: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      createCamerounianNumberValidator(),
+    ]),
+    nom_parent2: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      createStringValidatior(),
+    ]),
+    nom_parent1: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      createStringValidatior(),
+    ]),
   });
 
   formStep4: FormGroup = new FormGroup({
@@ -408,7 +723,7 @@ console.log("step:",this.step);
     nombre_formation: new FormControl('', [Validators.required]),
     formation_principal: new FormControl('', []),
     langue: new FormControl('', [Validators.required]),
-    paiement: new FormControl({ value: "", disabled: true }, []),
+    paiement: new FormControl({ value: '', disabled: true }, []),
     cycle: new FormControl('', [Validators.required]),
     diplome_universitaire: new FormControl('', []),
     image: new FormControl('', []),
@@ -421,19 +736,33 @@ console.log("step:",this.step);
   });
 
   formStep5: FormGroup = new FormGroup({
-    date_transaction: new FormControl('', [Validators.required, dateTransactionValidator()]),
-    telephone_paiement: new FormControl('', [Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]),
+    date_transaction: new FormControl('', [
+      Validators.required,
+      dateTransactionValidator(),
+    ]),
+    telephone_paiement: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      createCamerounianNumberValidator(),
+    ]),
     reference_paiement: new FormControl('', [Validators.required]),
   });
 
   changeValidatorOfTutor(answer: string) {
     if (answer == 'Oui') {
-      this.formStep3.get('telephone_tuteur')?.addValidators([Validators.required, Validators.minLength(8), createCamerounianNumberValidator()]);
-      this.formStep3.get('email_tuteur')?.addValidators([Validators.email, emailValidatior()]);
-      
+      this.formStep3
+        .get('telephone_tuteur')
+        ?.addValidators([
+          Validators.required,
+          Validators.minLength(8),
+          createCamerounianNumberValidator(),
+        ]);
+      this.formStep3
+        .get('email_tuteur')
+        ?.addValidators([Validators.email, emailValidatior()]);
+
       this.formStep3.get('telephone_tuteur')?.updateValueAndValidity();
       this.formStep3.get('email_tuteur')?.updateValueAndValidity();
-      
     } else {
       this.formStep3.get('telephone_tuteur')?.clearValidators();
       this.formStep3.get('email_tuteur')?.clearValidators();
@@ -442,49 +771,46 @@ console.log("step:",this.step);
       this.formStep3.get('email_tuteur')?.updateValueAndValidity();
     }
 
-    this.formStep3.updateValueAndValidity()
+    this.formStep3.updateValueAndValidity();
   }
 
-  changeValidatorFormation(){
-    if (this.formStep4.get('nombre_formation')?.value == "01")
-    {
+  changeValidatorFormation() {
+    if (this.formStep4.get('nombre_formation')?.value == '01') {
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
 
       this.formStep4.get('formation2')?.clearValidators();
       this.formStep4.get('formation3')?.clearValidators();
 
-      this.formStep4.get('formation2')?.setValue("")
-      this.formStep4.get('formation3')?.setValue("")
+      this.formStep4.get('formation2')?.setValue('');
+      this.formStep4.get('formation3')?.setValue('');
 
       this.formStep4.get('formation1')?.updateValueAndValidity();
       this.formStep4.get('formation2')?.updateValueAndValidity();
       this.formStep4.get('formation3')?.updateValueAndValidity();
 
-      console.log("formation1 "+this.formStep4.get('formation1')?.value)
-      console.log("formation2 "+this.formStep4.get('formation2')?.value)
-      console.log("formation3 "+this.formStep4.get('formation3')?.value)
+      console.log('formation1 ' + this.formStep4.get('formation1')?.value);
+      console.log('formation2 ' + this.formStep4.get('formation2')?.value);
+      console.log('formation3 ' + this.formStep4.get('formation3')?.value);
     }
 
-    if (this.formStep4.get('nombre_formation')?.value == "02")
-    {
+    if (this.formStep4.get('nombre_formation')?.value == '02') {
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
       this.formStep4.get('formation2')?.setValidators([Validators.required]);
 
       this.formStep4.get('formation3')?.clearValidators();
 
-      this.formStep4.get('formation3')?.setValue("")
+      this.formStep4.get('formation3')?.setValue('');
 
       this.formStep4.get('formation1')?.updateValueAndValidity();
       this.formStep4.get('formation2')?.updateValueAndValidity();
       this.formStep4.get('formation3')?.updateValueAndValidity();
 
-      console.log("formation1 "+this.formStep4.get('formation1')?.value)
-      console.log("formation2 "+this.formStep4.get('formation2')?.value)
-      console.log("formation3 "+this.formStep4.get('formation3')?.value)
+      console.log('formation1 ' + this.formStep4.get('formation1')?.value);
+      console.log('formation2 ' + this.formStep4.get('formation2')?.value);
+      console.log('formation3 ' + this.formStep4.get('formation3')?.value);
     }
 
-    if (this.formStep4.get('nombre_formation')?.value == "03")
-    {
+    if (this.formStep4.get('nombre_formation')?.value == '03') {
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
       this.formStep4.get('formation2')?.setValidators([Validators.required]);
       this.formStep4.get('formation3')?.setValidators([Validators.required]);
@@ -493,11 +819,11 @@ console.log("step:",this.step);
       this.formStep4.get('formation2')?.updateValueAndValidity();
       this.formStep4.get('formation3')?.updateValueAndValidity();
 
-      console.log("formation1 "+this.formStep4.get('formation1')?.value)
-      console.log("formation2 "+this.formStep4.get('formation2')?.value)
-      console.log("formation3 "+this.formStep4.get('formation3')?.value)
+      console.log('formation1 ' + this.formStep4.get('formation1')?.value);
+      console.log('formation2 ' + this.formStep4.get('formation2')?.value);
+      console.log('formation3 ' + this.formStep4.get('formation3')?.value);
     }
-    
+
     this.formStep4.updateValueAndValidity();
   }
 
@@ -513,7 +839,6 @@ console.log("step:",this.step);
     this.currentDate = new Date();
     this.currentDate.setFullYear(new Date().getFullYear() - 15);
   }
-
 
   get form1Controls(): { [key: string]: AbstractControl } {
     return this.formStep1.controls;
@@ -537,18 +862,20 @@ console.log("step:",this.step);
 
   checkIf2Cycle(answer: string) {
     if (answer == 'second') {
-      this.formStep4.get('diplome_universitaire')?.addValidators(Validators.required);
+      this.formStep4
+        .get('diplome_universitaire')
+        ?.addValidators(Validators.required);
 
-      this.formStep4.get('formation1')?.setValue("")
-      this.formStep4.get('formation2')?.setValue("")
-      this.formStep4.get('formation3')?.setValue("")
+      this.formStep4.get('formation1')?.setValue('');
+      this.formStep4.get('formation2')?.setValue('');
+      this.formStep4.get('formation3')?.setValue('');
 
       this.formStep4.get('diplome_universitaire')?.updateValueAndValidity();
     } else {
       this.formStep4.get('diplome_universitaire')?.clearValidators();
-      this.formStep4.get('formation1')?.setValue("")
-      this.formStep4.get('formation2')?.setValue("")
-      this.formStep4.get('formation3')?.setValue("")
+      this.formStep4.get('formation1')?.setValue('');
+      this.formStep4.get('formation2')?.setValue('');
+      this.formStep4.get('formation3')?.setValue('');
 
       this.formStep4.get('diplome_universitaire')?.updateValueAndValidity();
     }
@@ -579,24 +906,24 @@ console.log("step:",this.step);
     this.checkDevice();
 
     this.sessionService.getActiveSession().subscribe({
-      next: data => {
+      next: (data) => {
         this.session = data;
         if (data?.id) {
           this.hasActiveSession = true;
         }
       },
-      error: err => console.log(err)
+      error: (err) => console.log(err),
     });
     this.siteService.getAllSite().subscribe({
-      next: data => {
+      next: (data) => {
         this.site = data;
       },
-      error: err => console.log(err)
+      error: (err) => console.log(err),
     });
 
     this.siteService.getCenterBySite(1).subscribe({
-      next: data => {
-        this.centreBySite = data
+      next: (data) => {
+        this.centreBySite = data;
         for (let i = 0; i < data.length; i++) {
           this.listCentre[i] = data.nom;
         }
@@ -609,70 +936,81 @@ console.log("step:",this.step);
     this.candidatureForm.centreExamenId = center.id;
     this.selectZone = zone;
     this.indiceTelephoneCandidat = indicatif;
-    this.indiceTelephonePere  = indicatif;
+    this.indiceTelephonePere = indicatif;
     this.indiceTelephoneMere = indicatif;
     this.indiceTelephoneTransaction = indicatif;
     this.indiceTelephoneTuteur = indicatif;
   }
 
-  setStepBack(step: number)
-  {
+  setStepBack(step: number) {
     this.step = step;
   }
   setStepNext(step: number) {
     this.clickSuivant = 1;
-    if ((step == 2) && this.formStep1.valid )
-    {
+    if (step == 2 && this.formStep1.valid) {
       this.step = step;
       this.clickSuivant = 0;
     }
-    if ((step == 3) && this.formStep2.valid)
-    {
+    if (step == 3 && this.formStep2.valid) {
       this.step = step;
       this.clickSuivant = 0;
     }
-    if ((step == 4) && this.formStep3.valid)
-    {
+    if (step == 4 && this.formStep3.valid) {
       this.step = step;
       this.clickSuivant = 0;
     }
-    if ((step == 5) && this.formStep4.valid)
-    {
-      if ((this.siteSelected.nom === "Cameroun" || this.siteSelected.nom === "République du Congo" || this.siteSelected.nom === "Tchad" || this.siteSelected.nom === "Gabon") || (this.siteSelected.indicatif === "+242" || this.siteSelected.indicatif === "+237" || this.siteSelected.indicatif === "+235" || this.siteSelected.indicatif === "+241"))
-      {
-        if (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237")
-        {
-          this.formStep5.get("telephone_paiement")?.setValidators([Validators.required, Validators.minLength(8), orangeCameroonNumberValidator()]);
-          this.formStep5.get("telephone_paiement")?.updateValueAndValidity();
+    if (step == 5 && this.formStep4.valid) {
+      if (
+        this.siteSelected.nom === 'Cameroun' ||
+        this.siteSelected.nom === 'République du Congo' ||
+        this.siteSelected.nom === 'Tchad' ||
+        this.siteSelected.nom === 'Gabon' ||
+        this.siteSelected.indicatif === '+242' ||
+        this.siteSelected.indicatif === '+237' ||
+        this.siteSelected.indicatif === '+235' ||
+        this.siteSelected.indicatif === '+241'
+      ) {
+        if (
+          this.siteSelected.nom === 'Cameroun' ||
+          this.siteSelected.indicatif === '+237'
+        ) {
+          this.formStep5
+            .get('telephone_paiement')
+            ?.setValidators([
+              Validators.required,
+              Validators.minLength(8),
+              orangeCameroonNumberValidator(),
+            ]);
+          this.formStep5.get('telephone_paiement')?.updateValueAndValidity();
         }
 
-        if(this.siteSelected.nom === "Tchad" || this.siteSelected.indicatif === "+235")
-        {
-          this.formStep5.get("reference_paiement")?.addValidators(
-            reference_paiement_tchad('date_transaction')
-          );
+        if (
+          this.siteSelected.nom === 'Tchad' ||
+          this.siteSelected.indicatif === '+235'
+        ) {
+          this.formStep5
+            .get('reference_paiement')
+            ?.addValidators(reference_paiement_tchad('date_transaction'));
+        } else if (
+          this.siteSelected.nom === 'Gabon' ||
+          this.siteSelected.indicatif === '+241'
+        ) {
+          this.formStep5
+            .get('reference_paiement')
+            ?.addValidators(reference_paiement_gabon('date_transaction'));
+        } else {
+          this.formStep5
+            .get('reference_paiement')
+            ?.addValidators(reference_paiement_cameroun('date_transaction'));
         }
-        else if(this.siteSelected.nom === "Gabon" || this.siteSelected.indicatif === "+241"){
-          this.formStep5.get("reference_paiement")?.addValidators(
-            reference_paiement_gabon('date_transaction')
-          );
-        }
-        else{
-          this.formStep5.get("reference_paiement")?.addValidators(
-            reference_paiement_cameroun('date_transaction')
-          );
-        }      
-        
-      }
-      else{
-        this.formStep5.get("date_transaction")?.clearValidators();
-        this.formStep5.get("date_transaction")?.updateValueAndValidity();
+      } else {
+        this.formStep5.get('date_transaction')?.clearValidators();
+        this.formStep5.get('date_transaction')?.updateValueAndValidity();
         this.formStep5.updateValueAndValidity();
       }
       this.step = step;
       this.clickSuivant = 0;
     }
-    
   }
 
   /*updateSelections() {
@@ -703,7 +1041,12 @@ console.log("step:",this.step);
   toggleForm(): void {
     if (this.candidatureForm.centre.length > 0) {
       for (let i = 0; i < this.site.length; i++) {
-        if (this.isInCentre(this.candidatureForm.centre, this.site[i].centreExamenList) == true) {
+        if (
+          this.isInCentre(
+            this.candidatureForm.centre,
+            this.site[i].centreExamenList
+          ) == true
+        ) {
           this.siteSelected = this.site[i];
         }
       }
@@ -711,18 +1054,19 @@ console.log("step:",this.step);
 
       for (let i = 0; i < this.centreBySite.length; i++) {
         if (this.candidatureForm.centre === this.centreBySite[i].nom) {
-          this.msgPaiement = " test ";
+          this.msgPaiement = ' test ';
           this.showNumberPaiement = true;
         }
       }
-      if (this.msgPaiement === "") {
-        this.msgPaiement = ""
+      if (this.msgPaiement === '') {
+        this.msgPaiement = '';
         this.showNumberPaiement = false;
       }
 
       this.showCentre = !this.showForm;
     } else {
-      let msgError = "Veuillez selectionner le centre au préalable avant de continuer.";
+      let msgError =
+        'Veuillez selectionner le centre au préalable avant de continuer.';
       this.toastr.error(msgError, 'Centre non sélectionné');
     }
   }
@@ -739,36 +1083,46 @@ console.log("step:",this.step);
 
   checkCode() {
     this.changed = 1;
-    this.candidatureService.allCodes().subscribe(
-      (response) => {
-        this.allcodes = response.allCode;
-        this.exitscode = response.existCode;
-        console.log("allcodes", this.allcodes);
-        console.log("exitscode", this.exitscode);
-        console.log("reference_paiement", this.formStep5.get('reference_paiement')?.value);
+    this.candidatureService.allCodes().subscribe((response) => {
+      this.allcodes = response.allCode;
+      this.exitscode = response.existCode;
+      console.log('allcodes', this.allcodes);
+      console.log('exitscode', this.exitscode);
+      console.log(
+        'reference_paiement',
+        this.formStep5.get('reference_paiement')?.value
+      );
 
-        if (this.allcodes.includes(this.formStep5.get('reference_paiement')?.value) === true) {
-          if (this.exitscode.includes(this.formStep5.get('reference_paiement')?.value) === true) {
-            this.codeExists = true;
-            this.codeValid = false;
-          } else {
-            this.codeExists = false;
-            this.codeValid = true;
-          }
-        }
-        else{
-          this.codeExists = false;
+      if (
+        this.allcodes.includes(
+          this.formStep5.get('reference_paiement')?.value
+        ) === true
+      ) {
+        if (
+          this.exitscode.includes(
+            this.formStep5.get('reference_paiement')?.value
+          ) === true
+        ) {
+          this.codeExists = true;
           this.codeValid = false;
+        } else {
+          this.codeExists = false;
+          this.codeValid = true;
         }
-      });
+      } else {
+        this.codeExists = false;
+        this.codeValid = false;
+      }
+    });
 
-      this.formStep5.get('reference_paiement')?.updateValueAndValidity();
-      this.formStep5.updateValueAndValidity();
+    this.formStep5.get('reference_paiement')?.updateValueAndValidity();
+    this.formStep5.updateValueAndValidity();
   }
 
   generateRandomPassword(length: number): string {
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let password = "";
+    const charset =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let password = '';
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * charset.length);
       password += charset[randomIndex];
@@ -777,10 +1131,19 @@ console.log("step:",this.step);
   }
 
   onSubmit() {
-
     this.clickSubmit = 1;
-    if (this.formStep5.valid && this.codeValid || (this.formStep5.valid && (this.siteSelected.nom === "Cameroun" || this.siteSelected.indicatif === "+237" || this.siteSelected.nom === "République du Congo" || this.siteSelected.indicatif === "+242" || this.siteSelected.nom === "Tchad" || this.siteSelected.indicatif === "+235" || this.siteSelected.nom === "Gabon" || this.siteSelected.indicatif === "+241")))
-    {
+    if (
+      (this.formStep5.valid && this.codeValid) ||
+      (this.formStep5.valid &&
+        (this.siteSelected.nom === 'Cameroun' ||
+          this.siteSelected.indicatif === '+237' ||
+          this.siteSelected.nom === 'République du Congo' ||
+          this.siteSelected.indicatif === '+242' ||
+          this.siteSelected.nom === 'Tchad' ||
+          this.siteSelected.indicatif === '+235' ||
+          this.siteSelected.nom === 'Gabon' ||
+          this.siteSelected.indicatif === '+241'))
+    ) {
       this.clickSubmit = 0;
 
       this.compteform = {
@@ -788,45 +1151,65 @@ console.log("step:",this.step);
         prenom: this.formStep1.get('prenom')?.value,
         password: this.generateRandomPassword(8),
         email: this.formStep1.get('email')?.value,
-        telephone: this.indiceTelephoneCandidat + "" + this.formStep1.get('telephone')?.value,
-        role: "CANDIDAT",
+        telephone:
+          this.indiceTelephoneCandidat +
+          '' +
+          this.formStep1.get('telephone')?.value,
+        role: 'CANDIDAT',
         id_disponibilite: 0,
-        idZone: this.selectZone.id
+        idZone: this.selectZone.id,
       };
       this.candidatureForm = {
-        dernier_Etablissement: this.formStep4.get('dernier_etablissement')?.value,
+        dernier_Etablissement: this.formStep4.get('dernier_etablissement')
+          ?.value,
         langue: this.formStep4.get('langue')?.value,
         paiement: this.formStep4.get('paiement')?.value,
         cycle: this.formStep4.get('cycle')?.value,
-        diplome_universitaire: this.formStep4.get('diplome_universitaire')?.value,
+        diplome_universitaire: this.formStep4.get('diplome_universitaire')
+          ?.value,
         image: this.formStep4.get('image')?.value,
         hasExchange: this.formStep4.get('hasExchange')?.value,
-        serie_bac: this.formStep4.get('serie_bac')?.value === 'Autre' ? this.formStep4.get('serie_bac_input')?.value : this.formStep4.get('serie_bac')?.value,
+        serie_bac:
+          this.formStep4.get('serie_bac')?.value === 'Autre'
+            ? this.formStep4.get('serie_bac_input')?.value
+            : this.formStep4.get('serie_bac')?.value,
         formation1: this.formStep4.get('formation1')?.value,
         formation2: this.formStep4.get('formation2')?.value,
         formation3: this.formStep4.get('formation3')?.value,
         formation_principal: this.formStep4.get('formation_principal')?.value,
-  
+
         reference_paiement: this.formStep5.get('reference_paiement')?.value,
-        telephone_paiement: this.indiceTelephoneTransaction + "" + this.formStep5.get('telephone_paiement')?.value,
-  
+        telephone_paiement:
+          this.indiceTelephoneTransaction +
+          '' +
+          this.formStep5.get('telephone_paiement')?.value,
+
         email_pere: this.formStep3.get('email_pere')?.value,
-        telephone_pere: this.indiceTelephonePere + "" + this.formStep3.get('telephone_pere')?.value,
+        telephone_pere:
+          this.indiceTelephonePere +
+          '' +
+          this.formStep3.get('telephone_pere')?.value,
         email_tuteur: this.formStep3.get('email_tuteur')?.value,
-        telephone_tuteur: this.indiceTelephoneTuteur + "" + this.formStep3.get('telephone_tuteur')?.value,
+        telephone_tuteur:
+          this.indiceTelephoneTuteur +
+          '' +
+          this.formStep3.get('telephone_tuteur')?.value,
         email_mere: this.formStep3.get('email_mere')?.value,
-        telephone_mere: this.indiceTelephoneMere + "" + this.formStep3.get('telephone_mere')?.value,
+        telephone_mere:
+          this.indiceTelephoneMere +
+          '' +
+          this.formStep3.get('telephone_mere')?.value,
         nom_parent2: this.formStep3.get('nom_parent2')?.value,
         nom_parent1: this.formStep3.get('nom_parent1')?.value,
-  
+
         date_naissance: this.formStep2.get('date_naissance')?.value,
         nationalite: this.formStep2.get('nationalite')?.value,
         ville: this.formStep2.get('ville')?.value,
         lieu_de_naissance: this.formStep2.get('lieu_naissance')?.value,
         genre: this.formStep2.get('genre')?.value,
-  
+
         sessionId: this.session.id,
-        statut: "En_Attente",
+        statut: 'En_Attente',
         compteID: Number(localStorage.getItem('idCandidat')) || 0,
         code_examen: 0,
         nombre_choix: this.candidatureForm.nombre_choix,
@@ -834,20 +1217,20 @@ console.log("step:",this.step);
         centreExamenId: this.candidatureForm.centreExamenId,
         candidatureActif: true,
       };
-  
+
       this.authService.register(this.compteform).subscribe({
-        next: value => {
+        next: (value) => {
           this.candidatureForm.compteID = value.id;
-          this.addCandidature()
+          this.addCandidature();
         },
-        error: err => {
-          let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+        error: (err) => {
+          let msgError =
+            "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte.  Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
           this.toastr.error(msgError, 'Inscription échouée');
           console.log(err);
-        }
+        },
       });
     }
-    
   }
 
   addCandidature() {
@@ -856,26 +1239,39 @@ console.log("step:",this.step);
         const formData = new FormData();
         formData.append('image', this.selectedFile);
 
-        this.candidatureService.uploadImage(this.selectedFile, data.id!).subscribe(
-          (response) => {
-            console.log('Image uploaded successfully:', response);
-            // Traitez la réponse comme nécessaire
-          },
-          (error) => {
-            console.error('Error uploading image:', error);
-            // Traitez les erreurs comme nécessaire
-          }
-        );
+        this.candidatureService
+          .uploadImage(this.selectedFile, data.id!)
+          .subscribe(
+            (response) => {
+              console.log('Image uploaded successfully:', response);
+              // Traitez la réponse comme nécessaire
+            },
+            (error) => {
+              console.error('Error uploading image:', error);
+              // Traitez les erreurs comme nécessaire
+            }
+          );
 
         localStorage.setItem('haveCandidature', 'true');
-        this.toastr.success("Candidature prise en compte avec success", 'Candidature insérée');
-        this.router.navigate(['/confirm'], { state: { id: this.candidatureForm.compteID, name: this.compteform.name + "  " + this.compteform.prenom, code: data.code_examen, password: this.compteform.password } });
+        this.toastr.success(
+          'Candidature prise en compte avec success',
+          'Candidature insérée'
+        );
+        this.router.navigate(['/confirm'], {
+          state: {
+            id: this.candidatureForm.compteID,
+            name: this.compteform.name + '  ' + this.compteform.prenom,
+            code: data.code_examen,
+            password: this.compteform.password,
+          },
+        });
       },
       error: (err) => {
-        let msgError = "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte. \ Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
+        let msgError =
+          "Une erreur s'est produite ! \n Cette candidature n'a pas pu être prise en compte.  Veillez vérifier vos informatons, votre connexion internet et réessayez!!!";
         this.toastr.error(msgError, 'Inscription échouée');
-      }
-    })
+      },
+    });
   }
 
   convertBlobToBase64 = (blob: Blob) =>
@@ -889,7 +1285,9 @@ console.log("step:",this.step);
     });
 
   async onFileChanged(event: any) {
-    this.uploadedFile = (await this.convertBlobToBase64(event.target.files[0])) as string;
+    this.uploadedFile = (await this.convertBlobToBase64(
+      event.target.files[0]
+    )) as string;
     this.selectedFile = event!.target!.files[0] as File;
   }
 
@@ -906,12 +1304,22 @@ console.log("step:",this.step);
   createTelephoneValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
-      var numberSize  = 0;
+      var numberSize = 0;
       if (!value) {
         return null;
       }
-      if(this.indiceTelephoneCandidat == "+235" || this.indiceTelephonePere == "+235" || this.indiceTelephoneMere == "+235" || this.indiceTelephoneTransaction =="+235" || this.indiceTelephoneTuteur =="+235" ||
-      this.indiceTelephoneCandidat == "+236" || this.indiceTelephonePere == "+236" || this.indiceTelephoneMere == "+236" || this.indiceTelephoneTransaction =="+236" || this.indiceTelephoneTuteur =="+236"){
+      if (
+        this.indiceTelephoneCandidat == '+235' ||
+        this.indiceTelephonePere == '+235' ||
+        this.indiceTelephoneMere == '+235' ||
+        this.indiceTelephoneTransaction == '+235' ||
+        this.indiceTelephoneTuteur == '+235' ||
+        this.indiceTelephoneCandidat == '+236' ||
+        this.indiceTelephonePere == '+236' ||
+        this.indiceTelephoneMere == '+236' ||
+        this.indiceTelephoneTransaction == '+236' ||
+        this.indiceTelephoneTuteur == '+236'
+      ) {
         const regExp = new RegExp(/^6(5|7|8|9)[0-9]{7}$/);
         const regExpAll = new RegExp(/^[0-9]{8}$/);
         if (regExp.test(value) || regExpAll.test(value)) {
@@ -921,7 +1329,7 @@ console.log("step:",this.step);
             notConform: true,
           };
         }
-      }else{
+      } else {
         const regExp = new RegExp(/^6(5|7|8|9)[0-9]{7}$/);
         const regExpAll = new RegExp(/^[0-9]{9}$/);
         if (regExp.test(value) || regExpAll.test(value)) {
@@ -939,4 +1347,18 @@ console.log("step:",this.step);
     this.step = step;
   }*/
 
+  getPlaceholderForCountry(countryName: string): string {
+    switch (countryName) {
+      case 'Cameroun':
+        return 'Exemple : MP220315.13.49.A18995';
+      case 'République du Congo':
+        return 'Exemple : MP220315.13.49.A18995';
+      case 'Tchad':
+        return 'Exemple : CI220315.13.49.A18995';
+      case 'Gabon':
+        return 'Exemple : PP220315.13.49.A18995';
+      default:
+        return 'Placeholder générique';
+    }
+  }
 }
