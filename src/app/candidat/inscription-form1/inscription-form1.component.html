@@ -1386,11 +1386,11 @@
                       formControlName="serie_bac"
                       required
                       class="form-check-input"
-                      value="GCE A Level Science"
+                      value="GCE"
                       type="radio"
                       name="serie_bac"
                       id="serie_bac1"
-                      (click)="checkIfSerieBacc('GCE A Level Science')"
+                      (click)="checkIfSerieBacc('GCE')"
                       checked
                       [ngClass]="{
                         'is-invalid custom-form-control-invalid':
@@ -1401,7 +1401,7 @@
                       }"
                     />
                     <label class="form-check-label" for="serie_bac1">
-                      GCE A Level Science
+                      GCE
                     </label>
                   </div>
                   <div class="form-check">
@@ -1409,11 +1409,11 @@
                       formControlName="serie_bac"
                       required
                       class="form-check-input"
-                      value="GCE A Level Arts"
+                      value="F"
                       type="radio"
                       name="serie_bac"
                       id="serie_bac2"
-                      (click)="checkIfSerieBacc('GCE A Level Arts')"
+                      (click)="checkIfSerieBacc('F')"
                       [ngClass]="{
                         'is-invalid custom-form-control-invalid':
                           form4Controls['serie_bac'].errors &&
@@ -1423,7 +1423,7 @@
                       }"
                     />
                     <label class="form-check-label" for="serie_bac2">
-                      GCE A Level Arts
+                      F
                     </label>
                   </div>
                   <div class="form-check">
@@ -2232,7 +2232,6 @@
                     formControlName="image"
                     type="file"
                     id="image"
-                    required
                     class="form-control form-control-lg"
                     (change)="onFileChanged($event)"
                     accept=".jpg, .jpeg, .png"

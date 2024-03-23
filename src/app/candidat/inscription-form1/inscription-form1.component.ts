@@ -424,7 +424,7 @@ console.log("step:",this.step);
     paiement: new FormControl({ value: "", disabled: true }, []),
     cycle: new FormControl('', [Validators.required]),
     diplome_universitaire: new FormControl('', []),
-    image: new FormControl('', [Validators.required]),
+    image: new FormControl('', []),
     hasExchange: new FormControl('', [Validators.required]),
     serie_bac: new FormControl('', [Validators.required]),
     serie_bac_input: new FormControl('', []),
