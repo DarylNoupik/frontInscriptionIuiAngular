@@ -695,7 +695,7 @@ export class PublicFormInscriptionComponent implements OnInit {
     telephone_pere: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      createCamerounianNumberValidator(),
+      this.createTelephoneValidator(),
     ]),
     email_tuteur: new FormControl('', []),
     telephone_tuteur: new FormControl('', []),
@@ -704,7 +704,7 @@ export class PublicFormInscriptionComponent implements OnInit {
     telephone_mere: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      createCamerounianNumberValidator(),
+      this.createTelephoneValidator(),
     ]),
     nom_parent2: new FormControl('', [
       Validators.required,
@@ -1350,13 +1350,13 @@ export class PublicFormInscriptionComponent implements OnInit {
   getPlaceholderForCountry(countryName: string): string {
     switch (countryName) {
       case 'Cameroun':
-        return 'Exemple : MP220315.13.49.A18995';
+        return 'Exemple : MP220315.1349.A18995';
       case 'République du Congo':
-        return 'Exemple : MP220315.13.49.A18995';
+        return 'Exemple : MP220315.1349.A18995';
       case 'Tchad':
-        return 'Exemple : CI220315.13.49.A18995';
+        return 'Exemple : CI220315.1349.A18995';
       case 'Gabon':
-        return 'Exemple : PP220315.13.49.A18995';
+        return 'Exemple : PP220315.1349.A18995';
       default:
         return 'Placeholder générique';
     }

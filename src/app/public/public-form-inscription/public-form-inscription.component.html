@@ -20,7 +20,9 @@
           établissement, série du baccalauréat clôturant le cycle secondaire…)
         </li>
         <li>Du contact téléphonique et de l’identité des parents</li>
-        <li>D’un compte de paiement en ligne (orange money, Momo, Airtel)</li>
+        <li>
+          D’un compte de paiement en ligne (orange money, Airtel,Moov africa)
+        </li>
         <li>
           Le payement des frais du concours se fait via le compte marchand de
           l'institut
@@ -907,25 +909,17 @@
                     <div
                       *ngIf="form3Controls['telephone_pere'].errors['required']"
                     >
-                      Numero de téléphone requis
-                    </div>
-                    <div *ngIf="form3Controls['telephone_pere'].errors['min']">
-                      Numero de téléphone doit être superieur à 0
-                    </div>
-                    <div
-                      *ngIf="form3Controls['telephone_pere'].errors['required']"
-                    >
                       Numéro de téléphone requis
                     </div>
                     <div *ngIf="form3Controls['telephone_pere'].errors['min']">
-                      Numéro de téléphone doit être superieur à 0
+                      Numéro de téléphone doit être supérieur à 0
                     </div>
                     <div
                       *ngIf="
                         form3Controls['telephone_pere'].errors['minlength']
                       "
                     >
-                      Numero de téléphone doit avoir minimun 8 chiffres
+                      Numéro de téléphone doit avoir minimun 8 chiffres
                     </div>
                   </div>
                   <div
@@ -1514,9 +1508,7 @@
                           form4Controls['serie_bac'].valid
                       }"
                     />
-                    <label class="form-check-label" for="serie_bac2">
-                      F
-                    </label>
+                    <label class="form-check-label" for="serie_bac2"> F </label>
                   </div>
                   <div class="form-check">
                     <input
@@ -2404,6 +2396,10 @@
                   <label for="date_transaction" class="form-label"
                     >Date de la transaction (*)</label
                   >
+                  <p class="mb-2">
+                    Cette date correspond à la date à laquelle vous avez
+                    effectué le paiement des frais de candidature.
+                  </p>
                   <input
                     formControlName="date_transaction"
                     required
