@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ICandidature } from "../_interfaces/icandidature";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { TokenService } from "./token.service";
 import { UsersService } from "./users.service";
 import { ICandidatureResponse } from "../_interfaces/icandidature-response";
 import { ICodeValidatorModels } from '../_interfaces/icode-validator-models';
+import { IMailRequest } from '../_interfaces/imail-request';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,17 @@ export class CandidatureService {
   //urlhasCandidature: string = 'https://inscription.ucac-icam.com:9090/candidature/';
   urlhasCandidature:string = 'http://51.178.136.105:9090/candidature/';
   idCcompte: string = "";
-  urlCodeTest : string = 'http://51.178.136.105:9090/candidature/all-codes';
-  //urlCodeTest: string = 'https://inscription.ucac-icam.com:9090/candidature/all-codes';
+  //urlCodeTest : string = 'http://51.178.136.105:9090/candidature/all-codes';
+  urlCodeTest: string = 'https://inscription.ucac-icam.com:9090/candidature/all-codes';
 
   urlUploadImage : string = "http://51.178.136.105:9090/file/uploadFile/";
   //urlUploadImage : string = "https://inscription.ucac-icam.com:9090/file/uploadFile/";
+
+  urlSendEmail : string = "http://51.178.136.105:9090/email/send";
+  //urlSendEmail : string = "https://inscription.ucac-icam.com:9090/email/send";
+
+  urlVerifiyEmail : string = "http://51.178.136.105:9090/email/verify"
+  //urlVerifiyEmail : string = "https://inscription.ucac-icam.com:9090/email/verify"
 
   constructor(
     private http: HttpClient,
@@ -31,6 +38,13 @@ export class CandidatureService {
 
   addCandidature(candidature: ICandidature): Observable<ICandidature> {
     return this.http.post<ICandidature>(this.url, candidature);
+  }
+
+  verifyEmail(email: string): Observable<HttpResponse<string>> {
+    return this.http.post(this.urlVerifiyEmail, email, { observe: 'response', responseType: 'text' });
+  }
+  sendEmail(mailRequest: IMailRequest): Observable<string> {
+    return this.http.post(this.urlSendEmail, mailRequest, { responseType: 'text' });
   }
 
   uploadImage(file: File, candidatureId: number): Observable<any> {

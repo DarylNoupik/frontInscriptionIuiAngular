@@ -15,7 +15,7 @@ import { IUtilisateurResponseModel } from '../_interfaces/utilisateur-response-m
 export class AuthenticationService {
 
 
-  url:string = 'http://51.178.136.105/:8081/token';
+  url:string = 'http://51.178.136.105:8081/token';
   //url: string = 'https://inscription.ucac-icam.com:8081/token';
   url_register:string = 'http://51.178.136.105:8081/register';
   //url_register: string = 'https://inscription.ucac-icam.com:8081/register';

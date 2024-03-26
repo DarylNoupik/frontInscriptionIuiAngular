@@ -35,6 +35,7 @@ import {
   reference_paiement_tchad,
 } from 'src/app/shared/validators/number_validator';
 import { IUtilisateurResponseModel } from 'src/app/_interfaces/utilisateur-response-model';
+import { IMailRequest } from 'src/app/_interfaces/imail-request';
 
 @Component({
   selector: 'app-inscription-form1',
@@ -560,6 +561,14 @@ export class InscriptionForm1Component implements OnInit {
     date_examen: new Date(),
     statut: false,
   };
+  public mailRequest: IMailRequest = {
+    toEmail: "",
+    subject: "",
+    codeExamen: "",
+    mdp: "",
+    url: "",
+    emailSupport: ""
+  }
   public listCentre: any;
   public msgPaiement: string = '';
   public showNumberPaiement: boolean = false;
@@ -1296,6 +1305,14 @@ export class InscriptionForm1Component implements OnInit {
         const formData = new FormData();
         formData.append('image', this.selectedFile);
 
+        this.mailRequest = {
+          toEmail: this.formStep1.get('email')?.value,
+          subject: "Evolution candidature",
+          codeExamen: data.code_examen?.toString()!,
+          mdp: this.compteform.password,
+          url: "https://inscription.ucac-icam.com/auth/login",
+          emailSupport: "pro@gmail.com"
+        }
         this.candidatureService
           .uploadImage(this.selectedFile, data.id!)
           .subscribe(
@@ -1309,10 +1326,25 @@ export class InscriptionForm1Component implements OnInit {
             }
           );
 
+          this.candidatureService.sendEmail(this.mailRequest).subscribe(
+            (response) => {
+              this.toastr.success(
+                'Un email vous a été envoyé',
+                'Vérifiez votre boîte mail',
+                { timeOut: 10000 }
+              );
+            },
+            (error) => {
+              this.toastr.error('Erreur d"envoi','L"adresse mail fournie est inrouvable');
+              console.error('Error email:', error);
+            }
+          );
+
         localStorage.setItem('haveCandidature', 'true');
         this.toastr.success(
           'Candidature prise en compte avec success',
-          'Candidature insérée'
+          'Candidature insérée',
+          { timeOut: 10000 }
         );
         this.router.navigate(['/confirm'], {
           state: {

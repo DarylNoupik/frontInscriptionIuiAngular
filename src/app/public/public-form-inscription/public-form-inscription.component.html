@@ -414,6 +414,9 @@
                     <div *ngIf="form1Controls['email'].errors['notConform']">
                       Email non conforme
                     </div>
+                    <div *ngIf="form1Controls['email'].errors['emailNotFound']">
+                      Email introuvable ou inexistant
+                    </div>
                   </div>
                   <div
                     *ngIf="form1Controls['email'].valid"
