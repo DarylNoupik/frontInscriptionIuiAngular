@@ -118,7 +118,7 @@ export function dateValidator(): ValidatorFn {
     let dateCurrent = new Date();
 
     let dateBefore15 = new Date();
-    dateBefore15.setFullYear(dateCurrent.getFullYear() - 15);
+    dateBefore15.setFullYear(dateCurrent.getFullYear() - 13);
 
     let dateBefore30 = new Date();
     dateBefore30.setFullYear(dateCurrent.getFullYear() - 30);

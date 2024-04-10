@@ -861,7 +861,7 @@ export class InscriptionForm1Component implements OnInit {
     private authService: AuthenticationService
   ) {
     this.currentDate = new Date();
-    this.currentDate.setFullYear(new Date().getFullYear() - 15);
+    this.currentDate.setFullYear(new Date().getFullYear() - 13);
   }
 
   get form1Controls(): { [key: string]: AbstractControl } {
@@ -926,7 +926,7 @@ export class InscriptionForm1Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dateBefore15Date.setFullYear(this.currentDate.getFullYear() - 15);
+    this.dateBefore15Date.setFullYear(this.currentDate.getFullYear() - 13);
     this.checkDevice();
 
     this.sessionService.getActiveSession().subscribe({
