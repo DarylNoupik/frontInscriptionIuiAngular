@@ -1030,6 +1030,8 @@ export class InscriptionForm1Component implements OnInit {
           this.formStep5
             .get('reference_paiement')
             ?.addValidators(reference_paiement_tchad('date_transaction'));
+          this.formStep5.get('telephone_paiement')?.setValidators([Validators.required, Validators.minLength(8),]);
+          this.formStep5.get('telephone_paiement')?.updateValueAndValidity();
         } else if (
           this.siteSelected.nom === 'Gabon' ||
           this.siteSelected.indicatif === '+241'
@@ -1037,6 +1039,8 @@ export class InscriptionForm1Component implements OnInit {
           this.formStep5
             .get('reference_paiement')
             ?.addValidators(reference_paiement_gabon('date_transaction'));
+          this.formStep5.get('telephone_paiement')?.setValidators([Validators.required, Validators.minLength(8),]);
+          this.formStep5.get('telephone_paiement')?.updateValueAndValidity();
         } else {
           this.formStep5
             .get('reference_paiement')
@@ -1050,6 +1054,7 @@ export class InscriptionForm1Component implements OnInit {
         this.formStep5.get('date_transaction')?.updateValueAndValidity();
         this.formStep5.updateValueAndValidity();
       }
+      this.formStep5.updateValueAndValidity();
       this.step = step;
       this.clickSuivant = 0;
     }
