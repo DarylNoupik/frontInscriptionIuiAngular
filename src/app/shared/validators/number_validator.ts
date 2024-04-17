@@ -117,8 +117,8 @@ export function dateValidator(): ValidatorFn {
 
     let dateCurrent = new Date();
 
-    let dateBefore15 = new Date();
-    dateBefore15.setFullYear(dateCurrent.getFullYear() - 13);
+    let dateBefore15 = new Date(new Date().getFullYear(), 0, 1);
+    dateBefore15.setFullYear(dateBefore15.getFullYear() - 14);
 
     let dateBefore30 = new Date();
     dateBefore30.setFullYear(dateCurrent.getFullYear() - 30);
@@ -129,11 +129,11 @@ export function dateValidator(): ValidatorFn {
       };
     }
 
-    if (date.getTime() < dateBefore30.getTime()) {
+    /*if (date.getTime() < dateBefore30.getTime()) {
       return {
         notConform: true,
       };
-    }
+    }*/
 
     return null;
   };
