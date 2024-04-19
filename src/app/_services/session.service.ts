@@ -8,8 +8,8 @@ import { Observable } from "rxjs";
 })
 export class SessionService {
 
-  url: string = 'https://inscription.ucac-icam.com:8080/session/active';
-  //url: string = 'http://51.178.136.105:8080/session/active';
+  //url: string = 'https://inscription.ucac-icam.com:8080/session/active';
+  url: string = 'http://51.178.136.105:8080/session/active';
 
   constructor(private http: HttpClient) { }
 

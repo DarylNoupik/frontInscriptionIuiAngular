@@ -13,22 +13,22 @@ import { IMailRequest } from '../_interfaces/imail-request';
 })
 export class CandidatureService {
 
-  //url:string = 'http://51.178.136.105:9090/candidature/Candidats';
-  url: string = 'https://inscription.ucac-icam.com:9090/candidature/Candidats';
-  urlhasCandidature: string = 'https://inscription.ucac-icam.com:9090/candidature/';
-  //urlhasCandidature:string = 'http://51.178.136.105:9090/candidature/';
+  url:string = 'http://51.178.136.105:9090/candidature/Candidats';
+  //url: string = 'https://inscription.ucac-icam.com:9090/candidature/Candidats';
+  //urlhasCandidature: string = 'https://inscription.ucac-icam.com:9090/candidature/';
+  urlhasCandidature:string = 'http://51.178.136.105:9090/candidature/';
   idCcompte: string = "";
-  urlCodeTest : string = 'http://51.178.136.105:9090/candidature/all-codes';
-  //urlCodeTest: string = 'https://inscription.ucac-icam.com:9090/candidature/all-codes';
+  //urlCodeTest : string = 'http://51.178.136.105:9090/candidature/all-codes';
+  urlCodeTest: string = 'https://inscription.ucac-icam.com:9090/candidature/all-codes';
 
-  //urlUploadImage : string = "http://51.178.136.105:9090/file/uploadFile/";
-  urlUploadImage : string = "https://inscription.ucac-icam.com:9090/file/uploadFile/";
+  urlUploadImage : string = "http://51.178.136.105:9090/file/uploadFile/";
+  //urlUploadImage : string = "https://inscription.ucac-icam.com:9090/file/uploadFile/";
 
-  //urlSendEmail : string = "http://51.178.136.105:9090/email/send";
-  urlSendEmail : string = "https://inscription.ucac-icam.com:9090/email/send";
+  urlSendEmail : string = "http://51.178.136.105:9090/email/send";
+  //urlSendEmail : string = "https://inscription.ucac-icam.com:9090/email/send";
 
-  //urlVerifiyEmail : string = "http://51.178.136.105:9090/email/verify"
-  urlVerifiyEmail : string = "https://inscription.ucac-icam.com:9090/email/verify"
+  urlVerifiyEmail : string = "http://51.178.136.105:9090/email/verify"
+  //urlVerifiyEmail : string = "https://inscription.ucac-icam.com:9090/email/verify"
 
   constructor(
     private http: HttpClient,

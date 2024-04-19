@@ -10,12 +10,12 @@ import { ICentre } from "../_interfaces/icentre";
 })
 export class SitesService {
 
-  //private  url_site: string ="http://51.178.136.105:8080/site/all";
-  private url_site: string = "https://inscription.ucac-icam.com:8080/site/all";
-  //private  url_centre: string ="http://51.178.136.105:8080/centre_examen/all";
-  private url_centre: string = "https://inscription.ucac-icam.com:8080/centre_examen/all";
-  //private url_centre_by_site: string = "http://51.178.136.105:8080/centre_examen/allbysite/";
-  private url_centre_by_site: string = "https://inscription.ucac-icam.com:8080/centre_examen/allbysite/";
+  private  url_site: string ="http://51.178.136.105:8080/site/all";
+  //private url_site: string = "https://inscription.ucac-icam.com:8080/site/all";
+  private  url_centre: string ="http://51.178.136.105:8080/centre_examen/all";
+  //private url_centre: string = "https://inscription.ucac-icam.com:8080/centre_examen/all";
+  private url_centre_by_site: string = "http://51.178.136.105:8080/centre_examen/allbysite/";
+  //private url_centre_by_site: string = "https://inscription.ucac-icam.com:8080/centre_examen/allbysite/";
 
 
   constructor(

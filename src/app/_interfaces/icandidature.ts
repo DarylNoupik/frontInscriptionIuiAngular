@@ -21,6 +21,7 @@ export interface ICandidature {
   nationalite: string,
   genre: string,
   date_naissance: string,
+  datePaiement: string,
   image: string,
   formation2: string,
   formation3: string,

@@ -17,6 +17,7 @@ export class ResultatComponent implements OnInit {
     nationalite: "",
     genre: "",
     date_naissance: "",
+    datePaiement: "",
     image: "",
     formation2: "",
     formation3: "",

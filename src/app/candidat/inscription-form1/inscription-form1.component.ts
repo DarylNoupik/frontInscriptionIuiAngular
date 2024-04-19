@@ -518,6 +518,7 @@ export class InscriptionForm1Component implements OnInit {
     nationalite: '',
     genre: '',
     date_naissance: '',
+    datePaiement: '',
     image: '',
     formation2: '',
     formation3: '',
@@ -798,6 +799,8 @@ export class InscriptionForm1Component implements OnInit {
 
   changeValidatorFormation() {
     if (this.formStep4.get('nombre_formation')?.value == '01') {
+      this.candidatureForm.nombre_choix = 1;
+      this.candidatureForm.paiement = "20 000 FCFA";
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
 
       this.formStep4.get('formation2')?.clearValidators();
@@ -816,6 +819,8 @@ export class InscriptionForm1Component implements OnInit {
     }
 
     if (this.formStep4.get('nombre_formation')?.value == '02') {
+      this.candidatureForm.nombre_choix = 2;
+      this.candidatureForm.paiement = "25 000 FCFA";
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
       this.formStep4.get('formation2')?.setValidators([Validators.required]);
 
@@ -833,6 +838,8 @@ export class InscriptionForm1Component implements OnInit {
     }
 
     if (this.formStep4.get('nombre_formation')?.value == '03') {
+      this.candidatureForm.nombre_choix = 3;
+      this.candidatureForm.paiement = "30 000 FCFA";
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
       this.formStep4.get('formation2')?.setValidators([Validators.required]);
       this.formStep4.get('formation3')?.setValidators([Validators.required]);
@@ -1233,7 +1240,7 @@ export class InscriptionForm1Component implements OnInit {
         dernier_Etablissement: this.formStep4.get('dernier_etablissement')
           ?.value,
         langue: this.formStep4.get('langue')?.value,
-        paiement: this.formStep4.get('paiement')?.value,
+        paiement: this.candidatureForm.paiement,
         cycle: this.formStep4.get('cycle')?.value,
         diplome_universitaire: this.formStep4.get('diplome_universitaire')
           ?.value,
@@ -1253,7 +1260,7 @@ export class InscriptionForm1Component implements OnInit {
           this.indiceTelephoneTransaction +
           '' +
           this.formStep5.get('telephone_paiement')?.value,
-
+          datePaiement: this.formStep5.get('date_transaction')?.value,
         email_pere: this.formStep3.get('email_pere')?.value,
         telephone_pere:
           this.indiceTelephonePere +
