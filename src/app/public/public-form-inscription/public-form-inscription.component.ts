@@ -976,7 +976,6 @@ export class PublicFormInscriptionComponent implements OnInit {
       this.clickSuivant = 0;
     }
     if (step == 5 && this.formStep4.valid) {
-      alert(this.formStep4.get('paiement')?.value);
       console.log(this.formStep4);
       if (
         this.siteSelected.nom === 'Cameroun' ||

@@ -30,7 +30,7 @@ export function orangeCameroonNumberValidator(): ValidatorFn {
     }
 
     // Expression régulière pour valider les numéros Orange Cameroun
-    const regExp = new RegExp(/^(69\d{7}|65[5-9]\d{6})$/);
+    const regExp = new RegExp(/^(69\d{7}|68\d{7}|65[5-9]\d{6})$/);
 
     if (regExp.test(value)) {
       return null; // La validation réussit si la valeur correspond à l'expression régulière
