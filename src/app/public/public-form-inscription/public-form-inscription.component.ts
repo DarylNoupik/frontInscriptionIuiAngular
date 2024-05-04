@@ -45,6 +45,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   public site!: ISite[];
   public indices: string[] = [
     '+237',
+    '+241',
     '+30',
     '+31',
     '+32',
@@ -550,13 +551,13 @@ export class PublicFormInscriptionComponent implements OnInit {
     statut: false,
   };
   public mailRequest: IMailRequest = {
-    toEmail: "",
-    subject: "",
-    codeExamen: "",
-    mdp: "",
-    url: "",
-    emailSupport: ""
-  }
+    toEmail: '',
+    subject: '',
+    codeExamen: '',
+    mdp: '',
+    url: '',
+    emailSupport: '',
+  };
   public listCentre: any;
   public msgPaiement: string = '';
   public showNumberPaiement: boolean = false;
@@ -787,7 +788,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   changeValidatorFormation() {
     if (this.formStep4.get('nombre_formation')?.value == '01') {
       this.candidatureForm.nombre_choix = 1;
-      this.candidatureForm.paiement = "20 000 FCFA";
+      this.candidatureForm.paiement = '20 000 FCFA';
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
 
       this.formStep4.get('formation2')?.clearValidators();
@@ -807,7 +808,7 @@ export class PublicFormInscriptionComponent implements OnInit {
 
     if (this.formStep4.get('nombre_formation')?.value == '02') {
       this.candidatureForm.nombre_choix = 2;
-      this.candidatureForm.paiement = "25 000 FCFA";
+      this.candidatureForm.paiement = '25 000 FCFA';
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
       this.formStep4.get('formation2')?.setValidators([Validators.required]);
 
@@ -826,7 +827,7 @@ export class PublicFormInscriptionComponent implements OnInit {
 
     if (this.formStep4.get('nombre_formation')?.value == '03') {
       this.candidatureForm.nombre_choix = 3;
-      this.candidatureForm.paiement = "30 000 FCFA";
+      this.candidatureForm.paiement = '30 000 FCFA';
       this.formStep4.get('formation1')?.setValidators([Validators.required]);
       this.formStep4.get('formation2')?.setValidators([Validators.required]);
       this.formStep4.get('formation3')?.setValidators([Validators.required]);
@@ -1008,7 +1009,9 @@ export class PublicFormInscriptionComponent implements OnInit {
           this.formStep5
             .get('reference_paiement')
             ?.addValidators(reference_paiement_tchad('date_transaction'));
-          this.formStep5.get('telephone_paiement')?.setValidators([Validators.required, Validators.minLength(8),]);
+          this.formStep5
+            .get('telephone_paiement')
+            ?.setValidators([Validators.required, Validators.minLength(8)]);
           this.formStep5.get('telephone_paiement')?.updateValueAndValidity();
         } else if (
           this.siteSelected.nom === 'Gabon' ||
@@ -1017,7 +1020,9 @@ export class PublicFormInscriptionComponent implements OnInit {
           this.formStep5
             .get('reference_paiement')
             ?.addValidators(reference_paiement_gabon('date_transaction'));
-          this.formStep5.get('telephone_paiement')?.setValidators([Validators.required, Validators.minLength(8),]);
+          this.formStep5
+            .get('telephone_paiement')
+            ?.setValidators([Validators.required, Validators.minLength(8)]);
           this.formStep5.get('telephone_paiement')?.updateValueAndValidity();
         } else {
           this.formStep5
@@ -1263,12 +1268,12 @@ export class PublicFormInscriptionComponent implements OnInit {
 
         this.mailRequest = {
           toEmail: this.formStep1.get('email')?.value,
-          subject: "Evolution candidature",
+          subject: 'Evolution candidature',
           codeExamen: data.code_examen?.toString()!,
           mdp: this.compteform.password,
-          url: "https://inscription.ucac-icam.com/auth/login",
-          emailSupport: "pro@gmail.com"
-        }
+          url: 'https://inscription.ucac-icam.com/auth/login',
+          emailSupport: 'pro@gmail.com',
+        };
         this.candidatureService
           .uploadImage(this.selectedFile, data.id!)
           .subscribe(
@@ -1291,11 +1296,14 @@ export class PublicFormInscriptionComponent implements OnInit {
             );
           },
           (error) => {
-            this.toastr.error('Erreur d"envoi','L"adresse mail fournie est inrouvable');
+            this.toastr.error(
+              'Erreur d"envoi',
+              'L"adresse mail fournie est inrouvable'
+            );
             console.error('Error email:', error);
           }
         );
-        
+
         localStorage.setItem('haveCandidature', 'true');
         this.toastr.success(
           'Candidature prise en compte avec success',
