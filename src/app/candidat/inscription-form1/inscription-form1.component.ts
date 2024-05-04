@@ -490,6 +490,7 @@ export class InscriptionForm1Component implements OnInit {
   };
 
   public hasActiveSession!: boolean;
+  public limitDateExpired!: boolean;
   clickSuivant: number = 0;
   clickSubmit: number = 0;
   changed: number = 0;
@@ -941,6 +942,12 @@ export class InscriptionForm1Component implements OnInit {
         this.session = data;
         if (data?.id) {
           this.hasActiveSession = true;
+
+          if (new Date() > new Date(data.date_limite))
+            this.limitDateExpired = true;
+          else{
+            this.limitDateExpired = false;
+          }
         }
       },
       error: (err) => console.log(err),

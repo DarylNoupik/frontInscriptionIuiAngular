@@ -28,7 +28,7 @@
       </ul>
     </div>
   </div>
-  <div class="container">
+  <div class="container" *ngIf="hasActiveSession && !limitDateExpired">
     <div class="col-12" style="text-align: center; padding-top: 100px">
       <h4 class="wow fadeInUp" data-wow-delay=".4s">{{ session.nom }}</h4>
       <h6 class="text-center">
@@ -54,9 +54,45 @@
       </h5>
     </div>
   </div>
+
+  <div class="container" *ngIf="hasActiveSession && limitDateExpired">
+    <div class="col-12" style="text-align: center; padding-top: 100px">
+      <h4 class="wow fadeInUp" data-wow-delay=".4s">{{ session.nom }}</h4>
+      <h6 class="text-center">
+        Date d'examen:
+        <b style="color: #df650d">{{
+          session.date_examen | date : "fullDate" : "" : "fr-FR"
+        }}</b>
+      </h6>
+      <br />
+      <h6 class="text-center">
+        Date limite des inscriptions en ligne:
+        <b style="color: #df650d">{{
+          session.date_limite | date : "fullDate" : "" : "fr-FR"
+        }}</b>
+      </h6>
+      <br />
+      <h5
+        class="mb-15 wow fadeInUp text-center"
+        data-wow-delay=".2s"
+        style="color: #c0262d"
+      >
+        Inscriptions clôturées!!!
+      </h5>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="!hasActiveSession">
+    <div class="col-12" style="text-align: center; padding-top: 100px">
+      <h4 class="wow fadeInUp" data-wow-delay=".4s" style="color: #c0262d">
+        Aucune session active !
+      </h4>
+    </div>
+  </div>
+
   <br />
   <div>&nbsp;</div>
-  <div class="container">
+  <div class="container" *ngIf="hasActiveSession && !limitDateExpired">
     <div *ngIf="showCentre" class="row justify-content-center">
       <div class="row justify-content-center">
         <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
