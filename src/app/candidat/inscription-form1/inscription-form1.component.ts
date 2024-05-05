@@ -942,8 +942,11 @@ export class InscriptionForm1Component implements OnInit {
         this.session = data;
         if (data?.id) {
           this.hasActiveSession = true;
-
-          if (new Date() > new Date(data.date_limite))
+          
+          const date2 = new Date(data.date_limite);
+          date2.setDate(date2.getDate() + 1);
+          console.log(date2);
+          if (new Date() > date2)
             this.limitDateExpired = true;
           else{
             this.limitDateExpired = false;
