@@ -2,7 +2,7 @@ export interface ICandidature {
   id? : number;
   sessionId: number;
   langue: string,
-  hasExchange: string,
+  has_exchange: string,
   nom_parent1: string,
   nom_parent2: string,
   diplome_universitaire: string,

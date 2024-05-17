@@ -497,7 +497,7 @@ export class PublicFormInscriptionComponent implements OnInit {
   public showCentre: boolean = true;
   public candidatureForm: ICandidature = {
     langue: '',
-    hasExchange: '',
+    has_exchange: '',
     serie_bac: '',
     statut: 'En_Attente',
     cycle: '',
@@ -1203,7 +1203,7 @@ export class PublicFormInscriptionComponent implements OnInit {
         diplome_universitaire: this.formStep4.get('diplome_universitaire')
           ?.value,
         image: this.formStep4.get('image')?.value,
-        hasExchange: this.formStep4.get('hasExchange')?.value,
+        has_exchange: this.formStep4.get('hasExchange')?.value,
         serie_bac:
           this.formStep4.get('serie_bac')?.value === 'Autre'
             ? this.formStep4.get('serie_bac_input')?.value
