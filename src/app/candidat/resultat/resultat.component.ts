@@ -10,7 +10,7 @@ export class ResultatComponent implements OnInit {
 
   public candidatureStatut: ICandidature = {
     langue: "",
-    hasExchange: "",
+    has_exchange: "",
     statut: "En_Attente",
     cycle: "",
     compteID: Number(localStorage.getItem('idCandidat')),
