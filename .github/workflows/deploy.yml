@@ -13,7 +13,6 @@ jobs:
       - name: Configurer SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
@@ -28,6 +27,8 @@ jobs:
            echo "Liste des fichiers dans le répertoire courant :"
            ls -l
       - name: construction image docker
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
          echo $DOCKER_USERNAME
          docker build -t "$DOCKER_USERNAME"/frontiui:latest -f Dockerfile ./
