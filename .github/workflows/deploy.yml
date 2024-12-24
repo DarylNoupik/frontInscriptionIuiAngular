@@ -22,4 +22,5 @@ jobs:
       - name: Tester la connexion SSH
         run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no projet@51.178.136.105 "echo Connexion réussie"
       - name: construction docker
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontiui:lastest
+        run: docker buildx build -t ${{ secrets.DOCKER_USERNAME }}/frontiui:lastest -f Dockerfile ./
+        
