@@ -23,5 +23,5 @@ jobs:
           ssh-keyscan -H 51.178.136.105 >> ~/.ssh/known_hosts
 
       - name: Tester la connexion SSH
-        run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no projet@v51.178.136.105 "echo Connexion réussie"
+        run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no projet@51.178.136.105 "echo Connexion réussie"
 
