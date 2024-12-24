@@ -31,7 +31,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
          echo $DOCKER_USERNAME
-         docker build . -t "$DOCKER_USERNAME/frontiui:latest" 
+         docker build . -t "darylis/frontiui:latest" 
 
         
         
