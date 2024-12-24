@@ -28,7 +28,9 @@ jobs:
            echo "Liste des fichiers dans le répertoire courant :"
            ls -l
       - name: construction image docker
-        run: docker build -t "$DOCKER_USERNAME"/frontiui:latest -f Dockerfile ./
+        run: |
+         echo $DOCKER_USERNAME
+         docker build -t "$DOCKER_USERNAME"/frontiui:latest -f Dockerfile ./
 
         
         
