@@ -21,6 +21,15 @@ jobs:
 
       - name: Tester la connexion SSH
         run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no projet@51.178.136.105 "echo Connexion réussie"
+      - name: Vérifier la présence du Dockerfile
+            run:|
+              echo "Liste des fichiers dans le répertoire courant :"
+              ls -l
+              if [ ! -f Dockerfile ]; then
+                echo "Erreur :Le fichier Dockerfile est introuvable."
+                exit 1
+              fi
+
       - name: construction image docker
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontiui:latest -f Dockerfile ./
 
