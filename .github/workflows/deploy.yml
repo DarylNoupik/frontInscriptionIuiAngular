@@ -21,8 +21,9 @@ jobs:
 
       - name: Tester la connexion SSH
         run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no projet@51.178.136.105 "echo Connexion réussie"
+        
       - name: Vérifier la présence du Dockerfile
-            run:|
+        run: |
               echo "Liste des fichiers dans le répertoire courant :"
               ls -l
               if [ ! -f Dockerfile ]; then
