@@ -13,6 +13,7 @@ jobs:
       - name: Configurer SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
@@ -24,15 +25,10 @@ jobs:
         
       - name: Vérifier la présence du Dockerfile
         run: |
-              echo "Liste des fichiers dans le répertoire courant :"
-              ls -l
-              if [ ! -f Dockerfile ]; then
-                echo "Erreur :Le fichier Dockerfile est introuvable."
-                exit 1
-              fi
-
+           echo "Liste des fichiers dans le répertoire courant :"
+           ls -l
       - name: construction image docker
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontiui:latest -f Dockerfile ./
+        run: docker build -t DOCKER_USERNAME/frontiui:latest -f Dockerfile ./
 
         
         
