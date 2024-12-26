@@ -64,6 +64,9 @@ jobs:
             echo "Déploiement en cours..."
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker pull "${{ secrets.DOCKER_USERNAME }}"/frontiui:latest
+            docker stop frontiui || true
+            sudo docker rm frontiui || true
+            docker run -d --name frontiui --network springmysql-net -p 87:80 "${{ secrets.DOCKER_USERNAME }}"/frontiui:latest
           debug: true
         
         
