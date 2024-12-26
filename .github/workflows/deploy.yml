@@ -68,7 +68,7 @@ jobs:
             if sudo docker ps -a --format '{{.Names}}' | grep -Eq '^frontiui$'; then
               echo "Un conteneur avec le nom 'frontiui' existe. Suppression..."
               docker stop frontiui || true
-              docker rm frontiui || true
+              docker rm -f frontiui || true
             fi
             docker run -d --name frontiui --network springmysql-net -p 80:80 "${{ secrets.DOCKER_USERNAME }}"/frontiui:latest
           debug: true
