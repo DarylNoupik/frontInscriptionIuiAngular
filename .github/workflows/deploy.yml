@@ -42,6 +42,15 @@ jobs:
         run: |
          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
          docker push "$DOCKER_USERNAME"/frontiui:latest 
-
+      - name: Deploy to VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host:  51.178.136.105
+          username: projet
+          key: "$SSH_PRIVATE_KEY"
+          script: |
+            docker pull "$DOCKER_USERNAME"/frontiui:latest 
         
         
