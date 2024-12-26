@@ -18,7 +18,10 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H 51.178.136.105 >> ~/.ssh/known_hosts
-
+          
+      - name: Cloner le repository
+        uses: actions/checkout@v3
+        
       - name: Tester la connexion SSH
         run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no projet@51.178.136.105 "echo Connexion réussie"
         
@@ -31,7 +34,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
          echo $DOCKER_USERNAME
-         docker build . -t "darylis/frontiui:latest" 
+         docker build . -t "$DOCKER_USERNAME"/frontiui:latest 
 
         
         
