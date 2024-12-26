@@ -29,12 +29,13 @@ jobs:
         run: |
            echo "Liste des fichiers dans le répertoire courant :"
            ls -l
-      - name: construction image docker
+      - name: construction et deploiement image docker
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
          echo $DOCKER_USERNAME
          docker build . -t "$DOCKER_USERNAME"/frontiui:latest 
+         docker push "$DOCKER_USERNAME"/frontiui:latest 
 
         
         
