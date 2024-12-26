@@ -62,6 +62,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             echo "Déploiement en cours..."
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker pull "${{ secrets.DOCKER_USERNAME }}"/frontiui:latest
           debug: true
         
