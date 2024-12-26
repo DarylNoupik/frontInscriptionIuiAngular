@@ -13,43 +13,47 @@ jobs:
       - name: Configurer SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H 51.178.136.105 >> ~/.ssh/known_hosts
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
           
       - name: Cloner le repository
         uses: actions/checkout@v3
         
       - name: Tester la connexion SSH
-        run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no projet@51.178.136.105 "echo Connexion réussie"
+        run: ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "$SSH_USERNAME@$SSH_HOST" "echo Connexion réussie"
         
       - name: Vérifier la présence du Dockerfile
         run: |
            echo "Liste des fichiers dans le répertoire courant :"
-           ls -l
-      - name: Build
+             ls -l
+            if [ ! -f Dockerfile ]; then
+              echo "Erreur : Dockerfile introuvable !" >&2
+              exit 1
+            fi
+      - name: Construire l'image Docker
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
          echo $DOCKER_USERNAME
          docker build . -t "$DOCKER_USERNAME"/frontiui:latest 
-      - name: Publish
+      - name: Publier l'image Docker
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
          docker push "$DOCKER_USERNAME"/frontiui:latest 
-      - name: Deploy to VPS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name:  Déployer sur le serveur VPS
         uses: appleboy/ssh-action@v0.1.5
         with:
-          host:  51.178.136.105
-          username: projet
-          key: "$SSH_PRIVATE_KEY"
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull "$DOCKER_USERNAME"/frontiui:latest 
         
