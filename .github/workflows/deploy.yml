@@ -61,6 +61,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull "$DOCKER_USERNAME"/frontiui:latest 
+            echo "Déploiement en cours..."
+            docker pull "${{ secrets.DOCKER_USERNAME }}"/frontiui:latest
+          debug: true
         
         
